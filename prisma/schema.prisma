@@ -1,0 +1,291 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Air Assist — schéma de données (EC 261/2004)
+//
+// Principes respectés :
+//  • AUCUN IBAN n'est stocké côté Air Assist. Les coordonnées bancaires vivent
+//    chez le PSP : on ne conserve qu'un `tokenPsp` (modèle Paiement).
+//  • `commission30` et `partClient70` sont DÉRIVÉS de `montantObtenu`
+//    (jamais saisis à la main) — voir src/domain/commission.ts.
+//  • Tout changement de statut écrit une ligne HistoriqueStatut (append-only).
+//  • La preuve du mandat (eIDAS) est conservée et immuable.
+// ─────────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Énumérations ─────────────────────────────────────────────────────────────
+
+enum MotifVol {
+  RETARD
+  ANNULATION
+  SURBOOKING
+  CORRESPONDANCE_MANQUEE
+}
+
+enum ProcedureCompagnie {
+  EMAIL
+  FORMULAIRE
+}
+
+/// Cycle de vie du dossier. Les transitions valides sont contrôlées par la
+/// machine à états (module 2). REFUSE et CONTENTIEUX sont des états annexes.
+enum StatutDossier {
+  NOUVEAU
+  VERIFIE
+  RECLAMATION_ENVOYEE
+  ACCUSE_RECU
+  EN_NEGOCIATION
+  ACCEPTE
+  PAYE
+  REVERSE
+  REFUSE
+  CONTENTIEUX
+}
+
+enum TypeDocument {
+  CARTE_EMBARQUEMENT
+  JUSTIFICATIF
+}
+
+enum AuteurHistorique {
+  SYSTEME
+  UTILISATEUR
+}
+
+enum StatutKyc {
+  NON_DEMARRE
+  EN_COURS
+  VALIDE
+  REFUSE
+}
+
+/// Rôles de l'espace CRM (module Auth). Inclus ici car le modèle de données
+/// est la fondation dont tout dépend.
+enum RoleUtilisateur {
+  ADMIN
+  AGENT
+}
+
+// ── Passager ─────────────────────────────────────────────────────────────────
+// PAS d'IBAN ici. Jamais.
+
+model Passager {
+  id        String    @id @default(cuid())
+  nom       String
+  prenom    String
+  email     String
+  telephone String?
+  adresse   String?
+  dossiers  Dossier[]
+  creeLe    DateTime  @default(now()) @map("cree_le")
+  majLe     DateTime  @updatedAt @map("maj_le")
+
+  @@index([email])
+  @@map("passager")
+}
+
+// ── Vol ──────────────────────────────────────────────────────────────────────
+
+model Vol {
+  id              String   @id @default(cuid())
+  numero          String // ex: "AF1234"
+  compagnieTexte  String   @map("compagnie_texte") // nom tel que saisi par le passager
+  date            DateTime
+  aeroportDepart  String   @map("aeroport_depart") // code IATA, ex "CDG"
+  aeroportArrivee String   @map("aeroport_arrivee") // code IATA, ex "JFK"
+  distanceKm      Int      @map("distance_km")
+  motif           MotifVol
+  dureeRetardMin  Int?     @map("duree_retard_min") // minutes de retard à l'arrivée
+
+  // Vol 1─1 Dossier
+  dossier Dossier?
+
+  creeLe DateTime @default(now()) @map("cree_le")
+  majLe  DateTime @updatedAt @map("maj_le")
+
+  @@index([numero, date])
+  @@map("vol")
+}
+
+// ── Compagnie aérienne ───────────────────────────────────────────────────────
+
+model Compagnie {
+  id                     String             @id @default(cuid())
+  nom                    String
+  codeIata               String             @unique @map("code_iata") // ex "AF"
+  procedure              ProcedureCompagnie
+  emailReclamation       String?            @map("email_reclamation")
+  urlFormulaire          String?            @map("url_formulaire")
+  delaiMoyenReponseJours Int?               @map("delai_moyen_reponse_jours")
+  /// Pilote la bascule full-auto par compagnie (sinon : semi-auto par défaut).
+  autoActive             Boolean            @default(false) @map("auto_active")
+
+  // Compagnie 1─N Dossier
+  dossiers Dossier[]
+
+  creeLe DateTime @default(now()) @map("cree_le")
+  majLe  DateTime @updatedAt @map("maj_le")
+
+  @@map("compagnie")
+}
+
+// ── Dossier (entité centrale) ────────────────────────────────────────────────
+
+model Dossier {
+  id          String        @id @default(cuid())
+  /// N° interne lisible (ex "AA-2026-000123"), généré à la création.
+  reference   String        @unique
+  statut      StatutDossier @default(NOUVEAU)
+
+  passagerId  String        @map("passager_id")
+  passager    Passager      @relation(fields: [passagerId], references: [id])
+
+  // Vol 1─1 Dossier : volId unique.
+  volId       String        @unique @map("vol_id")
+  vol         Vol           @relation(fields: [volId], references: [id])
+
+  compagnieId String        @map("compagnie_id")
+  compagnie   Compagnie     @relation(fields: [compagnieId], references: [id])
+
+  numeroDossierCompagnie String? @map("numero_dossier_compagnie")
+  pnr                    String? // record locator, 6 caractères
+
+  // Montants en EUR. montantEstime = sortie du moteur d'éligibilité.
+  montantEstime Decimal  @map("montant_estime") @db.Decimal(10, 2)
+  montantObtenu Decimal? @map("montant_obtenu") @db.Decimal(10, 2)
+
+  // DÉRIVÉS de montantObtenu (jamais saisis à la main) — voir domain/commission.
+  // Maintenus exclusivement par le service de dérivation / la couche d'accès.
+  commission30 Decimal? @map("commission_30") @db.Decimal(10, 2)
+  partClient70 Decimal? @map("part_client_70") @db.Decimal(10, 2)
+
+  dateCreation DateTime  @default(now()) @map("date_creation")
+  dateCloture  DateTime? @map("date_cloture")
+
+  // Relations enfants
+  documents   Document[]
+  mandat      MandatConsentement?
+  historique  HistoriqueStatut[]
+  paiement    Paiement?
+
+  majLe DateTime @updatedAt @map("maj_le")
+
+  @@index([statut])
+  @@index([compagnieId])
+  @@index([dateCreation])
+  @@map("dossier")
+}
+
+// ── Document (chiffré au repos) ──────────────────────────────────────────────
+// 1 dossier → N documents.
+
+model Document {
+  id        String       @id @default(cuid())
+  dossierId String       @map("dossier_id")
+  dossier   Dossier      @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+  type      TypeDocument
+
+  nomFichier    String  @map("nom_fichier")
+  mimeType      String  @map("mime_type")
+  tailleOctets  Int     @map("taille_octets")
+
+  // Chiffrement au repos (AES-256-GCM) — voir src/lib/crypto (adaptateur).
+  // On stocke le blob chiffré + IV + tag d'authentification. Jamais en clair.
+  contenuChiffre Bytes  @map("contenu_chiffre")
+  iv             Bytes
+  authTag        Bytes  @map("auth_tag")
+
+  dateUpload DateTime @default(now()) @map("date_upload")
+
+  @@index([dossierId])
+  @@map("document")
+}
+
+// ── Mandat & consentement (preuve légale immuable) ───────────────────────────
+// MandatConsentement 1─1 Dossier.
+
+model MandatConsentement {
+  id        String  @id @default(cuid())
+  dossierId String  @unique @map("dossier_id")
+  dossier   Dossier @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+
+  /// Référence/preuve de signature électronique (eIDAS) renvoyée par le
+  /// prestataire de signature. Une simple case cochée ne suffit pas.
+  signatureElectronique String  @map("signature_electronique")
+  consentementRgpd      Boolean @default(false) @map("consentement_rgpd")
+  horodatage            DateTime @default(now())
+  /// Blob de preuve immuable (hash, certificat, journal de signature...).
+  preuve                String
+  versionCgvAcceptee    String   @map("version_cgv_acceptee")
+
+  // Consentement RGPD révocable : on trace la révocation sans altérer la preuve.
+  consentementRevoqueLe DateTime? @map("consentement_revoque_le")
+
+  creeLe DateTime @default(now()) @map("cree_le")
+
+  @@map("mandat_consentement")
+}
+
+// ── Historique des statuts (append-only) ─────────────────────────────────────
+// HistoriqueStatut N─1 Dossier.
+
+model HistoriqueStatut {
+  id           String           @id @default(cuid())
+  dossierId    String           @map("dossier_id")
+  dossier      Dossier          @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+  ancienStatut StatutDossier?   @map("ancien_statut") // null pour la création
+  nouveauStatut StatutDossier   @map("nouveau_statut")
+  date         DateTime         @default(now())
+  auteur       AuteurHistorique
+  // Contexte optionnel (commentaire agent, raison automatique...).
+  commentaire  String?
+
+  @@index([dossierId, date])
+  @@map("historique_statut")
+}
+
+// ── Paiement (via PSP — jamais l'IBAN) ───────────────────────────────────────
+// Paiement 1─1 Dossier. Phase 2/3 : interface prête, implémentation mock.
+
+model Paiement {
+  id        String  @id @default(cuid())
+  dossierId String  @unique @map("dossier_id")
+  dossier   Dossier @relation(fields: [dossierId], references: [id], onDelete: Cascade)
+
+  /// Token opaque renvoyé par le PSP. JAMAIS l'IBAN, jamais en clair.
+  tokenPsp              String    @map("token_psp")
+  statutKycBeneficiaire StatutKyc @default(NON_DEMARRE) @map("statut_kyc_beneficiaire")
+
+  montantRecuCompagnie Decimal?  @map("montant_recu_compagnie") @db.Decimal(10, 2)
+  partReverseeClient   Decimal?  @map("part_reversee_client") @db.Decimal(10, 2)
+
+  dateEncaissement DateTime? @map("date_encaissement")
+  dateReversement  DateTime? @map("date_reversement")
+
+  creeLe DateTime @default(now()) @map("cree_le")
+  majLe  DateTime @updatedAt @map("maj_le")
+
+  @@map("paiement")
+}
+
+// ── Utilisateur CRM (Auth.js — rôles admin/agent) ────────────────────────────
+
+model Utilisateur {
+  id           String          @id @default(cuid())
+  email        String          @unique
+  nom          String?
+  motDePasseHash String?       @map("mot_de_passe_hash")
+  role         RoleUtilisateur @default(AGENT)
+  actif        Boolean         @default(true)
+
+  creeLe DateTime @default(now()) @map("cree_le")
+  majLe  DateTime @updatedAt @map("maj_le")
+
+  @@map("utilisateur")
+}
