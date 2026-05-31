@@ -3,8 +3,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { AEROPORTS, getAeroport, listeAeroports } from "@/data/aeroports";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { buildMetadata, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -17,13 +16,15 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; iata: string }>;
 }) {
-  const { iata } = await params;
+  const { locale, iata } = await params;
   const a = getAeroport(iata);
   if (!a) return {};
-  return {
+  return buildMetadata({
+    locale,
+    path: `/aeroports/${a.iata.toLowerCase()}`,
     title: `Vol retardé à ${a.ville} (${a.iata}) : indemnisation EC 261/2004`,
     description: `Réclamez votre indemnité pour un vol retardé ou annulé au départ ou à l'arrivée de ${a.nom} (${a.iata}).`,
-  };
+  });
 }
 
 export default async function Page({
@@ -37,20 +38,32 @@ export default async function Page({
   if (!a) notFound();
   const n = await getTranslations("nav");
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `Mon vol au départ de ${a.ville} a été retardé, ai-je droit à une indemnité ?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Oui, à partir de 3 heures de retard à l'arrivée, un vol depuis ${a.nom} (${a.iata}) peut ouvrir droit à 250 € à 600 € selon la distance.`,
+  const url = `${SITE_URL}/${locale}/aeroports/${a.iata.toLowerCase()}`;
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: `Mon vol au départ de ${a.ville} a été retardé, ai-je droit à une indemnité ?`,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: `Oui, à partir de 3 heures de retard à l'arrivée, un vol depuis ${a.nom} (${a.iata}) peut ouvrir droit à 250 € à 600 € selon la distance.`,
+          },
         },
-      },
-    ],
-  };
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Air Assist", item: `${SITE_URL}/${locale}` },
+        { "@type": "ListItem", position: 2, name: "Aéroports", item: url },
+        { "@type": "ListItem", position: 3, name: `${a.ville} (${a.iata})`, item: url },
+      ],
+    },
+  ];
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10">

@@ -18,15 +18,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  // hreflang : une alternative par langue + x-default.
-  const languages: Record<string, string> = { "x-default": `${SITE_URL}/fr` };
-  for (const l of routing.locales) languages[l] = `${SITE_URL}/${l}`;
+  // NB : le canonical et les hreflang sont définis PAR PAGE (src/lib/seo.ts),
+  // pas ici, sinon toutes les pages pointeraient vers l'accueil.
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: "Air Assist", template: "%s · Air Assist" },
+    title: { default: "Air Assist — Indemnités de vol EC 261/2004", template: "%s · Air Assist" },
     description:
-      "Réclamez vos indemnités de vol retardé, annulé ou surbooké (EC 261/2004).",
-    alternates: { canonical: `${SITE_URL}/${locale}`, languages },
+      "Réclamez vos indemnités de vol retardé, annulé ou surbooké (EC 261/2004). Estimation gratuite, sans gain sans frais.",
+    applicationName: "Air Assist",
+    formatDetection: { telephone: false },
+    robots: { index: true, follow: true },
+    openGraph: { siteName: "Air Assist", type: "website", locale },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -44,9 +47,32 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Air Assist",
+      url: `${SITE_URL}/${locale}`,
+      description:
+        "Réclamation d'indemnités pour vols retardés, annulés ou surbookés (EC 261/2004).",
+      areaServed: "EU",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Air Assist",
+      url: `${SITE_URL}/${locale}`,
+      inLanguage: locale,
+    },
+  ];
+
   return (
     <html lang={locale}>
       <body className="flex min-h-screen flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <NextIntlClientProvider messages={messages}>
           <SiteHeader />
           <main className="flex-1">{children}</main>

@@ -1,6 +1,18 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { LegalShell } from "@/components/LegalShell";
+import { buildMetadata } from "@/lib/seo";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "legal" });
+  return buildMetadata({
+    locale,
+    path: "/mentions-legales",
+    title: t("mentionsTitle"),
+    description: t("mentionsTitle"),
+  });
+}
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

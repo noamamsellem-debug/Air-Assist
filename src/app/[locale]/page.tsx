@@ -1,6 +1,24 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Calculator } from "@/components/Calculator";
+import { buildMetadata } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "home" });
+  return buildMetadata({
+    locale,
+    // L'accueil partage le segment qui définit le template de titre : on ajoute
+    // donc la marque manuellement pour la balise <title>.
+    path: "/",
+    title: `${t("heroTitle")} · Air Assist`,
+    description: t("heroSubtitle"),
+  });
+}
 
 export default async function HomePage({
   params,

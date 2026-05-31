@@ -4,8 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { COMPAGNIES_SEO, getCompagnieSeo } from "@/data/compagnies";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { buildMetadata, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -18,13 +17,15 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; code: string }>;
 }) {
-  const { code } = await params;
+  const { locale, code } = await params;
   const c = getCompagnieSeo(code);
   if (!c) return {};
-  return {
+  return buildMetadata({
+    locale,
+    path: `/compagnies/${c.code.toLowerCase()}`,
     title: `Indemnisation vol ${c.nom} (EC 261/2004)`,
     description: `Réclamez votre indemnité pour un vol ${c.nom} retardé, annulé ou surbooké. Estimation gratuite, sans gain sans frais.`,
-  };
+  });
 }
 
 export default async function Page({
@@ -38,15 +39,27 @@ export default async function Page({
   if (!c) notFound();
   const n = await getTranslations("nav");
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: `Indemnisation vol ${c.nom}`,
-    provider: { "@type": "Organization", name: "Air Assist" },
-    areaServed: "EU",
-    description: `Réclamation d'indemnité EC 261/2004 pour les vols ${c.nom}.`,
-    url: `${SITE_URL}/${locale}/compagnies/${c.code.toLowerCase()}`,
-  };
+  const url = `${SITE_URL}/${locale}/compagnies/${c.code.toLowerCase()}`;
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: `Indemnisation vol ${c.nom}`,
+      provider: { "@type": "Organization", name: "Air Assist" },
+      areaServed: "EU",
+      description: `Réclamation d'indemnité EC 261/2004 pour les vols ${c.nom}.`,
+      url,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Air Assist", item: `${SITE_URL}/${locale}` },
+        { "@type": "ListItem", position: 2, name: "Compagnies", item: `${SITE_URL}/${locale}/compagnies/${c.code.toLowerCase()}` },
+        { "@type": "ListItem", position: 3, name: c.nom, item: url },
+      ],
+    },
+  ];
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10">

@@ -1,5 +1,21 @@
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { buildMetadata } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "scale" });
+  return buildMetadata({
+    locale,
+    path: "/bareme",
+    title: t("title"),
+    description: t("intro"),
+  });
+}
 
 export default async function BaremePage({
   params,
