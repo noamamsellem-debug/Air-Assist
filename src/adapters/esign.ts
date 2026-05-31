@@ -58,7 +58,7 @@ export class MockSignatureAdapter implements AdaptateurSignature {
 }
 
 export function getSignatureAdapter(
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): AdaptateurSignature {
   const provider = (env.ESIGN_PROVIDER ?? "mock").toLowerCase();
   switch (provider) {

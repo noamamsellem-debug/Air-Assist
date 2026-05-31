@@ -25,18 +25,18 @@ describe("chiffrement des documents (AES-256-GCM)", () => {
 
   it("utilise une vraie clé de 32 octets si fournie", () => {
     const key = Buffer.alloc(32, 7).toString("base64");
-    const env = { DOCUMENT_ENCRYPTION_KEY: key } as NodeJS.ProcessEnv;
+    const env = { DOCUMENT_ENCRYPTION_KEY: key };
     expect(chiffrementConfigure(env)).toBe(true);
     const chiffre = chiffrerDocument(Buffer.from("secret"), env);
     expect(dechiffrerDocument(chiffre, env).toString()).toBe("secret");
   });
 
   it("rejette une clé de longueur invalide", () => {
-    const env = { DOCUMENT_ENCRYPTION_KEY: Buffer.alloc(10).toString("base64") } as NodeJS.ProcessEnv;
+    const env = { DOCUMENT_ENCRYPTION_KEY: Buffer.alloc(10).toString("base64") };
     expect(() => chiffrerDocument(Buffer.from("x"), env)).toThrow(/32 octets/);
   });
 
   it("repli dev : pas de clé configurée", () => {
-    expect(chiffrementConfigure({} as NodeJS.ProcessEnv)).toBe(false);
+    expect(chiffrementConfigure({})).toBe(false);
   });
 });

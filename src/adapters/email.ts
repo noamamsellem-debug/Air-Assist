@@ -42,7 +42,7 @@ export class MockEmailAdapter implements AdaptateurEmail {
   }
 }
 
-export function getEmailAdapter(env: NodeJS.ProcessEnv = process.env): AdaptateurEmail {
+export function getEmailAdapter(env: Record<string, string | undefined> = process.env): AdaptateurEmail {
   const provider = (env.EMAIL_PROVIDER ?? "mock").toLowerCase();
   switch (provider) {
     case "mock":

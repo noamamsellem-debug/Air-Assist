@@ -19,7 +19,7 @@ export interface DocumentChiffre {
   authTag: Buffer;
 }
 
-function resoudreCle(env: NodeJS.ProcessEnv = process.env): Buffer {
+function resoudreCle(env: Record<string, string | undefined> = process.env): Buffer {
   const b64 = env.DOCUMENT_ENCRYPTION_KEY;
   if (b64 && b64.trim() !== "") {
     const cle = Buffer.from(b64, "base64");
@@ -33,13 +33,13 @@ function resoudreCle(env: NodeJS.ProcessEnv = process.env): Buffer {
 }
 
 /** true si une vraie clé est configurée (prod), false si repli dev. */
-export function chiffrementConfigure(env: NodeJS.ProcessEnv = process.env): boolean {
+export function chiffrementConfigure(env: Record<string, string | undefined> = process.env): boolean {
   return !!env.DOCUMENT_ENCRYPTION_KEY && env.DOCUMENT_ENCRYPTION_KEY.trim() !== "";
 }
 
 export function chiffrerDocument(
   contenu: Buffer,
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): DocumentChiffre {
   const cle = resoudreCle(env);
   const iv = randomBytes(12); // 96 bits recommandé pour GCM
@@ -51,7 +51,7 @@ export function chiffrerDocument(
 
 export function dechiffrerDocument(
   doc: DocumentChiffre,
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): Buffer {
   const cle = resoudreCle(env);
   const decipher = createDecipheriv(ALGO, cle, doc.iv);

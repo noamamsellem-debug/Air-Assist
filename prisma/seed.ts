@@ -7,6 +7,7 @@
  */
 
 import { PrismaClient, MotifVol, ProcedureCompagnie, StatutDossier, AuteurHistorique } from "@prisma/client";
+import bcrypt from "bcryptjs";
 import { repartirEuros } from "../src/domain/commission";
 import { genererReferenceDossier } from "../src/domain/reference";
 
@@ -71,10 +72,13 @@ async function main() {
   });
 
   console.log("👤 Utilisateurs CRM…");
+  // Mots de passe de DÉMO (à changer en prod) : admin1234 / agent1234.
+  const hashAdmin = await bcrypt.hash("admin1234", 10);
+  const hashAgent = await bcrypt.hash("agent1234", 10);
   await prisma.utilisateur.createMany({
     data: [
-      { email: "admin@air-assist.example", nom: "Admin Démo", role: "ADMIN" },
-      { email: "agent@air-assist.example", nom: "Agent Démo", role: "AGENT" },
+      { email: "admin@air-assist.example", nom: "Admin Démo", role: "ADMIN", motDePasseHash: hashAdmin },
+      { email: "agent@air-assist.example", nom: "Agent Démo", role: "AGENT", motDePasseHash: hashAgent },
     ],
   });
 

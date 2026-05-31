@@ -13,7 +13,7 @@ describe("sélection des adaptateurs via env", () => {
   });
 
   it("lève une erreur pour un provider non implémenté", () => {
-    expect(() => getPspAdapter({ PSP_PROVIDER: "stripe" } as NodeJS.ProcessEnv)).toThrow(
+    expect(() => getPspAdapter({ PSP_PROVIDER: "stripe" })).toThrow(
       /non implémenté/,
     );
   });

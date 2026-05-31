@@ -74,7 +74,9 @@ export function repartirEuros(
 }
 
 /** Lit le taux de commission depuis l'environnement, avec repli sur 30 %. */
-export function tauxCommissionConfigure(env: NodeJS.ProcessEnv = process.env): number {
+export function tauxCommissionConfigure(
+  env: Record<string, string | undefined> = process.env,
+): number {
   const brut = env.COMMISSION_RATE;
   if (!brut) return TAUX_COMMISSION_DEFAUT;
   const valeur = Number(brut);

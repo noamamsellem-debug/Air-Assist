@@ -72,7 +72,7 @@ export class MockPspAdapter implements AdaptateurPsp {
   }
 }
 
-export function getPspAdapter(env: NodeJS.ProcessEnv = process.env): AdaptateurPsp {
+export function getPspAdapter(env: Record<string, string | undefined> = process.env): AdaptateurPsp {
   const provider = (env.PSP_PROVIDER ?? "mock").toLowerCase();
   switch (provider) {
     case "mock":

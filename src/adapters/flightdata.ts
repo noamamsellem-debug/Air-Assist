@@ -52,7 +52,7 @@ export function enrichirDistance(depIata: string, arrIata: string) {
 }
 
 export function getFlightDataAdapter(
-  env: NodeJS.ProcessEnv = process.env,
+  env: Record<string, string | undefined> = process.env,
 ): AdaptateurDonneesVol {
   const provider = (env.FLIGHTDATA_PROVIDER ?? "mock").toLowerCase();
   switch (provider) {
