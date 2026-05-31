@@ -10,6 +10,19 @@ Marché France puis Europe, **multilingue** (fr / en / es, une URL par langue, `
 > d'intermédiation, validité du mandat, encaissement/cantonnement des fonds, RGPD, CGV).
 > Un bandeau le rappelle dans tout le CRM.
 
+## Mettre le site en ligne
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/noamamsellem-debug/air-assist)
+
+Guide pas à pas (URL publique, base PostgreSQL UE) : **[`docs/mise-en-ligne.md`](./docs/mise-en-ligne.md)**.
+
+### Accès une fois en ligne (ou en local)
+
+| Côté | URL | Identifiants |
+|------|-----|--------------|
+| **Client (public)** | `/` → `/fr` (calculateur + tunnel de réclamation) | — |
+| **Admin (CRM)** | `/admin` | `admin@air-assist.example` / `admin1234` (ou `agent@…` / `agent1234`) |
+
 ---
 
 ## Modules livrés

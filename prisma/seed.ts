@@ -27,6 +27,14 @@ function montantsDeriv(montantObtenu: number | null) {
 }
 
 async function main() {
+  // Idempotence : en déploiement, le seed peut être lancé à chaque build.
+  // S'il y a déjà des données, on n'écrase rien (sauf SEED_MODE=reset).
+  const dejaSeede = (await prisma.compagnie.count()) > 0;
+  if (dejaSeede && process.env.SEED_MODE !== "reset") {
+    console.log("ℹ️ Données déjà présentes — seed ignoré (SEED_MODE=reset pour forcer).");
+    return;
+  }
+
   console.log("🌱 Nettoyage…");
   // Ordre de suppression respectant les FK.
   await prisma.historiqueStatut.deleteMany();
