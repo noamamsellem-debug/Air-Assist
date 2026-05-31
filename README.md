@@ -47,6 +47,17 @@ Tous les services externes (PSP, signature eIDAS, e-mail, données de vol) sont 
 
 ## Démarrage rapide
 
+### Option 1 — Docker (une commande, rien à installer sauf Docker)
+
+```bash
+docker compose up --build      # PostgreSQL + migrations + seed + app
+# → http://localhost:3000
+```
+
+Le service `migrate` applique les migrations et charge les données de démo, puis l'app démarre.
+
+### Option 2 — Node local
+
 Pré-requis : Node 20+, PostgreSQL 14+.
 
 ```bash
@@ -60,6 +71,9 @@ npm run dev                   # http://localhost:3000  → redirige vers /fr
 ```
 
 **Tout le parcours passager fonctionne en local, sans clé externe** (adaptateurs en mode mock).
+
+> Intégration continue : `.github/workflows/ci.yml` exécute typecheck + tests + build (avec
+> PostgreSQL) et les tests Playwright (navigateur installé en CI) à chaque push / PR.
 
 ### Comptes CRM de démonstration
 
