@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { listeAeroports } from "@/data/aeroports";
+import { AirportAutocomplete } from "@/components/AirportAutocomplete";
 
 interface ResultatApi {
   eligible: boolean;
@@ -14,7 +14,13 @@ interface ResultatApi {
   code: string;
 }
 
-const AEROPORTS = listeAeroports();
+// Retard exprimé en heures (façon AirHelp), converti en minutes pour le moteur.
+type RetardChoix = "PLUS3" | "MOINS3" | "JAMAIS";
+const RETARD_VERS_MIN: Record<RetardChoix, number> = {
+  PLUS3: 200, // ≥ 3 h → éligible
+  MOINS3: 60, // < 3 h → non éligible
+  JAMAIS: 600, // jamais arrivé → traité comme une forte perturbation, éligible
+};
 
 export function Calculator() {
   const t = useTranslations("calculator");
@@ -27,11 +33,14 @@ export function Calculator() {
     aeroportDepart: "",
     aeroportArrivee: "",
     motif: "RETARD",
-    dureeRetardMin: "",
   });
+  const [retard, setRetard] = useState<RetardChoix | "">("");
   const [resultat, setResultat] = useState<ResultatApi | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
   const [chargement, setChargement] = useState(false);
+
+  const besoinRetard = form.motif === "RETARD" || form.motif === "CORRESPONDANCE_MANQUEE";
+  const dureeRetardMin = besoinRetard && retard ? RETARD_VERS_MIN[retard] : undefined;
 
   const montantFormate = (m: number) =>
     new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(m);
@@ -50,8 +59,12 @@ export function Calculator() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...form,
-          dureeRetardMin: form.dureeRetardMin ? Number(form.dureeRetardMin) : undefined,
+          numeroVol: form.numeroVol || "AA000",
+          date: form.date,
+          aeroportDepart: form.aeroportDepart,
+          aeroportArrivee: form.aeroportArrivee,
+          motif: form.motif,
+          dureeRetardMin,
         }),
       });
       const data = await res.json();
@@ -75,7 +88,7 @@ export function Calculator() {
       aeroportDepart: form.aeroportDepart,
       aeroportArrivee: form.aeroportArrivee,
       motif: form.motif,
-      dureeRetardMin: form.dureeRetardMin || "",
+      dureeRetardMin: dureeRetardMin ? String(dureeRetardMin) : "",
       distanceKm: String(resultat.distanceKm),
       intraUe: String(resultat.intraUe),
       montant: String(resultat.montant),
@@ -83,85 +96,64 @@ export function Calculator() {
     router.push(`/reclamation?${q.toString()}`);
   }
 
-  const besoinRetard = form.motif === "RETARD" || form.motif === "CORRESPONDANCE_MANQUEE";
-
   return (
     <div className="card">
+      <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-brand-600">
+        ✦ {t("title")}
+      </p>
       <h2 className="mb-4 text-xl font-bold">{t("title")}</h2>
-      <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label className="label" htmlFor="numeroVol">
-            {t("flightNumber")}
-          </label>
-          <input
-            id="numeroVol"
-            className="input"
-            placeholder={t("flightNumberPlaceholder")}
-            value={form.numeroVol}
-            onChange={(e) => setForm({ ...form, numeroVol: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label className="label" htmlFor="date">
-            {t("date")}
-          </label>
-          <input
-            id="date"
-            type="date"
-            className="input"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label className="label" htmlFor="dep">
-            {t("departure")}
-          </label>
-          <select
+          <label className="label" htmlFor="dep">{t("departure")}</label>
+          <AirportAutocomplete
             id="dep"
-            className="input"
             value={form.aeroportDepart}
-            onChange={(e) => setForm({ ...form, aeroportDepart: e.target.value })}
-            required
-          >
-            <option value="">{t("selectAirport")}</option>
-            {AEROPORTS.map((a) => (
-              <option key={a.iata} value={a.iata}>
-                {a.ville} ({a.iata})
-              </option>
-            ))}
-          </select>
+            onChange={(iata) => setForm({ ...form, aeroportDepart: iata })}
+          />
         </div>
         <div>
-          <label className="label" htmlFor="arr">
-            {t("arrival")}
-          </label>
-          <select
+          <label className="label" htmlFor="arr">{t("arrival")}</label>
+          <AirportAutocomplete
             id="arr"
-            className="input"
             value={form.aeroportArrivee}
-            onChange={(e) => setForm({ ...form, aeroportArrivee: e.target.value })}
-            required
-          >
-            <option value="">{t("selectAirport")}</option>
-            {AEROPORTS.map((a) => (
-              <option key={a.iata} value={a.iata}>
-                {a.ville} ({a.iata})
-              </option>
-            ))}
-          </select>
+            onChange={(iata) => setForm({ ...form, aeroportArrivee: iata })}
+          />
         </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label className="label" htmlFor="date">{t("date")}</label>
+            <input
+              id="date"
+              type="date"
+              className="input"
+              value={form.date}
+              onChange={(e) => setForm({ ...form, date: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label className="label" htmlFor="numeroVol">{t("flightNumber")}</label>
+            <input
+              id="numeroVol"
+              className="input"
+              placeholder={t("flightNumberPlaceholder")}
+              value={form.numeroVol}
+              onChange={(e) => setForm({ ...form, numeroVol: e.target.value })}
+            />
+          </div>
+        </div>
+
         <div>
-          <label className="label" htmlFor="motif">
-            {t("reason")}
-          </label>
+          <label className="label" htmlFor="motif">{t("reason")}</label>
           <select
             id="motif"
             className="input"
             value={form.motif}
-            onChange={(e) => setForm({ ...form, motif: e.target.value })}
+            onChange={(e) => {
+              setForm({ ...form, motif: e.target.value });
+              setRetard("");
+            }}
           >
             <option value="RETARD">{t("reasonRetard")}</option>
             <option value="ANNULATION">{t("reasonAnnulation")}</option>
@@ -169,26 +161,38 @@ export function Calculator() {
             <option value="CORRESPONDANCE_MANQUEE">{t("reasonCorrespondance")}</option>
           </select>
         </div>
+
         {besoinRetard && (
           <div>
-            <label className="label" htmlFor="retard">
-              {t("delayMinutes")}
-            </label>
-            <input
-              id="retard"
-              type="number"
-              min={0}
-              className="input"
-              value={form.dureeRetardMin}
-              onChange={(e) => setForm({ ...form, dureeRetardMin: e.target.value })}
-            />
+            <label className="label">{t("delayQuestion")}</label>
+            <div className="grid grid-cols-1 gap-2">
+              {(["PLUS3", "MOINS3", "JAMAIS"] as RetardChoix[]).map((opt) => (
+                <button
+                  type="button"
+                  key={opt}
+                  onClick={() => setRetard(opt)}
+                  className={`rounded-lg border px-4 py-3 text-left text-sm transition ${
+                    retard === opt
+                      ? "border-brand-500 bg-brand-50 font-semibold text-brand-800"
+                      : "border-slate-300 hover:bg-slate-50"
+                  }`}
+                >
+                  {opt === "PLUS3" && t("delay3plus")}
+                  {opt === "MOINS3" && t("delayUnder3")}
+                  {opt === "JAMAIS" && t("delayNever")}
+                </button>
+              ))}
+            </div>
           </div>
         )}
-        <div className="sm:col-span-2">
-          <button type="submit" className="btn-primary w-full" disabled={chargement}>
-            {chargement ? "…" : t("submit")}
-          </button>
-        </div>
+
+        <button
+          type="submit"
+          className="btn-primary w-full"
+          disabled={chargement || (besoinRetard && !retard)}
+        >
+          {chargement ? "…" : t("submit")}
+        </button>
       </form>
 
       {erreur && (
@@ -196,17 +200,13 @@ export function Calculator() {
       )}
 
       {resultat && (
-        <div
-          className={`mt-4 rounded-lg p-4 ${
-            resultat.eligible ? "bg-green-50" : "bg-amber-50"
-          }`}
-        >
+        <div className={`mt-4 rounded-lg p-4 ${resultat.eligible ? "bg-green-50" : "bg-amber-50"}`}>
           <p className="font-bold">
             {resultat.eligible ? t("resultEligibleTitle") : t("resultNotEligibleTitle")}
           </p>
           {resultat.eligible ? (
-            <p className="mt-1 text-lg">
-              {t("resultEligible", { amount: montantFormate(resultat.montant) })}
+            <p className="mt-1 text-2xl font-extrabold text-green-700">
+              {montantFormate(resultat.montant)}
             </p>
           ) : (
             <p className="mt-1 text-sm text-slate-600">{resultat.raison}</p>
@@ -215,7 +215,7 @@ export function Calculator() {
             {t("distance", { km: resultat.distanceKm })}
           </p>
           {resultat.eligible && (
-            <button onClick={lancerReclamation} className="btn-primary mt-3">
+            <button onClick={lancerReclamation} className="btn-primary mt-3 w-full">
               {t("ctaStart")}
             </button>
           )}
