@@ -3,6 +3,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { AEROPORTS, getAeroport, listeAeroports } from "@/data/aeroports";
+import { Calculator } from "@/components/Calculator";
 import { buildMetadata, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -82,6 +83,11 @@ export default async function Page({
       <p className="mt-6">
         <Link href="/reclamation" className="btn-primary">{n("startClaim")}</Link>
       </p>
+
+      <section className="mt-10">
+        <Calculator />
+      </section>
+
       <section className="mt-8">
         <h2 className="text-xl font-semibold">Autres aéroports</h2>
         <ul className="mt-3 flex flex-wrap gap-2 text-sm">

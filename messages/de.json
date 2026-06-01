@@ -170,7 +170,8 @@
     "coMinor": "Diese Person ist unter 18",
     "coPassenger": "Fluggast {n}",
     "totalLabel": "Gesamtentschädigung",
-    "perPassenger": "Pro Fluggast"
+    "perPassenger": "Pro Fluggast",
+    "docRequired": "Erforderlich"
   },
   "rights": {
     "title": "Ihre Rechte bei Verspätung, Annullierung und Überbuchung",
@@ -217,5 +218,24 @@
     "a4": "Das hängt von der Airline ab: Viele Fälle werden in wenigen Wochen geklärt, manche Verhandlungen dauern einige Monate. Wir halten Sie auf dem Laufenden.",
     "q5": "Wie weit zurück kann ich fordern?",
     "a5": "In den meisten EU-Ländern können Sie Flüge der letzten 2 bis 3 Jahre geltend machen, je nach nationalem Recht."
+  },
+  "cookie": {
+    "text": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern. Wenn Sie fortfahren, akzeptieren Sie die Verwendung von Cookies.",
+    "accept": "Akzeptieren",
+    "refuse": "Ablehnen",
+    "more": "Mehr erfahren"
+  },
+  "suivi": {
+    "title": "Anspruch verfolgen",
+    "intro": "Geben Sie Ihre Vorgangsnummer und E-Mail ein, um den Status Ihres Anspruchs zu sehen.",
+    "reference": "Vorgangsnummer",
+    "email": "E-Mail",
+    "submit": "Anspruch verfolgen",
+    "notFound": "Kein Vorgang für diese Nummer und E-Mail gefunden.",
+    "statusLabel": "Aktueller Status",
+    "ref": "Vorgangsnummer",
+    "flight": "Flug",
+    "estimated": "Geschätzter Betrag",
+    "created": "Eingereicht am"
   }
 }

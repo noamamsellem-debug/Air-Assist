@@ -170,7 +170,8 @@
     "coMinor": "Questa persona ha meno di 18 anni",
     "coPassenger": "Passeggero {n}",
     "totalLabel": "Risarcimento totale",
-    "perPassenger": "Per passeggero"
+    "perPassenger": "Per passeggero",
+    "docRequired": "Obbligatorio"
   },
   "rights": {
     "title": "I tuoi diritti per ritardi, cancellazioni e overbooking",
@@ -217,5 +218,24 @@
     "a4": "Dipende dalla compagnia: molti casi si risolvono in poche settimane, alcune trattative richiedono qualche mese. Ti teniamo informato.",
     "q5": "Fino a quando posso richiedere?",
     "a5": "Nella maggior parte dei paesi UE puoi richiedere per voli degli ultimi 2-3 anni, secondo la legge nazionale."
+  },
+  "cookie": {
+    "text": "Usiamo i cookie per migliorare la tua esperienza. Continuando, accetti il nostro uso dei cookie.",
+    "accept": "Accetta",
+    "refuse": "Rifiuta",
+    "more": "Scopri di più"
+  },
+  "suivi": {
+    "title": "Segui la tua richiesta",
+    "intro": "Inserisci il numero della pratica e l'e-mail per vedere lo stato della richiesta.",
+    "reference": "Numero pratica",
+    "email": "E-mail",
+    "submit": "Segui la mia pratica",
+    "notFound": "Nessuna pratica trovata per questo numero ed e-mail.",
+    "statusLabel": "Stato attuale",
+    "ref": "Numero pratica",
+    "flight": "Volo",
+    "estimated": "Importo stimato",
+    "created": "Inviata il"
   }
 }

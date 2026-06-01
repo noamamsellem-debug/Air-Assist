@@ -170,7 +170,8 @@
     "coMinor": "Esta pessoa tem menos de 18 anos",
     "coPassenger": "Passageiro {n}",
     "totalLabel": "Indemnização total",
-    "perPassenger": "Por passageiro"
+    "perPassenger": "Por passageiro",
+    "docRequired": "Obrigatório"
   },
   "rights": {
     "title": "Os seus direitos em atrasos, cancelamentos e overbooking",
@@ -217,5 +218,24 @@
     "a4": "Depende da companhia: muitos casos resolvem-se em poucas semanas, algumas negociações demoram alguns meses. Mantemo-lo informado.",
     "q5": "Até quando posso reclamar?",
     "a5": "Na maioria dos países da UE pode reclamar voos dos últimos 2 a 3 anos, consoante a legislação nacional."
+  },
+  "cookie": {
+    "text": "Usamos cookies para melhorar a sua experiência. Ao continuar, aceita a nossa utilização de cookies.",
+    "accept": "Aceitar",
+    "refuse": "Recusar",
+    "more": "Saber mais"
+  },
+  "suivi": {
+    "title": "Acompanhe a sua reclamação",
+    "intro": "Introduza o número do processo e o e-mail para ver o estado da sua reclamação.",
+    "reference": "Número do processo",
+    "email": "E-mail",
+    "submit": "Acompanhar o meu processo",
+    "notFound": "Nenhum processo encontrado para este número e e-mail.",
+    "statusLabel": "Estado atual",
+    "ref": "Número do processo",
+    "flight": "Voo",
+    "estimated": "Montante estimado",
+    "created": "Enviado em"
   }
 }

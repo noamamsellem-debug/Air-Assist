@@ -170,7 +170,8 @@
     "coMinor": "Ta osoba ma mniej niż 18 lat",
     "coPassenger": "Pasażer {n}",
     "totalLabel": "Łączne odszkodowanie",
-    "perPassenger": "Na pasażera"
+    "perPassenger": "Na pasażera",
+    "docRequired": "Wymagane"
   },
   "rights": {
     "title": "Twoje prawa przy opóźnieniach, odwołaniach i overbookingu",
@@ -217,5 +218,24 @@
     "a4": "To zależy od linii: wiele spraw kończy się w kilka tygodni, niektóre negocjacje trwają kilka miesięcy. Informujemy Cię na bieżąco.",
     "q5": "Jak dawne loty mogę zgłaszać?",
     "a5": "W większości krajów UE możesz zgłaszać loty z ostatnich 2–3 lat, zależnie od prawa krajowego."
+  },
+  "cookie": {
+    "text": "Używamy plików cookie, aby poprawić Twoje doświadczenie. Kontynuując, akceptujesz korzystanie z plików cookie.",
+    "accept": "Akceptuj",
+    "refuse": "Odrzuć",
+    "more": "Dowiedz się więcej"
+  },
+  "suivi": {
+    "title": "Śledź swój wniosek",
+    "intro": "Wprowadź numer sprawy i e-mail, aby zobaczyć status wniosku.",
+    "reference": "Numer sprawy",
+    "email": "E-mail",
+    "submit": "Śledź mój wniosek",
+    "notFound": "Nie znaleziono sprawy dla tego numeru i e-maila.",
+    "statusLabel": "Aktualny status",
+    "ref": "Numer sprawy",
+    "flight": "Lot",
+    "estimated": "Szacowana kwota",
+    "created": "Złożono"
   }
 }

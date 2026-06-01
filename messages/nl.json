@@ -170,7 +170,8 @@
     "coMinor": "Deze persoon is jonger dan 18",
     "coPassenger": "Passagier {n}",
     "totalLabel": "Totale compensatie",
-    "perPassenger": "Per passagier"
+    "perPassenger": "Per passagier",
+    "docRequired": "Verplicht"
   },
   "rights": {
     "title": "Uw rechten bij vertraging, annulering en overboeking",
@@ -217,5 +218,24 @@
     "a4": "Dat hangt af van de maatschappij: veel zaken worden binnen enkele weken afgehandeld, sommige onderhandelingen duren enkele maanden. We houden u op de hoogte.",
     "q5": "Hoe ver terug kan ik claimen?",
     "a5": "In de meeste EU-landen kunt u vluchten van de afgelopen 2 tot 3 jaar claimen, afhankelijk van de nationale wet."
+  },
+  "cookie": {
+    "text": "We gebruiken cookies om uw ervaring te verbeteren. Door verder te gaan, accepteert u ons gebruik van cookies.",
+    "accept": "Accepteren",
+    "refuse": "Weigeren",
+    "more": "Meer informatie"
+  },
+  "suivi": {
+    "title": "Volg uw claim",
+    "intro": "Voer uw dossiernummer en e-mail in om de status van uw claim te zien.",
+    "reference": "Dossiernummer",
+    "email": "E-mail",
+    "submit": "Mijn claim volgen",
+    "notFound": "Geen claim gevonden voor dit nummer en e-mail.",
+    "statusLabel": "Huidige status",
+    "ref": "Dossiernummer",
+    "flight": "Vlucht",
+    "estimated": "Geschat bedrag",
+    "created": "Ingediend op"
   }
 }

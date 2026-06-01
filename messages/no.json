@@ -170,7 +170,8 @@
     "coMinor": "This person is under 18",
     "coPassenger": "Passenger {n}",
     "totalLabel": "Total compensation",
-    "perPassenger": "Per passenger"
+    "perPassenger": "Per passenger",
+    "docRequired": "Required"
   },
   "rights": {
     "title": "Dine rettigheter ved forsinkelser, kanselleringer og overbooking",
@@ -217,5 +218,24 @@
     "a4": "Det avhenger av flyselskapet: mange saker løses på få uker, noen forhandlinger tar noen måneder. Vi holder deg informert.",
     "q5": "Hvor langt tilbake kan jeg kreve?",
     "a5": "I de fleste EU-land kan du kreve for fly fra de siste 2 til 3 årene, avhengig av nasjonal lov."
+  },
+  "cookie": {
+    "text": "We use cookies to improve your experience. By continuing, you accept our use of cookies.",
+    "accept": "Accept",
+    "refuse": "Refuse",
+    "more": "Learn more"
+  },
+  "suivi": {
+    "title": "Track your claim",
+    "intro": "Enter your case number and email to see the status of your claim.",
+    "reference": "Case number",
+    "email": "Email",
+    "submit": "Track my claim",
+    "notFound": "No claim found for this case number and email.",
+    "statusLabel": "Current status",
+    "ref": "Case number",
+    "flight": "Flight",
+    "estimated": "Estimated amount",
+    "created": "Submitted on"
   }
 }

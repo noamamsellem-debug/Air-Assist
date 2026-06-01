@@ -170,7 +170,8 @@
     "coMinor": "This person is under 18",
     "coPassenger": "Passenger {n}",
     "totalLabel": "Total compensation",
-    "perPassenger": "Per passenger"
+    "perPassenger": "Per passenger",
+    "docRequired": "Required"
   },
   "rights": {
     "title": "Vaša prava kod kašnjenja, otkazivanja i prebukiranja",
@@ -217,5 +218,24 @@
     "a4": "It depends on the airline: many cases settle within a few weeks, some negotiations take a few months. We keep you informed throughout.",
     "q5": "How far back can I claim?",
     "a5": "In most EU countries you can claim for flights from the past 2 to 3 years, depending on national law."
+  },
+  "cookie": {
+    "text": "We use cookies to improve your experience. By continuing, you accept our use of cookies.",
+    "accept": "Accept",
+    "refuse": "Refuse",
+    "more": "Learn more"
+  },
+  "suivi": {
+    "title": "Track your claim",
+    "intro": "Enter your case number and email to see the status of your claim.",
+    "reference": "Case number",
+    "email": "Email",
+    "submit": "Track my claim",
+    "notFound": "No claim found for this case number and email.",
+    "statusLabel": "Current status",
+    "ref": "Case number",
+    "flight": "Flight",
+    "estimated": "Estimated amount",
+    "created": "Submitted on"
   }
 }

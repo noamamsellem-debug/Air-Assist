@@ -170,7 +170,8 @@
     "coMinor": "Cette personne a moins de 18 ans",
     "coPassenger": "Passager {n}",
     "totalLabel": "Indemnisation totale",
-    "perPassenger": "Par passager"
+    "perPassenger": "Par passager",
+    "docRequired": "Requis"
   },
   "rights": {
     "title": "Vos droits en cas de retard, d'annulation ou de surbooking",
@@ -217,5 +218,24 @@
     "a4": "Cela dépend de la compagnie : beaucoup de dossiers aboutissent en quelques semaines, certaines négociations prennent quelques mois. Nous vous tenons informé(e).",
     "q5": "Jusqu'à quand puis-je réclamer ?",
     "a5": "Dans la plupart des pays de l'UE, vous pouvez réclamer pour des vols des 2 à 3 dernières années, selon la législation nationale."
+  },
+  "cookie": {
+    "text": "Nous utilisons des cookies pour améliorer votre expérience. En poursuivant, vous acceptez notre utilisation des cookies.",
+    "accept": "Accepter",
+    "refuse": "Refuser",
+    "more": "En savoir plus"
+  },
+  "suivi": {
+    "title": "Suivi de votre dossier",
+    "intro": "Saisissez votre numéro de dossier et votre e-mail pour voir l'avancement de votre demande.",
+    "reference": "Numéro de dossier",
+    "email": "E-mail",
+    "submit": "Suivre mon dossier",
+    "notFound": "Aucun dossier trouvé pour ce numéro et cet e-mail.",
+    "statusLabel": "Statut actuel",
+    "ref": "Numéro de dossier",
+    "flight": "Vol",
+    "estimated": "Montant estimé",
+    "created": "Déposé le"
   }
 }

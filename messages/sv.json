@@ -170,7 +170,8 @@
     "coMinor": "This person is under 18",
     "coPassenger": "Passenger {n}",
     "totalLabel": "Total compensation",
-    "perPassenger": "Per passenger"
+    "perPassenger": "Per passenger",
+    "docRequired": "Required"
   },
   "rights": {
     "title": "Dina rättigheter vid förseningar, inställda flyg och överbokning",
@@ -217,5 +218,24 @@
     "a4": "Det beror på flygbolaget: många ärenden löses inom några veckor, vissa förhandlingar tar några månader. Vi håller dig informerad.",
     "q5": "Hur långt tillbaka kan jag kräva?",
     "a5": "I de flesta EU-länder kan du kräva för flyg från de senaste 2 till 3 åren, beroende på nationell lag."
+  },
+  "cookie": {
+    "text": "We use cookies to improve your experience. By continuing, you accept our use of cookies.",
+    "accept": "Accept",
+    "refuse": "Refuse",
+    "more": "Learn more"
+  },
+  "suivi": {
+    "title": "Track your claim",
+    "intro": "Enter your case number and email to see the status of your claim.",
+    "reference": "Case number",
+    "email": "Email",
+    "submit": "Track my claim",
+    "notFound": "No claim found for this case number and email.",
+    "statusLabel": "Current status",
+    "ref": "Case number",
+    "flight": "Flight",
+    "estimated": "Estimated amount",
+    "created": "Submitted on"
   }
 }

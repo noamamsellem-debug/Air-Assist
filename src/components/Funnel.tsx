@@ -498,15 +498,20 @@ export function Funnel() {
             <h2 className="text-lg font-bold">{t("docsTitle")}</h2>
             <p className="mt-1 text-sm text-slate-500">{t("docsSubtitle")}</p>
             <div className="mt-4 space-y-4">
-              <DocSlot titre={t("docBoarding")} etat={docBoarding} setEtat={setDocBoarding} t={t} />
-              <DocSlot titre={t("docId")} etat={docId} setEtat={setDocId} t={t} />
+              <DocSlot titre={t("docBoarding")} etat={docBoarding} setEtat={setDocBoarding} t={t} requis />
+              <DocSlot titre={t("docId")} etat={docId} setEtat={setDocId} t={t} requis />
             </div>
             <div className="mt-4 flex items-start gap-2 rounded-lg bg-green-50 p-3 text-xs text-green-800">
               <span aria-hidden>🔒</span>
               <span>{t("docPrivacy")}</span>
             </div>
             <p className="mt-2 text-xs text-slate-400">{t("docNote")}</p>
-            <Nav onBack={() => setEtape(4)} onNext={() => setEtape(6)} t={t} />
+            <Nav
+              onBack={() => setEtape(4)}
+              onNext={() => setEtape(6)}
+              nextDisabled={!(docBoarding.confirme && docId.confirme)}
+              t={t}
+            />
           </div>
         )}
 
@@ -590,11 +595,13 @@ function DocSlot({
   etat,
   setEtat,
   t,
+  requis,
 }: {
   titre: string;
   etat: DocEtat;
   setEtat: (e: DocEtat) => void;
   t: ReturnType<typeof useTranslations>;
+  requis?: boolean;
 }) {
   async function onFichier(file: File | null) {
     if (!file) return;
@@ -613,6 +620,8 @@ function DocSlot({
         <span className="font-medium text-slate-800">{titre}</span>
         {etat.confirme ? (
           <span className="text-sm font-semibold text-green-600">✓ {t("docAdded")}</span>
+        ) : requis ? (
+          <span className="text-xs font-semibold text-amber-600">{t("docRequired")}</span>
         ) : (
           <span className="text-xs text-slate-400">{t("docOptional")}</span>
         )}

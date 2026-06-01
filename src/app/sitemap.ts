@@ -10,6 +10,7 @@ const PAGES_STATIQUES = [
   "/droits-passagers",
   "/bareme",
   "/reclamation",
+  "/suivi",
   "/mentions-legales",
   "/confidentialite",
   "/cgv",
