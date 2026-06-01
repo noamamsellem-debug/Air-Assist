@@ -87,12 +87,22 @@ export default async function DossierDetail({
             <h2 className="text-lg font-semibold">Documents ({d.documents.length})</h2>
             <ul className="mt-2 space-y-1 text-sm">
               {d.documents.map((doc) => (
-                <li key={doc.id} className="flex justify-between rounded bg-slate-50 px-3 py-2">
+                <li key={doc.id} className="flex items-center justify-between gap-2 rounded bg-slate-50 px-3 py-2">
                   <span>
                     {doc.type === "CARTE_EMBARQUEMENT" ? "Carte d'embarquement" : "Justificatif"} ·{" "}
                     {doc.nomFichier}
+                    <span className="ml-1 text-xs text-slate-400">
+                      🔒 ({Math.round(doc.tailleOctets / 1024)} Ko)
+                    </span>
                   </span>
-                  <span className="text-slate-400">🔒 chiffré ({Math.round(doc.tailleOctets / 1024)} Ko)</span>
+                  <a
+                    href={`/api/dossiers/${d.id}/documents/${doc.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 rounded bg-brand-500 px-2 py-1 text-xs font-semibold text-white hover:bg-brand-600"
+                  >
+                    Voir / Télécharger
+                  </a>
                 </li>
               ))}
               {d.documents.length === 0 && <li className="text-slate-400">Aucun document.</li>}
