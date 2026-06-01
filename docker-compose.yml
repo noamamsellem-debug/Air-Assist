@@ -1,0 +1,56 @@
+# Stack complète Air Assist : PostgreSQL + migrations/seed + application.
+# Démarrage : `docker compose up --build`  →  http://localhost:3000
+#
+# ⚠️ Les secrets ci-dessous sont des valeurs de DÉMO. En production (UE),
+# remplacez AUTH_SECRET et DOCUMENT_ENCRYPTION_KEY par de vraies valeurs et
+# passez les *_PROVIDER de "mock" aux vrais prestataires.
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: air_assist
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d air_assist"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  # Service éphémère : applique les migrations puis charge les données de démo.
+  migrate:
+    build: .
+    command: sh -c "npx prisma migrate deploy && npx prisma db seed"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/air_assist?schema=public
+    depends_on:
+      db:
+        condition: service_healthy
+
+  app:
+    build: .
+    command: npm run start
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/air_assist?schema=public
+      # Secrets de DÉMO — à changer en prod.
+      AUTH_SECRET: demo-secret-change-me-in-production
+      NEXTAUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      COMMISSION_RATE: "0.30"
+      # Adaptateurs en mode mock : aucun service externe requis.
+      ADAPTER_MODE: mock
+      EMAIL_PROVIDER: mock
+      ESIGN_PROVIDER: mock
+      PSP_PROVIDER: mock
+      FLIGHTDATA_PROVIDER: mock
+    ports:
+      - "3000:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
