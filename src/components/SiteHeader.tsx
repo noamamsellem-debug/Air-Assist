@@ -7,6 +7,12 @@ export function SiteHeader() {
   const c = useTranslations("common");
   return (
     <header className="border-b border-slate-200 bg-white">
+      <div className="bg-brand-50 text-brand-800">
+        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-1.5 text-center text-xs font-medium sm:text-sm">
+          <span aria-hidden>🛡️</span>
+          <span>{c("trustBanner")}</span>
+        </div>
+      </div>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-bold text-brand-700">
           <span className="text-xl">✈️</span>
