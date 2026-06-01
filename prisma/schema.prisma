@@ -51,6 +51,7 @@ enum StatutDossier {
 enum TypeDocument {
   CARTE_EMBARQUEMENT
   JUSTIFICATIF
+  CARTE_IDENTITE
 }
 
 enum AuteurHistorique {
@@ -155,6 +156,16 @@ model Dossier {
 
   numeroDossierCompagnie String? @map("numero_dossier_compagnie")
   pnr                    String? // record locator, 6 caractères
+
+  // Informations recueillies par le tunnel (toutes facultatives).
+  dejaContacteCompagnie Boolean? @map("deja_contacte_compagnie")
+  descriptionIncident   String?  @map("description_incident")
+  langueCommunication   String?  @map("langue_communication")
+  sourceMarketing       String?  @map("source_marketing") // où le client a entendu parler de nous
+  causePerturbation     String?  @map("cause_perturbation") // cause invoquée par la compagnie
+  ouAcheteBillet        String?  @map("ou_achete_billet")
+  /// Code de parrainage propre au dossier (lien de partage « Gagnez 20 € »).
+  codeParrainage        String?  @unique @map("code_parrainage")
 
   // Montants en EUR. montantEstime = sortie du moteur d'éligibilité.
   montantEstime Decimal  @map("montant_estime") @db.Decimal(10, 2)

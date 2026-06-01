@@ -82,6 +82,30 @@ export default async function DossierDetail({
             </dl>
           </div>
 
+          {/* Informations recueillies par le tunnel */}
+          <div>
+            <h2 className="text-lg font-semibold">Informations complémentaires</h2>
+            <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
+              <Champ
+                k="Déjà contacté la compagnie"
+                v={d.dejaContacteCompagnie === null ? "—" : d.dejaContacteCompagnie ? "Oui" : "Non"}
+              />
+              <Champ k="Langue de communication" v={d.langueCommunication ?? "—"} />
+              <Champ k="Achat du billet" v={d.ouAcheteBillet ?? "—"} />
+              <Champ k="Cause (selon compagnie)" v={d.causePerturbation ?? "—"} />
+              <Champ k="Source marketing" v={d.sourceMarketing ?? "—"} />
+              <Champ k="Code de parrainage" v={d.codeParrainage ?? "—"} />
+            </dl>
+            {d.descriptionIncident && (
+              <div className="mt-3">
+                <dt className="text-xs uppercase text-slate-400">Description de l'incident</dt>
+                <dd className="mt-1 whitespace-pre-wrap rounded bg-slate-50 p-3 text-sm text-slate-800">
+                  {d.descriptionIncident}
+                </dd>
+              </div>
+            )}
+          </div>
+
           {/* Documents */}
           <div>
             <h2 className="text-lg font-semibold">Documents ({d.documents.length})</h2>
@@ -89,8 +113,12 @@ export default async function DossierDetail({
               {d.documents.map((doc) => (
                 <li key={doc.id} className="flex items-center justify-between gap-2 rounded bg-slate-50 px-3 py-2">
                   <span>
-                    {doc.type === "CARTE_EMBARQUEMENT" ? "Carte d'embarquement" : "Justificatif"} ·{" "}
-                    {doc.nomFichier}
+                    {doc.type === "CARTE_EMBARQUEMENT"
+                      ? "Carte d'embarquement"
+                      : doc.type === "CARTE_IDENTITE"
+                        ? "Pièce d'identité"
+                        : "Justificatif"}{" "}
+                    · {doc.nomFichier}
                     <span className="ml-1 text-xs text-slate-400">
                       🔒 ({Math.round(doc.tailleOctets / 1024)} Ko)
                     </span>

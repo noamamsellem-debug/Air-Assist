@@ -46,6 +46,13 @@ export const reclamationSchema = z.object({
   telephone: z.string().trim().max(40).optional().or(z.literal("")),
   adresse: z.string().trim().max(300).optional().or(z.literal("")),
   pnr: pnrSchema,
+  // Informations facultatives recueillies par le tunnel
+  dejaContacteCompagnie: z.boolean().optional(),
+  descriptionIncident: z.string().trim().max(1200).optional().or(z.literal("")),
+  langueCommunication: z.string().trim().max(40).optional().or(z.literal("")),
+  sourceMarketing: z.string().trim().max(60).optional().or(z.literal("")),
+  causePerturbation: z.string().trim().max(60).optional().or(z.literal("")),
+  ouAcheteBillet: z.string().trim().max(60).optional().or(z.literal("")),
   // Mandat / consentement
   consentementRgpd: z.literal(true),
   accepteCgv: z.literal(true),

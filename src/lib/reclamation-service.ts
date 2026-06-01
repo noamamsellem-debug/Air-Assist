@@ -18,6 +18,12 @@ import type { ReclamationInput } from "./validation";
 export interface ResultatReclamation {
   dossierId: string;
   reference: string;
+  codeParrainage: string;
+}
+
+/** Code de parrainage court et lisible (lien de partage « Gagnez 20 € »). */
+function genererCodeParrainage(): string {
+  return Math.random().toString(36).slice(2, 8).toUpperCase();
 }
 
 /** Rapproche/crée la compagnie à partir du préfixe IATA du n° de vol. */
@@ -92,6 +98,13 @@ export async function creerReclamation(
         compagnieId: compagnie.id,
         pnr: input.pnr,
         montantEstime: input.montantEstime.toFixed(2),
+        dejaContacteCompagnie: input.dejaContacteCompagnie ?? null,
+        descriptionIncident: input.descriptionIncident || null,
+        langueCommunication: input.langueCommunication || null,
+        sourceMarketing: input.sourceMarketing || null,
+        causePerturbation: input.causePerturbation || null,
+        ouAcheteBillet: input.ouAcheteBillet || null,
+        codeParrainage: genererCodeParrainage(),
       },
     });
 
@@ -136,5 +149,5 @@ export async function creerReclamation(
     // L'envoi d'e-mail ne doit jamais bloquer la création du dossier.
   }
 
-  return { dossierId: dossier.id, reference };
+  return { dossierId: dossier.id, reference, codeParrainage: dossier.codeParrainage! };
 }

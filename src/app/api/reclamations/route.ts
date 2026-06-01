@@ -7,7 +7,7 @@ import { chiffrerDocument } from "@/lib/crypto";
 
 // Document optionnel transmis en base64 (carte d'embarquement / justificatif).
 const documentSchema = z.object({
-  type: z.enum(["CARTE_EMBARQUEMENT", "JUSTIFICATIF"]),
+  type: z.enum(["CARTE_EMBARQUEMENT", "JUSTIFICATIF", "CARTE_IDENTITE"]),
   nomFichier: z.string().min(1).max(255),
   mimeType: z.string().min(1).max(120),
   contenuBase64: z.string().min(1),
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   const { documents, ...reclamation } = parsed.data;
 
   try {
-    const { dossierId, reference } = await creerReclamation(reclamation);
+    const { dossierId, reference, codeParrainage } = await creerReclamation(reclamation);
 
     // Stockage chiffré au repos des documents éventuels.
     if (documents?.length) {
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       }
     }
 
-    return NextResponse.json({ dossierId, reference }, { status: 201 });
+    return NextResponse.json({ dossierId, reference, codeParrainage }, { status: 201 });
   } catch (err) {
     console.error("Échec création réclamation", err);
     return NextResponse.json(
