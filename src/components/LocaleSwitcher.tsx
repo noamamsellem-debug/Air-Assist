@@ -5,7 +5,16 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { useTransition } from "react";
 
-const NOMS: Record<string, string> = { fr: "FR", en: "EN", es: "ES" };
+const NOMS: Record<string, string> = {
+  fr: "Français",
+  en: "English",
+  es: "Español",
+  de: "Deutsch",
+  it: "Italiano",
+  pt: "Português",
+  nl: "Nederlands",
+  pl: "Polski",
+};
 
 export function LocaleSwitcher() {
   const locale = useLocale();
