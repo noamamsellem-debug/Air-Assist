@@ -7,6 +7,22 @@ const OG_LOCALE: Record<string, string> = {
   fr: "fr_FR",
   en: "en_US",
   es: "es_ES",
+  de: "de_DE",
+  it: "it_IT",
+  pt: "pt_PT",
+  nl: "nl_NL",
+  pl: "pl_PL",
+  ro: "ro_RO",
+  sv: "sv_SE",
+  da: "da_DK",
+  fi: "fi_FI",
+  no: "nb_NO",
+  el: "el_GR",
+  cs: "cs_CZ",
+  sk: "sk_SK",
+  hr: "hr_HR",
+  bg: "bg_BG",
+  hu: "hu_HU",
 };
 
 /**

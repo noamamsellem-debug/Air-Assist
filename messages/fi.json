@@ -188,5 +188,18 @@
     "rights": "Kaikki oikeudet pidätetään.",
     "legalLinks": "Oikeudelliset tiedot",
     "disclaimer": "Air Assist on välittäjä; näytetyt summat ovat arvioita."
+  },
+  "faq": {
+    "faqTitle": "Frequently asked questions",
+    "q1": "How much compensation can I claim?",
+    "a1": "Depending on the flight distance, Regulation EC 261/2004 provides fixed compensation of €250, €400 or €600 per passenger.",
+    "q2": "How much does Air Assist cost?",
+    "a2": "Nothing upfront. We charge a 30% commission only if we win — you keep 70%. No win, no fee.",
+    "q3": "Which flights are covered?",
+    "a3": "Flights departing from an EU airport, or arriving in the EU on an EU airline, that were delayed 3+ hours, cancelled or overbooked.",
+    "q4": "How long does a claim take?",
+    "a4": "It depends on the airline: many cases settle within a few weeks, some negotiations take a few months. We keep you informed throughout.",
+    "q5": "How far back can I claim?",
+    "a5": "In most EU countries you can claim for flights from the past 2 to 3 years, depending on national law."
   }
 }

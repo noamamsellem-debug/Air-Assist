@@ -188,5 +188,18 @@
     "rights": "Todos los derechos reservados.",
     "disclaimer": "Air Assist es un intermediario; los importes mostrados son estimaciones.",
     "legalLinks": "Información legal"
+  },
+  "faq": {
+    "faqTitle": "Preguntas frecuentes",
+    "q1": "¿Cuánto puedo reclamar?",
+    "a1": "Según la distancia del vuelo, el Reglamento CE 261/2004 prevé una indemnización fija de 250 €, 400 € o 600 € por pasajero.",
+    "q2": "¿Cuánto cuesta Air Assist?",
+    "a2": "Nada por adelantado. Cobramos una comisión del 30 % solo si lo conseguimos — tú te quedas con el 70 %. Sin éxito, sin coste.",
+    "q3": "¿Qué vuelos están cubiertos?",
+    "a3": "Vuelos que salen de un aeropuerto de la UE, o que llegan a la UE con una aerolínea de la UE, retrasados 3 h o más, cancelados o con overbooking.",
+    "q4": "¿Cuánto tarda una reclamación?",
+    "a4": "Depende de la aerolínea: muchos casos se resuelven en pocas semanas, algunas negociaciones tardan unos meses. Te mantenemos informado.",
+    "q5": "¿Hasta cuándo puedo reclamar?",
+    "a5": "En la mayoría de países de la UE puedes reclamar vuelos de los últimos 2 a 3 años, según la legislación nacional."
   }
 }

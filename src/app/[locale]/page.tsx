@@ -37,6 +37,34 @@ function HomeContent() {
   const r = useTranslations("rights");
   const s = useTranslations("scale");
   const nav = useTranslations("nav");
+  const f = useTranslations("faq");
+
+  const faqItems = [1, 2, 3, 4, 5].map((i) => ({
+    q: f(`q${i}`),
+    a: f(`a${i}`),
+  }));
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Air Assist",
+    serviceType: "Flight compensation claim (EC 261/2004)",
+    areaServed: "EU",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "EUR",
+      description: c("commissionNote"),
+    },
+  };
   return (
     <>
       <section className="bg-gradient-to-b from-brand-50 via-brand-50 to-slate-50">
@@ -139,6 +167,29 @@ function HomeContent() {
           </p>
         </div>
       </section>
+
+      {/* FAQ — contenu + données structurées FAQPage pour Google */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-3xl px-4 py-12">
+          <h2 className="text-2xl font-bold">{f("faqTitle")}</h2>
+          <div className="mt-6 divide-y divide-slate-200">
+            {faqItems.map((item) => (
+              <details key={item.q} className="group py-4">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 font-semibold text-slate-900 marker:content-none">
+                  {item.q}
+                  <span className="text-brand-500 transition group-open:rotate-45" aria-hidden>+</span>
+                </summary>
+                <p className="mt-2 text-sm text-slate-600">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([faqJsonLd, serviceJsonLd]) }}
+      />
 
       {/* Appel à l'action final */}
       <section className="bg-brand-600">

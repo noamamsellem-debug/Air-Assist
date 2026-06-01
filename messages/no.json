@@ -188,5 +188,18 @@
     "rights": "Med enerett.",
     "legalLinks": "Juridisk informasjon",
     "disclaimer": "Air Assist er en formidler; viste beløp er estimater."
+  },
+  "faq": {
+    "faqTitle": "Ofte stilte spørsmål",
+    "q1": "Hvor mye kan jeg kreve?",
+    "a1": "Avhengig av flydistansen gir forordning EF 261/2004 en fast kompensasjon på 250 €, 400 € eller 600 € per passasjer.",
+    "q2": "Hva koster Air Assist?",
+    "a2": "Ingenting på forhånd. Vi tar 30 % provisjon kun ved suksess — du beholder 70 %. Ingen gevinst, ingen avgift.",
+    "q3": "Hvilke fly er dekket?",
+    "a3": "Fly som reiser fra en flyplass i EU, eller ankommer EU med et EU-flyselskap, forsinket 3+ timer, kansellert eller overbooket.",
+    "q4": "Hvor lang tid tar et krav?",
+    "a4": "Det avhenger av flyselskapet: mange saker løses på få uker, noen forhandlinger tar noen måneder. Vi holder deg informert.",
+    "q5": "Hvor langt tilbake kan jeg kreve?",
+    "a5": "I de fleste EU-land kan du kreve for fly fra de siste 2 til 3 årene, avhengig av nasjonal lov."
   }
 }

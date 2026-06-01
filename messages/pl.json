@@ -188,5 +188,18 @@
     "rights": "Wszelkie prawa zastrzeżone.",
     "legalLinks": "Informacje prawne",
     "disclaimer": "Air Assist jest pośrednikiem; pokazane kwoty są szacunkowe."
+  },
+  "faq": {
+    "faqTitle": "Najczęściej zadawane pytania",
+    "q1": "Ile mogę żądać?",
+    "a1": "W zależności od odległości lotu rozporządzenie WE 261/2004 przewiduje zryczałtowane odszkodowanie 250 €, 400 € lub 600 € na pasażera.",
+    "q2": "Ile kosztuje Air Assist?",
+    "a2": "Nic z góry. Pobieramy 30% prowizji tylko w razie sukcesu — zatrzymujesz 70%. Bez sukcesu, bez opłat.",
+    "q3": "Które loty są objęte?",
+    "a3": "Loty wylatujące z lotniska w UE lub przylatujące do UE liniami z UE, opóźnione o 3+ godziny, odwołane lub z overbookingiem.",
+    "q4": "Ile trwa rozpatrzenie wniosku?",
+    "a4": "To zależy od linii: wiele spraw kończy się w kilka tygodni, niektóre negocjacje trwają kilka miesięcy. Informujemy Cię na bieżąco.",
+    "q5": "Jak dawne loty mogę zgłaszać?",
+    "a5": "W większości krajów UE możesz zgłaszać loty z ostatnich 2–3 lat, zależnie od prawa krajowego."
   }
 }

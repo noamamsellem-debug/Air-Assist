@@ -188,5 +188,18 @@
     "rights": "Tous droits réservés.",
     "legalLinks": "Informations légales",
     "disclaimer": "Air Assist est un intermédiaire ; les montants indiqués sont des estimations."
+  },
+  "faq": {
+    "faqTitle": "Questions fréquentes",
+    "q1": "Combien puis-je réclamer ?",
+    "a1": "Selon la distance du vol, le règlement EC 261/2004 prévoit une indemnité forfaitaire de 250 €, 400 € ou 600 € par passager.",
+    "q2": "Combien coûte Air Assist ?",
+    "a2": "Rien à l'avance. Nous prélevons 30 % de commission uniquement en cas de succès — vous gardez 70 %. Sans gain, sans frais.",
+    "q3": "Quels vols sont concernés ?",
+    "a3": "Les vols au départ d'un aéroport de l'UE, ou à l'arrivée dans l'UE sur une compagnie de l'UE, retardés de 3 h ou plus, annulés ou surbookés.",
+    "q4": "Combien de temps prend une demande ?",
+    "a4": "Cela dépend de la compagnie : beaucoup de dossiers aboutissent en quelques semaines, certaines négociations prennent quelques mois. Nous vous tenons informé(e).",
+    "q5": "Jusqu'à quand puis-je réclamer ?",
+    "a5": "Dans la plupart des pays de l'UE, vous pouvez réclamer pour des vols des 2 à 3 dernières années, selon la législation nationale."
   }
 }

@@ -188,5 +188,18 @@
     "rights": "Alle Rechte vorbehalten.",
     "legalLinks": "Rechtliche Informationen",
     "disclaimer": "Air Assist ist ein Vermittler; angezeigte Beträge sind Schätzungen."
+  },
+  "faq": {
+    "faqTitle": "Häufige Fragen",
+    "q1": "Wie viel Entschädigung kann ich fordern?",
+    "a1": "Je nach Flugdistanz sieht die Verordnung EG 261/2004 eine pauschale Entschädigung von 250 €, 400 € oder 600 € pro Fluggast vor.",
+    "q2": "Was kostet Air Assist?",
+    "a2": "Nichts im Voraus. Wir berechnen 30 % Provision nur im Erfolgsfall — Sie behalten 70 %. Kein Erfolg, keine Kosten.",
+    "q3": "Welche Flüge sind abgedeckt?",
+    "a3": "Flüge ab einem EU-Flughafen oder Ankunft in der EU mit einer EU-Airline, die 3+ Stunden verspätet, annulliert oder überbucht waren.",
+    "q4": "Wie lange dauert ein Anspruch?",
+    "a4": "Das hängt von der Airline ab: Viele Fälle werden in wenigen Wochen geklärt, manche Verhandlungen dauern einige Monate. Wir halten Sie auf dem Laufenden.",
+    "q5": "Wie weit zurück kann ich fordern?",
+    "a5": "In den meisten EU-Ländern können Sie Flüge der letzten 2 bis 3 Jahre geltend machen, je nach nationalem Recht."
   }
 }

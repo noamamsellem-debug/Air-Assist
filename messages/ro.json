@@ -188,5 +188,18 @@
     "rights": "Toate drepturile rezervate.",
     "legalLinks": "Informații legale",
     "disclaimer": "Air Assist este un intermediar; sumele afișate sunt estimări."
+  },
+  "faq": {
+    "faqTitle": "Întrebări frecvente",
+    "q1": "Cât pot solicita?",
+    "a1": "În funcție de distanța zborului, Regulamentul CE 261/2004 prevede o despăgubire fixă de 250 €, 400 € sau 600 € per pasager.",
+    "q2": "Cât costă Air Assist?",
+    "a2": "Nimic în avans. Percepem un comision de 30% doar în caz de succes — păstrezi 70%. Fără câștig, fără costuri.",
+    "q3": "Ce zboruri sunt acoperite?",
+    "a3": "Zboruri care pleacă de pe un aeroport din UE sau sosesc în UE cu o companie din UE, întârziate cu 3+ ore, anulate sau suprarezervate.",
+    "q4": "Cât durează o cerere?",
+    "a4": "Depinde de companie: multe cazuri se rezolvă în câteva săptămâni, unele negocieri durează câteva luni. Te ținem la curent.",
+    "q5": "Cât de demult pot solicita?",
+    "a5": "În majoritatea țărilor UE poți solicita pentru zboruri din ultimii 2-3 ani, în funcție de legislația națională."
   }
 }

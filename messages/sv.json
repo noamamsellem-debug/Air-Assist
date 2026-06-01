@@ -188,5 +188,18 @@
     "rights": "Alla rättigheter förbehållna.",
     "legalLinks": "Juridisk information",
     "disclaimer": "Air Assist är en förmedlare; visade belopp är uppskattningar."
+  },
+  "faq": {
+    "faqTitle": "Vanliga frågor",
+    "q1": "Hur mycket kan jag kräva?",
+    "a1": "Beroende på flygsträckan ger förordning EG 261/2004 en fast ersättning på 250 €, 400 € eller 600 € per passagerare.",
+    "q2": "Vad kostar Air Assist?",
+    "a2": "Inget i förskott. Vi tar 30 % provision endast vid framgång — du behåller 70 %. Ingen vinst, ingen avgift.",
+    "q3": "Vilka flyg omfattas?",
+    "a3": "Flyg som avgår från en flygplats i EU, eller anländer till EU med ett EU-flygbolag, försenade 3+ timmar, inställda eller överbokade.",
+    "q4": "Hur lång tid tar ett anspråk?",
+    "a4": "Det beror på flygbolaget: många ärenden löses inom några veckor, vissa förhandlingar tar några månader. Vi håller dig informerad.",
+    "q5": "Hur långt tillbaka kan jag kräva?",
+    "a5": "I de flesta EU-länder kan du kräva för flyg från de senaste 2 till 3 åren, beroende på nationell lag."
   }
 }

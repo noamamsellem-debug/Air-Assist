@@ -188,5 +188,18 @@
     "rights": "Alle rechten voorbehouden.",
     "legalLinks": "Juridische informatie",
     "disclaimer": "Air Assist is een tussenpersoon; getoonde bedragen zijn schattingen."
+  },
+  "faq": {
+    "faqTitle": "Veelgestelde vragen",
+    "q1": "Hoeveel kan ik claimen?",
+    "a1": "Afhankelijk van de vluchtafstand voorziet verordening EG 261/2004 in een vaste compensatie van € 250, € 400 of € 600 per passagier.",
+    "q2": "Wat kost Air Assist?",
+    "a2": "Niets vooraf. We rekenen 30% commissie alleen bij succes — u houdt 70%. No cure, no pay.",
+    "q3": "Welke vluchten vallen eronder?",
+    "a3": "Vluchten die vertrekken vanaf een EU-luchthaven, of in de EU aankomen met een EU-maatschappij, met 3+ uur vertraging, geannuleerd of overboekt.",
+    "q4": "Hoelang duurt een claim?",
+    "a4": "Dat hangt af van de maatschappij: veel zaken worden binnen enkele weken afgehandeld, sommige onderhandelingen duren enkele maanden. We houden u op de hoogte.",
+    "q5": "Hoe ver terug kan ik claimen?",
+    "a5": "In de meeste EU-landen kunt u vluchten van de afgelopen 2 tot 3 jaar claimen, afhankelijk van de nationale wet."
   }
 }

@@ -188,5 +188,18 @@
     "rights": "Tutti i diritti riservati.",
     "legalLinks": "Informazioni legali",
     "disclaimer": "Air Assist è un intermediario; gli importi indicati sono stime."
+  },
+  "faq": {
+    "faqTitle": "Domande frequenti",
+    "q1": "Quanto posso richiedere?",
+    "a1": "A seconda della distanza del volo, il Regolamento CE 261/2004 prevede un risarcimento fisso di 250 €, 400 € o 600 € per passeggero.",
+    "q2": "Quanto costa Air Assist?",
+    "a2": "Niente in anticipo. Applichiamo una commissione del 30% solo in caso di successo — tu tieni il 70%. Nessun risultato, nessun costo.",
+    "q3": "Quali voli sono coperti?",
+    "a3": "Voli in partenza da un aeroporto dell'UE, o in arrivo nell'UE con una compagnia dell'UE, in ritardo di 3+ ore, cancellati o in overbooking.",
+    "q4": "Quanto tempo richiede una richiesta?",
+    "a4": "Dipende dalla compagnia: molti casi si risolvono in poche settimane, alcune trattative richiedono qualche mese. Ti teniamo informato.",
+    "q5": "Fino a quando posso richiedere?",
+    "a5": "Nella maggior parte dei paesi UE puoi richiedere per voli degli ultimi 2-3 anni, secondo la legge nazionale."
   }
 }
