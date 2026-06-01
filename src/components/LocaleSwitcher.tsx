@@ -14,6 +14,11 @@ const NOMS: Record<string, string> = {
   pt: "Português",
   nl: "Nederlands",
   pl: "Polski",
+  ro: "Română",
+  sv: "Svenska",
+  da: "Dansk",
+  fi: "Suomi",
+  no: "Norsk",
 };
 
 export function LocaleSwitcher() {
