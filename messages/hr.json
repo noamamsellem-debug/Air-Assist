@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Odšteta malo vjerojatna",
     "distance": "Procijenjena udaljenost: {km} km",
     "ctaStart": "Pokreni zahtjev besplatno",
-    "errorAirports": "Odaberite valjane zračne luke."
+    "errorAirports": "Odaberite valjane zračne luke.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Vaš zahtjev",

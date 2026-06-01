@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Entschädigung unwahrscheinlich",
     "distance": "Geschätzte Entfernung: {km} km",
     "ctaStart": "Anspruch kostenlos starten",
-    "errorAirports": "Bitte wählen Sie gültige Flughäfen aus."
+    "errorAirports": "Bitte wählen Sie gültige Flughäfen aus.",
+    "airline": "Fluggesellschaft",
+    "airlineChoose": "Fluggesellschaft auswählen"
   },
   "funnel": {
     "title": "Ihr Anspruch",

@@ -50,12 +50,9 @@ export function AirportAutocomplete({
   return (
     <div ref={ref} className="relative">
       <div className="relative">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-          ✈
-        </span>
         <input
           id={id}
-          className="input pl-9"
+          className="input pr-9"
           autoComplete="off"
           placeholder={placeholder ?? "Tapez une ville ou un code IATA"}
           value={requete}

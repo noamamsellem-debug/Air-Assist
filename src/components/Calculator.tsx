@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { AirportAutocomplete } from "@/components/AirportAutocomplete";
+import { COMPAGNIES_AERIENNES } from "@/data/compagnies-aeriennes";
+
+const COMPAGNIES_TRIEES = [...COMPAGNIES_AERIENNES].sort((a, b) => a.nom.localeCompare(b.nom));
 
 interface ResultatApi {
   eligible: boolean;
@@ -28,12 +31,15 @@ export function Calculator() {
   const router = useRouter();
 
   const [form, setForm] = useState({
-    numeroVol: "",
+    compagnie: "",
+    numVolNum: "",
     date: "",
     aeroportDepart: "",
     aeroportArrivee: "",
     motif: "RETARD",
   });
+  // N° de vol = préfixe IATA de la compagnie + partie numérique (ex. LH1024).
+  const numeroVol = form.compagnie ? `${form.compagnie}${form.numVolNum}` : "";
   const [retard, setRetard] = useState<RetardChoix | "">("");
   const [resultat, setResultat] = useState<ResultatApi | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -59,7 +65,7 @@ export function Calculator() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          numeroVol: form.numeroVol || "AA000",
+          numeroVol: numeroVol || "AA000",
           date: form.date,
           aeroportDepart: form.aeroportDepart,
           aeroportArrivee: form.aeroportArrivee,
@@ -83,7 +89,7 @@ export function Calculator() {
   function lancerReclamation() {
     if (!resultat) return;
     const q = new URLSearchParams({
-      numeroVol: form.numeroVol,
+      numeroVol,
       date: form.date,
       aeroportDepart: form.aeroportDepart,
       aeroportArrivee: form.aeroportArrivee,
@@ -98,9 +104,6 @@ export function Calculator() {
 
   return (
     <div className="card">
-      <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-brand-600">
-        ✦ {t("title")}
-      </p>
       <h2 className="mb-4 text-xl font-bold">{t("title")}</h2>
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
@@ -120,26 +123,50 @@ export function Calculator() {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div>
-            <label className="label" htmlFor="date">{t("date")}</label>
+        <div>
+          <label className="label" htmlFor="date">{t("date")}</label>
+          <input
+            id="date"
+            type="date"
+            className="input"
+            value={form.date}
+            onChange={(e) => setForm({ ...form, date: e.target.value })}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="label" htmlFor="airline">{t("airline")}</label>
+          <select
+            id="airline"
+            className="input"
+            value={form.compagnie}
+            onChange={(e) => setForm({ ...form, compagnie: e.target.value })}
+          >
+            <option value="">{t("airlineChoose")}</option>
+            {COMPAGNIES_TRIEES.map((c) => (
+              <option key={c.code} value={c.code}>
+                {c.nom} ({c.code})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="label" htmlFor="numVol">{t("flightNumber")}</label>
+          <div className="flex gap-2">
+            <span className="flex w-14 shrink-0 items-center justify-center rounded-lg border border-slate-300 bg-slate-50 font-mono text-sm font-semibold text-slate-500">
+              {form.compagnie || "—"}
+            </span>
             <input
-              id="date"
-              type="date"
-              className="input"
-              value={form.date}
-              onChange={(e) => setForm({ ...form, date: e.target.value })}
-              required
-            />
-          </div>
-          <div>
-            <label className="label" htmlFor="numeroVol">{t("flightNumber")}</label>
-            <input
-              id="numeroVol"
-              className="input"
-              placeholder={t("flightNumberPlaceholder")}
-              value={form.numeroVol}
-              onChange={(e) => setForm({ ...form, numeroVol: e.target.value })}
+              id="numVol"
+              inputMode="numeric"
+              maxLength={5}
+              className="input flex-1 disabled:bg-slate-50 disabled:text-slate-400"
+              placeholder="1234"
+              value={form.numVolNum}
+              onChange={(e) => setForm({ ...form, numVolNum: e.target.value.replace(/\D/g, "") })}
+              disabled={!form.compagnie}
             />
           </div>
         </div>

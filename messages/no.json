@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Kompensasjon lite sannsynlig",
     "distance": "Estimert avstand: {km} km",
     "ctaStart": "Start kravet ditt gratis",
-    "errorAirports": "Velg gyldige flyplasser."
+    "errorAirports": "Velg gyldige flyplasser.",
+    "airline": "Flyselskap",
+    "airlineChoose": "Velg et flyselskap"
   },
   "funnel": {
     "title": "Kravet ditt",

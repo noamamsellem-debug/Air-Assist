@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Odszkodowanie mało prawdopodobne",
     "distance": "Szacowana odległość: {km} km",
     "ctaStart": "Rozpocznij wniosek za darmo",
-    "errorAirports": "Wybierz prawidłowe lotniska."
+    "errorAirports": "Wybierz prawidłowe lotniska.",
+    "airline": "Linia lotnicza",
+    "airlineChoose": "Wybierz linię lotniczą"
   },
   "funnel": {
     "title": "Twój wniosek",

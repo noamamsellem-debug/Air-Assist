@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Korvaus epätodennäköinen",
     "distance": "Arvioitu etäisyys: {km} km",
     "ctaStart": "Aloita vaatimus ilmaiseksi",
-    "errorAirports": "Valitse kelvolliset lentoasemat."
+    "errorAirports": "Valitse kelvolliset lentoasemat.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Vaatimuksesi",

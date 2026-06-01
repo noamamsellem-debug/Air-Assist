@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Απίθανη αποζημίωση",
     "distance": "Εκτιμώμενη απόσταση: {km} km",
     "ctaStart": "Ξεκινήστε δωρεάν την αίτηση",
-    "errorAirports": "Επιλέξτε έγκυρα αεροδρόμια."
+    "errorAirports": "Επιλέξτε έγκυρα αεροδρόμια.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Η αίτησή σας",

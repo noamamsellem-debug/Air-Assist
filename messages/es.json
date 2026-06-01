@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Indemnización poco probable",
     "distance": "Distancia estimada: {km} km",
     "ctaStart": "Iniciar mi reclamación gratis",
-    "errorAirports": "Por favor, selecciona aeropuertos válidos."
+    "errorAirports": "Por favor, selecciona aeropuertos válidos.",
+    "airline": "Aerolínea",
+    "airlineChoose": "Selecciona una aerolínea"
   },
   "funnel": {
     "title": "Tu reclamación",

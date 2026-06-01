@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Kártérítés valószínűtlen",
     "distance": "Becsült távolság: {km} km",
     "ctaStart": "Igénylés indítása ingyen",
-    "errorAirports": "Válasszon érvényes repülőtereket."
+    "errorAirports": "Válasszon érvényes repülőtereket.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Az Ön igénye",

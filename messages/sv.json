@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Ersättning osannolik",
     "distance": "Uppskattat avstånd: {km} km",
     "ctaStart": "Starta ditt anspråk gratis",
-    "errorAirports": "Välj giltiga flygplatser."
+    "errorAirports": "Välj giltiga flygplatser.",
+    "airline": "Flygbolag",
+    "airlineChoose": "Välj ett flygbolag"
   },
   "funnel": {
     "title": "Ditt anspråk",

@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Risarcimento improbabile",
     "distance": "Distanza stimata: {km} km",
     "ctaStart": "Avvia gratis la richiesta",
-    "errorAirports": "Seleziona aeroporti validi."
+    "errorAirports": "Seleziona aeroporti validi.",
+    "airline": "Compagnia aerea",
+    "airlineChoose": "Seleziona una compagnia"
   },
   "funnel": {
     "title": "La tua richiesta",

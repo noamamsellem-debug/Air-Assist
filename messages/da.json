@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Kompensation usandsynlig",
     "distance": "Anslået afstand: {km} km",
     "ctaStart": "Start dit krav gratis",
-    "errorAirports": "Vælg gyldige lufthavne."
+    "errorAirports": "Vælg gyldige lufthavne.",
+    "airline": "Flyselskab",
+    "airlineChoose": "Vælg et flyselskab"
   },
   "funnel": {
     "title": "Dit krav",

@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Обезщетение малко вероятно",
     "distance": "Прогнозно разстояние: {km} km",
     "ctaStart": "Започнете искането безплатно",
-    "errorAirports": "Изберете валидни летища."
+    "errorAirports": "Изберете валидни летища.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Вашето искане",

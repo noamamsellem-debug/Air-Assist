@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Compensatie onwaarschijnlijk",
     "distance": "Geschatte afstand: {km} km",
     "ctaStart": "Start uw claim gratis",
-    "errorAirports": "Selecteer geldige luchthavens."
+    "errorAirports": "Selecteer geldige luchthavens.",
+    "airline": "Luchtvaartmaatschappij",
+    "airlineChoose": "Kies een maatschappij"
   },
   "funnel": {
     "title": "Uw claim",

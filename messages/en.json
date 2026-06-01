@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Compensation unlikely",
     "distance": "Estimated distance: {km} km",
     "ctaStart": "Start my claim for free",
-    "errorAirports": "Please select valid airports."
+    "errorAirports": "Please select valid airports.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Your claim",

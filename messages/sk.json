@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Odškodnenie nepravdepodobné",
     "distance": "Odhadovaná vzdialenosť: {km} km",
     "ctaStart": "Začať žiadosť zadarmo",
-    "errorAirports": "Vyberte platné letiská."
+    "errorAirports": "Vyberte platné letiská.",
+    "airline": "Airline",
+    "airlineChoose": "Select an airline"
   },
   "funnel": {
     "title": "Vaša žiadosť",

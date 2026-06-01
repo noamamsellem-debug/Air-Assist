@@ -54,7 +54,9 @@
     "resultNotEligibleTitle": "Despăgubire puțin probabilă",
     "distance": "Distanță estimată: {km} km",
     "ctaStart": "Începe cererea gratuit",
-    "errorAirports": "Selectează aeroporturi valide."
+    "errorAirports": "Selectează aeroporturi valide.",
+    "airline": "Companie aeriană",
+    "airlineChoose": "Selectează o companie"
   },
   "funnel": {
     "title": "Cererea ta",
