@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { Logo } from "./Logo";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
@@ -14,9 +15,8 @@ export function SiteHeader() {
         </div>
       </div>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="flex items-center gap-2 font-bold text-brand-700">
-          <span className="text-xl">✈️</span>
-          <span>{c("brand")}</span>
+        <Link href="/" aria-label="Air Assist — accueil">
+          <Logo />
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
           <Link href="/droits-passagers" className="hover:text-brand-600">
