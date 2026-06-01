@@ -3,6 +3,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
+import { SignaturePad } from "@/components/SignaturePad";
+
+interface Copassager {
+  prenom: string;
+  nom: string;
+  email: string;
+  mineur: boolean;
+}
 
 const VERSION_CGV = "2026-01-v1";
 
@@ -101,6 +109,8 @@ export function Funnel() {
   const [docBoarding, setDocBoarding] = useState<DocEtat>(docVide());
   const [docId, setDocId] = useState<DocEtat>(docVide());
   const [mandat, setMandat] = useState({ consentementRgpd: false, accepteCgv: false, signatureNom: "" });
+  const [copassagers, setCopassagers] = useState<Copassager[]>([]);
+  const [signature, setSignature] = useState<string | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
   const [envoi, setEnvoi] = useState(false);
   const [resultat, setResultat] = useState<{ reference: string; codeParrainage: string } | null>(null);
@@ -116,6 +126,12 @@ export function Funnel() {
     () => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(montantEstime),
     [locale, montantEstime],
   );
+  const totalFormate = new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(
+    montantEstime * (1 + copassagers.length),
+  );
+  function majCopassager(i: number, patch: Partial<Copassager>) {
+    setCopassagers((prev) => prev.map((p, j) => (j === i ? { ...p, ...patch } : p)));
+  }
 
   function contactValide() {
     return (
@@ -138,10 +154,11 @@ export function Funnel() {
 
   async function soumettre() {
     setErreur(null);
-    if (!mandat.consentementRgpd || !mandat.accepteCgv || mandat.signatureNom.trim().length < 2) {
+    if (!mandat.consentementRgpd || !mandat.accepteCgv || !signature) {
       setErreur(t("required"));
       return;
     }
+    const signatureNom = `${contact.prenom} ${contact.nom}`.trim() || "Signature";
     setEnvoi(true);
     try {
       const documents = [];
@@ -158,6 +175,16 @@ export function Funnel() {
           });
         }
       }
+      // Signature manuscrite stockée comme justificatif chiffré.
+      if (signature.includes(",")) {
+        documents.push({
+          type: "JUSTIFICATIF" as const,
+          nomFichier: "signature.png",
+          mimeType: "image/png",
+          contenuBase64: signature.split(",")[1]!,
+        });
+      }
+      const copassagersValides = copassagers.filter((p) => p.prenom.trim() && p.nom.trim());
       const res = await fetch("/api/reclamations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -178,9 +205,10 @@ export function Funnel() {
           sourceMarketing: extra.source,
           causePerturbation: extra.cause,
           ouAcheteBillet: extra.billet,
+          passagersSupplementaires: copassagersValides,
           consentementRgpd: true,
           accepteCgv: true,
-          signatureNom: mandat.signatureNom,
+          signatureNom,
           versionCgv: VERSION_CGV,
           documents,
         }),
@@ -397,8 +425,69 @@ export function Funnel() {
                 <label className="label">{t("pnr")}</label>
                 <input className="input uppercase" maxLength={6} value={contact.pnr} onChange={(e) => setContact({ ...contact, pnr: e.target.value })} />
                 <p className="mt-1 text-xs text-slate-500">{t("pnrHelp")}</p>
+                <details className="group mt-2 rounded-lg bg-slate-50 p-3">
+                  <summary className="flex cursor-pointer items-center gap-2 text-sm font-medium text-brand-700 marker:content-none">
+                    <span aria-hidden>❓</span> {t("pnrHelpTitle")}
+                  </summary>
+                  <p className="mt-2 text-xs text-slate-600">{t("pnrHelpLong")}</p>
+                </details>
               </div>
             </div>
+
+            {/* Co-passagers */}
+            <div className="mt-6">
+              <h3 className="font-semibold text-slate-800">{t("coTitle")}</h3>
+              <p className="mt-1 text-sm text-slate-500">{t("coIntro")}</p>
+              <div className="mt-3 space-y-4">
+                {copassagers.map((p, i) => (
+                  <div key={i} className="rounded-lg border border-slate-200 p-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">{t("coPassenger", { n: i + 2 })}</span>
+                      <button
+                        type="button"
+                        onClick={() => setCopassagers(copassagers.filter((_, j) => j !== i))}
+                        className="text-xs text-red-600 hover:underline"
+                      >
+                        {t("coRemove")}
+                      </button>
+                    </div>
+                    <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      <input className="input" placeholder={t("firstName")} value={p.prenom} onChange={(e) => majCopassager(i, { prenom: e.target.value })} />
+                      <input className="input" placeholder={t("lastName")} value={p.nom} onChange={(e) => majCopassager(i, { nom: e.target.value })} />
+                      <input type="email" className="input sm:col-span-2" placeholder={t("email")} value={p.email} onChange={(e) => majCopassager(i, { email: e.target.value })} />
+                    </div>
+                    <label className="mt-2 flex items-center gap-2 text-sm text-slate-600">
+                      <input type="checkbox" checked={p.mineur} onChange={(e) => majCopassager(i, { mineur: e.target.checked })} />
+                      {t("coMinor")}
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => setCopassagers([...copassagers, { prenom: "", nom: "", email: "", mineur: false }])}
+                className="mt-3 w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+              >
+                + {t("coAdd")}
+              </button>
+            </div>
+
+            {/* Indemnisation totale */}
+            {montantEstime > 0 && (
+              <div className="mt-4 rounded-xl bg-green-50 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-slate-600">{t("totalLabel")}</span>
+                  <span className="text-2xl font-extrabold text-green-700">{totalFormate}</span>
+                </div>
+                <div className="mt-1 flex items-center justify-between text-xs text-slate-500">
+                  <span>{t("perPassenger")}</span>
+                  <span>
+                    {montantFormate} × {1 + copassagers.length}
+                  </span>
+                </div>
+              </div>
+            )}
+
             <Nav onBack={() => setEtape(3)} onNext={() => setEtape(5)} nextDisabled={!contactValide()} t={t} />
           </div>
         )}
@@ -436,8 +525,8 @@ export function Funnel() {
               <span>{t("mandateAcceptCgv")}</span>
             </label>
             <div>
-              <label className="label">{t("mandateSignLabel")}</label>
-              <input className="input" value={mandat.signatureNom} onChange={(e) => setMandat({ ...mandat, signatureNom: e.target.value })} />
+              <label className="label">{t("signatureLabel")}</label>
+              <SignaturePad onChange={setSignature} clearLabel={t("signatureClear")} />
             </div>
             {erreur && <p className="rounded bg-red-50 p-2 text-sm text-red-700">{erreur}</p>}
             <div className="flex justify-between">

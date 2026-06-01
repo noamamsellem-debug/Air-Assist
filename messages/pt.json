@@ -56,7 +56,9 @@
     "ctaStart": "Iniciar a reclamação gratuitamente",
     "errorAirports": "Selecione aeroportos válidos.",
     "airline": "Companhia aérea",
-    "airlineChoose": "Selecione uma companhia"
+    "airlineChoose": "Selecione uma companhia",
+    "dateYesterday": "Ontem",
+    "dateToday": "Hoje"
   },
   "funnel": {
     "title": "A sua reclamação",
@@ -156,7 +158,19 @@
     "copied": "Copiado ✅",
     "referralTitle": "Ganhe 20 € ao recomendar os seus amigos",
     "referralText": "Partilhe o seu link pessoal: por cada reclamação bem-sucedida através do seu link, é recompensado.",
-    "helpNote": "Tem alguma questão? Contacte-nos quando quiser."
+    "helpNote": "Tem alguma questão? Contacte-nos quando quiser.",
+    "pnrHelpTitle": "Como encontrar o localizador?",
+    "pnrHelpLong": "O localizador (PNR) é um código único usado pela companhia para a sua reserva. Encontra-o no seu bilhete eletrónico ou em qualquer e-mail ou documento enviado pela companhia. Geralmente tem 6 caracteres, letras e/ou números (ex. DF87G2). Não inclua espaços.",
+    "signatureLabel": "Desenhe a sua assinatura com o dedo",
+    "signatureClear": "Limpar",
+    "coTitle": "Outros passageiros",
+    "coIntro": "Adicione os outros passageiros da mesma reserva — também podem ter direito a indemnização.",
+    "coAdd": "Adicionar outro passageiro",
+    "coRemove": "Remover",
+    "coMinor": "Esta pessoa tem menos de 18 anos",
+    "coPassenger": "Passageiro {n}",
+    "totalLabel": "Indemnização total",
+    "perPassenger": "Por passageiro"
   },
   "rights": {
     "title": "Os seus direitos em atrasos, cancelamentos e overbooking",

@@ -53,6 +53,18 @@ export const reclamationSchema = z.object({
   sourceMarketing: z.string().trim().max(60).optional().or(z.literal("")),
   causePerturbation: z.string().trim().max(60).optional().or(z.literal("")),
   ouAcheteBillet: z.string().trim().max(60).optional().or(z.literal("")),
+  // Co-passagers (chacun pouvant aussi prétendre à une indemnité)
+  passagersSupplementaires: z
+    .array(
+      z.object({
+        prenom: z.string().trim().min(1).max(100),
+        nom: z.string().trim().min(1).max(100),
+        email: z.string().trim().email().optional().or(z.literal("")),
+        mineur: z.boolean().optional(),
+      }),
+    )
+    .max(20)
+    .optional(),
   // Mandat / consentement
   consentementRgpd: z.literal(true),
   accepteCgv: z.literal(true),

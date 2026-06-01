@@ -166,6 +166,8 @@ model Dossier {
   ouAcheteBillet        String?  @map("ou_achete_billet")
   /// Code de parrainage propre au dossier (lien de partage « Gagnez 20 € »).
   codeParrainage        String?  @unique @map("code_parrainage")
+  /// Co-passagers saisis dans le tunnel : [{prenom, nom, email, mineur}].
+  passagersSupplementaires Json? @map("passagers_supplementaires")
 
   // Montants en EUR. montantEstime = sortie du moteur d'éligibilité.
   montantEstime Decimal  @map("montant_estime") @db.Decimal(10, 2)

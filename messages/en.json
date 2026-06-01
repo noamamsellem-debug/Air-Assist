@@ -56,7 +56,9 @@
     "ctaStart": "Start my claim for free",
     "errorAirports": "Please select valid airports.",
     "airline": "Airline",
-    "airlineChoose": "Select an airline"
+    "airlineChoose": "Select an airline",
+    "dateYesterday": "Yesterday",
+    "dateToday": "Today"
   },
   "funnel": {
     "title": "Your claim",
@@ -156,7 +158,19 @@
     "copied": "Copied ✅",
     "referralTitle": "Earn €20 by referring your friends",
     "referralText": "Share your personal link: for every successful claim made through your link, you get rewarded.",
-    "helpNote": "Have a question? Contact us anytime."
+    "helpNote": "Have a question? Contact us anytime.",
+    "pnrHelpTitle": "How do I find my booking reference?",
+    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
+    "signatureLabel": "Draw your signature with your finger",
+    "signatureClear": "Clear",
+    "coTitle": "Other passengers",
+    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
+    "coAdd": "Add another passenger",
+    "coRemove": "Remove",
+    "coMinor": "This person is under 18",
+    "coPassenger": "Passenger {n}",
+    "totalLabel": "Total compensation",
+    "perPassenger": "Per passenger"
   },
   "rights": {
     "title": "Your rights for delays, cancellations and overbooking",

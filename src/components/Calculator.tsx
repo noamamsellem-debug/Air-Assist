@@ -133,6 +133,30 @@ export function Calculator() {
             onChange={(e) => setForm({ ...form, date: e.target.value })}
             required
           />
+          <div className="mt-2 flex gap-2">
+            {[
+              { key: "dateYesterday", days: 1 },
+              { key: "dateToday", days: 0 },
+            ].map(({ key, days }) => {
+              const d = new Date();
+              d.setDate(d.getDate() - days);
+              const iso = d.toISOString().slice(0, 10);
+              return (
+                <button
+                  type="button"
+                  key={key}
+                  onClick={() => setForm({ ...form, date: iso })}
+                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                    form.date === iso
+                      ? "border-brand-500 bg-brand-50 text-brand-700"
+                      : "border-slate-300 text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  {t(key)}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <div>

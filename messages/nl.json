@@ -56,7 +56,9 @@
     "ctaStart": "Start uw claim gratis",
     "errorAirports": "Selecteer geldige luchthavens.",
     "airline": "Luchtvaartmaatschappij",
-    "airlineChoose": "Kies een maatschappij"
+    "airlineChoose": "Kies een maatschappij",
+    "dateYesterday": "Gisteren",
+    "dateToday": "Vandaag"
   },
   "funnel": {
     "title": "Uw claim",
@@ -156,7 +158,19 @@
     "copied": "Gekopieerd ✅",
     "referralTitle": "Verdien € 20 door uw vrienden aan te bevelen",
     "referralText": "Deel uw persoonlijke link: voor elke succesvolle claim via uw link wordt u beloond.",
-    "helpNote": "Heeft u een vraag? Neem altijd contact met ons op."
+    "helpNote": "Heeft u een vraag? Neem altijd contact met ons op.",
+    "pnrHelpTitle": "Hoe vind ik mijn boekingsreferentie?",
+    "pnrHelpLong": "De boekingsreferentie (PNR) is een unieke code die de maatschappij voor uw boeking gebruikt. U vindt deze op uw e-ticket of in elke e-mail of document van de maatschappij. Meestal 6 tekens, letters en/of cijfers (bijv. DF87G2). Voeg geen spaties toe.",
+    "signatureLabel": "Teken uw handtekening met uw vinger",
+    "signatureClear": "Wissen",
+    "coTitle": "Andere passagiers",
+    "coIntro": "Voeg de andere passagiers van dezelfde boeking toe — ook zij kunnen recht hebben op compensatie.",
+    "coAdd": "Nog een passagier toevoegen",
+    "coRemove": "Verwijderen",
+    "coMinor": "Deze persoon is jonger dan 18",
+    "coPassenger": "Passagier {n}",
+    "totalLabel": "Totale compensatie",
+    "perPassenger": "Per passagier"
   },
   "rights": {
     "title": "Uw rechten bij vertraging, annulering en overboeking",

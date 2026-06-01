@@ -56,7 +56,9 @@
     "ctaStart": "Start dit krav gratis",
     "errorAirports": "Vælg gyldige lufthavne.",
     "airline": "Flyselskab",
-    "airlineChoose": "Vælg et flyselskab"
+    "airlineChoose": "Vælg et flyselskab",
+    "dateYesterday": "Yesterday",
+    "dateToday": "Today"
   },
   "funnel": {
     "title": "Dit krav",
@@ -156,7 +158,19 @@
     "copied": "Kopieret ✅",
     "referralTitle": "Tjen 20 € ved at anbefale dine venner",
     "referralText": "Del dit personlige link: for hvert vellykket krav via dit link bliver du belønnet.",
-    "helpNote": "Har du et spørgsmål? Kontakt os når som helst."
+    "helpNote": "Har du et spørgsmål? Kontakt os når som helst.",
+    "pnrHelpTitle": "How do I find my booking reference?",
+    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
+    "signatureLabel": "Draw your signature with your finger",
+    "signatureClear": "Clear",
+    "coTitle": "Other passengers",
+    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
+    "coAdd": "Add another passenger",
+    "coRemove": "Remove",
+    "coMinor": "This person is under 18",
+    "coPassenger": "Passenger {n}",
+    "totalLabel": "Total compensation",
+    "perPassenger": "Per passenger"
   },
   "rights": {
     "title": "Dine rettigheder ved forsinkelser, aflysninger og overbooking",

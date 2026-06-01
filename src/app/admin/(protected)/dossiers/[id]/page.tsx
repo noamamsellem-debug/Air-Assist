@@ -104,6 +104,26 @@ export default async function DossierDetail({
                 </dd>
               </div>
             )}
+            {(() => {
+              const co = Array.isArray(d.passagersSupplementaires)
+                ? (d.passagersSupplementaires as { prenom?: string; nom?: string; email?: string; mineur?: boolean }[])
+                : [];
+              if (co.length === 0) return null;
+              return (
+                <div className="mt-3">
+                  <dt className="text-xs uppercase text-slate-400">Co-passagers ({co.length})</dt>
+                  <ul className="mt-1 space-y-1 text-sm text-slate-800">
+                    {co.map((p, i) => (
+                      <li key={i} className="rounded bg-slate-50 px-3 py-2">
+                        {p.prenom} {p.nom}
+                        {p.email ? ` · ${p.email}` : ""}
+                        {p.mineur ? " · mineur" : ""}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Documents */}

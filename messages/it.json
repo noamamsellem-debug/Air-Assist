@@ -56,7 +56,9 @@
     "ctaStart": "Avvia gratis la richiesta",
     "errorAirports": "Seleziona aeroporti validi.",
     "airline": "Compagnia aerea",
-    "airlineChoose": "Seleziona una compagnia"
+    "airlineChoose": "Seleziona una compagnia",
+    "dateYesterday": "Ieri",
+    "dateToday": "Oggi"
   },
   "funnel": {
     "title": "La tua richiesta",
@@ -156,7 +158,19 @@
     "copied": "Copiato ✅",
     "referralTitle": "Guadagna 20 € invitando i tuoi amici",
     "referralText": "Condividi il tuo link personale: per ogni richiesta andata a buon fine tramite il tuo link, ricevi una ricompensa.",
-    "helpNote": "Hai una domanda? Contattaci quando vuoi."
+    "helpNote": "Hai una domanda? Contattaci quando vuoi.",
+    "pnrHelpTitle": "Come trovare il codice di prenotazione?",
+    "pnrHelpLong": "Il codice di prenotazione (PNR) è un codice univoco usato dalla compagnia per la tua prenotazione. Lo trovi sul biglietto elettronico o in qualsiasi e-mail o documento inviato dalla compagnia. Di solito ha 6 caratteri, lettere e/o numeri (es. DF87G2). Non inserire spazi.",
+    "signatureLabel": "Disegna la tua firma con un dito",
+    "signatureClear": "Cancella",
+    "coTitle": "Altri passeggeri",
+    "coIntro": "Aggiungi gli altri passeggeri della stessa prenotazione — anche loro possono avere diritto al risarcimento.",
+    "coAdd": "Aggiungi un altro passeggero",
+    "coRemove": "Rimuovi",
+    "coMinor": "Questa persona ha meno di 18 anni",
+    "coPassenger": "Passeggero {n}",
+    "totalLabel": "Risarcimento totale",
+    "perPassenger": "Per passeggero"
   },
   "rights": {
     "title": "I tuoi diritti per ritardi, cancellazioni e overbooking",

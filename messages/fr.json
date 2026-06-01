@@ -56,7 +56,9 @@
     "ctaStart": "Lancer ma réclamation gratuitement",
     "errorAirports": "Veuillez sélectionner des aéroports valides.",
     "airline": "Compagnie aérienne",
-    "airlineChoose": "Sélectionnez une compagnie"
+    "airlineChoose": "Sélectionnez une compagnie",
+    "dateYesterday": "Hier",
+    "dateToday": "Aujourd'hui"
   },
   "funnel": {
     "title": "Votre réclamation",
@@ -156,7 +158,19 @@
     "copied": "Copié ✅",
     "referralTitle": "Gagnez 20 € en parrainant vos amis",
     "referralText": "Partagez votre lien personnalisé : pour chaque demande aboutie via votre lien, vous êtes récompensé(e).",
-    "helpNote": "Une question ? Contactez-nous à tout moment."
+    "helpNote": "Une question ? Contactez-nous à tout moment.",
+    "pnrHelpTitle": "Comment trouver le numéro de réservation ?",
+    "pnrHelpLong": "Le numéro de réservation (PNR) est un code unique utilisé par la compagnie pour votre réservation. Vous le trouverez sur votre billet électronique ou dans tout e-mail ou document que la compagnie vous a envoyé. Il comporte généralement 6 caractères, lettres et/ou chiffres (ex. DF87G2). N'insérez pas d'espace.",
+    "signatureLabel": "Dessinez votre signature avec un doigt",
+    "signatureClear": "Effacer",
+    "coTitle": "Autres passagers",
+    "coIntro": "Ajoutez les autres passagers de la même réservation — ils peuvent aussi être indemnisés.",
+    "coAdd": "Ajouter un autre passager",
+    "coRemove": "Retirer",
+    "coMinor": "Cette personne a moins de 18 ans",
+    "coPassenger": "Passager {n}",
+    "totalLabel": "Indemnisation totale",
+    "perPassenger": "Par passager"
   },
   "rights": {
     "title": "Vos droits en cas de retard, d'annulation ou de surbooking",

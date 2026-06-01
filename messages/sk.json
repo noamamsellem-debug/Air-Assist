@@ -56,7 +56,9 @@
     "ctaStart": "Začať žiadosť zadarmo",
     "errorAirports": "Vyberte platné letiská.",
     "airline": "Airline",
-    "airlineChoose": "Select an airline"
+    "airlineChoose": "Select an airline",
+    "dateYesterday": "Yesterday",
+    "dateToday": "Today"
   },
   "funnel": {
     "title": "Vaša žiadosť",
@@ -156,7 +158,19 @@
     "copied": "Skopírované ✅",
     "referralTitle": "Získajte 20 € odporúčaním svojim priateľom",
     "referralText": "Zdieľajte svoj osobný odkaz: za každú úspešnú žiadosť cez váš odkaz získate odmenu.",
-    "helpNote": "Máte otázku? Kontaktujte nás kedykoľvek."
+    "helpNote": "Máte otázku? Kontaktujte nás kedykoľvek.",
+    "pnrHelpTitle": "How do I find my booking reference?",
+    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
+    "signatureLabel": "Draw your signature with your finger",
+    "signatureClear": "Clear",
+    "coTitle": "Other passengers",
+    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
+    "coAdd": "Add another passenger",
+    "coRemove": "Remove",
+    "coMinor": "This person is under 18",
+    "coPassenger": "Passenger {n}",
+    "totalLabel": "Total compensation",
+    "perPassenger": "Per passenger"
   },
   "rights": {
     "title": "Vaše práva pri meškaniach, zrušeniach a prebukovaní",

@@ -56,7 +56,9 @@
     "ctaStart": "Ξεκινήστε δωρεάν την αίτηση",
     "errorAirports": "Επιλέξτε έγκυρα αεροδρόμια.",
     "airline": "Airline",
-    "airlineChoose": "Select an airline"
+    "airlineChoose": "Select an airline",
+    "dateYesterday": "Yesterday",
+    "dateToday": "Today"
   },
   "funnel": {
     "title": "Η αίτησή σας",
@@ -156,7 +158,19 @@
     "copied": "Αντιγράφηκε ✅",
     "referralTitle": "Κερδίστε 20 € προτείνοντάς μας στους φίλους σας",
     "referralText": "Μοιραστείτε τον προσωπικό σας σύνδεσμο: για κάθε επιτυχημένη αίτηση μέσω του συνδέσμου σας, ανταμείβεστε.",
-    "helpNote": "Έχετε ερώτηση; Επικοινωνήστε μαζί μας οποτεδήποτε."
+    "helpNote": "Έχετε ερώτηση; Επικοινωνήστε μαζί μας οποτεδήποτε.",
+    "pnrHelpTitle": "How do I find my booking reference?",
+    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
+    "signatureLabel": "Draw your signature with your finger",
+    "signatureClear": "Clear",
+    "coTitle": "Other passengers",
+    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
+    "coAdd": "Add another passenger",
+    "coRemove": "Remove",
+    "coMinor": "This person is under 18",
+    "coPassenger": "Passenger {n}",
+    "totalLabel": "Total compensation",
+    "perPassenger": "Per passenger"
   },
   "rights": {
     "title": "Τα δικαιώματά σας σε καθυστερήσεις, ακυρώσεις και υπεράριθμες κρατήσεις",

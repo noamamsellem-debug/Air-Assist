@@ -56,7 +56,9 @@
     "ctaStart": "Rozpocznij wniosek za darmo",
     "errorAirports": "Wybierz prawidłowe lotniska.",
     "airline": "Linia lotnicza",
-    "airlineChoose": "Wybierz linię lotniczą"
+    "airlineChoose": "Wybierz linię lotniczą",
+    "dateYesterday": "Wczoraj",
+    "dateToday": "Dziś"
   },
   "funnel": {
     "title": "Twój wniosek",
@@ -156,7 +158,19 @@
     "copied": "Skopiowano ✅",
     "referralTitle": "Zdobądź 20 €, polecając znajomym",
     "referralText": "Udostępnij swój osobisty link: za każdy udany wniosek złożony przez Twój link otrzymujesz nagrodę.",
-    "helpNote": "Masz pytanie? Skontaktuj się z nami w dowolnej chwili."
+    "helpNote": "Masz pytanie? Skontaktuj się z nami w dowolnej chwili.",
+    "pnrHelpTitle": "Jak znaleźć numer rezerwacji?",
+    "pnrHelpLong": "Numer rezerwacji (PNR) to unikalny kod używany przez linię do Twojej rezerwacji. Znajdziesz go na e-bilecie lub w każdym e-mailu albo dokumencie od linii. Zwykle ma 6 znaków, litery i/lub cyfry (np. DF87G2). Nie wstawiaj spacji.",
+    "signatureLabel": "Narysuj swój podpis palcem",
+    "signatureClear": "Wyczyść",
+    "coTitle": "Inni pasażerowie",
+    "coIntro": "Dodaj pozostałych pasażerów z tej samej rezerwacji — im również może przysługiwać odszkodowanie.",
+    "coAdd": "Dodaj kolejnego pasażera",
+    "coRemove": "Usuń",
+    "coMinor": "Ta osoba ma mniej niż 18 lat",
+    "coPassenger": "Pasażer {n}",
+    "totalLabel": "Łączne odszkodowanie",
+    "perPassenger": "Na pasażera"
   },
   "rights": {
     "title": "Twoje prawa przy opóźnieniach, odwołaniach i overbookingu",

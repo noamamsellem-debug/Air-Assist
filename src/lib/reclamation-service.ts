@@ -105,6 +105,10 @@ export async function creerReclamation(
         causePerturbation: input.causePerturbation || null,
         ouAcheteBillet: input.ouAcheteBillet || null,
         codeParrainage: genererCodeParrainage(),
+        passagersSupplementaires:
+          input.passagersSupplementaires && input.passagersSupplementaires.length
+            ? input.passagersSupplementaires
+            : undefined,
       },
     });
 

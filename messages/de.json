@@ -56,7 +56,9 @@
     "ctaStart": "Anspruch kostenlos starten",
     "errorAirports": "Bitte wählen Sie gültige Flughäfen aus.",
     "airline": "Fluggesellschaft",
-    "airlineChoose": "Fluggesellschaft auswählen"
+    "airlineChoose": "Fluggesellschaft auswählen",
+    "dateYesterday": "Gestern",
+    "dateToday": "Heute"
   },
   "funnel": {
     "title": "Ihr Anspruch",
@@ -156,7 +158,19 @@
     "copied": "Kopiert ✅",
     "referralTitle": "Verdienen Sie 20 €, indem Sie Freunde empfehlen",
     "referralText": "Teilen Sie Ihren persönlichen Link: Für jeden erfolgreichen Anspruch über Ihren Link werden Sie belohnt.",
-    "helpNote": "Eine Frage? Kontaktieren Sie uns jederzeit."
+    "helpNote": "Eine Frage? Kontaktieren Sie uns jederzeit.",
+    "pnrHelpTitle": "Wie finde ich die Buchungsnummer?",
+    "pnrHelpLong": "Die Buchungsnummer (PNR) ist ein eindeutiger Code, den die Airline für Ihre Buchung verwendet. Sie finden ihn auf Ihrem E-Ticket oder in jeder E-Mail bzw. jedem Dokument der Airline. Sie besteht meist aus 6 Zeichen, Buchstaben und/oder Zahlen (z. B. DF87G2). Keine Leerzeichen einfügen.",
+    "signatureLabel": "Zeichnen Sie Ihre Unterschrift mit dem Finger",
+    "signatureClear": "Löschen",
+    "coTitle": "Weitere Fluggäste",
+    "coIntro": "Fügen Sie die anderen Fluggäste derselben Buchung hinzu — auch sie können Anspruch haben.",
+    "coAdd": "Weiteren Fluggast hinzufügen",
+    "coRemove": "Entfernen",
+    "coMinor": "Diese Person ist unter 18",
+    "coPassenger": "Fluggast {n}",
+    "totalLabel": "Gesamtentschädigung",
+    "perPassenger": "Pro Fluggast"
   },
   "rights": {
     "title": "Ihre Rechte bei Verspätung, Annullierung und Überbuchung",
