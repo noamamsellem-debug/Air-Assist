@@ -66,9 +66,25 @@ enum StatutDossier {
 }
 
 enum TypeDocument {
+  // Valeurs historiques (conservées pour les dossiers existants).
   CARTE_EMBARQUEMENT
   JUSTIFICATIF
   CARTE_IDENTITE
+  // Nouvelles catégories (tunnel refondu).
+  PIECE_IDENTITE
+  JUSTIFICATIF_VOYAGE
+  JUSTIFICATIF_RETARD
+  AUTRE
+}
+
+/// Sous-type précis du document (selon la catégorie choisie dans le tunnel).
+enum SousTypeDocument {
+  CNI
+  PASSEPORT
+  PERMIS_CONDUIRE
+  CARTE_SEJOUR
+  CARTE_EMBARQUEMENT
+  CONFIRMATION_RESERVATION
 }
 
 enum AuteurHistorique {
@@ -95,11 +111,22 @@ enum RoleUtilisateur {
 
 model Passager {
   id        String    @id @default(cuid())
+  // Identité (renseignée par le tunnel ; nullable pour ne pas casser l'existant).
+  civilite      String?   // "M", "Mme", "Autre"
   nom       String
   prenom    String
+  dateNaissance DateTime? @map("date_naissance")
+  nationalite   String?
   email     String
   telephone String?
+  // Adresse historique (texte libre) — conservée.
   adresse   String?
+  // Adresse structurée (autocomplétion).
+  adresseLigne1      String? @map("adresse_ligne1")
+  adresseComplement  String? @map("adresse_complement")
+  codePostal         String? @map("code_postal")
+  ville              String?
+  pays               String?
   dossiers  Dossier[]
   creeLe    DateTime  @default(now()) @map("cree_le")
   majLe     DateTime  @updatedAt @map("maj_le")
@@ -224,6 +251,7 @@ model Document {
   dossierId String       @map("dossier_id")
   dossier   Dossier      @relation(fields: [dossierId], references: [id], onDelete: Cascade)
   type      TypeDocument
+  sousType  SousTypeDocument? @map("sous_type")
 
   nomFichier    String  @map("nom_fichier")
   mimeType      String  @map("mime_type")
