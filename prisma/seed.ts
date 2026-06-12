@@ -10,6 +10,7 @@ import { PrismaClient, MotifVol, ProcedureCompagnie, StatutDossier, AuteurHistor
 import bcrypt from "bcryptjs";
 import { repartirEuros } from "../src/domain/commission";
 import { genererReferenceDossier } from "../src/domain/reference";
+import { seedCompagnies, type ClientUpsertCompagnie } from "./seed-compagnies";
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,7 @@ function montantsDeriv(montantObtenu: number | null) {
   };
 }
 
-async function main() {
+async function seedDemo() {
   // Idempotence : en déploiement, le seed peut être lancé à chaque build.
   // S'il y a déjà des données, on n'écrase rien (sauf SEED_MODE=reset).
   const dejaSeede = (await prisma.compagnie.count()) > 0;
@@ -265,7 +266,15 @@ async function main() {
 
   const nbDossiers = await prisma.dossier.count();
   const nbCompagnies = await prisma.compagnie.count();
-  console.log(`✅ Seed terminé : ${nbCompagnies} compagnies, ${nbDossiers} dossiers.`);
+  console.log(`✅ Seed démo terminé : ${nbCompagnies} compagnies, ${nbDossiers} dossiers.`);
+}
+
+async function main() {
+  // Données de démo (guardées, une seule fois) puis catalogue compagnies (toujours, idempotent).
+  await seedDemo();
+  const n = await seedCompagnies(prisma as unknown as ClientUpsertCompagnie);
+  const total = await prisma.compagnie.count();
+  console.log(`✈️ Catalogue compagnies : ${n} lignes CSV traitées (${total} compagnies en base).`);
 }
 
 main()

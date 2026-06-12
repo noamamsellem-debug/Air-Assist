@@ -1,0 +1,100 @@
+iata,icao,name,country,region,type
+AF,AFR,Air France,France,EU,legacy
+KL,KLM,KLM Royal Dutch Airlines,Netherlands,EU,legacy
+LH,DLH,Lufthansa,Germany,EU,legacy
+LX,SWR,Swiss International Air Lines,Switzerland,CH,legacy
+OS,AUA,Austrian Airlines,Austria,EU,legacy
+SN,BEL,Brussels Airlines,Belgium,EU,legacy
+IB,IBE,Iberia,Spain,EU,legacy
+UX,AEA,Air Europa,Spain,EU,legacy
+AY,FIN,Finnair,Finland,EU,legacy
+AZ,ITY,ITA Airways,Italy,EU,legacy
+TP,TAP,TAP Air Portugal,Portugal,EU,legacy
+SK,SAS,SAS Scandinavian Airlines,Sweden,EU,legacy
+A3,AEE,Aegean Airlines,Greece,EU,legacy
+LO,LOT,LOT Polish Airlines,Poland,EU,legacy
+RO,ROT,Tarom,Romania,EU,legacy
+OU,CTN,Croatia Airlines,Croatia,EU,legacy
+FB,LZB,Bulgaria Air,Bulgaria,EU,legacy
+BT,BTI,airBaltic,Latvia,EU,legacy
+LG,LGL,Luxair,Luxembourg,EU,legacy
+KM,KMM,KM Malta Airlines,Malta,EU,legacy
+FI,ICE,Icelandair,Iceland,EU,legacy
+FR,RYR,Ryanair,Ireland,EU,lowcost
+RK,RUK,Ryanair UK,United Kingdom,UK,lowcost
+U2,EZY,easyJet,United Kingdom,UK,lowcost
+DS,EZS,easyJet Switzerland,Switzerland,CH,lowcost
+EC,EJU,easyJet Europe,Austria,EU,lowcost
+W6,WZZ,Wizz Air,Hungary,EU,lowcost
+W4,WMT,Wizz Air Malta,Malta,EU,lowcost
+W9,WUK,Wizz Air UK,United Kingdom,UK,lowcost
+VY,VLG,Vueling,Spain,EU,lowcost
+V7,VOE,Volotea,Spain,EU,lowcost
+I2,IBS,Iberia Express,Spain,EU,lowcost
+HV,TRA,Transavia,Netherlands,EU,lowcost
+TO,TVF,Transavia France,France,EU,lowcost
+DY,NAX,Norwegian Air Shuttle,Norway,EU,lowcost
+D8,IBK,Norwegian Air International,Ireland,EU,lowcost
+EW,EWG,Eurowings,Germany,EU,lowcost
+4Y,OCN,Discover Airlines,Germany,EU,lowcost
+PC,PGT,Pegasus Airlines,Turkey,EUR_OTHER,lowcost
+QS,TVS,Smartwings,Czech Republic,EU,lowcost
+LS,EXS,Jet2.com,United Kingdom,UK,lowcost
+N0,NBT,Norse Atlantic Airways,Norway,EU,lowcost
+WX,BCY,CityJet,Ireland,EU,regional
+YW,ANE,Air Nostrum,Spain,EU,regional
+WF,WIF,Wideroe,Norway,EU,regional
+LM,LOG,Loganair,United Kingdom,UK,regional
+NT,IBB,Binter Canarias,Spain,EU,regional
+T3,,Eastern Airways,United Kingdom,UK,regional
+VG,,Tarom regional / VLM,Belgium,EU,regional
+E4,ENT,Enter Air,Poland,EU,leisure
+BY,TOM,TUI Airways,United Kingdom,UK,leisure
+X3,TUI,TUI fly (Germany),Germany,EU,leisure
+OR,TFL,TUI fly Netherlands,Netherlands,EU,leisure
+TB,JAF,TUI fly Belgium,Belgium,EU,leisure
+6B,BLX,TUI fly Nordic,Sweden,EU,leisure
+BJ,NOV,Nouvelair,Tunisia,INTL,leisure
+AT,RAM,Royal Air Maroc,Morocco,INTL,legacy
+JU,ASL,Air Serbia,Serbia,EUR_OTHER,legacy
+TK,THY,Turkish Airlines,Turkey,EUR_OTHER,legacy
+PS,AUI,Ukraine International Airlines,Ukraine,EUR_OTHER,legacy
+B2,BRU,Belavia,Belarus,EUR_OTHER,legacy
+FZ,FDB,flydubai,United Arab Emirates,INTL,lowcost
+EK,UAE,Emirates,United Arab Emirates,INTL,legacy
+QR,QTR,Qatar Airways,Qatar,INTL,legacy
+EY,ETD,Etihad Airways,United Arab Emirates,INTL,legacy
+SV,SVA,Saudia,Saudi Arabia,INTL,legacy
+MS,MSR,EgyptAir,Egypt,INTL,legacy
+ET,ETH,Ethiopian Airlines,Ethiopia,INTL,legacy
+KQ,KQA,Kenya Airways,Kenya,INTL,legacy
+AA,AAL,American Airlines,United States,INTL,legacy
+UA,UAL,United Airlines,United States,INTL,legacy
+DL,DAL,Delta Air Lines,United States,INTL,legacy
+AC,ACA,Air Canada,Canada,INTL,legacy
+B6,JBU,JetBlue Airways,United States,INTL,lowcost
+SQ,SIA,Singapore Airlines,Singapore,INTL,legacy
+CX,CPA,Cathay Pacific,Hong Kong,INTL,legacy
+NH,ANA,All Nippon Airways,Japan,INTL,legacy
+JL,JAL,Japan Airlines,Japan,INTL,legacy
+CA,CCA,Air China,China,INTL,legacy
+MU,CES,China Eastern Airlines,China,INTL,legacy
+CZ,CSN,China Southern Airlines,China,INTL,legacy
+AI,AIC,Air India,India,INTL,legacy
+TG,THA,Thai Airways,Thailand,INTL,legacy
+QF,QFA,Qantas,Australia,INTL,legacy
+BR,EVA,EVA Air,Taiwan,INTL,legacy
+KE,KAL,Korean Air,South Korea,INTL,legacy
+OZ,AAR,Asiana Airlines,South Korea,INTL,legacy
+LA,LAN,LATAM Airlines,Chile,INTL,legacy
+AM,AMX,Aeromexico,Mexico,INTL,legacy
+AR,ARG,Aerolineas Argentinas,Argentina,INTL,legacy
+AV,AVA,Avianca,Colombia,INTL,legacy
+WB,RWD,RwandAir,Rwanda,INTL,legacy
+UL,ALK,SriLankan Airlines,Sri Lanka,INTL,legacy
+GF,GFA,Gulf Air,Bahrain,INTL,legacy
+KU,KAC,Kuwait Airways,Kuwait,INTL,legacy
+RJ,RJA,Royal Jordanian,Jordan,INTL,legacy
+ME,MEA,Middle East Airlines,Lebanon,INTL,legacy
+AH,DAH,Air Algerie,Algeria,INTL,legacy
+TU,TAR,Tunisair,Tunisia,INTL,legacy

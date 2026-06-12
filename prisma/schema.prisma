@@ -33,6 +33,23 @@ enum ProcedureCompagnie {
   FORMULAIRE
 }
 
+/// Zone géo/réglementaire de la compagnie (cf. CSV catalogue).
+enum RegionCompagnie {
+  EU
+  UK
+  CH
+  EUR_OTHER
+  INTL
+}
+
+/// Modèle économique de la compagnie (cf. CSV catalogue).
+enum TypeCompagnie {
+  legacy
+  lowcost
+  regional
+  leisure
+}
+
 /// Cycle de vie du dossier. Les transitions valides sont contrôlées par la
 /// machine à états (module 2). REFUSE et CONTENTIEUX sont des états annexes.
 enum StatutDossier {
@@ -120,7 +137,11 @@ model Compagnie {
   id                     String             @id @default(cuid())
   nom                    String
   codeIata               String             @unique @map("code_iata") // ex "AF"
-  procedure              ProcedureCompagnie
+  codeIcao               String?            @map("code_icao") // ex "AFR"
+  pays                   String?
+  region                 RegionCompagnie?
+  type                   TypeCompagnie?
+  procedure              ProcedureCompagnie?
   emailReclamation       String?            @map("email_reclamation")
   urlFormulaire          String?            @map("url_formulaire")
   delaiMoyenReponseJours Int?               @map("delai_moyen_reponse_jours")
