@@ -237,5 +237,11 @@
     "flight": "Lot",
     "estimated": "Szacowana kwota",
     "created": "Złożono"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Poradniki i wskazówki, aby zrozumieć swoje prawa pasażera lotniczego.",
+    "readMore": "Przeczytaj artykuł",
+    "back": "Powrót do bloga"
   }
 }

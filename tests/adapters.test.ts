@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { getSignatureAdapter, MockSignatureAdapter } from "@/adapters/esign";
 import { getEmailAdapter, MockEmailAdapter } from "@/adapters/email";
-import { getPspAdapter, MockPspAdapter } from "@/adapters/psp";
+import { getPspAdapter, MockPspAdapter, StripeConnectAdapter } from "@/adapters/psp";
 import { getFlightDataAdapter } from "@/adapters/flightdata";
 
 describe("sélection des adaptateurs via env", () => {
@@ -13,9 +13,16 @@ describe("sélection des adaptateurs via env", () => {
   });
 
   it("lève une erreur pour un provider non implémenté", () => {
-    expect(() => getPspAdapter({ PSP_PROVIDER: "stripe" })).toThrow(
+    expect(() => getPspAdapter({ PSP_PROVIDER: "inconnu" })).toThrow(
       /non implémenté/,
     );
+  });
+
+  it("sélectionne Stripe quand la clé est présente, sinon erreur explicite", () => {
+    expect(() => getPspAdapter({ PSP_PROVIDER: "stripe" })).toThrow(/STRIPE_SECRET_KEY/);
+    expect(
+      getPspAdapter({ PSP_PROVIDER: "stripe", STRIPE_SECRET_KEY: "sk_test_x" }),
+    ).toBeInstanceOf(StripeConnectAdapter);
   });
 });
 

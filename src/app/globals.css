@@ -29,3 +29,17 @@ body {
 .label {
   @apply mb-1 block text-sm font-medium text-slate-700;
 }
+
+/* Mise en forme du corps des articles de blog (HTML injecté) */
+.article-corps h2 {
+  @apply mt-7 text-xl font-semibold text-slate-900;
+}
+.article-corps p {
+  @apply mt-3 leading-relaxed text-slate-700;
+}
+.article-corps ul {
+  @apply mt-3 list-disc space-y-1 pl-6 text-slate-700;
+}
+.article-corps strong {
+  @apply font-semibold text-slate-900;
+}

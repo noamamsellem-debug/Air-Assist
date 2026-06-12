@@ -72,12 +72,92 @@ export class MockPspAdapter implements AdaptateurPsp {
   }
 }
 
+/**
+ * Adaptateur Stripe Connect réel — appels directs à l'API REST Stripe
+ * (aucune dépendance npm à installer). Activé via PSP_PROVIDER="stripe" et
+ * STRIPE_SECRET_KEY. Modèle : compte connecté Express par bénéficiaire
+ * (KYC géré par Stripe, IBAN jamais vu côté Air Assist) ; reversement des
+ * 70 % via un Transfer vers le compte connecté.
+ */
+interface StripeReponse {
+  id?: string;
+  payouts_enabled?: boolean;
+  requirements?: { disabled_reason?: string | null };
+  error?: { message?: string };
+}
+
+export class StripeConnectAdapter implements AdaptateurPsp {
+  readonly nom = "stripe";
+  constructor(private readonly cleSecrete: string) {}
+
+  private async appel(
+    methode: "GET" | "POST",
+    chemin: string,
+    params?: Record<string, string>,
+  ): Promise<StripeReponse> {
+    const res = await fetch(`https://api.stripe.com/v1${chemin}`, {
+      method: methode,
+      headers: {
+        Authorization: `Bearer ${this.cleSecrete}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: params ? new URLSearchParams(params).toString() : undefined,
+    });
+    const data = (await res.json()) as StripeReponse;
+    if (!res.ok) {
+      throw new Error(`Stripe ${chemin} : ${data.error?.message ?? res.status}`);
+    }
+    return data;
+  }
+
+  async tokeniserBeneficiaire(d: DemandeTokenisation): Promise<ResultatTokenisation> {
+    const compte = await this.appel("POST", "/accounts", {
+      type: "express",
+      email: d.beneficiaireEmail,
+      "capabilities[transfers][requested]": "true",
+      business_type: "individual",
+      "metadata[dossier]": d.dossierReference,
+      "metadata[beneficiaire]": d.beneficiaireNom,
+    });
+    return { provider: "stripe", tokenPsp: compte.id ?? "", statutKyc: "EN_COURS" };
+  }
+
+  async statutKyc(tokenPsp: string): Promise<ResultatTokenisation["statutKyc"]> {
+    const compte = await this.appel("GET", `/accounts/${tokenPsp}`);
+    if (compte.payouts_enabled) return "VALIDE";
+    if (compte.requirements?.disabled_reason) return "REFUSE";
+    return "EN_COURS";
+  }
+
+  async reverser(d: DemandeReversement): Promise<ResultatReversement> {
+    if (d.montantCents <= 0) throw new Error("Montant de reversement invalide.");
+    const transfert = await this.appel("POST", "/transfers", {
+      amount: String(d.montantCents),
+      currency: "eur",
+      destination: d.tokenPsp,
+      "metadata[dossier]": d.dossierReference,
+    });
+    return {
+      provider: "stripe",
+      transfertId: transfert.id ?? "",
+      montantCents: d.montantCents,
+      date: new Date().toISOString(),
+    };
+  }
+}
+
 export function getPspAdapter(env: Record<string, string | undefined> = process.env): AdaptateurPsp {
   const provider = (env.PSP_PROVIDER ?? "mock").toLowerCase();
   switch (provider) {
     case "mock":
       return new MockPspAdapter();
-    // case "stripe": return new StripeConnectAdapter(env.PSP_API_KEY!);
+    case "stripe": {
+      const cle = env.STRIPE_SECRET_KEY;
+      if (!cle) {
+        throw new Error('PSP_PROVIDER="stripe" mais STRIPE_SECRET_KEY est absente.');
+      }
+      return new StripeConnectAdapter(cle);
+    }
     default:
       throw new Error(
         `PSP_PROVIDER="${provider}" non implémenté. Branchez l'adaptateur réel ou utilisez "mock".`,

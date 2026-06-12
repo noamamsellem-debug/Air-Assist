@@ -6,6 +6,7 @@ import { Logo } from "./Logo";
 export function SiteHeader() {
   const t = useTranslations("nav");
   const c = useTranslations("common");
+  const b = useTranslations("blog");
   return (
     <header className="border-b border-slate-200 bg-white">
       <div className="bg-brand-50 text-brand-800">
@@ -27,6 +28,9 @@ export function SiteHeader() {
           </Link>
           <Link href="/#comment-ca-marche" className="hover:text-brand-600">
             {t("howItWorks")}
+          </Link>
+          <Link href="/blog" className="hover:text-brand-600">
+            {b("title")}
           </Link>
         </nav>
         <div className="flex items-center gap-3">

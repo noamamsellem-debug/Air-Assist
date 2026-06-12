@@ -237,5 +237,11 @@
     "flight": "Vol",
     "estimated": "Montant estimé",
     "created": "Déposé le"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Guides et conseils pour comprendre vos droits de passager aérien.",
+    "readMore": "Lire l'article",
+    "back": "Retour au blog"
   }
 }

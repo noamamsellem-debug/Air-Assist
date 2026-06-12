@@ -237,5 +237,11 @@
     "flight": "Flight",
     "estimated": "Estimated amount",
     "created": "Submitted on"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Guides and tips to understand your air passenger rights.",
+    "readMore": "Read the article",
+    "back": "Back to the blog"
   }
 }

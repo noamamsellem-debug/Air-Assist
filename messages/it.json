@@ -237,5 +237,11 @@
     "flight": "Volo",
     "estimated": "Importo stimato",
     "created": "Inviata il"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Guide e consigli per capire i tuoi diritti di passeggero aereo.",
+    "readMore": "Leggi l'articolo",
+    "back": "Torna al blog"
   }
 }

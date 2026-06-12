@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { AEROPORTS } from "@/data/aeroports";
 import { COMPAGNIES_SEO } from "@/data/compagnies";
+import { ARTICLES } from "@/data/articles";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -11,6 +12,7 @@ const PAGES_STATIQUES = [
   "/bareme",
   "/reclamation",
   "/suivi",
+  "/blog",
   "/mentions-legales",
   "/confidentialite",
   "/cgv",
@@ -51,6 +53,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly",
         priority: 0.5,
         alternates: alternates(`/aeroports/${iata}`),
+      });
+    }
+    for (const a of ARTICLES) {
+      entries.push({
+        url: `${SITE_URL}/${locale}/blog/${a.slug}`,
+        lastModified: new Date(a.date),
+        changeFrequency: "monthly",
+        priority: 0.6,
+        alternates: alternates(`/blog/${a.slug}`),
       });
     }
   }

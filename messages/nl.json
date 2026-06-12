@@ -237,5 +237,11 @@
     "flight": "Vlucht",
     "estimated": "Geschat bedrag",
     "created": "Ingediend op"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Gidsen en tips om uw rechten als luchtreiziger te begrijpen.",
+    "readMore": "Lees het artikel",
+    "back": "Terug naar de blog"
   }
 }

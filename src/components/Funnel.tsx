@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { SignaturePad } from "@/components/SignaturePad";
@@ -114,12 +114,7 @@ export function Funnel() {
   const [erreur, setErreur] = useState<string | null>(null);
   const [envoi, setEnvoi] = useState(false);
   const [resultat, setResultat] = useState<{ reference: string; codeParrainage: string } | null>(null);
-  const [copie, setCopie] = useState<"track" | "ref" | null>(null);
-  const [origin, setOrigin] = useState("");
-
-  useEffect(() => {
-    setOrigin(window.location.origin);
-  }, []);
+  const [copie, setCopie] = useState<"track" | null>(null);
 
   const TOTAL = 6;
   const montantFormate = useMemo(
@@ -142,7 +137,7 @@ export function Funnel() {
     );
   }
 
-  async function copier(texte: string, quoi: "track" | "ref") {
+  async function copier(texte: string, quoi: "track") {
     try {
       await navigator.clipboard.writeText(texte);
       setCopie(quoi);
@@ -230,7 +225,6 @@ export function Funnel() {
 
   // ── Écran de confirmation ───────────────────────────────────────────────
   if (etape === 7 && resultat) {
-    const lienParrainage = `${origin}/?ref=${resultat.codeParrainage}`;
     const etapesSuivantes = [
       { icon: "🔎", titre: t("next1Title"), texte: t("next1Text") },
       { icon: "📄", titre: t("next2Title"), texte: t("next2Text") },
@@ -264,17 +258,6 @@ export function Funnel() {
             <span className="flex-1 truncate px-3 py-2 font-mono text-sm">{resultat.reference}</span>
             <button onClick={() => copier(resultat.reference, "track")} className="bg-brand-500 px-4 text-sm font-semibold text-white hover:bg-brand-600">
               {copie === "track" ? t("copied") : t("copy")}
-            </button>
-          </div>
-        </section>
-
-        <section className="mt-6 rounded-2xl bg-brand-50 p-5">
-          <h3 className="text-lg font-bold text-slate-900">{t("referralTitle")}</h3>
-          <p className="mt-1 text-sm text-slate-600">{t("referralText")}</p>
-          <div className="mt-3 flex items-stretch overflow-hidden rounded-lg border border-slate-300 bg-white">
-            <span className="flex-1 truncate px-3 py-2 text-sm text-slate-600">{lienParrainage}</span>
-            <button onClick={() => copier(lienParrainage, "ref")} className="bg-brand-500 px-4 text-sm font-semibold text-white hover:bg-brand-600">
-              {copie === "ref" ? t("copied") : t("copy")}
             </button>
           </div>
         </section>

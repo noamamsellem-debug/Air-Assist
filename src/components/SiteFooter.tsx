@@ -6,6 +6,7 @@ export function SiteFooter() {
   const n = useTranslations("nav");
   const c = useTranslations("common");
   const s = useTranslations("suivi");
+  const b = useTranslations("blog");
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-slate-200 bg-white">
@@ -25,6 +26,9 @@ export function SiteFooter() {
           </Link>
           <Link href="/suivi" className="hover:text-brand-600">
             {s("title")}
+          </Link>
+          <Link href="/blog" className="hover:text-brand-600">
+            {b("title")}
           </Link>
         </div>
         <p className="mt-4">{t("disclaimer")}</p>

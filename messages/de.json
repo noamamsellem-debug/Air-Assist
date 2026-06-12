@@ -237,5 +237,11 @@
     "flight": "Flug",
     "estimated": "Geschätzter Betrag",
     "created": "Eingereicht am"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Ratgeber und Tipps, um Ihre Fluggastrechte zu verstehen.",
+    "readMore": "Artikel lesen",
+    "back": "Zurück zum Blog"
   }
 }
