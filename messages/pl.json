@@ -243,5 +243,17 @@
     "intro": "Poradniki i wskazówki, aby zrozumieć swoje prawa pasażera lotniczego.",
     "readMore": "Przeczytaj artykuł",
     "back": "Powrót do bloga"
+  },
+  "address": {
+    "search": "Search an address",
+    "searchPlaceholder": "Start typing your address…",
+    "line1": "Address",
+    "complement": "Address line 2 (optional)",
+    "postcode": "Postcode",
+    "city": "City",
+    "country": "Country",
+    "loading": "Searching…",
+    "error": "Search unavailable — please enter your address manually.",
+    "noResults": "No address found — please enter it manually."
   }
 }

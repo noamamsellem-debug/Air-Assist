@@ -243,5 +243,17 @@
     "intro": "Guías y consejos para entender tus derechos como pasajero aéreo.",
     "readMore": "Leer el artículo",
     "back": "Volver al blog"
+  },
+  "address": {
+    "search": "Buscar una dirección",
+    "searchPlaceholder": "Empieza a escribir tu dirección…",
+    "line1": "Dirección",
+    "complement": "Complemento (opcional)",
+    "postcode": "Código postal",
+    "city": "Ciudad",
+    "country": "País",
+    "loading": "Buscando…",
+    "error": "Búsqueda no disponible — introduce tu dirección manualmente.",
+    "noResults": "No se encontró ninguna dirección — introdúcela manualmente."
   }
 }

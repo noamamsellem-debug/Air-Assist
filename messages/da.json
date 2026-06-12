@@ -243,5 +243,17 @@
     "intro": "Guider og tips til at forstå dine rettigheder som flypassager.",
     "readMore": "Læs artiklen",
     "back": "Tilbage til bloggen"
+  },
+  "address": {
+    "search": "Search an address",
+    "searchPlaceholder": "Start typing your address…",
+    "line1": "Address",
+    "complement": "Address line 2 (optional)",
+    "postcode": "Postcode",
+    "city": "City",
+    "country": "Country",
+    "loading": "Searching…",
+    "error": "Search unavailable — please enter your address manually.",
+    "noResults": "No address found — please enter it manually."
   }
 }

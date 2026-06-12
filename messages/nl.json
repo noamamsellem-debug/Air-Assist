@@ -243,5 +243,17 @@
     "intro": "Gidsen en tips om uw rechten als luchtreiziger te begrijpen.",
     "readMore": "Lees het artikel",
     "back": "Terug naar de blog"
+  },
+  "address": {
+    "search": "Search an address",
+    "searchPlaceholder": "Start typing your address…",
+    "line1": "Address",
+    "complement": "Address line 2 (optional)",
+    "postcode": "Postcode",
+    "city": "City",
+    "country": "Country",
+    "loading": "Searching…",
+    "error": "Search unavailable — please enter your address manually.",
+    "noResults": "No address found — please enter it manually."
   }
 }

@@ -243,5 +243,17 @@
     "intro": "Guide e consigli per capire i tuoi diritti di passeggero aereo.",
     "readMore": "Leggi l'articolo",
     "back": "Torna al blog"
+  },
+  "address": {
+    "search": "Search an address",
+    "searchPlaceholder": "Start typing your address…",
+    "line1": "Address",
+    "complement": "Address line 2 (optional)",
+    "postcode": "Postcode",
+    "city": "City",
+    "country": "Country",
+    "loading": "Searching…",
+    "error": "Search unavailable — please enter your address manually.",
+    "noResults": "No address found — please enter it manually."
   }
 }

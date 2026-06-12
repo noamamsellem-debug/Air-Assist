@@ -243,5 +243,17 @@
     "intro": "Guides et conseils pour comprendre vos droits de passager aérien.",
     "readMore": "Lire l'article",
     "back": "Retour au blog"
+  },
+  "address": {
+    "search": "Rechercher une adresse",
+    "searchPlaceholder": "Commencez à taper votre adresse…",
+    "line1": "Adresse",
+    "complement": "Complément (optionnel)",
+    "postcode": "Code postal",
+    "city": "Ville",
+    "country": "Pays",
+    "loading": "Recherche…",
+    "error": "Recherche indisponible — saisissez votre adresse manuellement.",
+    "noResults": "Aucune adresse trouvée — saisissez-la manuellement."
   }
 }

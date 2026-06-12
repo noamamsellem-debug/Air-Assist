@@ -243,5 +243,17 @@
     "intro": "Guides and tips to understand your air passenger rights.",
     "readMore": "Read the article",
     "back": "Back to the blog"
+  },
+  "address": {
+    "search": "Search an address",
+    "searchPlaceholder": "Start typing your address…",
+    "line1": "Address",
+    "complement": "Address line 2 (optional)",
+    "postcode": "Postcode",
+    "city": "City",
+    "country": "Country",
+    "loading": "Searching…",
+    "error": "Search unavailable — please enter your address manually.",
+    "noResults": "No address found — please enter it manually."
   }
 }
