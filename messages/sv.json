@@ -57,8 +57,8 @@
     "errorAirports": "Välj giltiga flygplatser.",
     "airline": "Flygbolag",
     "airlineChoose": "Välj ett flygbolag",
-    "dateYesterday": "Yesterday",
-    "dateToday": "Today"
+    "dateYesterday": "Igår",
+    "dateToday": "Idag"
   },
   "funnel": {
     "title": "Ditt anspråk",
@@ -159,19 +159,19 @@
     "referralTitle": "Tjäna 20 € genom att rekommendera dina vänner",
     "referralText": "Dela din personliga länk: för varje lyckat anspråk via din länk blir du belönad.",
     "helpNote": "Har du en fråga? Kontakta oss när som helst.",
-    "pnrHelpTitle": "How do I find my booking reference?",
-    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
-    "signatureLabel": "Draw your signature with your finger",
-    "signatureClear": "Clear",
-    "coTitle": "Other passengers",
-    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
-    "coAdd": "Add another passenger",
-    "coRemove": "Remove",
-    "coMinor": "This person is under 18",
-    "coPassenger": "Passenger {n}",
-    "totalLabel": "Total compensation",
-    "perPassenger": "Per passenger",
-    "docRequired": "Required"
+    "pnrHelpTitle": "Hur hittar jag min bokningsreferens?",
+    "pnrHelpLong": "Bokningsreferensen (PNR) är en unik kod som flygbolaget använder för din bokning. Du hittar den på din e-biljett eller i e-postmeddelanden och dokument från flygbolaget. Den har oftast 6 tecken, bokstäver och/eller siffror (t.ex. DF87G2). Skriv inte mellanslag.",
+    "signatureLabel": "Rita din signatur med fingret",
+    "signatureClear": "Rensa",
+    "coTitle": "Andra passagerare",
+    "coIntro": "Lägg till de andra passagerarna på samma bokning — även de kan ha rätt till ersättning.",
+    "coAdd": "Lägg till en passagerare",
+    "coRemove": "Ta bort",
+    "coMinor": "Denna person är under 18",
+    "coPassenger": "Passagerare {n}",
+    "totalLabel": "Total ersättning",
+    "perPassenger": "Per passagerare",
+    "docRequired": "Obligatoriskt"
   },
   "rights": {
     "title": "Dina rättigheter vid förseningar, inställda flyg och överbokning",
@@ -220,28 +220,28 @@
     "a5": "I de flesta EU-länder kan du kräva för flyg från de senaste 2 till 3 åren, beroende på nationell lag."
   },
   "cookie": {
-    "text": "We use cookies to improve your experience. By continuing, you accept our use of cookies.",
-    "accept": "Accept",
-    "refuse": "Refuse",
-    "more": "Learn more"
+    "text": "Vi använder cookies för att förbättra din upplevelse. Genom att fortsätta accepterar du vår användning av cookies.",
+    "accept": "Acceptera",
+    "refuse": "Neka",
+    "more": "Läs mer"
   },
   "suivi": {
-    "title": "Track your claim",
-    "intro": "Enter your case number and email to see the status of your claim.",
-    "reference": "Case number",
-    "email": "Email",
-    "submit": "Track my claim",
-    "notFound": "No claim found for this case number and email.",
-    "statusLabel": "Current status",
-    "ref": "Case number",
-    "flight": "Flight",
-    "estimated": "Estimated amount",
-    "created": "Submitted on"
+    "title": "Följ ditt ärende",
+    "intro": "Ange ditt ärendenummer och e-post för att se status på ditt anspråk.",
+    "reference": "Ärendenummer",
+    "email": "E-post",
+    "submit": "Följ mitt ärende",
+    "notFound": "Inget ärende hittades för detta nummer och e-post.",
+    "statusLabel": "Aktuell status",
+    "ref": "Ärendenummer",
+    "flight": "Flyg",
+    "estimated": "Uppskattat belopp",
+    "created": "Inskickat den"
   },
   "blog": {
-    "title": "Blog",
-    "intro": "Guides and tips to understand your air passenger rights.",
-    "readMore": "Read the article",
-    "back": "Back to the blog"
+    "title": "Blogg",
+    "intro": "Guider och tips för att förstå dina rättigheter som flygpassagerare.",
+    "readMore": "Läs artikeln",
+    "back": "Tillbaka till bloggen"
   }
 }

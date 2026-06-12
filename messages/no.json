@@ -57,8 +57,8 @@
     "errorAirports": "Velg gyldige flyplasser.",
     "airline": "Flyselskap",
     "airlineChoose": "Velg et flyselskap",
-    "dateYesterday": "Yesterday",
-    "dateToday": "Today"
+    "dateYesterday": "I går",
+    "dateToday": "I dag"
   },
   "funnel": {
     "title": "Kravet ditt",
@@ -159,19 +159,19 @@
     "referralTitle": "Tjen 20 € ved å anbefale vennene dine",
     "referralText": "Del din personlige lenke: for hvert vellykket krav via lenken din blir du belønnet.",
     "helpNote": "Har du et spørsmål? Kontakt oss når som helst.",
-    "pnrHelpTitle": "How do I find my booking reference?",
-    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
-    "signatureLabel": "Draw your signature with your finger",
-    "signatureClear": "Clear",
-    "coTitle": "Other passengers",
-    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
-    "coAdd": "Add another passenger",
-    "coRemove": "Remove",
-    "coMinor": "This person is under 18",
-    "coPassenger": "Passenger {n}",
-    "totalLabel": "Total compensation",
-    "perPassenger": "Per passenger",
-    "docRequired": "Required"
+    "pnrHelpTitle": "Hvordan finner jeg bookingreferansen?",
+    "pnrHelpLong": "Bookingreferansen (PNR) er en unik kode som flyselskapet bruker for bookingen din. Du finner den på e-billetten eller i enhver e-post eller dokument fra flyselskapet. Den har vanligvis 6 tegn, bokstaver og/eller tall (f.eks. DF87G2). Ikke sett inn mellomrom.",
+    "signatureLabel": "Tegn signaturen din med fingeren",
+    "signatureClear": "Tøm",
+    "coTitle": "Andre passasjerer",
+    "coIntro": "Legg til de andre passasjerene på samme booking — også de kan ha rett til kompensasjon.",
+    "coAdd": "Legg til en passasjer",
+    "coRemove": "Fjern",
+    "coMinor": "Denne personen er under 18",
+    "coPassenger": "Passasjer {n}",
+    "totalLabel": "Total kompensasjon",
+    "perPassenger": "Per passasjer",
+    "docRequired": "Påkrevd"
   },
   "rights": {
     "title": "Dine rettigheter ved forsinkelser, kanselleringer og overbooking",
@@ -220,28 +220,28 @@
     "a5": "I de fleste EU-land kan du kreve for fly fra de siste 2 til 3 årene, avhengig av nasjonal lov."
   },
   "cookie": {
-    "text": "We use cookies to improve your experience. By continuing, you accept our use of cookies.",
-    "accept": "Accept",
-    "refuse": "Refuse",
-    "more": "Learn more"
+    "text": "Vi bruker informasjonskapsler for å forbedre opplevelsen din. Ved å fortsette godtar du vår bruk av informasjonskapsler.",
+    "accept": "Godta",
+    "refuse": "Avslå",
+    "more": "Les mer"
   },
   "suivi": {
-    "title": "Track your claim",
-    "intro": "Enter your case number and email to see the status of your claim.",
-    "reference": "Case number",
-    "email": "Email",
-    "submit": "Track my claim",
-    "notFound": "No claim found for this case number and email.",
-    "statusLabel": "Current status",
-    "ref": "Case number",
-    "flight": "Flight",
-    "estimated": "Estimated amount",
-    "created": "Submitted on"
+    "title": "Følg saken din",
+    "intro": "Skriv inn saksnummer og e-post for å se statusen på kravet ditt.",
+    "reference": "Saksnummer",
+    "email": "E-post",
+    "submit": "Følg saken min",
+    "notFound": "Ingen sak funnet for dette nummeret og e-posten.",
+    "statusLabel": "Gjeldende status",
+    "ref": "Saksnummer",
+    "flight": "Fly",
+    "estimated": "Estimert beløp",
+    "created": "Sendt inn"
   },
   "blog": {
-    "title": "Blog",
-    "intro": "Guides and tips to understand your air passenger rights.",
-    "readMore": "Read the article",
-    "back": "Back to the blog"
+    "title": "Blogg",
+    "intro": "Guider og tips for å forstå rettighetene dine som flypassasjer.",
+    "readMore": "Les artikkelen",
+    "back": "Tilbake til bloggen"
   }
 }

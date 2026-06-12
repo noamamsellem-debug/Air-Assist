@@ -57,8 +57,8 @@
     "errorAirports": "Selectează aeroporturi valide.",
     "airline": "Companie aeriană",
     "airlineChoose": "Selectează o companie",
-    "dateYesterday": "Yesterday",
-    "dateToday": "Today"
+    "dateYesterday": "Ieri",
+    "dateToday": "Astăzi"
   },
   "funnel": {
     "title": "Cererea ta",
@@ -159,19 +159,19 @@
     "referralTitle": "Câștigă 20 € recomandându-ne prietenilor",
     "referralText": "Distribuie linkul tău personal: pentru fiecare cerere reușită prin linkul tău, ești recompensat.",
     "helpNote": "Ai o întrebare? Contactează-ne oricând.",
-    "pnrHelpTitle": "How do I find my booking reference?",
-    "pnrHelpLong": "Your booking reference (PNR) is a unique code the airline uses for your reservation. You'll find it on your e-ticket or in any email or document the airline sent you. It usually has 6 characters, letters and/or numbers (e.g. DF87G2). Don't include spaces.",
-    "signatureLabel": "Draw your signature with your finger",
-    "signatureClear": "Clear",
-    "coTitle": "Other passengers",
-    "coIntro": "Add the other passengers on the same booking — they may also be entitled to compensation.",
-    "coAdd": "Add another passenger",
-    "coRemove": "Remove",
-    "coMinor": "This person is under 18",
-    "coPassenger": "Passenger {n}",
-    "totalLabel": "Total compensation",
-    "perPassenger": "Per passenger",
-    "docRequired": "Required"
+    "pnrHelpTitle": "Cum găsesc numărul de rezervare?",
+    "pnrHelpLong": "Numărul de rezervare (PNR) este un cod unic folosit de companie pentru rezervarea ta. Îl găsești pe biletul electronic sau în orice e-mail ori document trimis de companie. De obicei are 6 caractere, litere și/sau cifre (ex. DF87G2). Nu introduce spații.",
+    "signatureLabel": "Desenează-ți semnătura cu degetul",
+    "signatureClear": "Șterge",
+    "coTitle": "Alți pasageri",
+    "coIntro": "Adaugă ceilalți pasageri din aceeași rezervare — și ei pot avea dreptul la despăgubire.",
+    "coAdd": "Adaugă alt pasager",
+    "coRemove": "Elimină",
+    "coMinor": "Această persoană are sub 18 ani",
+    "coPassenger": "Pasager {n}",
+    "totalLabel": "Despăgubire totală",
+    "perPassenger": "Per pasager",
+    "docRequired": "Obligatoriu"
   },
   "rights": {
     "title": "Drepturile tale la întârzieri, anulări și suprarezervare",
@@ -220,28 +220,28 @@
     "a5": "În majoritatea țărilor UE poți solicita pentru zboruri din ultimii 2-3 ani, în funcție de legislația națională."
   },
   "cookie": {
-    "text": "We use cookies to improve your experience. By continuing, you accept our use of cookies.",
+    "text": "Folosim cookie-uri pentru a-ți îmbunătăți experiența. Continuând, accepți utilizarea cookie-urilor.",
     "accept": "Accept",
-    "refuse": "Refuse",
-    "more": "Learn more"
+    "refuse": "Refuz",
+    "more": "Află mai mult"
   },
   "suivi": {
-    "title": "Track your claim",
-    "intro": "Enter your case number and email to see the status of your claim.",
-    "reference": "Case number",
-    "email": "Email",
-    "submit": "Track my claim",
-    "notFound": "No claim found for this case number and email.",
-    "statusLabel": "Current status",
-    "ref": "Case number",
-    "flight": "Flight",
-    "estimated": "Estimated amount",
-    "created": "Submitted on"
+    "title": "Urmărește-ți dosarul",
+    "intro": "Introdu numărul dosarului și e-mailul pentru a vedea stadiul cererii tale.",
+    "reference": "Număr dosar",
+    "email": "E-mail",
+    "submit": "Urmărește dosarul",
+    "notFound": "Niciun dosar găsit pentru acest număr și e-mail.",
+    "statusLabel": "Stadiu actual",
+    "ref": "Număr dosar",
+    "flight": "Zbor",
+    "estimated": "Sumă estimată",
+    "created": "Depus la"
   },
   "blog": {
     "title": "Blog",
-    "intro": "Guides and tips to understand your air passenger rights.",
-    "readMore": "Read the article",
-    "back": "Back to the blog"
+    "intro": "Ghiduri și sfaturi pentru a-ți înțelege drepturile de pasager aerian.",
+    "readMore": "Citește articolul",
+    "back": "Înapoi la blog"
   }
 }
