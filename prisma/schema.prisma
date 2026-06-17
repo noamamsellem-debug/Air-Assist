@@ -50,6 +50,12 @@ enum TypeCompagnie {
   leisure
 }
 
+/// Vol direct ou trajet avec correspondance(s).
+enum TypeTrajet {
+  DIRECT
+  CORRESPONDANCE
+}
+
 /// Cycle de vie du dossier. Les transitions valides sont contrôlées par la
 /// machine à états (module 2). REFUSE et CONTENTIEUX sont des états annexes.
 enum StatutDossier {
@@ -216,6 +222,11 @@ model Dossier {
   codeParrainage        String?  @unique @map("code_parrainage")
   /// Co-passagers saisis dans le tunnel : [{prenom, nom, email, mineur}].
   passagersSupplementaires Json? @map("passagers_supplementaires")
+  /// Trajet direct ou correspondance, et segments du trajet (JSON ordonné).
+  typeTrajet        TypeTrajet @default(DIRECT) @map("type_trajet")
+  reservationUnique Boolean?   @map("reservation_unique")
+  /// [{ordre, numeroVol, compagnie, date, aeroportDepart, aeroportArrivee}]
+  segments          Json?
 
   // Montants en EUR. montantEstime = sortie du moteur d'éligibilité.
   montantEstime Decimal  @map("montant_estime") @db.Decimal(10, 2)

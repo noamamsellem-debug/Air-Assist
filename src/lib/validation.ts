@@ -74,6 +74,97 @@ export const reclamationSchema = z.object({
 
 export type ReclamationInput = z.infer<typeof reclamationSchema>;
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Dépôt de dossier (tunnel refondu) — schéma UNIQUE partagé front/back.
+// « Aucune donnée manquante ne doit pouvoir passer » : tous les champs
+// obligatoires sont requis ici et rejoués côté serveur.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const civiliteSchema = z.enum(["M", "Mme", "Autre"]);
+export const typeTrajetSchema = z.enum(["DIRECT", "CORRESPONDANCE"]);
+export const sousTypePieceIdentiteSchema = z.enum(["CNI", "PASSEPORT", "PERMIS_CONDUIRE", "CARTE_SEJOUR"]);
+export const sousTypeJustificatifVoyageSchema = z.enum(["CARTE_EMBARQUEMENT", "CONFIRMATION_RESERVATION"]);
+
+export const adresseSchema = z.object({
+  ligne1: z.string().trim().min(1, "Adresse requise.").max(200),
+  complement: z.string().trim().max(200).optional().or(z.literal("")),
+  codePostal: z.string().trim().min(1, "Code postal requis.").max(20),
+  ville: z.string().trim().min(1, "Ville requise.").max(120),
+  pays: z.string().trim().min(1, "Pays requis.").max(80),
+});
+
+export const segmentSchema = z.object({
+  ordre: z.coerce.number().int().positive(),
+  numeroVol: z.string().trim().min(2).max(8).regex(/^[A-Za-z0-9]+$/, "Numéro de vol invalide."),
+  compagnie: z.string().trim().max(120).optional().or(z.literal("")),
+  date: z.string().min(1, "Date requise."),
+  aeroportDepart: z.string().trim().length(3, "Aéroport de départ invalide."),
+  aeroportArrivee: z.string().trim().length(3, "Aéroport d'arrivée invalide."),
+});
+
+const fichierSchema = z.object({
+  nomFichier: z.string().trim().min(1).max(255),
+  mimeType: z
+    .string()
+    .regex(/^(image\/(jpeg|png|webp)|application\/pdf)$/, "Format non pris en charge (JPG, PNG ou PDF)."),
+  contenuBase64: z.string().min(1, "Fichier manquant."),
+});
+
+export const depotSchema = z
+  .object({
+    // Éligibilité / montant (issus de l'étape 1)
+    montantEstime: z.coerce.number().nonnegative(),
+    distanceKm: z.coerce.number().int().positive(),
+    intraUe: z.boolean(),
+    // Vol / trajet
+    typeTrajet: typeTrajetSchema,
+    reservationUnique: z.boolean().nullable(),
+    pnr: pnrSchema,
+    motif: motifSchema,
+    segments: z.array(segmentSchema).min(1, "Au moins un vol est requis."),
+    // Identité du passager
+    passager: z.object({
+      civilite: civiliteSchema,
+      nom: z.string().trim().min(1, "Nom requis.").max(100),
+      prenom: z.string().trim().min(1, "Prénom requis.").max(100),
+      dateNaissance: z.string().min(1, "Date de naissance requise."),
+      nationalite: z.string().trim().min(1, "Nationalité requise.").max(80),
+      adresse: adresseSchema,
+    }),
+    // Coordonnées
+    email: z.string().trim().email("E-mail invalide."),
+    telephone: z.string().trim().min(5, "Téléphone requis.").max(40),
+    // Documents (chiffrés au repos côté serveur)
+    pieceIdentite: fichierSchema.extend({ sousType: sousTypePieceIdentiteSchema }),
+    justificatifsVoyage: z
+      .array(fichierSchema.extend({ sousType: sousTypeJustificatifVoyageSchema }))
+      .min(1, "Au moins un justificatif de voyage est requis."),
+    justificatifRetard: fichierSchema.optional(),
+    // Facultatif
+    descriptionIncident: z.string().trim().max(1200).optional().or(z.literal("")),
+    // Mandat + consentement
+    consentementRgpd: z.literal(true),
+    accepteCgv: z.literal(true),
+    versionCgv: z.string().default("2026-01-v1"),
+  })
+  .superRefine((d, ctx) => {
+    if (d.typeTrajet === "CORRESPONDANCE") {
+      if (d.segments.length < 2) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["segments"], message: "Une correspondance nécessite au moins 2 vols." });
+      }
+      if (typeof d.reservationUnique !== "boolean") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["reservationUnique"],
+          message: "Précisez si tous les vols sont sur la même réservation (PNR).",
+        });
+      }
+    }
+  });
+
+export type DepotInput = z.infer<typeof depotSchema>;
+
+
 export const changementStatutSchema = z.object({
   nouveauStatut: z.enum([
     "NOUVEAU",
