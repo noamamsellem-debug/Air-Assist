@@ -22,7 +22,7 @@ export function DisruptionCards() {
   const t = useTranslations("hp");
   const cards = [
     { icon: "🛬", color: "#1f6feb", title: t("d1Title"), text: t("d1Text"), stat: t("d1Stat") },
-    { icon: "🚫", color: "#e0457b", title: t("d2Title"), text: t("d2Text"), stat: t("d2Stat") },
+    { icon: "🚫", color: "#0284c7", title: t("d2Title"), text: t("d2Text"), stat: t("d2Stat") },
     { icon: "🔁", color: "#0ea5e9", title: t("d3Title"), text: t("d3Text"), stat: t("d3Stat") },
     { icon: "ℹ️", color: "#6366f1", title: t("d4Title"), text: t("d4Text"), stat: t("d4Stat") },
   ];

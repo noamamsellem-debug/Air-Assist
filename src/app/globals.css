@@ -54,9 +54,9 @@ body {
 .hero-gradient {
   background-color: #0b1f54;
   background-image:
-    radial-gradient(1200px 500px at 85% -10%, rgba(224, 69, 123, 0.55), transparent 60%),
-    radial-gradient(900px 600px at 0% 110%, rgba(31, 111, 235, 0.45), transparent 55%),
-    linear-gradient(125deg, #081a3d 0%, #14409f 55%, #b3306e 130%);
+    radial-gradient(1100px 480px at 88% -10%, rgba(56, 189, 248, 0.45), transparent 60%),
+    radial-gradient(900px 600px at 0% 110%, rgba(31, 111, 235, 0.5), transparent 55%),
+    linear-gradient(125deg, #061536 0%, #103a8f 55%, #1f6feb 115%);
 }
 
 /* Voile « grille » discret pour les fonds clairs illustratifs */

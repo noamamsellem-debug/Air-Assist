@@ -4,9 +4,6 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { AirportAutocomplete } from "@/components/AirportAutocomplete";
-import { COMPAGNIES_AERIENNES } from "@/data/compagnies-aeriennes";
-
-const COMPAGNIES_TRIEES = [...COMPAGNIES_AERIENNES].sort((a, b) => a.nom.localeCompare(b.nom));
 
 interface ResultatApi {
   eligible: boolean;
@@ -31,15 +28,12 @@ export function Calculator() {
   const router = useRouter();
 
   const [form, setForm] = useState({
-    compagnie: "",
-    numVolNum: "",
-    date: "",
     aeroportDepart: "",
     aeroportArrivee: "",
     motif: "RETARD",
   });
-  // N° de vol = préfixe IATA de la compagnie + partie numérique (ex. LH1024).
-  const numeroVol = form.compagnie ? `${form.compagnie}${form.numVolNum}` : "";
+  // Détails du vol (compagnie, n° de vol, date exacte) collectés ensuite dans le
+  // tunnel : ils ne changent pas l'estimation (qui dépend de la distance + motif).
   const [retard, setRetard] = useState<RetardChoix | "">("");
   const [resultat, setResultat] = useState<ResultatApi | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -61,12 +55,15 @@ export function Calculator() {
     }
     setChargement(true);
     try {
+      // Date du jour par défaut : l'estimation ne dépend pas de la date exacte
+      // (collectée plus tard dans le tunnel), et l'API refuse une date future.
+      const aujourdhui = new Date().toISOString().slice(0, 10);
       const res = await fetch("/api/eligibilite", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          numeroVol: numeroVol || "AA000",
-          date: form.date,
+          numeroVol: "AA000",
+          date: aujourdhui,
           aeroportDepart: form.aeroportDepart,
           aeroportArrivee: form.aeroportArrivee,
           motif: form.motif,
@@ -88,9 +85,10 @@ export function Calculator() {
 
   function lancerReclamation() {
     if (!resultat) return;
+    // Le tunnel collectera le n° de vol, la compagnie et la date exacte.
     const q = new URLSearchParams({
-      numeroVol,
-      date: form.date,
+      numeroVol: "",
+      date: "",
       aeroportDepart: form.aeroportDepart,
       aeroportArrivee: form.aeroportArrivee,
       motif: form.motif,
@@ -121,78 +119,6 @@ export function Calculator() {
             value={form.aeroportArrivee}
             onChange={(iata) => setForm({ ...form, aeroportArrivee: iata })}
           />
-        </div>
-
-        <div>
-          <label className="label" htmlFor="date">{t("date")}</label>
-          <input
-            id="date"
-            type="date"
-            className="input"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            required
-          />
-          <div className="mt-2 flex gap-2">
-            {[
-              { key: "dateYesterday", days: 1 },
-              { key: "dateToday", days: 0 },
-            ].map(({ key, days }) => {
-              const d = new Date();
-              d.setDate(d.getDate() - days);
-              const iso = d.toISOString().slice(0, 10);
-              return (
-                <button
-                  type="button"
-                  key={key}
-                  onClick={() => setForm({ ...form, date: iso })}
-                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition ${
-                    form.date === iso
-                      ? "border-brand-500 bg-brand-50 text-brand-700"
-                      : "border-slate-300 text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  {t(key)}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div>
-          <label className="label" htmlFor="airline">{t("airline")}</label>
-          <select
-            id="airline"
-            className="input"
-            value={form.compagnie}
-            onChange={(e) => setForm({ ...form, compagnie: e.target.value })}
-          >
-            <option value="">{t("airlineChoose")}</option>
-            {COMPAGNIES_TRIEES.map((c) => (
-              <option key={c.code} value={c.code}>
-                {c.nom} ({c.code})
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="label" htmlFor="numVol">{t("flightNumber")}</label>
-          <div className="flex gap-2">
-            <span className="flex w-14 shrink-0 items-center justify-center rounded-lg border border-slate-300 bg-slate-50 font-mono text-sm font-semibold text-slate-500">
-              {form.compagnie || "—"}
-            </span>
-            <input
-              id="numVol"
-              inputMode="numeric"
-              maxLength={5}
-              className="input flex-1 disabled:bg-slate-50 disabled:text-slate-400"
-              placeholder="1234"
-              value={form.numVolNum}
-              onChange={(e) => setForm({ ...form, numVolNum: e.target.value.replace(/\D/g, "") })}
-              disabled={!form.compagnie}
-            />
-          </div>
         </div>
 
         <div>

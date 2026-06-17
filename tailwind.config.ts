@@ -16,11 +16,11 @@ export default {
           900: "#0d2a5e",
           950: "#081a3d",
         },
-        // Accent magenta/corail pour le dégradé hero et les touches premium.
+        // Accent cyan/azur dérivé du bleu du logo (dégradé hero + touches premium).
         accent: {
-          400: "#f06aa0",
-          500: "#e0457b",
-          600: "#c62f63",
+          400: "#38bdf8",
+          500: "#0ea5e9",
+          600: "#0284c7",
         },
       },
       boxShadow: {
