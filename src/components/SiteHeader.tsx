@@ -8,7 +8,7 @@ export function SiteHeader() {
   const c = useTranslations("common");
   const b = useTranslations("blog");
   return (
-    <header className="border-b border-slate-200 bg-white">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <div className="bg-brand-50 text-brand-800">
         <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-1.5 text-center text-xs font-medium sm:text-sm">
           <span aria-hidden>🛡️</span>

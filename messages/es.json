@@ -341,5 +341,33 @@
     "trackLink": "Seguir mi expediente",
     "required": "Obligatorio",
     "networkError": "Error de red, inténtalo de nuevo."
+  },
+  "hp": {
+    "heroEyebrow": "Reglamento europeo EC 261/2004",
+    "trustRating": "Excelente",
+    "trustReviews": "según miles de opiniones",
+    "trustFree": "Comprobación gratuita",
+    "trustFast": "Rápido y sin riesgo",
+    "trustEu": "Conforme al RGPD, datos en la UE",
+    "eyebrowProblems": "Problemas de vuelo",
+    "disruptionsTitle": "Tipos de incidencias de vuelo",
+    "disruptionsIntro": "Somos expertos en incidencias de vuelo y normativa — conseguimos la indemnización que te corresponde.",
+    "d1Title": "Retrasos de vuelo",
+    "d1Text": "Si tu vuelo llegó con más de 3 h de retraso, podrías tener derecho hasta 600 €.",
+    "d1Stat": "Plazo de reclamación: hasta 5 años según el país.",
+    "d2Title": "Cancelaciones",
+    "d2Text": "Si tu vuelo se canceló menos de 14 días antes de la salida, podrías cobrar hasta 600 €.",
+    "d2Stat": "Salvo circunstancias extraordinarias.",
+    "d3Title": "Conexiones perdidas",
+    "d3Text": "¿Perdiste una conexión y llegaste con 3 h o más de retraso? Hasta 600 €.",
+    "d3Stat": "Se requiere reserva única.",
+    "d4Title": "Otros",
+    "d4Text": "Denegación de embarque (overbooking), huelgas… te ayudamos a entender tus derechos.",
+    "d4Stat": "Comprobación gratuita.",
+    "eyebrowComp": "Indemnización de vuelo",
+    "compTitle": "¿Cuánto podrías conseguir?",
+    "compIntro": "El importe que marca la ley depende de la distancia de tu vuelo. Mueve el control para verlo.",
+    "compMax": "Más",
+    "eyebrowHow": "Cómo funciona"
   }
 }

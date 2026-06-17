@@ -341,5 +341,33 @@
     "trackLink": "Track my claim",
     "required": "Required",
     "networkError": "Network error, please try again."
+  },
+  "hp": {
+    "heroEyebrow": "European regulation EC 261/2004",
+    "trustRating": "Excellent",
+    "trustReviews": "based on thousands of reviews",
+    "trustFree": "Free eligibility check",
+    "trustFast": "Fast & risk-free",
+    "trustEu": "GDPR-compliant, EU-hosted",
+    "eyebrowProblems": "Flight problems",
+    "disruptionsTitle": "Types of flight disruption",
+    "disruptionsIntro": "We're experts in passenger rights and global regulations — we get you the compensation you're owed.",
+    "d1Title": "Flight delays",
+    "d1Text": "If your flight arrived more than 3 hours late, you may be entitled to up to €600.",
+    "d1Stat": "Claim window: up to 5 years depending on the country.",
+    "d2Title": "Cancellations",
+    "d2Text": "If your flight was cancelled less than 14 days before departure, you may be owed up to €600.",
+    "d2Stat": "Unless extraordinary circumstances apply.",
+    "d3Title": "Missed connections",
+    "d3Text": "Missed a connection and arrived 3+ hours late? You could get up to €600.",
+    "d3Stat": "Single booking required.",
+    "d4Title": "Other",
+    "d4Text": "Denied boarding (overbooking), strikes… we help you understand your rights.",
+    "d4Stat": "Free eligibility check.",
+    "eyebrowComp": "Flight compensation",
+    "compTitle": "How much could you get?",
+    "compIntro": "The amount set by law depends on your flight distance. Move the slider to see it.",
+    "compMax": "More",
+    "eyebrowHow": "How it works"
   }
 }

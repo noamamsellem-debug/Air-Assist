@@ -10,27 +10,69 @@ body {
   @apply bg-slate-50 text-slate-900 antialiased;
 }
 
+/* ── Boutons ─────────────────────────────────────────────────────────── */
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50;
+  @apply inline-flex items-center justify-center rounded-xl bg-brand-500 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-50;
+  @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-50;
 }
 
+.btn-light {
+  @apply inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50;
+}
+
+/* ── Cartes ──────────────────────────────────────────────────────────── */
 .card {
-  @apply rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
+  @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-card;
 }
 
+.card-hover {
+  @apply transition duration-200 hover:-translate-y-1 hover:shadow-lift;
+}
+
+/* ── Formulaires ─────────────────────────────────────────────────────── */
 .input {
-  @apply w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
+  @apply w-full rounded-xl border border-slate-300 px-3 py-2 text-slate-900 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
 }
 
 .label {
   @apply mb-1 block text-sm font-medium text-slate-700;
 }
 
-/* Mise en forme du corps des articles de blog (HTML injecté) */
+/* ── Mise en page & rythme ───────────────────────────────────────────── */
+.section {
+  @apply mx-auto max-w-6xl px-4 py-16;
+}
+
+.eyebrow {
+  @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-600;
+}
+
+/* ── Hero dégradé (style premium) ────────────────────────────────────── */
+.hero-gradient {
+  background-color: #0b1f54;
+  background-image:
+    radial-gradient(1200px 500px at 85% -10%, rgba(224, 69, 123, 0.55), transparent 60%),
+    radial-gradient(900px 600px at 0% 110%, rgba(31, 111, 235, 0.45), transparent 55%),
+    linear-gradient(125deg, #081a3d 0%, #14409f 55%, #b3306e 130%);
+}
+
+/* Voile « grille » discret pour les fonds clairs illustratifs */
+.grid-soft {
+  background-image:
+    linear-gradient(to right, rgba(31, 111, 235, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 111, 235, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Pastilles de confiance ──────────────────────────────────────────── */
+.trust-pill {
+  @apply inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-white/40 backdrop-blur;
+}
+
+/* ── Article de blog (HTML injecté) ──────────────────────────────────── */
 .article-corps h2 {
   @apply mt-7 text-xl font-semibold text-slate-900;
 }

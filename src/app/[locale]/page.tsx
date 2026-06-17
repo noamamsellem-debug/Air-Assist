@@ -3,6 +3,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Calculator } from "@/components/Calculator";
 import { Link } from "@/i18n/navigation";
 import { buildMetadata } from "@/lib/seo";
+import { SectionHeading } from "@/components/home/SectionHeading";
+import { TrustBar } from "@/components/home/TrustBar";
+import { HowTimeline } from "@/components/home/HowTimeline";
+import { DisruptionCards } from "@/components/home/DisruptionCards";
+import { CompensationSlider } from "@/components/home/CompensationSlider";
 
 export async function generateMetadata({
   params,
@@ -38,6 +43,7 @@ function HomeContent() {
   const s = useTranslations("scale");
   const nav = useTranslations("nav");
   const f = useTranslations("faq");
+  const hp = useTranslations("hp");
 
   const faqItems = [1, 2, 3, 4, 5].map((i) => ({
     q: f(`q${i}`),
@@ -67,47 +73,55 @@ function HomeContent() {
   };
   return (
     <>
-      <section className="bg-gradient-to-b from-brand-50 via-brand-50 to-slate-50">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 lg:grid-cols-2 lg:py-16">
-          <div>
-            <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-semibold text-brand-700 shadow-sm ring-1 ring-brand-100">
-              Règlement européen EC 261/2004
-            </span>
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              {t("heroTitle")}
-            </h1>
-            <p className="mt-4 text-lg text-slate-600">{t("heroSubtitle")}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
-                💸 {t("trustNoWinNoFee")}
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
+      <section className="hero-gradient relative overflow-hidden">
+        <div className="mx-auto max-w-6xl px-4 pb-16 pt-14 lg:pb-20 lg:pt-20">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div className="text-white">
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/25 backdrop-blur">
+                {hp("heroEyebrow")}
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
-                ✅ {t("trustCommission")}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
-                🇪🇺 {t("trustEu")}
-              </span>
+              <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+                {t("heroTitle")}
+              </h1>
+              <p className="mt-5 max-w-xl text-lg text-white/80">{t("heroSubtitle")}</p>
+              <div className="mt-7">
+                <TrustBar />
+              </div>
             </div>
-            <p className="mt-4 text-sm text-slate-500">{c("commissionNote")}</p>
+            <div className="lg:pl-4">
+              <Calculator />
+            </div>
           </div>
-          <Calculator />
         </div>
       </section>
 
-      <section id="comment-ca-marche" className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">{t("howTitle")}</h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          <div className="card">
-            <h3 className="font-semibold">{t("step1Title")}</h3>
-            <p className="mt-2 text-sm text-slate-600">{t("step1Text")}</p>
+      {/* ── TYPES DE PERTURBATIONS ───────────────────────────────────── */}
+      <section className="grid-soft bg-white">
+        <div className="section">
+          <SectionHeading
+            eyebrow={hp("eyebrowProblems")}
+            title={hp("disruptionsTitle")}
+            intro={hp("disruptionsIntro")}
+          />
+          <DisruptionCards />
+        </div>
+      </section>
+
+      {/* ── COMMENT ÇA MARCHE + SLIDER D'INDEMNITÉ ───────────────────── */}
+      <section id="comment-ca-marche" className="bg-slate-50">
+        <div className="section grid items-start gap-12 lg:grid-cols-2">
+          <div>
+            <SectionHeading eyebrow={hp("eyebrowHow")} title={t("howTitle")} />
+            <div className="mt-8">
+              <HowTimeline />
+            </div>
           </div>
-          <div className="card">
-            <h3 className="font-semibold">{t("step2Title")}</h3>
-            <p className="mt-2 text-sm text-slate-600">{t("step2Text")}</p>
-          </div>
-          <div className="card">
-            <h3 className="font-semibold">{t("step3Title")}</h3>
-            <p className="mt-2 text-sm text-slate-600">{t("step3Text")}</p>
+          <div className="lg:pt-2">
+            <SectionHeading eyebrow={hp("eyebrowComp")} title={hp("compTitle")} intro={hp("compIntro")} />
+            <div className="mt-8">
+              <CompensationSlider />
+            </div>
           </div>
         </div>
       </section>
@@ -192,14 +206,11 @@ function HomeContent() {
       />
 
       {/* Appel à l'action final */}
-      <section className="bg-brand-600">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-12 text-center">
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">{t("heroTitle")}</h2>
-          <p className="max-w-2xl text-brand-50">{c("commissionNote")}</p>
-          <Link
-            href="/reclamation"
-            className="rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50"
-          >
+      <section className="hero-gradient">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 px-4 py-20 text-center">
+          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{t("heroTitle")}</h2>
+          <p className="max-w-2xl text-lg text-white/80">{c("commissionNote")}</p>
+          <Link href="/reclamation" className="btn-light mt-2 text-lg">
             {nav("startClaim")}
           </Link>
         </div>

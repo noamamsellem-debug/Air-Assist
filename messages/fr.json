@@ -341,5 +341,33 @@
     "trackLink": "Suivre mon dossier",
     "required": "Requis",
     "networkError": "Erreur réseau, réessayez."
+  },
+  "hp": {
+    "heroEyebrow": "Règlement européen EC 261/2004",
+    "trustRating": "Excellent",
+    "trustReviews": "sur des milliers d'avis",
+    "trustFree": "Vérification gratuite",
+    "trustFast": "Rapide et sans risque",
+    "trustEu": "Conforme RGPD, données dans l'UE",
+    "eyebrowProblems": "Problèmes de vol",
+    "disruptionsTitle": "Types de perturbations de vol",
+    "disruptionsIntro": "Nous sommes experts des perturbations de vol et des réglementations — nous obtenons l'indemnisation qui vous est due.",
+    "d1Title": "Retards de vol",
+    "d1Text": "Si votre vol est arrivé avec plus de 3 h de retard, vous pourriez avoir droit jusqu'à 600 €.",
+    "d1Stat": "Délai de réclamation : jusqu'à 5 ans selon le pays.",
+    "d2Title": "Annulations de vols",
+    "d2Text": "Si votre vol a été annulé moins de 14 jours avant le départ, vous pourriez toucher jusqu'à 600 €.",
+    "d2Stat": "Sauf circonstances extraordinaires.",
+    "d3Title": "Correspondances ratées",
+    "d3Text": "Correspondance manquée et arrivée avec 3 h de retard ou plus ? Jusqu'à 600 €.",
+    "d3Stat": "Réservation unique requise.",
+    "d4Title": "Autre",
+    "d4Text": "Refus d'embarquement (surbooking), grèves… nous vous aidons à comprendre vos droits.",
+    "d4Stat": "Vérification gratuite.",
+    "eyebrowComp": "Indemnisation de vol",
+    "compTitle": "Combien pourriez-vous obtenir ?",
+    "compIntro": "Le montant prévu par la loi dépend de la distance de votre vol. Déplacez le curseur pour le voir.",
+    "compMax": "Plus",
+    "eyebrowHow": "Comment ça marche"
   }
 }

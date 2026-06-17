@@ -8,31 +8,32 @@ export function SiteFooter() {
   const s = useTranslations("suivi");
   const b = useTranslations("blog");
   const year = new Date().getFullYear();
+  const liens = [
+    { href: "/mentions-legales", label: n("legal") },
+    { href: "/confidentialite", label: n("privacy") },
+    { href: "/cgv", label: n("terms") },
+    { href: "/cookies", label: "Cookies" },
+    { href: "/suivi", label: s("title") },
+    { href: "/blog", label: b("title") },
+  ] as const;
   return (
-    <footer className="border-t border-slate-200 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-500">
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
-          <Link href="/mentions-legales" className="hover:text-brand-600">
-            {n("legal")}
-          </Link>
-          <Link href="/confidentialite" className="hover:text-brand-600">
-            {n("privacy")}
-          </Link>
-          <Link href="/cgv" className="hover:text-brand-600">
-            {n("terms")}
-          </Link>
-          <Link href="/cookies" className="hover:text-brand-600">
-            Cookies
-          </Link>
-          <Link href="/suivi" className="hover:text-brand-600">
-            {s("title")}
-          </Link>
-          <Link href="/blog" className="hover:text-brand-600">
-            {b("title")}
-          </Link>
+    <footer className="bg-brand-950 text-slate-300">
+      <div className="mx-auto max-w-6xl px-4 py-12 text-sm">
+        <div className="flex flex-col gap-6 border-b border-white/10 pb-8 sm:flex-row sm:items-start sm:justify-between">
+          <div className="max-w-sm">
+            <p className="text-lg font-extrabold text-white">{c("brand")}</p>
+            <p className="mt-2 text-slate-400">{c("tagline")}</p>
+          </div>
+          <nav className="flex flex-wrap gap-x-6 gap-y-2">
+            {liens.map((l) => (
+              <Link key={l.href} href={l.href} className="text-slate-300 transition hover:text-white">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
         </div>
-        <p className="mt-4">{t("disclaimer")}</p>
-        <p className="mt-1">
+        <p className="mt-6 text-slate-400">{t("disclaimer")}</p>
+        <p className="mt-1 text-slate-500">
           © {year} {c("brand")}. {t("rights")}
         </p>
       </div>
