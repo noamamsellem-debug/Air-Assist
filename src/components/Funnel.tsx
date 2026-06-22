@@ -105,6 +105,7 @@ export function Funnel() {
   const [retardDoc, setRetardDoc] = useState<DocFichier>(docVide());
 
   // Mandat
+  const [nomSignature, setNomSignature] = useState("");
   const [consentRgpd, setConsentRgpd] = useState(false);
   const [accepteCgv, setAccepteCgv] = useState(false);
 
@@ -171,6 +172,7 @@ export function Funnel() {
       justificatifsVoyage: voyages
         .filter((v) => v.doc.file)
         .map((v) => ({ sousType: v.sousType, nomFichier: v.doc.file!.name, mimeType: v.doc.file!.type, contenuBase64: "x" })),
+      nomSignature,
       consentementRgpd: consentRgpd,
       accepteCgv,
       versionCgv: VERSION_CGV,
@@ -395,8 +397,18 @@ export function Funnel() {
               <input type="checkbox" className="mt-1" checked={accepteCgv} onChange={(e) => setAccepteCgv(e.target.checked)} />
               <span>{t("accepteCgv")}</span>
             </label>
+            <div>
+              <label className="label" htmlFor="sign">{t("signLabel")}</label>
+              <input
+                id="sign"
+                className="input font-[cursive] text-lg"
+                placeholder={`${prenom} ${nom}`.trim()}
+                value={nomSignature}
+                onChange={(e) => setNomSignature(e.target.value)}
+              />
+            </div>
             <p className="rounded-lg bg-slate-50 p-3 text-xs text-slate-500">{t("ipNote")}</p>
-            <Nav t={t} onBack={() => setEtape(4)} onNext={() => setEtape(6)} nextDisabled={!(consentRgpd && accepteCgv)} />
+            <Nav t={t} onBack={() => setEtape(4)} onNext={() => setEtape(6)} nextDisabled={!(consentRgpd && accepteCgv && nomSignature.trim().length >= 1)} />
           </div>
         )}
 

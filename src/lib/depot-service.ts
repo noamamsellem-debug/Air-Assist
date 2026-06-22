@@ -46,10 +46,12 @@ export async function creerDepot(
 
   const reference = await genererProchaineReference();
   const nomComplet = `${input.passager.prenom} ${input.passager.nom}`.trim();
+  // Nom tapé par le passager pour signer (sinon repli sur l'identité).
+  const nomSignature = input.nomSignature?.trim() || nomComplet;
   const esign = getSignatureAdapter();
   const preuve = await esign.signer({
     dossierReference: reference,
-    nomSignataire: nomComplet,
+    nomSignataire: nomSignature,
     emailSignataire: input.email,
     contenuMandat:
       `Je soussigné(e) ${nomComplet} mandate Air Assist pour réclamer en mon nom ` +
@@ -126,7 +128,7 @@ export async function creerDepot(
         signatureElectronique: preuve.signatureId,
         consentementRgpd: input.consentementRgpd,
         horodatage: new Date(preuve.horodatage),
-        preuve: JSON.stringify({ preuveSignature: preuve.preuve, ip: meta.ip ?? null, versionCgv: input.versionCgv }),
+        preuve: JSON.stringify({ preuveSignature: preuve.preuve, nomSignature, ip: meta.ip ?? null, versionCgv: input.versionCgv }),
         versionCgvAcceptee: input.versionCgv,
       },
     });

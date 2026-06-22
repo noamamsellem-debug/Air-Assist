@@ -355,7 +355,8 @@
     "causeAirport": "Problemas en el aeropuerto",
     "causeOtherFlights": "Causado por otros vuelos",
     "causeForce": "Circunstancias extraordinarias",
-    "causeUnknown": "No lo sé"
+    "causeUnknown": "No lo sé",
+    "signLabel": "Escribe tu nombre completo para firmar electrónicamente"
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

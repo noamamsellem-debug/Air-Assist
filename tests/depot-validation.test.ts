@@ -27,6 +27,7 @@ function depotValide() {
     telephone: "+33600000000",
     pieceIdentite: { ...fichier, sousType: "CNI" as const },
     justificatifsVoyage: [{ ...fichier, sousType: "CARTE_EMBARQUEMENT" as const }],
+    nomSignature: "Camille Martin",
     consentementRgpd: true as const,
     accepteCgv: true as const,
     versionCgv: "2026-01-v1",
@@ -50,6 +51,18 @@ describe("depotSchema — dépôt complet", () => {
     const d = depotValide() as Record<string, unknown>;
     delete d.causePerturbation;
     expect(depotSchema.safeParse(d).success).toBe(true);
+  });
+
+  it("refuse sans nom de signature (mandat)", () => {
+    const d = depotValide() as Record<string, unknown>;
+    delete d.nomSignature;
+    expect(depotSchema.safeParse(d).success).toBe(false);
+  });
+
+  it("refuse un nom de signature vide", () => {
+    const d = depotValide() as Record<string, unknown>;
+    d.nomSignature = "   ";
+    expect(depotSchema.safeParse(d).success).toBe(false);
   });
 
   it("refuse sans pièce d'identité", () => {

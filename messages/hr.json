@@ -355,7 +355,8 @@
     "causeAirport": "Airport problems",
     "causeOtherFlights": "Caused by other flights",
     "causeForce": "Extraordinary circumstances",
-    "causeUnknown": "I don't know"
+    "causeUnknown": "I don't know",
+    "signLabel": "Type your full name to sign electronically"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

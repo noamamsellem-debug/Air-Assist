@@ -145,6 +145,7 @@ export const depotSchema = z
     // Motif invoqué par la compagnie (facultatif) → Dossier.causePerturbation.
     causePerturbation: z.string().trim().max(120).optional().or(z.literal("")),
     // Mandat + consentement
+    nomSignature: z.string().trim().min(1, "Signature (nom complet) requise.").max(120),
     consentementRgpd: z.literal(true),
     accepteCgv: z.literal(true),
     versionCgv: z.string().default("2026-01-v1"),
