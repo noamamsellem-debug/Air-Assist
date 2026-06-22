@@ -283,7 +283,7 @@
     "yes": "Yes",
     "no": "No",
     "pnrLabel": "Booking reference (PNR)",
-    "pnrHelp": "6 characters on your ticket (e.g. ABC123).",
+    "pnrHelp": "The booking reference (PNR) is a 6-character code (letters/digits) on your ticket, boarding pass or confirmation email (e.g. ABC123).",
     "motifLabel": "What happened?",
     "motifRetard": "Delay",
     "motifAnnulation": "Cancellation",
@@ -364,7 +364,10 @@
     "coMineur": "Minor",
     "fraisTitle": "Expense receipts (optional)",
     "fraisHelp": "Meals, hotel, transport during the disruption. You can add several.",
-    "fraisAdd": "Add a receipt"
+    "fraisAdd": "Add a receipt",
+    "airlinePlaceholder": "Type an airline or IATA code",
+    "flightNumberPlaceholder": "e.g. VY8920",
+    "flightNumberHelp": "Your flight number is on your ticket, boarding pass and confirmation email (2 letters + digits, e.g. VY8920)."
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

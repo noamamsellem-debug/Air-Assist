@@ -5,6 +5,8 @@ import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { AirportAutocomplete } from "@/components/AirportAutocomplete";
+import { AirlineAutocomplete } from "@/components/AirlineAutocomplete";
+import { getCompagnieParCode } from "@/data/compagnies-search";
 import { AddressAutocomplete, adresseVide, type AddressValue } from "@/components/AddressAutocomplete";
 import { DocIllustration } from "@/components/DocIllustration";
 import { depotSchema } from "@/lib/validation";
@@ -20,11 +22,20 @@ type SousVoyage = "CARTE_EMBARQUEMENT" | "CONFIRMATION_RESERVATION";
 
 interface Segment {
   numeroVol: string;
-  compagnie: string;
+  compagnie: string; // nom lisible (ex. « Vueling »)
+  compagnieCode: string; // code IATA (ex. « VY »)
   date: string;
   aeroportDepart: string;
   aeroportArrivee: string;
 }
+const segmentVide = (date = ""): Segment => ({
+  numeroVol: "",
+  compagnie: "",
+  compagnieCode: "",
+  date,
+  aeroportDepart: "",
+  aeroportArrivee: "",
+});
 interface DocFichier {
   file: File | null;
   erreur: string | null;
@@ -131,9 +142,8 @@ export function Funnel() {
   const [causePerturbation, setCausePerturbation] = useState("");
   const [segments, setSegments] = useState<Segment[]>([
     {
+      ...segmentVide(sp.get("date") ?? ""),
       numeroVol: sp.get("numeroVol") ?? "",
-      compagnie: "",
-      date: sp.get("date") ?? "",
       aeroportDepart: sp.get("aeroportDepart") ?? "",
       aeroportArrivee: sp.get("aeroportArrivee") ?? "",
     },
@@ -686,7 +696,7 @@ function EtapeTrajet(props: {
 }) {
   const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, causePerturbation, setCausePerturbation, segments, setSegments, majSegment, onNext } = props;
   const pnrOk = /^[A-Za-z0-9]{6}$/.test(pnr.trim());
-  const segmentsOk = segments.every((s) => s.numeroVol.trim() && s.date && s.aeroportDepart && s.aeroportArrivee);
+  const segmentsOk = segments.every((s) => s.numeroVol.trim() && s.compagnie.trim() && s.date && s.aeroportDepart && s.aeroportArrivee);
   const correspondanceOk = typeTrajet === "DIRECT" || (segments.length >= 2 && typeof reservationUnique === "boolean");
 
   return (
@@ -695,7 +705,7 @@ function EtapeTrajet(props: {
       <div className="mt-4 flex gap-2">
         {(["DIRECT", "CORRESPONDANCE"] as const).map((tt) => (
           <button key={tt} type="button"
-            onClick={() => { setTypeTrajet(tt); if (tt === "CORRESPONDANCE" && segments.length < 2) setSegments([...segments, { numeroVol: "", compagnie: "", date: segments[0]?.date ?? "", aeroportDepart: "", aeroportArrivee: "" }]); }}
+            onClick={() => { setTypeTrajet(tt); if (tt === "CORRESPONDANCE" && segments.length < 2) setSegments([...segments, segmentVide(segments[0]?.date ?? "")]); }}
             className={`flex-1 rounded-lg border px-3 py-2 text-sm ${typeTrajet === tt ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
             {t(tt === "DIRECT" ? "typeDirect" : "typeCorrespondance")}
           </button>
@@ -714,8 +724,32 @@ function EtapeTrajet(props: {
               )}
             </div>
             <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div><label className="label">{t("segFlightNumber")}</label><input className="input uppercase" value={s.numeroVol} onChange={(e) => majSegment(i, { numeroVol: e.target.value })} /></div>
-              <div><label className="label">{t("segAirline")}</label><input className="input" value={s.compagnie} onChange={(e) => majSegment(i, { compagnie: e.target.value })} /></div>
+              <div>
+                <label className="label">{t("segAirline")}</label>
+                <AirlineAutocomplete
+                  value={s.compagnieCode}
+                  nom={s.compagnie}
+                  onChange={(code, nom) => majSegment(i, { compagnie: nom, compagnieCode: code })}
+                  placeholder={t("airlinePlaceholder")}
+                />
+              </div>
+              <div>
+                <label className="label">{t("segFlightNumber")}</label>
+                <input
+                  className="input uppercase"
+                  placeholder={t("flightNumberPlaceholder")}
+                  value={s.numeroVol}
+                  onChange={(e) => {
+                    const val = e.target.value.toUpperCase();
+                    const patch: Partial<Segment> = { numeroVol: val };
+                    // Auto-détection de la compagnie via le préfixe IATA (si non déjà choisie).
+                    const c = getCompagnieParCode(val.slice(0, 2));
+                    if (c && !s.compagnie) { patch.compagnie = c.nom; patch.compagnieCode = c.code; }
+                    majSegment(i, patch);
+                  }}
+                />
+                <p className="mt-1 text-xs text-slate-500">{t("flightNumberHelp")}</p>
+              </div>
               <div><label className="label">{t("segDate")}</label><input type="date" className="input" value={s.date} onChange={(e) => majSegment(i, { date: e.target.value })} /></div>
               <div />
               <div><label className="label">{t("segFrom")}</label><AirportAutocomplete value={s.aeroportDepart} onChange={(iata) => majSegment(i, { aeroportDepart: iata })} /></div>
@@ -725,7 +759,7 @@ function EtapeTrajet(props: {
         ))}
         {typeTrajet === "CORRESPONDANCE" && (
           <button type="button" className="w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
-            onClick={() => setSegments([...segments, { numeroVol: "", compagnie: "", date: "", aeroportDepart: "", aeroportArrivee: "" }])}>
+            onClick={() => setSegments([...segments, segmentVide()])}>
             + {t("addSegment")}
           </button>
         )}

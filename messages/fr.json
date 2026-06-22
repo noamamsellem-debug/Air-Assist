@@ -283,7 +283,7 @@
     "yes": "Oui",
     "no": "Non",
     "pnrLabel": "Référence de réservation (PNR)",
-    "pnrHelp": "6 caractères figurant sur votre billet (ex : ABC123).",
+    "pnrHelp": "La référence de réservation (PNR) est un code à 6 caractères (lettres/chiffres) figurant sur votre billet, votre carte d'embarquement ou l'e-mail de confirmation (ex : ABC123).",
     "motifLabel": "Que s'est-il passé ?",
     "motifRetard": "Retard",
     "motifAnnulation": "Annulation",
@@ -364,7 +364,10 @@
     "coMineur": "Mineur",
     "fraisTitle": "Justificatifs de frais (facultatif)",
     "fraisHelp": "Repas, hôtel, transport pendant la perturbation. Vous pouvez en ajouter plusieurs.",
-    "fraisAdd": "Ajouter un justificatif"
+    "fraisAdd": "Ajouter un justificatif",
+    "airlinePlaceholder": "Tapez une compagnie ou un code IATA",
+    "flightNumberPlaceholder": "ex : VY8920",
+    "flightNumberHelp": "Le numéro de vol figure sur votre billet, votre carte d'embarquement et l'e-mail de confirmation (2 lettres + chiffres, ex : VY8920)."
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

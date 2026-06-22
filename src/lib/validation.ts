@@ -96,7 +96,7 @@ export const adresseSchema = z.object({
 export const segmentSchema = z.object({
   ordre: z.coerce.number().int().positive(),
   numeroVol: z.string().trim().min(2).max(8).regex(/^[A-Za-z0-9]+$/, "Numéro de vol invalide."),
-  compagnie: z.string().trim().max(120).optional().or(z.literal("")),
+  compagnie: z.string().trim().min(1, "Compagnie requise.").max(120),
   date: z.string().min(1, "Date requise."),
   aeroportDepart: z.string().trim().length(3, "Aéroport de départ invalide."),
   aeroportArrivee: z.string().trim().length(3, "Aéroport d'arrivée invalide."),

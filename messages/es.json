@@ -283,7 +283,7 @@
     "yes": "Sí",
     "no": "No",
     "pnrLabel": "Localizador de reserva (PNR)",
-    "pnrHelp": "6 caracteres que figuran en tu billete (ej.: ABC123).",
+    "pnrHelp": "El localizador (PNR) es un código de 6 caracteres (letras/números) en tu billete, tarjeta de embarque o correo de confirmación (ej.: ABC123).",
     "motifLabel": "¿Qué ocurrió?",
     "motifRetard": "Retraso",
     "motifAnnulation": "Cancelación",
@@ -364,7 +364,10 @@
     "coMineur": "Menor",
     "fraisTitle": "Justificantes de gastos (opcional)",
     "fraisHelp": "Comidas, hotel, transporte durante la incidencia. Puedes añadir varios.",
-    "fraisAdd": "Añadir un justificante"
+    "fraisAdd": "Añadir un justificante",
+    "airlinePlaceholder": "Escribe una aerolínea o código IATA",
+    "flightNumberPlaceholder": "ej.: VY8920",
+    "flightNumberHelp": "El número de vuelo está en tu billete, tarjeta de embarque y correo de confirmación (2 letras + dígitos, ej.: VY8920)."
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",
