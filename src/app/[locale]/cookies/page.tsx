@@ -33,6 +33,10 @@ function Contenu() {
         Vous pouvez configurer votre navigateur pour bloquer les cookies ; certaines
         fonctionnalités pourraient alors ne plus être disponibles.
       </p>
+      <p>
+        Pour toute question :{" "}
+        <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>
+      </p>
     </LegalShell>
   );
 }

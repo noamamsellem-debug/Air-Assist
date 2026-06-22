@@ -499,13 +499,31 @@ export function Funnel() {
           <div className="space-y-4">
             <h2 className="text-lg font-bold">{t("mandatTitle")}</h2>
             <p className="text-sm text-slate-700">{t("mandatIntro")}</p>
+
+            {/* Mandat complet pré-rempli (texte juridique FR qui fait foi). */}
+            <MandatTexte prenom={prenom} nom={nom} locale={locale} />
+
             <label className="flex items-start gap-2 text-sm">
               <input type="checkbox" className="mt-1" checked={consentRgpd} onChange={(e) => setConsentRgpd(e.target.checked)} />
-              <span>{t("consentRgpd")}</span>
+              <span>
+                {t.rich("consentRgpd", {
+                  lien: (c) => (
+                    <Link href="/confidentialite" target="_blank" rel="noopener noreferrer"
+                      className="font-medium text-brand-600 underline" onClick={(e) => e.stopPropagation()}>{c}</Link>
+                  ),
+                })}
+              </span>
             </label>
             <label className="flex items-start gap-2 text-sm">
               <input type="checkbox" className="mt-1" checked={accepteCgv} onChange={(e) => setAccepteCgv(e.target.checked)} />
-              <span>{t("accepteCgv")}</span>
+              <span>
+                {t.rich("accepteCgv", {
+                  lien: (c) => (
+                    <Link href="/cgv" target="_blank" rel="noopener noreferrer"
+                      className="font-medium text-brand-600 underline" onClick={(e) => e.stopPropagation()}>{c}</Link>
+                  ),
+                })}
+              </span>
             </label>
             <div>
               <label className="label" htmlFor="sign">{t("signLabel")}</label>
@@ -557,6 +575,32 @@ function FileField({ t, doc, onPick }: { t: Tt; doc: DocFichier; onPick: (f: Fil
           onChange={(e) => onPick(e.target.files?.[0] ?? null)} />
       </label>
       {doc.erreur && <p className="mt-1 text-xs text-red-600">{doc.erreur}</p>}
+    </div>
+  );
+}
+
+/**
+ * Mandat de représentation et de cession de créance — texte juridique (FR, qui
+ * fait foi), pré-rempli avec le nom et la date. La valeur de signature
+ * électronique = case cochée + nom complet saisi + horodatage + IP (serveur).
+ */
+function MandatTexte({ prenom, nom, locale }: { prenom: string; nom: string; locale: string }) {
+  const nomComplet = `${prenom} ${nom}`.trim() || "[nom et prénom]";
+  const date = new Date().toLocaleDateString(locale);
+  return (
+    <div className="max-h-72 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-4 text-xs leading-relaxed text-slate-700">
+      <p className="font-semibold text-slate-900">Mandat de représentation et de cession de créance</p>
+      <p className="mt-2">
+        En cochant la case « J'accepte », je confirme avoir lu et accepté les conditions suivantes :
+      </p>
+      <p className="mt-2"><strong>1. Objet</strong> — Je, soussigné(e) <strong>{nomComplet}</strong>, donne mandat à la société AirAssist (« le Mandataire ») pour me représenter et entreprendre les démarches nécessaires afin d'obtenir l'indemnisation à laquelle j'ai droit auprès de la compagnie aérienne concernée, au titre du règlement européen CE n° 261/2004 ou de toute réglementation applicable, pour le vol référencé dans mon dossier.</p>
+      <p className="mt-2"><strong>2. Étendue</strong> — J'autorise AirAssist à contacter la compagnie en mon nom, à transmettre ma réclamation, à fournir les informations et documents nécessaires, à négocier et, le cas échéant, à recevoir l'indemnisation pour mon compte.</p>
+      <p className="mt-2"><strong>3. Cession et versement</strong> — J'accepte que l'indemnisation soit versée par la compagnie directement à AirAssist, qui me reversera ensuite la somme due après déduction de sa commission, via un prestataire de paiement agréé (Stripe).</p>
+      <p className="mt-2"><strong>4. Commission</strong> — AirAssist percevra une commission de <strong>30 % TTC</strong> du montant obtenu ; je percevrai <strong>70 %</strong> de la somme récupérée. <strong>Aucun frais ne me sera facturé si aucune indemnisation n'est obtenue : pas de gain, pas de frais.</strong></p>
+      <p className="mt-2"><strong>5. Exactitude</strong> — Je certifie que les informations fournies sont exactes et que je suis le passager concerné ou son représentant légal habilité.</p>
+      <p className="mt-2"><strong>6. Durée</strong> — Le mandat est valable pour la durée du traitement de la réclamation et prend fin une fois l'indemnisation versée ou la réclamation close.</p>
+      <p className="mt-2"><strong>7. Données</strong> — J'accepte que mes données soient traitées aux seules fins du traitement de ma réclamation, conformément au RGPD.</p>
+      <p className="mt-3 italic">Fait électroniquement, le {date}, par {nomComplet}, qui reconnaît que cette acceptation électronique a valeur de signature.</p>
     </div>
   );
 }
