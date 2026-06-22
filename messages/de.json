@@ -58,7 +58,9 @@
     "airline": "Fluggesellschaft",
     "airlineChoose": "Fluggesellschaft auswählen",
     "dateYesterday": "Gestern",
-    "dateToday": "Heute"
+    "dateToday": "Heute",
+    "delay3to4": "Between 3 and 4 hours",
+    "delayOver4": "More than 4 hours"
   },
   "funnel": {
     "title": "Ihr Anspruch",

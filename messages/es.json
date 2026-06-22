@@ -58,7 +58,9 @@
     "airline": "Aerolínea",
     "airlineChoose": "Selecciona una aerolínea",
     "dateYesterday": "Ayer",
-    "dateToday": "Hoy"
+    "dateToday": "Hoy",
+    "delay3to4": "Entre 3 y 4 horas",
+    "delayOver4": "Más de 4 horas"
   },
   "funnel": {
     "title": "Tu reclamación",

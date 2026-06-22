@@ -58,7 +58,9 @@
     "airline": "Flygbolag",
     "airlineChoose": "Välj ett flygbolag",
     "dateYesterday": "Igår",
-    "dateToday": "Idag"
+    "dateToday": "Idag",
+    "delay3to4": "Between 3 and 4 hours",
+    "delayOver4": "More than 4 hours"
   },
   "funnel": {
     "title": "Ditt anspråk",

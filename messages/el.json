@@ -58,7 +58,9 @@
     "airline": "Airline",
     "airlineChoose": "Select an airline",
     "dateYesterday": "Yesterday",
-    "dateToday": "Today"
+    "dateToday": "Today",
+    "delay3to4": "Between 3 and 4 hours",
+    "delayOver4": "More than 4 hours"
   },
   "funnel": {
     "title": "Η αίτησή σας",

@@ -14,12 +14,20 @@ interface ResultatApi {
   code: string;
 }
 
-// Retard exprimé en heures (façon AirHelp), converti en minutes pour le moteur.
-type RetardChoix = "PLUS3" | "MOINS3" | "JAMAIS";
+// Retard à l'arrivée en 4 paliers, converti en minutes pour le moteur.
+// Le palier 3 h–4 h déclenche la réduction de 50 % sur les long-courriers (>3500 km).
+type RetardChoix = "MOINS3" | "DE3A4" | "PLUS4" | "JAMAIS";
 const RETARD_VERS_MIN: Record<RetardChoix, number> = {
-  PLUS3: 200, // ≥ 3 h → éligible
   MOINS3: 60, // < 3 h → non éligible
-  JAMAIS: 600, // jamais arrivé → traité comme une forte perturbation, éligible
+  DE3A4: 210, // 3 h–4 h (3 h 30) → éligible, réduction 50 % si long-courrier
+  PLUS4: 300, // + de 4 h → éligible, plein montant
+  JAMAIS: 600, // jamais arrivé → forte perturbation, éligible
+};
+const RETARD_LABELS: Record<RetardChoix, string> = {
+  MOINS3: "delayUnder3",
+  DE3A4: "delay3to4",
+  PLUS4: "delayOver4",
+  JAMAIS: "delayNever",
 };
 
 export function Calculator() {
@@ -143,7 +151,7 @@ export function Calculator() {
           <div>
             <label className="label">{t("delayQuestion")}</label>
             <div className="grid grid-cols-1 gap-2">
-              {(["PLUS3", "MOINS3", "JAMAIS"] as RetardChoix[]).map((opt) => (
+              {(["MOINS3", "DE3A4", "PLUS4", "JAMAIS"] as RetardChoix[]).map((opt) => (
                 <button
                   type="button"
                   key={opt}
@@ -154,9 +162,7 @@ export function Calculator() {
                       : "border-slate-300 hover:bg-slate-50"
                   }`}
                 >
-                  {opt === "PLUS3" && t("delay3plus")}
-                  {opt === "MOINS3" && t("delayUnder3")}
-                  {opt === "JAMAIS" && t("delayNever")}
+                  {t(RETARD_LABELS[opt])}
                 </button>
               ))}
             </div>

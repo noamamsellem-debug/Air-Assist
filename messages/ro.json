@@ -58,7 +58,9 @@
     "airline": "Companie aeriană",
     "airlineChoose": "Selectează o companie",
     "dateYesterday": "Ieri",
-    "dateToday": "Astăzi"
+    "dateToday": "Astăzi",
+    "delay3to4": "Between 3 and 4 hours",
+    "delayOver4": "More than 4 hours"
   },
   "funnel": {
     "title": "Cererea ta",

@@ -58,7 +58,9 @@
     "airline": "Flyselskap",
     "airlineChoose": "Velg et flyselskap",
     "dateYesterday": "I går",
-    "dateToday": "I dag"
+    "dateToday": "I dag",
+    "delay3to4": "Between 3 and 4 hours",
+    "delayOver4": "More than 4 hours"
   },
   "funnel": {
     "title": "Kravet ditt",
