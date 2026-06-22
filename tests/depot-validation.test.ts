@@ -46,6 +46,14 @@ describe("depotSchema — infos du dépôt (sans fichiers)", () => {
     if (r.success) expect(r.data.causePerturbation).toBe("technique");
   });
 
+  it("accepte le motif AUTRE avec une durée de retard", () => {
+    const d = depotValide() as Record<string, unknown>;
+    d.motif = "AUTRE";
+    d.dureeRetardMin = 300;
+    d.montantEstime = 0; // « Autre » : montant à évaluer
+    expect(depotSchema.safeParse(d).success).toBe(true);
+  });
+
   it("accepte un dépôt sans causePerturbation (facultatif)", () => {
     const d = depotValide() as Record<string, unknown>;
     delete d.causePerturbation;

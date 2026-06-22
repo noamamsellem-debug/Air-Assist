@@ -276,7 +276,7 @@
     "removeSegment": "Retirer",
     "segment": "Vol {n}",
     "segFlightNumber": "Numéro de vol",
-    "segAirline": "Compagnie (optionnel)",
+    "segAirline": "Compagnie",
     "segDate": "Date",
     "segFrom": "Départ (aéroport)",
     "segTo": "Arrivée (aéroport)",
@@ -378,7 +378,17 @@
     "sourceAeroport": "Aéroport",
     "sourceEntourage": "Mon entourage",
     "sourceAutre": "Autres",
-    "airportPlaceholder": "Tapez une ville ou un code IATA"
+    "airportPlaceholder": "Tapez une ville ou un code IATA",
+    "motifAutre": "Autre",
+    "delayLabel": "Avec combien de retard êtes-vous arrivé ?",
+    "delayUnder3": "Moins de 3 heures",
+    "delay3to4": "Entre 3 h et 4 h",
+    "delayOver4": "Plus de 4 h",
+    "delayNever": "Le vol n'est jamais arrivé",
+    "autreLabel": "Décrivez brièvement la situation",
+    "autrePlaceholder": "Décrivez votre situation…",
+    "startTitle": "Démarrez votre demande",
+    "startIntro": "Répondez à quelques questions — nous calculons votre indemnité automatiquement, sans simulation préalable."
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

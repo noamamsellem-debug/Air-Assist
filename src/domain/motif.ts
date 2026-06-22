@@ -5,4 +5,5 @@ export const MOTIF_LIBELLES: Record<MotifVol, string> = {
   ANNULATION: "Annulation",
   SURBOOKING: "Surbooking / refus d'embarquement",
   CORRESPONDANCE_MANQUEE: "Correspondance manquée",
+  AUTRE: "Autre",
 };

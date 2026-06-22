@@ -276,7 +276,7 @@
     "removeSegment": "Remove",
     "segment": "Flight {n}",
     "segFlightNumber": "Flight number",
-    "segAirline": "Airline (optional)",
+    "segAirline": "Airline",
     "segDate": "Date",
     "segFrom": "From (airport)",
     "segTo": "To (airport)",
@@ -378,7 +378,17 @@
     "sourceAeroport": "Airport",
     "sourceEntourage": "Word of mouth",
     "sourceAutre": "Other",
-    "airportPlaceholder": "Type a city or IATA code"
+    "airportPlaceholder": "Type a city or IATA code",
+    "motifAutre": "Other",
+    "delayLabel": "How late did you arrive?",
+    "delayUnder3": "Less than 3 hours",
+    "delay3to4": "Between 3 and 4 hours",
+    "delayOver4": "More than 4 hours",
+    "delayNever": "The flight never arrived",
+    "autreLabel": "Briefly describe what happened",
+    "autrePlaceholder": "Describe your situation…",
+    "startTitle": "Start your claim",
+    "startIntro": "Answer a few questions — we calculate your compensation automatically, no prior simulation needed."
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

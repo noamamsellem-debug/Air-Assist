@@ -23,6 +23,15 @@ describe("montantParDistance — barème", () => {
   });
 });
 
+describe("evaluerEligibilite — motif AUTRE", () => {
+  it("non éligible (montant à évaluer) pour un motif AUTRE", () => {
+    const r = evaluerEligibilite({ distanceKm: 2000, motif: "AUTRE", intraUe: false });
+    expect(r.eligible).toBe(false);
+    expect(r.montant).toBe(0);
+    expect(r.code).toBe("MOTIF_INCONNU");
+  });
+});
+
 describe("evaluerEligibilite — retard", () => {
   it("éligible 250 € : court-courrier, retard 3 h pile", () => {
     const r = evaluerEligibilite({

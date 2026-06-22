@@ -276,7 +276,7 @@
     "removeSegment": "Quitar",
     "segment": "Vuelo {n}",
     "segFlightNumber": "Número de vuelo",
-    "segAirline": "Aerolínea (opcional)",
+    "segAirline": "Aerolínea",
     "segDate": "Fecha",
     "segFrom": "Origen (aeropuerto)",
     "segTo": "Destino (aeropuerto)",
@@ -378,7 +378,17 @@
     "sourceAeroport": "Aeropuerto",
     "sourceEntourage": "Boca a boca",
     "sourceAutre": "Otros",
-    "airportPlaceholder": "Escribe una ciudad o código IATA"
+    "airportPlaceholder": "Escribe una ciudad o código IATA",
+    "motifAutre": "Otro",
+    "delayLabel": "¿Con cuánto retraso llegaste?",
+    "delayUnder3": "Menos de 3 horas",
+    "delay3to4": "Entre 3 y 4 horas",
+    "delayOver4": "Más de 4 horas",
+    "delayNever": "El vuelo nunca llegó",
+    "autreLabel": "Describe brevemente la situación",
+    "autrePlaceholder": "Describe tu situación…",
+    "startTitle": "Inicia tu reclamación",
+    "startIntro": "Responde a unas preguntas — calculamos tu indemnización automáticamente, sin simulación previa."
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

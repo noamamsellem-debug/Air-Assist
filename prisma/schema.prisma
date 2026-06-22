@@ -26,6 +26,7 @@ enum MotifVol {
   ANNULATION
   SURBOOKING
   CORRESPONDANCE_MANQUEE
+  AUTRE
 }
 
 enum ProcedureCompagnie {

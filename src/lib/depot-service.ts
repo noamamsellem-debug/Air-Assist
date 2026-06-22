@@ -100,6 +100,7 @@ export async function creerDepot(
         aeroportArrivee: final.aeroportArrivee.toUpperCase(),
         distanceKm: input.distanceKm,
         motif: input.motif as MotifVol,
+        dureeRetardMin: input.dureeRetardMin ?? null,
       },
     });
 

@@ -8,6 +8,7 @@ export const motifSchema = z.enum([
   "ANNULATION",
   "SURBOOKING",
   "CORRESPONDANCE_MANQUEE",
+  "AUTRE",
 ]);
 
 export const eligibiliteSchema = z.object({
@@ -121,6 +122,8 @@ export const depotSchema = z
     reservationUnique: z.boolean().nullable(),
     pnr: pnrSchema,
     motif: motifSchema,
+    // Durée du retard à l'arrivée en minutes (pour Retard). Facultatif côté schéma.
+    dureeRetardMin: z.coerce.number().int().min(0).max(100000).optional(),
     segments: z.array(segmentSchema).min(1, "Au moins un vol est requis."),
     // Identité du passager
     passager: z.object({

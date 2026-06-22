@@ -12,10 +12,28 @@ import { AddressAutocomplete, adresseVide, type AddressValue } from "@/component
 import { DocIllustration } from "@/components/DocIllustration";
 import { depotSchema } from "@/lib/validation";
 import { repartirEuros, TAUX_COMMISSION_DEFAUT } from "@/domain/commission";
+import { trajetEntreAeroports } from "@/domain/distance";
+import { evaluerEligibilite } from "@/domain/eligibilite";
+import type { MotifVol as MotifEligibilite } from "@prisma/client";
 
 const VERSION_CGV = "2026-01-v1";
 const MIMES_OK = ["application/pdf", "image/jpeg", "image/png", "image/webp"];
 const TAILLE_MAX = 8 * 1024 * 1024;
+
+// Durée du retard à l'arrivée en 4 paliers → minutes pour le moteur d'éligibilité.
+type RetardChoix = "MOINS3" | "DE3A4" | "PLUS4" | "JAMAIS";
+const RETARD_VERS_MIN: Record<RetardChoix, number> = {
+  MOINS3: 60,
+  DE3A4: 210,
+  PLUS4: 300,
+  JAMAIS: 600,
+};
+const RETARD_LABELS: Record<RetardChoix, string> = {
+  MOINS3: "delayUnder3",
+  DE3A4: "delay3to4",
+  PLUS4: "delayOver4",
+  JAMAIS: "delayNever",
+};
 
 type Tt = ReturnType<typeof useTranslations>;
 type SousId = "CNI" | "PASSEPORT" | "PERMIS_CONDUIRE" | "CARTE_SEJOUR";
@@ -128,10 +146,6 @@ export function Funnel() {
   const locale = useLocale();
   const sp = useSearchParams();
 
-  const montantEstime = Number(sp.get("montant") ?? "0");
-  const distanceKm = Number(sp.get("distanceKm") ?? "0");
-  const intraUe = sp.get("intraUe") === "true";
-
   const [etape, setEtape] = useState(0);
   const TOTAL = 6;
 
@@ -140,6 +154,8 @@ export function Funnel() {
   const [reservationUnique, setReservationUnique] = useState<boolean | null>(null);
   const [pnr, setPnr] = useState("");
   const [motif, setMotif] = useState(sp.get("motif") ?? "RETARD");
+  const [retard, setRetard] = useState<RetardChoix | "">("");
+  const [descriptionIncident, setDescriptionIncident] = useState("");
   const [causePerturbation, setCausePerturbation] = useState("");
   const [segments, setSegments] = useState<Segment[]>([
     {
@@ -184,6 +200,26 @@ export function Funnel() {
   const [erreur, setErreur] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
 
+  // ── Distance + montant calculés AUTOMATIQUEMENT (jamais saisis ni dépendants
+  // d'une simulation préalable) à partir des aéroports + motif + durée du retard ──
+  const premierSeg = segments[0];
+  const dernierSeg = segments[segments.length - 1];
+  const trajet = useMemo(
+    () => trajetEntreAeroports(premierSeg?.aeroportDepart ?? "", dernierSeg?.aeroportArrivee ?? ""),
+    [premierSeg?.aeroportDepart, dernierSeg?.aeroportArrivee],
+  );
+  const distanceKm = trajet.distanceKm;
+  const intraUe = trajet.intraUe;
+  const dureeRetardMin = motif === "RETARD" && retard ? RETARD_VERS_MIN[retard] : undefined;
+  const eligibilite = useMemo(
+    () =>
+      trajet.connu
+        ? evaluerEligibilite({ distanceKm, motif: motif as MotifEligibilite, dureeRetardMin, intraUe })
+        : null,
+    [trajet.connu, distanceKm, motif, dureeRetardMin, intraUe],
+  );
+  const montantEstime = eligibilite?.montant ?? 0;
+
   const fmtEur = useMemo(
     () => (m: number) => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(m),
     [locale],
@@ -217,6 +253,8 @@ export function Funnel() {
       reservationUnique,
       pnr: pnr.toUpperCase(),
       motif,
+      dureeRetardMin,
+      descriptionIncident,
       causePerturbation,
       sourceMarketing,
       segments: segments.map((s, i) => ({
@@ -346,10 +384,19 @@ export function Funnel() {
       <div className="card">
         {etape === 0 && (
           <div>
-            <h1 className="text-xl font-bold">{t("recapTitle")}</h1>
-            <p className="mt-3 text-xs uppercase tracking-wide text-slate-500">{t("recapAmount")}</p>
-            <p className="text-4xl font-extrabold text-green-700">{montantFmt}</p>
-            <p className="mt-2 text-sm text-slate-500">{distanceKm} km</p>
+            {montantEstime > 0 ? (
+              <>
+                <h1 className="text-xl font-bold">{t("recapTitle")}</h1>
+                <p className="mt-3 text-xs uppercase tracking-wide text-slate-500">{t("recapAmount")}</p>
+                <p className="text-4xl font-extrabold text-green-700">{montantFmt}</p>
+                <p className="mt-2 text-sm text-slate-500">{distanceKm} km</p>
+              </>
+            ) : (
+              <>
+                <h1 className="text-xl font-bold">{t("startTitle")}</h1>
+                <p className="mt-3 text-sm text-slate-600">{t("startIntro")}</p>
+              </>
+            )}
             <button className="btn-primary mt-6 w-full" onClick={() => setEtape(1)}>{t("recapStart")}</button>
           </div>
         )}
@@ -359,8 +406,11 @@ export function Funnel() {
             t={t} typeTrajet={typeTrajet} setTypeTrajet={setTypeTrajet}
             reservationUnique={reservationUnique} setReservationUnique={setReservationUnique}
             pnr={pnr} setPnr={setPnr} motif={motif} setMotif={setMotif}
+            retard={retard} setRetard={setRetard}
+            descriptionIncident={descriptionIncident} setDescriptionIncident={setDescriptionIncident}
             causePerturbation={causePerturbation} setCausePerturbation={setCausePerturbation}
             segments={segments} setSegments={setSegments} majSegment={majSegment}
+            montantEstime={montantEstime} montantFmt={montantFmt}
             onNext={() => setEtape(2)}
           />
         )}
@@ -707,15 +757,20 @@ function EtapeTrajet(props: {
   setReservationUnique: (v: boolean) => void;
   pnr: string; setPnr: (v: string) => void;
   motif: string; setMotif: (v: string) => void;
+  retard: RetardChoix | ""; setRetard: (v: RetardChoix) => void;
+  descriptionIncident: string; setDescriptionIncident: (v: string) => void;
   causePerturbation: string; setCausePerturbation: (v: string) => void;
   segments: Segment[]; setSegments: (s: Segment[]) => void;
   majSegment: (i: number, patch: Partial<Segment>) => void;
+  montantEstime: number; montantFmt: string;
   onNext: () => void;
 }) {
-  const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, causePerturbation, setCausePerturbation, segments, setSegments, majSegment, onNext } = props;
+  const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, retard, setRetard, descriptionIncident, setDescriptionIncident, causePerturbation, setCausePerturbation, segments, setSegments, majSegment, montantEstime, montantFmt, onNext } = props;
   const pnrOk = /^[A-Za-z0-9]{6}$/.test(pnr.trim());
   const segmentsOk = segments.every((s) => s.numeroVol.trim() && s.compagnie.trim() && s.date && s.aeroportDepart && s.aeroportArrivee);
   const correspondanceOk = typeTrajet === "DIRECT" || (segments.length >= 2 && typeof reservationUnique === "boolean");
+  const retardOk = motif !== "RETARD" || retard !== "";
+  const autreOk = motif !== "AUTRE" || descriptionIncident.trim().length >= 5;
 
   return (
     <div>
@@ -743,7 +798,7 @@ function EtapeTrajet(props: {
             </div>
             <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label className="label">{t("segAirline")}</label>
+                <label className="label">{t("segAirline")} <span className="text-red-500">*</span></label>
                 <AirlineAutocomplete
                   value={s.compagnieCode}
                   nom={s.compagnie}
@@ -809,10 +864,43 @@ function EtapeTrajet(props: {
             <option value="RETARD">{t("motifRetard")}</option>
             <option value="ANNULATION">{t("motifAnnulation")}</option>
             <option value="SURBOOKING">{t("motifSurbooking")}</option>
-            <option value="CORRESPONDANCE_MANQUEE">{t("motifCorrespondance")}</option>
+            <option value="AUTRE">{t("motifAutre")}</option>
           </select>
         </div>
       </div>
+
+      {/* Durée du retard à l'arrivée — uniquement pour un retard. */}
+      {motif === "RETARD" && (
+        <div className="mt-4">
+          <label className="label">{t("delayLabel")}</label>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {(["MOINS3", "DE3A4", "PLUS4", "JAMAIS"] as RetardChoix[]).map((opt) => (
+              <button key={opt} type="button" onClick={() => setRetard(opt)}
+                className={`rounded-lg border px-4 py-3 text-left text-sm transition ${retard === opt ? "border-brand-500 bg-brand-50 font-semibold text-brand-800" : "border-slate-300 hover:bg-slate-50"}`}>
+                {t(RETARD_LABELS[opt])}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* « Autre » — description courte de la situation. */}
+      {motif === "AUTRE" && (
+        <div className="mt-4">
+          <label className="label">{t("autreLabel")}</label>
+          <textarea className="input" rows={3} maxLength={1200}
+            placeholder={t("autrePlaceholder")}
+            value={descriptionIncident} onChange={(e) => setDescriptionIncident(e.target.value)} />
+        </div>
+      )}
+
+      {/* Estimation live (dès que départ + arrivée + motif/durée sont connus). */}
+      {montantEstime > 0 && (
+        <div className="mt-4 rounded-xl border border-green-200 bg-green-50 p-4">
+          <p className="text-xs uppercase tracking-wide text-green-700">{t("recapAmount")}</p>
+          <p className="text-2xl font-extrabold text-green-700">{montantFmt}</p>
+        </div>
+      )}
 
       {/* Motif invoqué par la compagnie — facultatif. */}
       <div className="mt-4">
@@ -830,7 +918,7 @@ function EtapeTrajet(props: {
       </div>
 
       <div className="mt-6 flex justify-end">
-        <button className="btn-primary" disabled={!(pnrOk && segmentsOk && correspondanceOk)} onClick={onNext}>{t("next")}</button>
+        <button className="btn-primary" disabled={!(pnrOk && segmentsOk && correspondanceOk && retardOk && autreOk)} onClick={onNext}>{t("next")}</button>
       </div>
     </div>
   );
