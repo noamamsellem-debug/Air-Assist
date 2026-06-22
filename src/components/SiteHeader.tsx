@@ -35,6 +35,9 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-3">
           <LocaleSwitcher />
+          <Link href="/suivi" className="hidden btn-secondary !px-4 !py-2 text-sm sm:inline-flex">
+            {t("trackClaim")}
+          </Link>
           <Link href="/reclamation" className="btn-primary !px-4 !py-2 text-sm">
             {t("startClaim")}
           </Link>
