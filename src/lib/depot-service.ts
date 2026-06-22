@@ -117,6 +117,7 @@ export async function creerDepot(
         segments: input.segments,
         descriptionIncident: input.descriptionIncident || null,
         causePerturbation: input.causePerturbation || null,
+        sourceMarketing: input.sourceMarketing || null,
         // Objet { nbPassagers, additionnels } ; l'admin lit aussi l'ancien format tableau.
         passagersSupplementaires: {
           nbPassagers: input.nbPassagers,

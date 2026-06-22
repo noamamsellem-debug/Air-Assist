@@ -155,6 +155,8 @@ export const depotSchema = z
     descriptionIncident: z.string().trim().max(1200).optional().or(z.literal("")),
     // Motif invoqué par la compagnie (facultatif) → Dossier.causePerturbation.
     causePerturbation: z.string().trim().max(120).optional().or(z.literal("")),
+    // « Comment nous avez-vous connus ? » (facultatif) → Dossier.sourceMarketing.
+    sourceMarketing: z.string().trim().max(60).optional().or(z.literal("")),
     // Mandat + consentement
     nomSignature: z.string().trim().min(1, "Signature (nom complet) requise.").max(120),
     consentementRgpd: z.literal(true),

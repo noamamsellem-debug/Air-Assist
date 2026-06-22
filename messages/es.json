@@ -368,7 +368,15 @@
     "airlinePlaceholder": "Escribe una aerolínea o código IATA",
     "flightNumberPlaceholder": "ej.: VY8920",
     "flightNumberHelp": "El número de vuelo está en tu billete, tarjeta de embarque y correo de confirmación (2 letras + dígitos, ej.: VY8920).",
-    "nationalitePlaceholder": "Escribe tu nacionalidad"
+    "nationalitePlaceholder": "Escribe tu nacionalidad",
+    "sourceLabel": "¿Cómo nos conociste? (opcional)",
+    "sourceTv": "Televisión",
+    "sourceRadio": "Radio",
+    "sourceSocial": "Redes sociales",
+    "sourceInternet": "Internet",
+    "sourceAeroport": "Aeropuerto",
+    "sourceEntourage": "Boca a boca",
+    "sourceAutre": "Otros"
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

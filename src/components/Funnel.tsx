@@ -173,6 +173,8 @@ export function Funnel() {
   const [retardDoc, setRetardDoc] = useState<DocFichier>(docVide());
   const [fraisDocs, setFraisDocs] = useState<DocFichier[]>([]);
 
+  // Marketing (facultatif)
+  const [sourceMarketing, setSourceMarketing] = useState("");
   // Mandat
   const [nomSignature, setNomSignature] = useState("");
   const [consentRgpd, setConsentRgpd] = useState(false);
@@ -216,6 +218,7 @@ export function Funnel() {
       pnr: pnr.toUpperCase(),
       motif,
       causePerturbation,
+      sourceMarketing,
       segments: segments.map((s, i) => ({
         ordre: i + 1,
         numeroVol: s.numeroVol,
@@ -611,6 +614,20 @@ export function Funnel() {
                 value={nomSignature}
                 onChange={(e) => setNomSignature(e.target.value)}
               />
+            </div>
+            {/* « Comment nous avez-vous connus ? » — facultatif. */}
+            <div>
+              <label className="label" htmlFor="src">{t("sourceLabel")}</label>
+              <select id="src" className="input" value={sourceMarketing} onChange={(e) => setSourceMarketing(e.target.value)}>
+                <option value="">—</option>
+                <option value="tv">{t("sourceTv")}</option>
+                <option value="radio">{t("sourceRadio")}</option>
+                <option value="reseaux">{t("sourceSocial")}</option>
+                <option value="internet">{t("sourceInternet")}</option>
+                <option value="aeroport">{t("sourceAeroport")}</option>
+                <option value="entourage">{t("sourceEntourage")}</option>
+                <option value="autre">{t("sourceAutre")}</option>
+              </select>
             </div>
             <p className="rounded-lg bg-slate-50 p-3 text-xs text-slate-500">{t("ipNote")}</p>
             <Nav t={t} onBack={() => setEtape(4)} onNext={() => setEtape(6)} nextDisabled={!(consentRgpd && accepteCgv && nomSignature.trim().length >= 1)} />
