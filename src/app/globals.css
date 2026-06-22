@@ -52,11 +52,11 @@ body {
 
 /* ── Hero dégradé (style premium) ────────────────────────────────────── */
 .hero-gradient {
-  background-color: #0b1f54;
+  background-color: #04142f;
   background-image:
-    radial-gradient(1100px 480px at 88% -10%, rgba(56, 189, 248, 0.45), transparent 60%),
-    radial-gradient(900px 600px at 0% 110%, rgba(31, 111, 235, 0.5), transparent 55%),
-    linear-gradient(125deg, #061536 0%, #103a8f 55%, #1f6feb 115%);
+    radial-gradient(1100px 480px at 88% -10%, rgba(56, 189, 248, 0.4), transparent 60%),
+    radial-gradient(900px 600px at 0% 110%, rgba(0, 96, 255, 0.55), transparent 55%),
+    linear-gradient(125deg, #04142f 0%, #0a3aa8 55%, #0060ff 120%);
 }
 
 /* Voile « grille » discret pour les fonds clairs illustratifs */

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
@@ -21,8 +22,10 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-12 text-sm">
         <div className="flex flex-col gap-6 border-b border-white/10 pb-8 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
-            <p className="text-lg font-extrabold text-white">{c("brand")}</p>
-            <p className="mt-2 text-slate-400">{c("tagline")}</p>
+            <span className="inline-flex rounded-xl bg-white px-3 py-2 shadow-sm">
+              <Image src="/airassist-logo.png" alt="AirAssist" width={817} height={600} className="h-14 w-auto" />
+            </span>
+            <p className="mt-3 text-slate-400">{c("tagline")}</p>
           </div>
           <nav className="flex flex-wrap gap-x-6 gap-y-2">
             {liens.map((l) => (

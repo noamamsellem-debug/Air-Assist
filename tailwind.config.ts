@@ -5,16 +5,17 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Bleu de marque AirAssist : #0060FF.
         brand: {
-          50: "#eef6ff",
-          100: "#d9eaff",
-          200: "#bcd9ff",
-          400: "#4d8ef5",
-          500: "#1f6feb",
-          600: "#1858c7",
-          700: "#1448a0",
-          900: "#0d2a5e",
-          950: "#081a3d",
+          50: "#eaf2ff",
+          100: "#d4e4ff",
+          200: "#aecbff",
+          400: "#3d85ff",
+          500: "#0060ff",
+          600: "#0050d6",
+          700: "#0040ab",
+          900: "#062a6e",
+          950: "#041a45",
         },
         // Accent cyan/azur dérivé du bleu du logo (dégradé hero + touches premium).
         accent: {
