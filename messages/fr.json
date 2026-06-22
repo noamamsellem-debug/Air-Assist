@@ -367,7 +367,8 @@
     "fraisAdd": "Ajouter un justificatif",
     "airlinePlaceholder": "Tapez une compagnie ou un code IATA",
     "flightNumberPlaceholder": "ex : VY8920",
-    "flightNumberHelp": "Le numéro de vol figure sur votre billet, votre carte d'embarquement et l'e-mail de confirmation (2 lettres + chiffres, ex : VY8920)."
+    "flightNumberHelp": "Le numéro de vol figure sur votre billet, votre carte d'embarquement et l'e-mail de confirmation (2 lettres + chiffres, ex : VY8920).",
+    "nationalitePlaceholder": "Tapez votre nationalité"
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

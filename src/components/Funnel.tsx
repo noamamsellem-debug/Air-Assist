@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { AirportAutocomplete } from "@/components/AirportAutocomplete";
 import { AirlineAutocomplete } from "@/components/AirlineAutocomplete";
+import { NationaliteAutocomplete } from "@/components/NationaliteAutocomplete";
 import { getCompagnieParCode } from "@/data/compagnies-search";
 import { AddressAutocomplete, adresseVide, type AddressValue } from "@/components/AddressAutocomplete";
 import { DocIllustration } from "@/components/DocIllustration";
@@ -380,7 +381,7 @@ export function Funnel() {
                 <div><label className="label">{t("prenom")}</label><input className="input" value={prenom} onChange={(e) => setPrenom(e.target.value)} /></div>
                 <div><label className="label">{t("nom")}</label><input className="input" value={nom} onChange={(e) => setNom(e.target.value)} /></div>
                 <div><label className="label">{t("dateNaissance")}</label><input type="date" className="input" value={dateNaissance} onChange={(e) => setDateNaissance(e.target.value)} /></div>
-                <div><label className="label">{t("nationalite")}</label><input className="input" value={nationalite} onChange={(e) => setNationalite(e.target.value)} /></div>
+                <div><label className="label">{t("nationalite")}</label><NationaliteAutocomplete value={nationalite} onChange={setNationalite} placeholder={t("nationalitePlaceholder")} /></div>
               </div>
               <div>
                 <h3 className="label">{t("adresseTitle")}</h3>

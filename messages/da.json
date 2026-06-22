@@ -367,7 +367,8 @@
     "fraisAdd": "Add a receipt",
     "airlinePlaceholder": "Type an airline or IATA code",
     "flightNumberPlaceholder": "e.g. VY8920",
-    "flightNumberHelp": "Your flight number is on your ticket, boarding pass and confirmation email (2 letters + digits, e.g. VY8920)."
+    "flightNumberHelp": "Your flight number is on your ticket, boarding pass and confirmation email (2 letters + digits, e.g. VY8920).",
+    "nationalitePlaceholder": "Type your nationality"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",
