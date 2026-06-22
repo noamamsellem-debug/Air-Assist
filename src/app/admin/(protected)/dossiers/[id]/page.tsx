@@ -105,13 +105,25 @@ export default async function DossierDetail({
               </div>
             )}
             {(() => {
-              const co = Array.isArray(d.passagersSupplementaires)
-                ? (d.passagersSupplementaires as { prenom?: string; nom?: string; email?: string; mineur?: boolean }[])
-                : [];
-              if (co.length === 0) return null;
+              type Co = { prenom?: string; nom?: string; email?: string; mineur?: boolean };
+              const raw = d.passagersSupplementaires;
+              // Nouveau format objet { nbPassagers, additionnels } ; repli sur l'ancien tableau.
+              const co: Co[] = Array.isArray(raw)
+                ? (raw as Co[])
+                : raw && typeof raw === "object" && Array.isArray((raw as { additionnels?: Co[] }).additionnels)
+                  ? ((raw as { additionnels?: Co[] }).additionnels as Co[])
+                  : [];
+              const nbPassagers =
+                raw && typeof raw === "object" && !Array.isArray(raw)
+                  ? (raw as { nbPassagers?: number }).nbPassagers
+                  : undefined;
+              if (!nbPassagers && co.length === 0) return null;
               return (
                 <div className="mt-3">
-                  <dt className="text-xs uppercase text-slate-400">Co-passagers ({co.length})</dt>
+                  <dt className="text-xs uppercase text-slate-400">
+                    Passagers{nbPassagers ? ` (${nbPassagers})` : ""}
+                    {co.length > 0 ? ` · co-passagers : ${co.length}` : ""}
+                  </dt>
                   <ul className="mt-1 space-y-1 text-sm text-slate-800">
                     {co.map((p, i) => (
                       <li key={i} className="rounded bg-slate-50 px-3 py-2">

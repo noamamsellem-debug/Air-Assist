@@ -356,7 +356,12 @@
     "causeOtherFlights": "Causado por otros vuelos",
     "causeForce": "Circunstancias extraordinarias",
     "causeUnknown": "No lo sé",
-    "signLabel": "Escribe tu nombre completo para firmar electrónicamente"
+    "signLabel": "Escribe tu nombre completo para firmar electrónicamente",
+    "nbPassengers": "Número de pasajeros",
+    "nbPassengersHelp": "¿A cuántos pasajeros afecta esta reclamación (tú incluido)?",
+    "coPassengersTitle": "Pasajeros adicionales (opcional)",
+    "coAdd": "Añadir un pasajero",
+    "coMineur": "Menor"
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

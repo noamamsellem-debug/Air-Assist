@@ -356,7 +356,12 @@
     "causeOtherFlights": "Causé par d'autres vols",
     "causeForce": "Circonstances extraordinaires",
     "causeUnknown": "Je ne sais pas",
-    "signLabel": "Tapez votre nom complet pour signer électroniquement"
+    "signLabel": "Tapez votre nom complet pour signer électroniquement",
+    "nbPassengers": "Nombre de passagers",
+    "nbPassengersHelp": "Combien de passagers cette demande concerne-t-elle (vous compris) ?",
+    "coPassengersTitle": "Passagers supplémentaires (facultatif)",
+    "coAdd": "Ajouter un passager",
+    "coMineur": "Mineur"
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

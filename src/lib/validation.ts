@@ -134,6 +134,20 @@ export const depotSchema = z
     // Coordonnées
     email: z.string().trim().email("E-mail invalide."),
     telephone: z.string().trim().min(5, "Téléphone requis.").max(40),
+    // Bénéficiaire : nombre total de passagers (obligatoire) + co-passagers (facultatif).
+    nbPassagers: z.coerce.number().int().min(1, "Au moins un passager.").max(9, "Maximum 9 passagers."),
+    passagersSupplementaires: z
+      .array(
+        z.object({
+          prenom: z.string().trim().min(1).max(100),
+          nom: z.string().trim().min(1).max(100),
+          email: z.string().trim().email().optional().or(z.literal("")),
+          mineur: z.boolean().optional(),
+        }),
+      )
+      .max(8)
+      .optional()
+      .default([]),
     // Documents (chiffrés au repos côté serveur)
     pieceIdentite: fichierSchema.extend({ sousType: sousTypePieceIdentiteSchema }),
     justificatifsVoyage: z
@@ -151,6 +165,13 @@ export const depotSchema = z
     versionCgv: z.string().default("2026-01-v1"),
   })
   .superRefine((d, ctx) => {
+    if ((d.passagersSupplementaires?.length ?? 0) > d.nbPassagers - 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["passagersSupplementaires"],
+        message: "Plus de co-passagers que le nombre total de passagers déclaré.",
+      });
+    }
     if (d.typeTrajet === "CORRESPONDANCE") {
       if (d.segments.length < 2) {
         ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["segments"], message: "Une correspondance nécessite au moins 2 vols." });

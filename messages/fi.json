@@ -356,7 +356,12 @@
     "causeOtherFlights": "Caused by other flights",
     "causeForce": "Extraordinary circumstances",
     "causeUnknown": "I don't know",
-    "signLabel": "Type your full name to sign electronically"
+    "signLabel": "Type your full name to sign electronically",
+    "nbPassengers": "Number of passengers",
+    "nbPassengersHelp": "How many passengers does this claim cover (including you)?",
+    "coPassengersTitle": "Additional passengers (optional)",
+    "coAdd": "Add a passenger",
+    "coMineur": "Minor"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

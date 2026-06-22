@@ -95,6 +95,8 @@ export function Funnel() {
   // Coordonnées
   const [email, setEmail] = useState("");
   const [telephone, setTelephone] = useState("");
+  const [nbPassagers, setNbPassagers] = useState(1);
+  const [coPassagers, setCoPassagers] = useState<{ prenom: string; nom: string; email: string; mineur: boolean }[]>([]);
 
   // Documents
   const [pieceSousType, setPieceSousType] = useState<SousId>("CNI");
@@ -166,6 +168,11 @@ export function Funnel() {
       },
       email,
       telephone,
+      nbPassagers,
+      // On ne transmet que les co-passagers réellement renseignés (prénom + nom).
+      passagersSupplementaires: coPassagers
+        .filter((p) => p.prenom.trim() && p.nom.trim())
+        .map((p) => ({ prenom: p.prenom, nom: p.nom, email: p.email, mineur: p.mineur })),
       pieceIdentite: pieceDoc.file
         ? { sousType: pieceSousType, nomFichier: pieceDoc.file.name, mimeType: pieceDoc.file.type, contenuBase64: "x" }
         : undefined,
@@ -304,8 +311,71 @@ export function Funnel() {
               <div><label className="label">{t("email")}</label><input type="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
               <div><label className="label">{t("telephone")}</label><input className="input" value={telephone} onChange={(e) => setTelephone(e.target.value)} /></div>
             </div>
+
+            {/* Nombre de passagers (obligatoire) */}
+            <div className="mt-4">
+              <label className="label" htmlFor="nbpax">{t("nbPassengers")}</label>
+              <select
+                id="nbpax"
+                className="input sm:w-40"
+                value={nbPassagers}
+                onChange={(e) => {
+                  const n = Number(e.target.value);
+                  setNbPassagers(n);
+                  // On tronque les co-passagers si on réduit le nombre total.
+                  setCoPassagers((prev) => prev.slice(0, Math.max(0, n - 1)));
+                }}
+              >
+                {Array.from({ length: 9 }, (_, i) => i + 1).map((n) => (
+                  <option key={n} value={n}>{n}</option>
+                ))}
+              </select>
+              <p className="mt-1 text-xs text-slate-500">{t("nbPassengersHelp")}</p>
+            </div>
+
+            {/* Co-passagers répétables (facultatif), plafonnés à nbPassagers − 1 */}
+            {nbPassagers > 1 && (
+              <section className="mt-4">
+                <h3 className="font-semibold text-slate-800">{t("coPassengersTitle")}</h3>
+                <div className="mt-3 space-y-3">
+                  {coPassagers.map((p, i) => (
+                    <div key={i} className="rounded-lg border border-slate-200 p-3">
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <input className="input" placeholder={t("prenom")} value={p.prenom}
+                          onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, prenom: e.target.value } : x)))} />
+                        <input className="input" placeholder={t("nom")} value={p.nom}
+                          onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, nom: e.target.value } : x)))} />
+                        <input className="input sm:col-span-2" type="email" placeholder={t("email")} value={p.email}
+                          onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, email: e.target.value } : x)))} />
+                      </div>
+                      <div className="mt-2 flex items-center justify-between">
+                        <label className="flex items-center gap-2 text-sm text-slate-600">
+                          <input type="checkbox" checked={p.mineur}
+                            onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, mineur: e.target.checked } : x)))} />
+                          {t("coMineur")}
+                        </label>
+                        <button type="button" className="text-xs text-red-600 hover:underline"
+                          onClick={() => setCoPassagers((prev) => prev.filter((_, j) => j !== i))}>
+                          {t("removeSegment")}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {coPassagers.length < nbPassagers - 1 && (
+                  <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+                    onClick={() => setCoPassagers((prev) => [...prev, { prenom: "", nom: "", email: "", mineur: false }])}>
+                    + {t("coAdd")}
+                  </button>
+                )}
+              </section>
+            )}
+
             <Nav t={t} onBack={() => setEtape(2)} onNext={() => setEtape(4)}
-              nextDisabled={!(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && telephone.trim().length >= 5)} />
+              nextDisabled={
+                !(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && telephone.trim().length >= 5) ||
+                coPassagers.some((p) => !(p.prenom.trim() && p.nom.trim()))
+              } />
           </div>
         )}
 
@@ -419,6 +489,7 @@ export function Funnel() {
             valide={validation.success}
             manquants={validation.success ? [] : Object.keys(validation.error.flatten().fieldErrors)}
             data={{ civilite, prenom, nom, dateNaissance, nationalite, adresse, email, telephone, pnr, motif, typeTrajet, segments,
+              nbPassagers,
               nbDocs: 1 + voyages.filter((v) => v.doc.file).length + (retardDoc.file ? 1 : 0) }}
             onModifier={setEtape} onSubmit={soumettre} envoi={envoi} erreur={erreur}
           />
@@ -565,7 +636,7 @@ function EtapeTrajet(props: {
 
 function EtapeRecap(props: {
   t: Tt; montantFmt: string; commissionFmt: string; partClientFmt: string; valide: boolean; manquants: string[];
-  data: { civilite: string; prenom: string; nom: string; dateNaissance: string; nationalite: string; adresse: AddressValue; email: string; telephone: string; pnr: string; motif: string; typeTrajet: string; segments: Segment[]; nbDocs: number };
+  data: { civilite: string; prenom: string; nom: string; dateNaissance: string; nationalite: string; adresse: AddressValue; email: string; telephone: string; pnr: string; motif: string; typeTrajet: string; segments: Segment[]; nbPassagers: number; nbDocs: number };
   onModifier: (etape: number) => void; onSubmit: () => void; envoi: boolean; erreur: string | null;
 }) {
   const { t, montantFmt, commissionFmt, partClientFmt, valide, manquants, data, onModifier, onSubmit, envoi, erreur } = props;
@@ -578,7 +649,8 @@ function EtapeRecap(props: {
       <div className="mt-4 space-y-3">
         <Section t={t} titre={t("secPassager")} onModifier={() => onModifier(2)}>
           {data.civilite} {data.prenom} {data.nom} · {data.dateNaissance} · {data.nationalite}<br />
-          {data.email} · {data.telephone}
+          {data.email} · {data.telephone}<br />
+          {t("nbPassengers")} : {data.nbPassagers}
         </Section>
         <Section t={t} titre={t("secAdresse")} onModifier={() => onModifier(2)}>
           {[data.adresse.ligne1, data.adresse.complement, data.adresse.codePostal, data.adresse.ville, data.adresse.pays].filter(Boolean).join(", ")}
