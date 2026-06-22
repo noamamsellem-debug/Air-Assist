@@ -118,6 +118,7 @@ export function Calculator() {
             id="dep"
             value={form.aeroportDepart}
             onChange={(iata) => setForm({ ...form, aeroportDepart: iata })}
+            placeholder={t("selectAirport")}
           />
         </div>
         <div>
@@ -126,6 +127,7 @@ export function Calculator() {
             id="arr"
             value={form.aeroportArrivee}
             onChange={(iata) => setForm({ ...form, aeroportArrivee: iata })}
+            placeholder={t("selectAirport")}
           />
         </div>
 

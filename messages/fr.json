@@ -376,7 +376,8 @@
     "sourceInternet": "Internet",
     "sourceAeroport": "Aéroport",
     "sourceEntourage": "Mon entourage",
-    "sourceAutre": "Autres"
+    "sourceAutre": "Autres",
+    "airportPlaceholder": "Tapez une ville ou un code IATA"
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

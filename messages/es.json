@@ -376,7 +376,8 @@
     "sourceInternet": "Internet",
     "sourceAeroport": "Aeropuerto",
     "sourceEntourage": "Boca a boca",
-    "sourceAutre": "Otros"
+    "sourceAutre": "Otros",
+    "airportPlaceholder": "Escribe una ciudad o código IATA"
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

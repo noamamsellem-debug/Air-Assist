@@ -770,8 +770,8 @@ function EtapeTrajet(props: {
               </div>
               <div><label className="label">{t("segDate")}</label><input type="date" className="input" value={s.date} onChange={(e) => majSegment(i, { date: e.target.value })} /></div>
               <div />
-              <div><label className="label">{t("segFrom")}</label><AirportAutocomplete value={s.aeroportDepart} onChange={(iata) => majSegment(i, { aeroportDepart: iata })} /></div>
-              <div><label className="label">{t("segTo")}</label><AirportAutocomplete value={s.aeroportArrivee} onChange={(iata) => majSegment(i, { aeroportArrivee: iata })} /></div>
+              <div><label className="label">{t("segFrom")}</label><AirportAutocomplete value={s.aeroportDepart} onChange={(iata) => majSegment(i, { aeroportDepart: iata })} placeholder={t("airportPlaceholder")} /></div>
+              <div><label className="label">{t("segTo")}</label><AirportAutocomplete value={s.aeroportArrivee} onChange={(iata) => majSegment(i, { aeroportArrivee: iata })} placeholder={t("airportPlaceholder")} /></div>
             </div>
           </div>
         ))}

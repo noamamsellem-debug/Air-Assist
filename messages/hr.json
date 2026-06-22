@@ -376,7 +376,8 @@
     "sourceInternet": "Internet",
     "sourceAeroport": "Airport",
     "sourceEntourage": "Word of mouth",
-    "sourceAutre": "Other"
+    "sourceAutre": "Other",
+    "airportPlaceholder": "Type a city or IATA code"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",
