@@ -75,7 +75,8 @@ export function appliquerTransition(
 
 /** Libellés FR lisibles (pour l'UI/CRM). */
 export const LIBELLES_STATUT: Record<StatutDossier, string> = {
-  NOUVEAU: "Nouveau",
+  // L'enum reste NOUVEAU (statut initial à la création) ; libellé CRM = « Soumis ».
+  NOUVEAU: "Soumis",
   VERIFIE: "Vérifié",
   RECLAMATION_ENVOYEE: "Réclamation envoyée",
   ACCUSE_RECU: "Accusé reçu",
