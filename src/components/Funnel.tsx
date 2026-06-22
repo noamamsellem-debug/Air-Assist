@@ -334,7 +334,7 @@ export function Funnel() {
         });
         const data = await res.json().catch(() => null);
         if (!res.ok || !data?.dossierId) {
-          setErreur(data?.error ?? t("networkError"));
+          setErreur(`⚠️ API /api/depot ${res.status} : ${data?.error ?? "réponse illisible"}`);
           return;
         }
         dossierRef.current = { dossierId: data.dossierId, reference: data.reference };
@@ -375,9 +375,11 @@ export function Funnel() {
       setEtape(7);
       window.scrollTo({ top: 0 });
     } catch (e) {
-      // On affiche le VRAI message (plus de « Erreur réseau » générique masquant tout).
+      // Affiche le VRAI message. Le préfixe ⚠️ permet de confirmer que ce code
+      // (et non un ancien bundle en cache) est bien celui exécuté.
       console.error("[depot] échec de la soumission", e);
-      setErreur(e instanceof Error ? e.message : t("networkError"));
+      const msg = e instanceof Error ? (e.message || e.name || "Error sans message") : `non-Error: ${String(e)}`;
+      setErreur(`⚠️ ${msg}`);
     } finally {
       setEnvoi(false);
     }
