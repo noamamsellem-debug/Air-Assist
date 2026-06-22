@@ -142,6 +142,8 @@ export const depotSchema = z
     justificatifRetard: fichierSchema.optional(),
     // Facultatif
     descriptionIncident: z.string().trim().max(1200).optional().or(z.literal("")),
+    // Motif invoqué par la compagnie (facultatif) → Dossier.causePerturbation.
+    causePerturbation: z.string().trim().max(120).optional().or(z.literal("")),
     // Mandat + consentement
     consentementRgpd: z.literal(true),
     accepteCgv: z.literal(true),

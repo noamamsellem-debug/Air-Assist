@@ -116,6 +116,7 @@ export async function creerDepot(
         reservationUnique: input.reservationUnique ?? null,
         segments: input.segments,
         descriptionIncident: input.descriptionIncident || null,
+        causePerturbation: input.causePerturbation || null,
       },
     });
 

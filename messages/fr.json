@@ -346,7 +346,16 @@
     "recapEstimate": "Indemnisation estimée",
     "recapCommission": "Commission ({pct} %, uniquement en cas de succès)",
     "recapYourShare": "Votre part ({pct} %)",
-    "recapCommissionNote": "Estimation indicative basée sur le montant estimé. La commission n'est prélevée qu'en cas de succès de votre réclamation."
+    "recapCommissionNote": "Estimation indicative basée sur le montant estimé. La commission n'est prélevée qu'en cas de succès de votre réclamation.",
+    "causeLabel": "Motif invoqué par la compagnie (facultatif)",
+    "causeChoose": "Non précisé",
+    "causeTechnical": "Problème technique",
+    "causeWeather": "Mauvaise météo",
+    "causeStrike": "Grève",
+    "causeAirport": "Problèmes à l'aéroport",
+    "causeOtherFlights": "Causé par d'autres vols",
+    "causeForce": "Circonstances extraordinaires",
+    "causeUnknown": "Je ne sais pas"
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

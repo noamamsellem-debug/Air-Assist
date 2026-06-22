@@ -38,6 +38,20 @@ describe("depotSchema — dépôt complet", () => {
     expect(depotSchema.safeParse(depotValide()).success).toBe(true);
   });
 
+  it("accepte un motif compagnie facultatif (causePerturbation)", () => {
+    const d = depotValide() as Record<string, unknown>;
+    d.causePerturbation = "technique";
+    const r = depotSchema.safeParse(d);
+    expect(r.success).toBe(true);
+    if (r.success) expect(r.data.causePerturbation).toBe("technique");
+  });
+
+  it("accepte un dépôt sans causePerturbation (facultatif)", () => {
+    const d = depotValide() as Record<string, unknown>;
+    delete d.causePerturbation;
+    expect(depotSchema.safeParse(d).success).toBe(true);
+  });
+
   it("refuse sans pièce d'identité", () => {
     const d = depotValide() as Record<string, unknown>;
     delete d.pieceIdentite;

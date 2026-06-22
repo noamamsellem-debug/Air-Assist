@@ -346,7 +346,16 @@
     "recapEstimate": "Estimated compensation",
     "recapCommission": "Commission ({pct}%, only if we win)",
     "recapYourShare": "Your share ({pct}%)",
-    "recapCommissionNote": "Indicative estimate based on the estimated amount. The commission is charged only if your claim succeeds."
+    "recapCommissionNote": "Indicative estimate based on the estimated amount. The commission is charged only if your claim succeeds.",
+    "causeLabel": "Reason given by the airline (optional)",
+    "causeChoose": "Not specified",
+    "causeTechnical": "Technical issue",
+    "causeWeather": "Bad weather",
+    "causeStrike": "Strike",
+    "causeAirport": "Airport problems",
+    "causeOtherFlights": "Caused by other flights",
+    "causeForce": "Extraordinary circumstances",
+    "causeUnknown": "I don't know"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

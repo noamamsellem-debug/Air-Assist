@@ -73,6 +73,7 @@ export function Funnel() {
   const [reservationUnique, setReservationUnique] = useState<boolean | null>(null);
   const [pnr, setPnr] = useState("");
   const [motif, setMotif] = useState(sp.get("motif") ?? "RETARD");
+  const [causePerturbation, setCausePerturbation] = useState("");
   const [segments, setSegments] = useState<Segment[]>([
     {
       numeroVol: sp.get("numeroVol") ?? "",
@@ -139,6 +140,7 @@ export function Funnel() {
       reservationUnique,
       pnr: pnr.toUpperCase(),
       motif,
+      causePerturbation,
       segments: segments.map((s, i) => ({
         ordre: i + 1,
         numeroVol: s.numeroVol,
@@ -256,6 +258,7 @@ export function Funnel() {
             t={t} typeTrajet={typeTrajet} setTypeTrajet={setTypeTrajet}
             reservationUnique={reservationUnique} setReservationUnique={setReservationUnique}
             pnr={pnr} setPnr={setPnr} motif={motif} setMotif={setMotif}
+            causePerturbation={causePerturbation} setCausePerturbation={setCausePerturbation}
             segments={segments} setSegments={setSegments} majSegment={majSegment}
             onNext={() => setEtape(2)}
           />
@@ -443,11 +446,12 @@ function EtapeTrajet(props: {
   setReservationUnique: (v: boolean) => void;
   pnr: string; setPnr: (v: string) => void;
   motif: string; setMotif: (v: string) => void;
+  causePerturbation: string; setCausePerturbation: (v: string) => void;
   segments: Segment[]; setSegments: (s: Segment[]) => void;
   majSegment: (i: number, patch: Partial<Segment>) => void;
   onNext: () => void;
 }) {
-  const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, segments, setSegments, majSegment, onNext } = props;
+  const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, causePerturbation, setCausePerturbation, segments, setSegments, majSegment, onNext } = props;
   const pnrOk = /^[A-Za-z0-9]{6}$/.test(pnr.trim());
   const segmentsOk = segments.every((s) => s.numeroVol.trim() && s.date && s.aeroportDepart && s.aeroportArrivee);
   const correspondanceOk = typeTrajet === "DIRECT" || (segments.length >= 2 && typeof reservationUnique === "boolean");
@@ -523,6 +527,21 @@ function EtapeTrajet(props: {
             <option value="CORRESPONDANCE_MANQUEE">{t("motifCorrespondance")}</option>
           </select>
         </div>
+      </div>
+
+      {/* Motif invoqué par la compagnie — facultatif. */}
+      <div className="mt-4">
+        <label className="label">{t("causeLabel")}</label>
+        <select className="input" value={causePerturbation} onChange={(e) => setCausePerturbation(e.target.value)}>
+          <option value="">{t("causeChoose")}</option>
+          <option value="technique">{t("causeTechnical")}</option>
+          <option value="meteo">{t("causeWeather")}</option>
+          <option value="greve">{t("causeStrike")}</option>
+          <option value="aeroport">{t("causeAirport")}</option>
+          <option value="autres_vols">{t("causeOtherFlights")}</option>
+          <option value="force_majeure">{t("causeForce")}</option>
+          <option value="inconnu">{t("causeUnknown")}</option>
+        </select>
       </div>
 
       <div className="mt-6 flex justify-end">
