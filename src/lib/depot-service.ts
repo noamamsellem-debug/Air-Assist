@@ -1,10 +1,11 @@
 /**
- * Création d'un dossier via le tunnel refondu (dépôt complet).
+ * Création d'un dossier via le tunnel refondu.
  *
- * Rejoue le `depotSchema` côté serveur (la route le valide), crée le passager
- * (identité + adresse structurée), le vol (trajet entier), le dossier (segments
- * JSON), le mandat horodaté (IP + version CGV), les documents chiffrés au repos
- * (type + sousType), l'historique, puis envoie l'e-mail de confirmation.
+ * Découpage anti-limite (4,5 Mo/requête serverless) :
+ *  - `creerDepot` crée le passager, le vol, le dossier (segments JSON), le mandat
+ *    horodaté (IP + version CGV) et l'historique, puis envoie l'e-mail. SANS fichiers.
+ *  - `ajouterDocument` téléverse UN document (chiffré au repos AES-256-GCM), dans une
+ *    requête séparée et légère.
  *
  * Pas d'IBAN ici (coordonnées bancaires via le PSP en phase 2).
  * TODO: signature eIDAS réelle — point d'extension via l'adaptateur e-sign.
@@ -15,9 +16,18 @@ import { genererProchaineReference } from "./dossier-service";
 import { getSignatureAdapter } from "@/adapters/esign";
 import { getEmailAdapter } from "@/adapters/email";
 import { chiffrerDocument } from "./crypto";
-import type { DepotInput } from "./validation";
+import type { DepotInput, DocumentUploadInput } from "./validation";
 
-const TAILLE_MAX_OCTETS = 8 * 1024 * 1024;
+// Plafond décodé par document. Au-delà de ~3,3 Mo décodés, le base64 dépasse de
+// toute façon la limite de corps serverless (4,5 Mo) — d'où la compression client.
+const TAILLE_MAX_OCTETS = 4 * 1024 * 1024;
+
+/** Erreur métier avec code HTTP pour la route. */
+export class DepotError extends Error {
+  constructor(message: string, readonly status: number) {
+    super(message);
+  }
+}
 
 async function resoudreCompagnie(numeroVol: string, nomLisible: string) {
   const code = numeroVol.trim().slice(0, 2).toUpperCase();
@@ -61,21 +71,6 @@ export async function creerDepot(
   });
 
   const adr = input.passager.adresse;
-
-  const documents: { type: TypeDocument; sousType: SousTypeDocument | null; f: { nomFichier: string; mimeType: string; contenuBase64: string } }[] = [
-    { type: "PIECE_IDENTITE", sousType: input.pieceIdentite.sousType, f: input.pieceIdentite },
-    ...input.justificatifsVoyage.map((j) => ({
-      type: "JUSTIFICATIF_VOYAGE" as TypeDocument,
-      sousType: j.sousType as SousTypeDocument,
-      f: j,
-    })),
-  ];
-  if (input.justificatifRetard) {
-    documents.push({ type: "JUSTIFICATIF_RETARD", sousType: null, f: input.justificatifRetard });
-  }
-  for (const fr of input.justificatifsFrais ?? []) {
-    documents.push({ type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS", f: fr });
-  }
 
   const dossier = await prisma.$transaction(async (tx) => {
     const passager = await tx.passager.create({
@@ -141,25 +136,6 @@ export async function creerDepot(
       },
     });
 
-    for (const doc of documents) {
-      const brut = Buffer.from(doc.f.contenuBase64, "base64");
-      if (brut.length === 0 || brut.length > TAILLE_MAX_OCTETS) continue;
-      const { contenuChiffre, iv, authTag } = chiffrerDocument(brut);
-      await tx.document.create({
-        data: {
-          dossierId: d.id,
-          type: doc.type,
-          sousType: doc.sousType,
-          nomFichier: doc.f.nomFichier,
-          mimeType: doc.f.mimeType,
-          tailleOctets: brut.length,
-          contenuChiffre: new Uint8Array(contenuChiffre),
-          iv: new Uint8Array(iv),
-          authTag: new Uint8Array(authTag),
-        },
-      });
-    }
-
     await tx.historiqueStatut.create({
       data: {
         dossierId: d.id,
@@ -190,4 +166,42 @@ export async function creerDepot(
   }
 
   return { dossierId: dossier.id, reference };
+}
+
+/**
+ * Téléverse UN document pour un dossier existant (requête séparée < 4,5 Mo).
+ * Le `dossierId` (cuid non devinable) sert de capacité pour cette fenêtre de
+ * dépôt ; l'ajout n'est permis que tant que le dossier est au statut NOUVEAU.
+ */
+export async function ajouterDocument(
+  dossierId: string,
+  doc: DocumentUploadInput,
+): Promise<{ documentId: string }> {
+  const dossier = await prisma.dossier.findUnique({
+    where: { id: dossierId },
+    select: { id: true, statut: true, _count: { select: { documents: true } } },
+  });
+  if (!dossier) throw new DepotError("Dossier introuvable.", 404);
+  if (dossier.statut !== "NOUVEAU") throw new DepotError("Dossier non modifiable.", 409);
+  if (dossier._count.documents >= 20) throw new DepotError("Trop de documents.", 409);
+
+  const brut = Buffer.from(doc.contenuBase64, "base64");
+  if (brut.length === 0) throw new DepotError("Fichier vide.", 400);
+  if (brut.length > TAILLE_MAX_OCTETS) throw new DepotError("Fichier trop volumineux.", 413);
+
+  const { contenuChiffre, iv, authTag } = chiffrerDocument(brut);
+  const created = await prisma.document.create({
+    data: {
+      dossierId,
+      type: doc.type as TypeDocument,
+      sousType: (doc.sousType ?? null) as SousTypeDocument | null,
+      nomFichier: doc.nomFichier,
+      mimeType: doc.mimeType,
+      tailleOctets: brut.length,
+      contenuChiffre: new Uint8Array(contenuChiffre),
+      iv: new Uint8Array(iv),
+      authTag: new Uint8Array(authTag),
+    },
+  });
+  return { documentId: created.id };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
@@ -41,6 +41,61 @@ function fileToBase64(file: File): Promise<string> {
     r.onerror = reject;
     r.readAsDataURL(file);
   });
+}
+
+interface DocPrepare { nomFichier: string; mimeType: string; contenuBase64: string }
+
+/**
+ * Prépare un document pour l'upload : les images sont redimensionnées/compressées
+ * (~1,3 Mo max, JPEG) côté client pour passer sous la limite serverless ; les PDF
+ * sont envoyés tels quels.
+ */
+async function preparerDocument(file: File): Promise<DocPrepare> {
+  if (file.type.startsWith("image/")) {
+    try {
+      return await compresserImage(file);
+    } catch {
+      // En cas d'échec canvas, repli sur l'envoi brut.
+    }
+  }
+  return { nomFichier: file.name, mimeType: file.type, contenuBase64: await fileToBase64(file) };
+}
+
+async function compresserImage(file: File, maxDim = 2000, maxOctets = 1.3 * 1024 * 1024): Promise<DocPrepare> {
+  const dataUrl = await new Promise<string>((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result));
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+  const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+    const im = new Image();
+    im.onload = () => resolve(im);
+    im.onerror = reject;
+    im.src = dataUrl;
+  });
+  let { width, height } = img;
+  const plusGrand = Math.max(width, height);
+  if (plusGrand > maxDim) {
+    const ratio = maxDim / plusGrand;
+    width = Math.round(width * ratio);
+    height = Math.round(height * ratio);
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("canvas indisponible");
+  ctx.drawImage(img, 0, 0, width, height);
+
+  let qualite = 0.85;
+  let sortie = canvas.toDataURL("image/jpeg", qualite);
+  while (sortie.length * 0.75 > maxOctets && qualite > 0.4) {
+    qualite -= 0.1;
+    sortie = canvas.toDataURL("image/jpeg", qualite);
+  }
+  const base = file.name.replace(/\.[^.]+$/, "") || "image";
+  return { nomFichier: `${base}.jpg`, mimeType: "image/jpeg", contenuBase64: sortie.split(",")[1]! };
 }
 
 const LEGENDES_ID: Record<SousId, string> = {
@@ -134,7 +189,12 @@ export function Funnel() {
     return null;
   }
 
-  // ── Construit le payload de dépôt (pour validation + envoi) ────────────────
+  // Conservés entre tentatives : évite de recréer un dossier et reprend les
+  // uploads là où ils s'étaient arrêtés en cas d'échec partiel.
+  const dossierRef = useRef<{ dossierId: string; reference: string } | null>(null);
+  const uploadesRef = useRef<Set<string>>(new Set());
+
+  // ── Payload INFOS (sans fichiers : les documents sont téléversés à part) ────
   function construirePayload() {
     return {
       montantEstime,
@@ -174,15 +234,6 @@ export function Funnel() {
       passagersSupplementaires: coPassagers
         .filter((p) => p.prenom.trim() && p.nom.trim())
         .map((p) => ({ prenom: p.prenom, nom: p.nom, email: p.email, mineur: p.mineur })),
-      pieceIdentite: pieceDoc.file
-        ? { sousType: pieceSousType, nomFichier: pieceDoc.file.name, mimeType: pieceDoc.file.type, contenuBase64: "x" }
-        : undefined,
-      justificatifsVoyage: voyages
-        .filter((v) => v.doc.file)
-        .map((v) => ({ sousType: v.sousType, nomFichier: v.doc.file!.name, mimeType: v.doc.file!.type, contenuBase64: "x" })),
-      justificatifsFrais: fraisDocs
-        .filter((d) => d.file)
-        .map((d) => ({ nomFichier: d.file!.name, mimeType: d.file!.type, contenuBase64: "x" })),
       nomSignature,
       consentementRgpd: consentRgpd,
       accepteCgv,
@@ -190,49 +241,64 @@ export function Funnel() {
     };
   }
 
-  const validation = depotSchema.safeParse(construirePayload());
+  const infoValidation = depotSchema.safeParse(construirePayload());
+  const docsOk =
+    !!pieceDoc.file && !pieceDoc.erreur &&
+    voyages.filter((v) => v.doc.file && !v.doc.erreur).length >= 1 &&
+    fraisDocs.every((d) => !d.erreur) && !retardDoc.erreur;
+  const valide = infoValidation.success && docsOk;
+  const manquants = [
+    ...(infoValidation.success ? [] : Object.keys(infoValidation.error.flatten().fieldErrors)),
+    ...(docsOk ? [] : [t("secDocs")]),
+  ];
 
   async function soumettre() {
     setErreur(null);
     setEnvoi(true);
     try {
-      const pieceB64 = pieceDoc.file ? await fileToBase64(pieceDoc.file) : "";
-      const voyagesB64 = await Promise.all(
-        voyages.filter((v) => v.doc.file).map(async (v) => ({
-          sousType: v.sousType,
-          nomFichier: v.doc.file!.name,
-          mimeType: v.doc.file!.type,
-          contenuBase64: await fileToBase64(v.doc.file!),
-        })),
-      );
-      const fraisB64 = await Promise.all(
-        fraisDocs.filter((d) => d.file).map(async (d) => ({
-          nomFichier: d.file!.name,
-          mimeType: d.file!.type,
-          contenuBase64: await fileToBase64(d.file!),
-        })),
-      );
-      const payload = {
-        ...construirePayload(),
-        pieceIdentite: { sousType: pieceSousType, nomFichier: pieceDoc.file!.name, mimeType: pieceDoc.file!.type, contenuBase64: pieceB64 },
-        justificatifsVoyage: voyagesB64,
-        justificatifsFrais: fraisB64,
-        justificatifRetard: retardDoc.file
-          ? { nomFichier: retardDoc.file.name, mimeType: retardDoc.file.type, contenuBase64: await fileToBase64(retardDoc.file) }
-          : undefined,
-      };
-      const res = await fetch("/api/depot", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      if (!res.ok) setErreur(data.error ?? t("networkError"));
-      else {
-        setReference(data.reference);
-        setEtape(7);
-        window.scrollTo({ top: 0 });
+      // 1) Créer le dossier (une seule fois ; conservé pour reprise).
+      if (!dossierRef.current) {
+        const res = await fetch("/api/depot", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(construirePayload()),
+        });
+        const data = await res.json().catch(() => null);
+        if (!res.ok || !data?.dossierId) {
+          setErreur(data?.error ?? t("networkError"));
+          return;
+        }
+        dossierRef.current = { dossierId: data.dossierId, reference: data.reference };
       }
+      const { dossierId, reference: ref } = dossierRef.current;
+
+      // 2) Liste ordonnée des documents à téléverser.
+      const aEnvoyer: { key: string; type: string; sousType: string | null; file: File }[] = [];
+      if (pieceDoc.file) aEnvoyer.push({ key: "piece", type: "PIECE_IDENTITE", sousType: pieceSousType, file: pieceDoc.file });
+      voyages.forEach((v, i) => { if (v.doc.file) aEnvoyer.push({ key: `voyage-${i}`, type: "JUSTIFICATIF_VOYAGE", sousType: v.sousType, file: v.doc.file }); });
+      if (retardDoc.file) aEnvoyer.push({ key: "retard", type: "JUSTIFICATIF_RETARD", sousType: null, file: retardDoc.file });
+      fraisDocs.forEach((d, i) => { if (d.file) aEnvoyer.push({ key: `frais-${i}`, type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS", file: d.file }); });
+
+      // 3) Upload séquentiel (chaque requête < 4,5 Mo ; reprise sur échec partiel).
+      for (const doc of aEnvoyer) {
+        if (uploadesRef.current.has(doc.key)) continue;
+        const prep = await preparerDocument(doc.file);
+        const r = await fetch(`/api/depot/${dossierId}/document`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: doc.type, sousType: doc.sousType, ...prep }),
+        });
+        if (!r.ok) {
+          const e = await r.json().catch(() => null);
+          setErreur(e?.error ?? t("networkError"));
+          return;
+        }
+        uploadesRef.current.add(doc.key);
+      }
+
+      setReference(ref);
+      setEtape(7);
+      window.scrollTo({ top: 0 });
     } catch {
       setErreur(t("networkError"));
     } finally {
@@ -544,11 +610,11 @@ export function Funnel() {
           <EtapeRecap
             t={t} montantFmt={montantFmt}
             commissionFmt={fmtEur(repartition.commission)} partClientFmt={fmtEur(repartition.partClient)}
-            valide={validation.success}
-            manquants={validation.success ? [] : Object.keys(validation.error.flatten().fieldErrors)}
+            valide={valide}
+            manquants={manquants}
             data={{ civilite, prenom, nom, dateNaissance, nationalite, adresse, email, telephone, pnr, motif, typeTrajet, segments,
               nbPassagers,
-              nbDocs: 1 + voyages.filter((v) => v.doc.file).length + (retardDoc.file ? 1 : 0) }}
+              nbDocs: 1 + voyages.filter((v) => v.doc.file).length + fraisDocs.filter((d) => d.file).length + (retardDoc.file ? 1 : 0) }}
             onModifier={setEtape} onSubmit={soumettre} envoi={envoi} erreur={erreur}
           />
         )}

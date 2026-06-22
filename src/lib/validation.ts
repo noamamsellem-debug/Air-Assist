@@ -148,15 +148,9 @@ export const depotSchema = z
       .max(8)
       .optional()
       .default([]),
-    // Documents (chiffrés au repos côté serveur)
-    pieceIdentite: fichierSchema.extend({ sousType: sousTypePieceIdentiteSchema }),
-    justificatifsVoyage: z
-      .array(fichierSchema.extend({ sousType: sousTypeJustificatifVoyageSchema }))
-      .min(1, "Au moins un justificatif de voyage est requis."),
-    justificatifRetard: fichierSchema.optional(),
-    // Justificatifs de frais (repas/hôtel/transport) — facultatif, répétable.
-    // Stockés en type AUTRE + sousType JUSTIFICATIF_FRAIS.
-    justificatifsFrais: z.array(fichierSchema).max(8).optional().default([]),
+    // NB : les documents ne sont PAS envoyés ici. Ils sont téléversés un par un
+    // après création du dossier (POST /api/depot/[id]/document) pour rester sous
+    // la limite de 4,5 Mo par requête serverless. Voir documentUploadSchema.
     // Facultatif
     descriptionIncident: z.string().trim().max(1200).optional().or(z.literal("")),
     // Motif invoqué par la compagnie (facultatif) → Dossier.causePerturbation.
@@ -190,6 +184,28 @@ export const depotSchema = z
   });
 
 export type DepotInput = z.infer<typeof depotSchema>;
+
+/**
+ * Upload d'UN document, après création du dossier (requête séparée < 4,5 Mo).
+ * Chiffré au repos côté serveur. sousType selon la catégorie.
+ */
+export const documentUploadSchema = fichierSchema.extend({
+  type: z.enum(["PIECE_IDENTITE", "JUSTIFICATIF_VOYAGE", "JUSTIFICATIF_RETARD", "AUTRE"]),
+  sousType: z
+    .enum([
+      "CNI",
+      "PASSEPORT",
+      "PERMIS_CONDUIRE",
+      "CARTE_SEJOUR",
+      "CARTE_EMBARQUEMENT",
+      "CONFIRMATION_RESERVATION",
+      "JUSTIFICATIF_FRAIS",
+    ])
+    .nullable()
+    .optional(),
+});
+
+export type DocumentUploadInput = z.infer<typeof documentUploadSchema>;
 
 
 export const changementStatutSchema = z.object({
