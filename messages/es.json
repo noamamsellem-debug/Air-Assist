@@ -340,7 +340,11 @@
     "confirmText": "Tu número de expediente es {reference}.",
     "trackLink": "Seguir mi expediente",
     "required": "Obligatorio",
-    "networkError": "Error de red, inténtalo de nuevo."
+    "networkError": "Error de red, inténtalo de nuevo.",
+    "recapEstimate": "Indemnización estimada",
+    "recapCommission": "Comisión ({pct} %, solo si ganamos)",
+    "recapYourShare": "Tu parte ({pct} %)",
+    "recapCommissionNote": "Estimación indicativa basada en el importe estimado. La comisión solo se cobra si tu reclamación tiene éxito."
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

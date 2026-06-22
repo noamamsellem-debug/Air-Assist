@@ -340,7 +340,11 @@
     "confirmText": "Votre numéro de dossier est {reference}.",
     "trackLink": "Suivre mon dossier",
     "required": "Requis",
-    "networkError": "Erreur réseau, réessayez."
+    "networkError": "Erreur réseau, réessayez.",
+    "recapEstimate": "Indemnisation estimée",
+    "recapCommission": "Commission ({pct} %, uniquement en cas de succès)",
+    "recapYourShare": "Votre part ({pct} %)",
+    "recapCommissionNote": "Estimation indicative basée sur le montant estimé. La commission n'est prélevée qu'en cas de succès de votre réclamation."
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",

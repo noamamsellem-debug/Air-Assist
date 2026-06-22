@@ -8,6 +8,7 @@ import { AirportAutocomplete } from "@/components/AirportAutocomplete";
 import { AddressAutocomplete, adresseVide, type AddressValue } from "@/components/AddressAutocomplete";
 import { DocIllustration } from "@/components/DocIllustration";
 import { depotSchema } from "@/lib/validation";
+import { repartirEuros, TAUX_COMMISSION_DEFAUT } from "@/domain/commission";
 
 const VERSION_CGV = "2026-01-v1";
 const MIMES_OK = ["application/pdf", "image/jpeg", "image/png", "image/webp"];
@@ -110,10 +111,13 @@ export function Funnel() {
   const [erreur, setErreur] = useState<string | null>(null);
   const [reference, setReference] = useState<string | null>(null);
 
-  const montantFmt = useMemo(
-    () => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(montantEstime),
-    [locale, montantEstime],
+  const fmtEur = useMemo(
+    () => (m: number) => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(m),
+    [locale],
   );
+  const montantFmt = fmtEur(montantEstime);
+  // Estimation de la répartition « no win, no fee » : 30 % commission / 70 % client.
+  const repartition = useMemo(() => repartirEuros(montantEstime), [montantEstime]);
 
   function majSegment(i: number, patch: Partial<Segment>) {
     setSegments((prev) => prev.map((s, j) => (j === i ? { ...s, ...patch } : s)));
@@ -395,7 +399,9 @@ export function Funnel() {
 
         {etape === 6 && (
           <EtapeRecap
-            t={t} montantFmt={montantFmt} valide={validation.success}
+            t={t} montantFmt={montantFmt}
+            commissionFmt={fmtEur(repartition.commission)} partClientFmt={fmtEur(repartition.partClient)}
+            valide={validation.success}
             manquants={validation.success ? [] : Object.keys(validation.error.flatten().fieldErrors)}
             data={{ civilite, prenom, nom, dateNaissance, nationalite, adresse, email, telephone, pnr, motif, typeTrajet, segments,
               nbDocs: 1 + voyages.filter((v) => v.doc.file).length + (retardDoc.file ? 1 : 0) }}
@@ -527,11 +533,12 @@ function EtapeTrajet(props: {
 }
 
 function EtapeRecap(props: {
-  t: Tt; montantFmt: string; valide: boolean; manquants: string[];
+  t: Tt; montantFmt: string; commissionFmt: string; partClientFmt: string; valide: boolean; manquants: string[];
   data: { civilite: string; prenom: string; nom: string; dateNaissance: string; nationalite: string; adresse: AddressValue; email: string; telephone: string; pnr: string; motif: string; typeTrajet: string; segments: Segment[]; nbDocs: number };
   onModifier: (etape: number) => void; onSubmit: () => void; envoi: boolean; erreur: string | null;
 }) {
-  const { t, montantFmt, valide, manquants, data, onModifier, onSubmit, envoi, erreur } = props;
+  const { t, montantFmt, commissionFmt, partClientFmt, valide, manquants, data, onModifier, onSubmit, envoi, erreur } = props;
+  const pctCommission = Math.round(TAUX_COMMISSION_DEFAUT * 100);
   return (
     <div>
       <h2 className="text-lg font-bold">{t("recapPageTitle")}</h2>
@@ -553,6 +560,23 @@ function EtapeRecap(props: {
         <Section t={t} titre={t("secDocs")} onModifier={() => onModifier(4)}>
           {data.nbDocs}
         </Section>
+      </div>
+
+      {/* Répartition « no win, no fee » : estimation indicative sur le montant estimé. */}
+      <div className="mt-4 rounded-xl border border-brand-100 bg-brand-50 p-4">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-slate-600">{t("recapEstimate")}</span>
+          <span className="font-semibold text-slate-900">{montantFmt}</span>
+        </div>
+        <div className="mt-2 flex items-center justify-between text-sm">
+          <span className="text-slate-600">{t("recapCommission", { pct: pctCommission })}</span>
+          <span className="font-medium text-slate-700">− {commissionFmt}</span>
+        </div>
+        <div className="mt-2 flex items-center justify-between border-t border-brand-100 pt-2">
+          <span className="font-semibold text-slate-800">{t("recapYourShare", { pct: 100 - pctCommission })}</span>
+          <span className="text-lg font-extrabold text-green-700">{partClientFmt}</span>
+        </div>
+        <p className="mt-2 text-xs text-slate-500">{t("recapCommissionNote")}</p>
       </div>
 
       {!valide && (

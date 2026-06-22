@@ -340,7 +340,11 @@
     "confirmText": "Your case number is {reference}.",
     "trackLink": "Track my claim",
     "required": "Required",
-    "networkError": "Network error, please try again."
+    "networkError": "Network error, please try again.",
+    "recapEstimate": "Estimated compensation",
+    "recapCommission": "Commission ({pct}%, only if we win)",
+    "recapYourShare": "Your share ({pct}%)",
+    "recapCommissionNote": "Indicative estimate based on the estimated amount. The commission is charged only if your claim succeeds."
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",
