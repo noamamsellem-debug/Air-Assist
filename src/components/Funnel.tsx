@@ -75,36 +75,52 @@ function fileToBase64(file: File): Promise<string> {
 
 interface DocPrepare { nomFichier: string; mimeType: string; contenuBase64: string }
 
+// Types réellement encodables par <canvas>. Tout le reste (PDF, HEIC…) est envoyé
+// tel quel, sans passer par le canvas (qui planterait/hangerait).
+const TYPES_CANVAS = ["image/jpeg", "image/png", "image/webp"];
+
 /**
- * Prépare un document pour l'upload : les images sont redimensionnées/compressées
- * (~1,3 Mo max, JPEG) côté client pour passer sous la limite serverless ; les PDF
- * sont envoyés tels quels.
+ * Prépare un document pour l'upload. Les images JPEG/PNG/WEBP sont compressées ;
+ * tout le reste (PDF, format non encodable) est envoyé brut. La compression ne
+ * peut JAMAIS bloquer l'envoi : en cas d'échec, repli garanti sur le fichier
+ * original.
  */
 async function preparerDocument(file: File): Promise<DocPrepare> {
-  if (file.type.startsWith("image/")) {
+  if (TYPES_CANVAS.includes(file.type)) {
     try {
       return await compresserImage(file);
-    } catch {
-      // En cas d'échec canvas, repli sur l'envoi brut.
+    } catch (e) {
+      console.warn("[depot] compression image échouée → envoi du fichier original", file.name, e);
     }
   }
-  return { nomFichier: file.name, mimeType: file.type, contenuBase64: await fileToBase64(file) };
+  return { nomFichier: file.name, mimeType: file.type || "application/octet-stream", contenuBase64: await fileToBase64(file) };
+}
+
+/** Charge une image avec un délai maximal pour ne JAMAIS rester bloqué. */
+function chargerImage(src: string, timeoutMs = 8000): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const im = new Image();
+    const timer = setTimeout(() => {
+      im.onload = null;
+      im.onerror = null;
+      reject(new Error("Chargement de l'image trop long (timeout)."));
+    }, timeoutMs);
+    im.onload = () => { clearTimeout(timer); resolve(im); };
+    im.onerror = () => { clearTimeout(timer); reject(new Error("Image illisible par le navigateur.")); };
+    im.src = src;
+  });
 }
 
 async function compresserImage(file: File, maxDim = 2000, maxOctets = 1.3 * 1024 * 1024): Promise<DocPrepare> {
   const dataUrl = await new Promise<string>((resolve, reject) => {
     const r = new FileReader();
     r.onload = () => resolve(String(r.result));
-    r.onerror = reject;
+    r.onerror = () => reject(new Error("Lecture du fichier impossible."));
     r.readAsDataURL(file);
   });
-  const img = await new Promise<HTMLImageElement>((resolve, reject) => {
-    const im = new Image();
-    im.onload = () => resolve(im);
-    im.onerror = reject;
-    im.src = dataUrl;
-  });
+  const img = await chargerImage(dataUrl);
   let { width, height } = img;
+  if (!width || !height) throw new Error("Dimensions d'image invalides.");
   const plusGrand = Math.max(width, height);
   if (plusGrand > maxDim) {
     const ratio = maxDim / plusGrand;
@@ -115,11 +131,12 @@ async function compresserImage(file: File, maxDim = 2000, maxOctets = 1.3 * 1024
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("canvas indisponible");
+  if (!ctx) throw new Error("Canvas indisponible.");
   ctx.drawImage(img, 0, 0, width, height);
 
   let qualite = 0.85;
   let sortie = canvas.toDataURL("image/jpeg", qualite);
+  if (!sortie.startsWith("data:image/jpeg")) throw new Error("Encodage JPEG non supporté.");
   while (sortie.length * 0.75 > maxOctets && qualite > 0.4) {
     qualite -= 0.1;
     sortie = canvas.toDataURL("image/jpeg", qualite);
@@ -334,7 +351,13 @@ export function Funnel() {
       // 3) Upload séquentiel (chaque requête < 4,5 Mo ; reprise sur échec partiel).
       for (const doc of aEnvoyer) {
         if (uploadesRef.current.has(doc.key)) continue;
-        const prep = await preparerDocument(doc.file);
+        let prep: DocPrepare;
+        try {
+          prep = await preparerDocument(doc.file);
+        } catch (e) {
+          console.error(`[depot] préparation du document « ${doc.file.name} » échouée`, e);
+          throw new Error(`Document « ${doc.file.name} » : ${e instanceof Error ? e.message : "préparation impossible"}`);
+        }
         const r = await fetch(`/api/depot/${dossierId}/document`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -342,7 +365,7 @@ export function Funnel() {
         });
         if (!r.ok) {
           const e = await r.json().catch(() => null);
-          setErreur(e?.error ?? t("networkError"));
+          setErreur(e?.error ?? `Échec du téléversement (HTTP ${r.status}).`);
           return;
         }
         uploadesRef.current.add(doc.key);
@@ -351,8 +374,10 @@ export function Funnel() {
       setReference(ref);
       setEtape(7);
       window.scrollTo({ top: 0 });
-    } catch {
-      setErreur(t("networkError"));
+    } catch (e) {
+      // On affiche le VRAI message (plus de « Erreur réseau » générique masquant tout).
+      console.error("[depot] échec de la soumission", e);
+      setErreur(e instanceof Error ? e.message : t("networkError"));
     } finally {
       setEnvoi(false);
     }
