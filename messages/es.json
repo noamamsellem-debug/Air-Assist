@@ -361,7 +361,10 @@
     "nbPassengersHelp": "¿A cuántos pasajeros afecta esta reclamación (tú incluido)?",
     "coPassengersTitle": "Pasajeros adicionales (opcional)",
     "coAdd": "Añadir un pasajero",
-    "coMineur": "Menor"
+    "coMineur": "Menor",
+    "fraisTitle": "Justificantes de gastos (opcional)",
+    "fraisHelp": "Comidas, hotel, transporte durante la incidencia. Puedes añadir varios.",
+    "fraisAdd": "Añadir un justificante"
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

@@ -48,6 +48,23 @@ describe("depotSchema — dépôt complet", () => {
     if (r.success) expect(r.data.causePerturbation).toBe("technique");
   });
 
+  it("accepte des justificatifs de frais (facultatif, répétable)", () => {
+    const d = depotValide() as Record<string, unknown>;
+    d.justificatifsFrais = [
+      { nomFichier: "hotel.pdf", mimeType: "application/pdf", contenuBase64: "eA==" },
+      { nomFichier: "repas.jpg", mimeType: "image/jpeg", contenuBase64: "eA==" },
+    ];
+    const r = depotSchema.safeParse(d);
+    expect(r.success).toBe(true);
+    if (r.success) expect(r.data.justificatifsFrais).toHaveLength(2);
+  });
+
+  it("refuse un justificatif de frais au format non autorisé", () => {
+    const d = depotValide() as Record<string, unknown>;
+    d.justificatifsFrais = [{ nomFichier: "x.txt", mimeType: "text/plain", contenuBase64: "eA==" }];
+    expect(depotSchema.safeParse(d).success).toBe(false);
+  });
+
   it("accepte un dépôt sans causePerturbation (facultatif)", () => {
     const d = depotValide() as Record<string, unknown>;
     delete d.causePerturbation;

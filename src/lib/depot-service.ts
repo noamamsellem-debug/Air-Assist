@@ -73,6 +73,9 @@ export async function creerDepot(
   if (input.justificatifRetard) {
     documents.push({ type: "JUSTIFICATIF_RETARD", sousType: null, f: input.justificatifRetard });
   }
+  for (const fr of input.justificatifsFrais ?? []) {
+    documents.push({ type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS", f: fr });
+  }
 
   const dossier = await prisma.$transaction(async (tx) => {
     const passager = await tx.passager.create({

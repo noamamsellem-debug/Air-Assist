@@ -105,6 +105,7 @@ export function Funnel() {
     { sousType: "CARTE_EMBARQUEMENT", doc: docVide() },
   ]);
   const [retardDoc, setRetardDoc] = useState<DocFichier>(docVide());
+  const [fraisDocs, setFraisDocs] = useState<DocFichier[]>([]);
 
   // Mandat
   const [nomSignature, setNomSignature] = useState("");
@@ -179,6 +180,9 @@ export function Funnel() {
       justificatifsVoyage: voyages
         .filter((v) => v.doc.file)
         .map((v) => ({ sousType: v.sousType, nomFichier: v.doc.file!.name, mimeType: v.doc.file!.type, contenuBase64: "x" })),
+      justificatifsFrais: fraisDocs
+        .filter((d) => d.file)
+        .map((d) => ({ nomFichier: d.file!.name, mimeType: d.file!.type, contenuBase64: "x" })),
       nomSignature,
       consentementRgpd: consentRgpd,
       accepteCgv,
@@ -201,10 +205,18 @@ export function Funnel() {
           contenuBase64: await fileToBase64(v.doc.file!),
         })),
       );
+      const fraisB64 = await Promise.all(
+        fraisDocs.filter((d) => d.file).map(async (d) => ({
+          nomFichier: d.file!.name,
+          mimeType: d.file!.type,
+          contenuBase64: await fileToBase64(d.file!),
+        })),
+      );
       const payload = {
         ...construirePayload(),
         pieceIdentite: { sousType: pieceSousType, nomFichier: pieceDoc.file!.name, mimeType: pieceDoc.file!.type, contenuBase64: pieceB64 },
         justificatifsVoyage: voyagesB64,
+        justificatifsFrais: fraisB64,
         justificatifRetard: retardDoc.file
           ? { nomFichier: retardDoc.file.name, mimeType: retardDoc.file.type, contenuBase64: await fileToBase64(retardDoc.file) }
           : undefined,
@@ -447,10 +459,38 @@ export function Funnel() {
               <FileField t={t} doc={retardDoc} onPick={(file) => setRetardDoc({ file, erreur: validerFichier(file) })} />
             </section>
 
+            {/* Justificatifs de frais (optionnel, répétable) → AUTRE / JUSTIFICATIF_FRAIS */}
+            <section className="mt-6">
+              <h3 className="font-semibold text-slate-800">{t("fraisTitle")}</h3>
+              <p className="mt-1 text-sm text-slate-500">{t("fraisHelp")}</p>
+              <div className="mt-3 space-y-3">
+                {fraisDocs.map((d, i) => (
+                  <div key={i} className="rounded-lg border border-slate-200 p-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-slate-600">#{i + 1}</span>
+                      <button type="button" className="text-xs text-red-600 hover:underline"
+                        onClick={() => setFraisDocs((prev) => prev.filter((_, j) => j !== i))}>
+                        {t("removeSegment")}
+                      </button>
+                    </div>
+                    <FileField t={t} doc={d}
+                      onPick={(file) => setFraisDocs((prev) => prev.map((x, j) => (j === i ? { file, erreur: validerFichier(file) } : x)))} />
+                  </div>
+                ))}
+              </div>
+              {fraisDocs.length < 8 && (
+                <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+                  onClick={() => setFraisDocs((prev) => [...prev, docVide()])}>
+                  + {t("fraisAdd")}
+                </button>
+              )}
+            </section>
+
             <Nav t={t} onBack={() => setEtape(3)} onNext={() => setEtape(5)}
               nextDisabled={
                 !pieceDoc.file || !!pieceDoc.erreur ||
-                voyages.filter((v) => v.doc.file && !v.doc.erreur).length < 1
+                voyages.filter((v) => v.doc.file && !v.doc.erreur).length < 1 ||
+                fraisDocs.some((d) => !!d.erreur)
               } />
           </div>
         )}

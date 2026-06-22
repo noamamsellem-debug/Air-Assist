@@ -91,6 +91,7 @@ enum SousTypeDocument {
   CARTE_SEJOUR
   CARTE_EMBARQUEMENT
   CONFIRMATION_RESERVATION
+  JUSTIFICATIF_FRAIS
 }
 
 enum AuteurHistorique {

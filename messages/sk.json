@@ -361,7 +361,10 @@
     "nbPassengersHelp": "How many passengers does this claim cover (including you)?",
     "coPassengersTitle": "Additional passengers (optional)",
     "coAdd": "Add a passenger",
-    "coMineur": "Minor"
+    "coMineur": "Minor",
+    "fraisTitle": "Expense receipts (optional)",
+    "fraisHelp": "Meals, hotel, transport during the disruption. You can add several.",
+    "fraisAdd": "Add a receipt"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

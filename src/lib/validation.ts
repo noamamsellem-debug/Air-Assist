@@ -154,6 +154,9 @@ export const depotSchema = z
       .array(fichierSchema.extend({ sousType: sousTypeJustificatifVoyageSchema }))
       .min(1, "Au moins un justificatif de voyage est requis."),
     justificatifRetard: fichierSchema.optional(),
+    // Justificatifs de frais (repas/hôtel/transport) — facultatif, répétable.
+    // Stockés en type AUTRE + sousType JUSTIFICATIF_FRAIS.
+    justificatifsFrais: z.array(fichierSchema).max(8).optional().default([]),
     // Facultatif
     descriptionIncident: z.string().trim().max(1200).optional().or(z.literal("")),
     // Motif invoqué par la compagnie (facultatif) → Dossier.causePerturbation.
