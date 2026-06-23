@@ -337,10 +337,24 @@ export function Funnel() {
       fraisDocs.forEach((d, i) => { if (d.file) aEnvoyer.push({ key: `frais-${i}`, type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS", file: d.file }); });
 
       // 3) Upload séquentiel en BINAIRE (reprise sur échec partiel). La préparation
-      // ne bloque jamais ; seule une taille vraiment excessive est refusée (rare).
+      // ne doit JAMAIS bloquer : en cas de souci, on envoie le fichier original.
+      console.log("[depot] soumission v4-binaire — documents:", aEnvoyer.map((d) => `${d.file.name} (${d.file.type || "?"})`));
       for (const doc of aEnvoyer) {
         if (uploadesRef.current.has(doc.key)) continue;
-        const prep = await preparerDocument(doc.file); // ne lève pas
+        let prep: DocPrepare;
+        try {
+          prep = await preparerDocument(doc.file);
+        } catch (e) {
+          // Filet de sécurité : on n'échoue jamais la soumission, on envoie l'original.
+          console.error("[depot] préparation échouée → envoi de l'original", {
+            nom: doc.file.name,
+            type: doc.file.type,
+            taille: doc.file.size,
+            message: e instanceof Error ? e.message : String(e),
+            stack: e instanceof Error ? e.stack : undefined,
+          });
+          prep = { nomFichier: doc.file.name, mimeType: doc.file.type || "application/octet-stream", blob: doc.file };
+        }
         if (prep.blob.size > MAX_OCTETS_UPLOAD) {
           setErreur(t("fileTooBig", { fichier: doc.file.name, max: MAX_MO_UPLOAD }));
           return;
