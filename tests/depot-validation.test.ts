@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { depotSchema, documentUploadSchema } from "@/lib/validation";
+import { depotSchema, documentMetaSchema } from "@/lib/validation";
 
 // Le dépôt ne contient plus les fichiers : ils sont téléversés séparément
 // (voir documentUploadSchema) pour rester sous la limite de 4,5 Mo par requête.
@@ -150,31 +150,30 @@ describe("depotSchema — correspondance", () => {
   });
 });
 
-describe("documentUploadSchema — upload unitaire", () => {
-  const png = { nomFichier: "doc.png", mimeType: "image/png", contenuBase64: "QUJD" };
+describe("documentMetaSchema — métadonnées d'upload (binaire)", () => {
+  const png = { nomFichier: "doc.png", mimeType: "image/png" };
 
   it("accepte une pièce d'identité (CNI)", () => {
-    expect(documentUploadSchema.safeParse({ ...png, type: "PIECE_IDENTITE", sousType: "CNI" }).success).toBe(true);
+    expect(documentMetaSchema.safeParse({ ...png, type: "PIECE_IDENTITE", sousType: "CNI" }).success).toBe(true);
+  });
+
+  it("accepte un PDF (pièce d'identité scannée)", () => {
+    expect(documentMetaSchema.safeParse({ nomFichier: "cni.pdf", mimeType: "application/pdf", type: "PIECE_IDENTITE", sousType: "CNI" }).success).toBe(true);
   });
 
   it("accepte un justificatif de frais (AUTRE / JUSTIFICATIF_FRAIS)", () => {
-    const r = documentUploadSchema.safeParse({ ...png, type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS" });
-    expect(r.success).toBe(true);
+    expect(documentMetaSchema.safeParse({ ...png, type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS" }).success).toBe(true);
   });
 
   it("accepte un justificatif de retard sans sousType", () => {
-    expect(documentUploadSchema.safeParse({ ...png, type: "JUSTIFICATIF_RETARD" }).success).toBe(true);
+    expect(documentMetaSchema.safeParse({ ...png, type: "JUSTIFICATIF_RETARD" }).success).toBe(true);
   });
 
   it("refuse un format non autorisé", () => {
-    expect(documentUploadSchema.safeParse({ ...png, mimeType: "image/gif", type: "PIECE_IDENTITE", sousType: "CNI" }).success).toBe(false);
-  });
-
-  it("refuse un contenu vide", () => {
-    expect(documentUploadSchema.safeParse({ ...png, contenuBase64: "", type: "PIECE_IDENTITE" }).success).toBe(false);
+    expect(documentMetaSchema.safeParse({ ...png, mimeType: "image/gif", type: "PIECE_IDENTITE" }).success).toBe(false);
   });
 
   it("refuse un type inconnu", () => {
-    expect(documentUploadSchema.safeParse({ ...png, type: "BIDON" }).success).toBe(false);
+    expect(documentMetaSchema.safeParse({ ...png, type: "BIDON" }).success).toBe(false);
   });
 });

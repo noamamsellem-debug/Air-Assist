@@ -388,7 +388,9 @@
     "autreLabel": "Briefly describe what happened",
     "autrePlaceholder": "Describe your situation…",
     "startTitle": "Start your claim",
-    "startIntro": "Answer a few questions — we calculate your compensation automatically, no prior simulation needed."
+    "startIntro": "Answer a few questions — we calculate your compensation automatically, no prior simulation needed.",
+    "fileTooBig": "The document « {fichier} » is too large (max {max} MB).",
+    "uploadFailed": "Upload of « {fichier} » failed (error {statut})."
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

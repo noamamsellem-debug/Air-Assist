@@ -19,6 +19,10 @@ import type { MotifVol as MotifEligibilite } from "@prisma/client";
 const VERSION_CGV = "2026-01-v1";
 const MIMES_OK = ["application/pdf", "image/jpeg", "image/png", "image/webp"];
 const TAILLE_MAX = 8 * 1024 * 1024;
+// Limite d'upload (corps serverless Vercel ~4,5 Mo) ; rare car les images sont
+// compressées côté client. Au-delà : message clair, pas de blocage silencieux.
+const MAX_OCTETS_UPLOAD = 4 * 1024 * 1024;
+const MAX_MO_UPLOAD = 4;
 
 // Durée du retard à l'arrivée en 4 paliers → minutes pour le moteur d'éligibilité.
 type RetardChoix = "MOINS3" | "DE3A4" | "PLUS4" | "JAMAIS";
@@ -61,29 +65,17 @@ interface DocFichier {
 }
 const docVide = (): DocFichier => ({ file: null, erreur: null });
 
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => {
-      const s = String(r.result);
-      resolve(s.includes(",") ? s.split(",")[1]! : s);
-    };
-    r.onerror = reject;
-    r.readAsDataURL(file);
-  });
-}
+interface DocPrepare { nomFichier: string; mimeType: string; blob: Blob }
 
-interface DocPrepare { nomFichier: string; mimeType: string; contenuBase64: string }
-
-// Types réellement encodables par <canvas>. Tout le reste (PDF, HEIC…) est envoyé
-// tel quel, sans passer par le canvas (qui planterait/hangerait).
+// Types réellement encodables par <canvas>. Tout le reste (PDF, HEIC, exotiques…)
+// est envoyé TEL QUEL, sans passer par le canvas (qui planterait/hangerait).
 const TYPES_CANVAS = ["image/jpeg", "image/png", "image/webp"];
 
 /**
- * Prépare un document pour l'upload. Les images JPEG/PNG/WEBP sont compressées ;
- * tout le reste (PDF, format non encodable) est envoyé brut. La compression ne
- * peut JAMAIS bloquer l'envoi : en cas d'échec, repli garanti sur le fichier
- * original.
+ * Prépare un document pour l'upload binaire. La compression est « best effort » et
+ * ne s'applique qu'aux vraies images JPEG/PNG/WEBP ; tout le reste (PDF inclus) est
+ * envoyé tel quel. En cas d'échec de compression → repli GARANTI sur le fichier
+ * original. Cette fonction ne lève donc jamais : un fichier est toujours envoyable.
  */
 async function preparerDocument(file: File): Promise<DocPrepare> {
   if (TYPES_CANVAS.includes(file.type)) {
@@ -93,7 +85,7 @@ async function preparerDocument(file: File): Promise<DocPrepare> {
       console.warn("[depot] compression image échouée → envoi du fichier original", file.name, e);
     }
   }
-  return { nomFichier: file.name, mimeType: file.type || "application/octet-stream", contenuBase64: await fileToBase64(file) };
+  return { nomFichier: file.name, mimeType: file.type || "application/octet-stream", blob: file };
 }
 
 /** Charge une image avec un délai maximal pour ne JAMAIS rester bloqué. */
@@ -111,38 +103,34 @@ function chargerImage(src: string, timeoutMs = 8000): Promise<HTMLImageElement> 
   });
 }
 
-async function compresserImage(file: File, maxDim = 2000, maxOctets = 1.3 * 1024 * 1024): Promise<DocPrepare> {
-  const dataUrl = await new Promise<string>((resolve, reject) => {
-    const r = new FileReader();
-    r.onload = () => resolve(String(r.result));
-    r.onerror = () => reject(new Error("Lecture du fichier impossible."));
-    r.readAsDataURL(file);
-  });
-  const img = await chargerImage(dataUrl);
-  let { width, height } = img;
-  if (!width || !height) throw new Error("Dimensions d'image invalides.");
-  const plusGrand = Math.max(width, height);
-  if (plusGrand > maxDim) {
-    const ratio = maxDim / plusGrand;
-    width = Math.round(width * ratio);
-    height = Math.round(height * ratio);
-  }
-  const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas indisponible.");
-  ctx.drawImage(img, 0, 0, width, height);
+async function compresserImage(file: File, maxDim = 2000): Promise<DocPrepare> {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await chargerImage(url);
+    let { width, height } = img;
+    if (!width || !height) throw new Error("Dimensions d'image invalides.");
+    const plusGrand = Math.max(width, height);
+    if (plusGrand > maxDim) {
+      const ratio = maxDim / plusGrand;
+      width = Math.round(width * ratio);
+      height = Math.round(height * ratio);
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas indisponible.");
+    ctx.drawImage(img, 0, 0, width, height);
 
-  let qualite = 0.85;
-  let sortie = canvas.toDataURL("image/jpeg", qualite);
-  if (!sortie.startsWith("data:image/jpeg")) throw new Error("Encodage JPEG non supporté.");
-  while (sortie.length * 0.75 > maxOctets && qualite > 0.4) {
-    qualite -= 0.1;
-    sortie = canvas.toDataURL("image/jpeg", qualite);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.82));
+    if (!blob) throw new Error("Encodage JPEG impossible.");
+    // Sécurité : si la « compression » alourdit (rare), on garde l'original.
+    if (blob.size >= file.size) return { nomFichier: file.name, mimeType: file.type, blob: file };
+    const base = file.name.replace(/\.[^.]+$/, "") || "image";
+    return { nomFichier: `${base}.jpg`, mimeType: "image/jpeg", blob };
+  } finally {
+    URL.revokeObjectURL(url);
   }
-  const base = file.name.replace(/\.[^.]+$/, "") || "image";
-  return { nomFichier: `${base}.jpg`, mimeType: "image/jpeg", contenuBase64: sortie.split(",")[1]! };
 }
 
 const LEGENDES_ID: Record<SousId, string> = {
@@ -348,24 +336,28 @@ export function Funnel() {
       if (retardDoc.file) aEnvoyer.push({ key: "retard", type: "JUSTIFICATIF_RETARD", sousType: null, file: retardDoc.file });
       fraisDocs.forEach((d, i) => { if (d.file) aEnvoyer.push({ key: `frais-${i}`, type: "AUTRE", sousType: "JUSTIFICATIF_FRAIS", file: d.file }); });
 
-      // 3) Upload séquentiel (chaque requête < 4,5 Mo ; reprise sur échec partiel).
+      // 3) Upload séquentiel en BINAIRE (reprise sur échec partiel). La préparation
+      // ne bloque jamais ; seule une taille vraiment excessive est refusée (rare).
       for (const doc of aEnvoyer) {
         if (uploadesRef.current.has(doc.key)) continue;
-        let prep: DocPrepare;
-        try {
-          prep = await preparerDocument(doc.file);
-        } catch (e) {
-          console.error(`[depot] préparation du document « ${doc.file.name} » échouée`, e);
-          throw new Error(`Document « ${doc.file.name} » : ${e instanceof Error ? e.message : "préparation impossible"}`);
+        const prep = await preparerDocument(doc.file); // ne lève pas
+        if (prep.blob.size > MAX_OCTETS_UPLOAD) {
+          setErreur(t("fileTooBig", { fichier: doc.file.name, max: MAX_MO_UPLOAD }));
+          return;
         }
         const r = await fetch(`/api/depot/${dossierId}/document`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ type: doc.type, sousType: doc.sousType, ...prep }),
+          headers: {
+            "Content-Type": prep.mimeType,
+            "X-Document-Type": doc.type,
+            "X-Document-Soustype": doc.sousType ?? "",
+            "X-Document-Nom": encodeURIComponent(prep.nomFichier),
+          },
+          body: prep.blob,
         });
         if (!r.ok) {
           const e = await r.json().catch(() => null);
-          setErreur(e?.error ?? `Échec du téléversement (HTTP ${r.status}).`);
+          setErreur(e?.error ?? t("uploadFailed", { fichier: doc.file.name, statut: r.status }));
           return;
         }
         uploadesRef.current.add(doc.key);

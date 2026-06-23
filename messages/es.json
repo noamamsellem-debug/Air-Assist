@@ -388,7 +388,9 @@
     "autreLabel": "Describe brevemente la situación",
     "autrePlaceholder": "Describe tu situación…",
     "startTitle": "Inicia tu reclamación",
-    "startIntro": "Responde a unas preguntas — calculamos tu indemnización automáticamente, sin simulación previa."
+    "startIntro": "Responde a unas preguntas — calculamos tu indemnización automáticamente, sin simulación previa.",
+    "fileTooBig": "El documento « {fichier} » es demasiado grande (máx. {max} MB).",
+    "uploadFailed": "Error al subir « {fichier} » (error {statut})."
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

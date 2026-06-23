@@ -103,13 +103,7 @@ export const segmentSchema = z.object({
   aeroportArrivee: z.string().trim().length(3, "Aéroport d'arrivée invalide."),
 });
 
-const fichierSchema = z.object({
-  nomFichier: z.string().trim().min(1).max(255),
-  mimeType: z
-    .string()
-    .regex(/^(image\/(jpeg|png|webp)|application\/pdf)$/, "Format non pris en charge (JPG, PNG ou PDF)."),
-  contenuBase64: z.string().min(1, "Fichier manquant."),
-});
+const MIME_DOCUMENT = /^(image\/(jpeg|png|webp)|application\/pdf)$/;
 
 export const depotSchema = z
   .object({
@@ -191,10 +185,10 @@ export const depotSchema = z
 export type DepotInput = z.infer<typeof depotSchema>;
 
 /**
- * Upload d'UN document, après création du dossier (requête séparée < 4,5 Mo).
- * Chiffré au repos côté serveur. sousType selon la catégorie.
+ * Métadonnées d'UN document téléversé en binaire brut (le contenu arrive dans le
+ * corps de la requête, pas en base64). Chiffré au repos côté serveur.
  */
-export const documentUploadSchema = fichierSchema.extend({
+export const documentMetaSchema = z.object({
   type: z.enum(["PIECE_IDENTITE", "JUSTIFICATIF_VOYAGE", "JUSTIFICATIF_RETARD", "AUTRE"]),
   sousType: z
     .enum([
@@ -208,9 +202,11 @@ export const documentUploadSchema = fichierSchema.extend({
     ])
     .nullable()
     .optional(),
+  nomFichier: z.string().trim().min(1).max(255),
+  mimeType: z.string().regex(MIME_DOCUMENT, "Format non pris en charge (JPG, PNG ou PDF)."),
 });
 
-export type DocumentUploadInput = z.infer<typeof documentUploadSchema>;
+export type DocumentMetaInput = z.infer<typeof documentMetaSchema>;
 
 
 export const changementStatutSchema = z.object({

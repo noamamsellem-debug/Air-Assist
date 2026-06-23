@@ -16,11 +16,11 @@ import { genererProchaineReference } from "./dossier-service";
 import { getSignatureAdapter } from "@/adapters/esign";
 import { getEmailAdapter } from "@/adapters/email";
 import { chiffrerDocument } from "./crypto";
-import type { DepotInput, DocumentUploadInput } from "./validation";
+import type { DepotInput, DocumentMetaInput } from "./validation";
 
-// Plafond décodé par document. Au-delà de ~3,3 Mo décodés, le base64 dépasse de
-// toute façon la limite de corps serverless (4,5 Mo) — d'où la compression client.
-const TAILLE_MAX_OCTETS = 4 * 1024 * 1024;
+// Plafond par document. La limite réelle est celle du corps serverless Vercel
+// (~4,5 Mo) ; on reste en deçà. Les images sont compressées côté client.
+const TAILLE_MAX_OCTETS = 4.4 * 1024 * 1024;
 
 /** Erreur métier avec code HTTP pour la route. */
 export class DepotError extends Error {
@@ -177,7 +177,8 @@ export async function creerDepot(
  */
 export async function ajouterDocument(
   dossierId: string,
-  doc: DocumentUploadInput,
+  meta: DocumentMetaInput,
+  contenu: Buffer,
 ): Promise<{ documentId: string }> {
   const dossier = await prisma.dossier.findUnique({
     where: { id: dossierId },
@@ -187,10 +188,11 @@ export async function ajouterDocument(
   if (dossier.statut !== "NOUVEAU") throw new DepotError("Dossier non modifiable.", 409);
   if (dossier._count.documents >= 20) throw new DepotError("Trop de documents.", 409);
 
-  const brut = Buffer.from(doc.contenuBase64, "base64");
-  if (brut.length === 0) throw new DepotError("Fichier vide.", 400);
-  if (brut.length > TAILLE_MAX_OCTETS) throw new DepotError("Fichier trop volumineux.", 413);
+  if (contenu.length === 0) throw new DepotError("Fichier vide.", 400);
+  if (contenu.length > TAILLE_MAX_OCTETS) throw new DepotError("Fichier trop volumineux.", 413);
 
+  const doc = meta;
+  const brut = contenu;
   const { contenuChiffre, iv, authTag } = chiffrerDocument(brut);
   const created = await prisma.document.create({
     data: {
