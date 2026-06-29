@@ -34,14 +34,6 @@ export async function GET(request: Request) {
     );
   }
 
-  const adminsExistants = await prisma.utilisateur.count({ where: { role: "ADMIN" } });
-  if (adminsExistants > 0) {
-    return NextResponse.json(
-      { error: "Un compte admin existe déjà. Bootstrap refusé (déjà configuré)." },
-      { status: 409 },
-    );
-  }
-
   const motDePasseHash = await bcrypt.hash(motDePasse, 12);
   const user = await prisma.utilisateur.upsert({
     where: { email },
@@ -49,10 +41,18 @@ export async function GET(request: Request) {
     create: { email, nom: "Administrateur", role: "ADMIN", actif: true, motDePasseHash },
   });
 
+  // Sécurité : on désactive les comptes de démo (mots de passe publics) s'ils
+  // existent en base, pour qu'ils ne puissent plus se connecter.
+  const demo = await prisma.utilisateur.updateMany({
+    where: { email: { endsWith: "@air-assist.example" } },
+    data: { actif: false },
+  });
+
   return NextResponse.json({
     ok: true,
     message:
-      `Compte admin créé : ${user.email} (rôle ADMIN). Connecte-toi sur /admin/login, ` +
-      `puis SUPPRIME les variables ADMIN_BOOTSTRAP_TOKEN et ADMIN_BOOTSTRAP_PASSWORD dans Vercel.`,
+      `Compte admin prêt : ${user.email} (rôle ADMIN). ${demo.count} compte(s) démo désactivé(s). ` +
+      `Connecte-toi sur /admin/login, puis SUPPRIME les variables ADMIN_BOOTSTRAP_TOKEN et ` +
+      `ADMIN_BOOTSTRAP_PASSWORD dans Vercel.`,
   });
 }
