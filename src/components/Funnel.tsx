@@ -312,6 +312,7 @@ export function Funnel() {
   async function soumettre() {
     setErreur(null);
     setEnvoi(true);
+    console.log("[depot] build v4-binaire — début soumission");
     try {
       // 1) Créer le dossier (une seule fois ; conservé pour reprise).
       if (!dossierRef.current) {
