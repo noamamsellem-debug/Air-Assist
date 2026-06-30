@@ -14,7 +14,7 @@ import type { MotifVol, TypeDocument, SousTypeDocument } from "@prisma/client";
 import { prisma } from "./prisma";
 import { genererProchaineReference } from "./dossier-service";
 import { getSignatureAdapter } from "@/adapters/esign";
-import { envoyerEmailDossier } from "./email-service";
+import { envoyerEmailDossier, envoyerNotificationNouveauDossier } from "./email-service";
 import { chiffrerDocument } from "./crypto";
 import type { DepotInput, DocumentMetaInput } from "./validation";
 
@@ -152,8 +152,9 @@ export async function creerDepot(
     return d;
   });
 
-  // E-mail 1 (accusé de réception) — ne bloque jamais la création.
+  // E-mail 1 (accusé de réception au client) + notification interne (admin).
   await envoyerEmailDossier(dossier.id, "ACCUSE_RECEPTION");
+  await envoyerNotificationNouveauDossier(dossier.id);
 
   return { dossierId: dossier.id, reference };
 }
