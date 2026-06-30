@@ -61,6 +61,7 @@ enum TypeTrajet {
 /// machine à états (module 2). REFUSE et CONTENTIEUX sont des états annexes.
 enum StatutDossier {
   NOUVEAU
+  DOCUMENT_MANQUANT
   VERIFIE
   RECLAMATION_ENVOYEE
   ACCUSE_RECU
@@ -241,6 +242,8 @@ model Dossier {
 
   dateCreation DateTime  @default(now()) @map("date_creation")
   dateCloture  DateTime? @map("date_cloture")
+  /// Horodatage de la dernière relance auto « document manquant » (anti-doublon).
+  relanceDocumentLe DateTime? @map("relance_document_le")
 
   // Relations enfants
   documents   Document[]

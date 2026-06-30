@@ -212,6 +212,7 @@ export type DocumentMetaInput = z.infer<typeof documentMetaSchema>;
 export const changementStatutSchema = z.object({
   nouveauStatut: z.enum([
     "NOUVEAU",
+    "DOCUMENT_MANQUANT",
     "VERIFIE",
     "RECLAMATION_ENVOYEE",
     "ACCUSE_RECU",

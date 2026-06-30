@@ -17,8 +17,9 @@ import { StatutDossier } from "@prisma/client";
 
 /** Transitions autorisées : pour chaque statut, l'ensemble des cibles permises. */
 export const TRANSITIONS: Record<StatutDossier, StatutDossier[]> = {
-  NOUVEAU: ["VERIFIE", "REFUSE"],
-  VERIFIE: ["RECLAMATION_ENVOYEE", "REFUSE"],
+  NOUVEAU: ["DOCUMENT_MANQUANT", "VERIFIE", "REFUSE"],
+  DOCUMENT_MANQUANT: ["VERIFIE", "REFUSE"],
+  VERIFIE: ["DOCUMENT_MANQUANT", "RECLAMATION_ENVOYEE", "REFUSE"],
   RECLAMATION_ENVOYEE: ["ACCUSE_RECU", "REFUSE"],
   ACCUSE_RECU: ["EN_NEGOCIATION", "ACCEPTE", "REFUSE", "CONTENTIEUX"],
   EN_NEGOCIATION: ["ACCEPTE", "REFUSE", "CONTENTIEUX"],
@@ -77,11 +78,12 @@ export function appliquerTransition(
 export const LIBELLES_STATUT: Record<StatutDossier, string> = {
   // L'enum reste NOUVEAU (statut initial à la création) ; libellé CRM = « Soumis ».
   NOUVEAU: "Soumis",
+  DOCUMENT_MANQUANT: "Document manquant",
   VERIFIE: "Vérifié",
   RECLAMATION_ENVOYEE: "Réclamation envoyée",
   ACCUSE_RECU: "Accusé reçu",
   EN_NEGOCIATION: "En négociation",
-  ACCEPTE: "Accepté",
+  ACCEPTE: "Indemnité obtenue",
   PAYE: "Payé",
   REVERSE: "Reversé",
   REFUSE: "Refusé",
