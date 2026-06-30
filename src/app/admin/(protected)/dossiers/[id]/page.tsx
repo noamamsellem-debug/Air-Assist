@@ -23,7 +23,20 @@ export default async function DossierDetail({
       passager: true,
       vol: true,
       compagnie: true,
-      documents: true,
+      // On exclut volontairement les blobs chiffrés (contenuChiffre/iv/authTag) :
+      // ils peuvent peser plusieurs Mo chacun et n'ont pas besoin d'être chargés
+      // pour afficher la liste. Le téléchargement passe par une route dédiée.
+      documents: {
+        select: {
+          id: true,
+          type: true,
+          sousType: true,
+          nomFichier: true,
+          mimeType: true,
+          tailleOctets: true,
+          dateUpload: true,
+        },
+      },
       mandat: true,
       paiement: true,
       historique: { orderBy: { date: "desc" } },
