@@ -12,6 +12,7 @@ interface Resultat {
   libelle: string;
   montantEstime: number;
   dateCreation: string;
+  documentsManquants?: string[];
   vol: { numero: string; date: string; depart: string; arrivee: string };
 }
 
@@ -128,6 +129,16 @@ export function SuiviForm() {
 
           {/* Ajout de documents manquants */}
           <div className="mt-6 border-t border-slate-200 pt-4">
+            {resultat.documentsManquants && resultat.documentsManquants.length > 0 && (
+              <div className="mb-3 rounded-lg bg-amber-50 p-3">
+                <p className="text-sm font-semibold text-amber-800">{t("missingTitle")}</p>
+                <ul className="mt-1 list-disc pl-5 text-sm text-amber-800">
+                  {resultat.documentsManquants.map((doc, i) => (
+                    <li key={i}>{doc}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <h3 className="font-semibold text-slate-800">{t("uploadTitle")}</h3>
             <p className="mt-1 text-sm text-slate-500">{t("uploadHelp")}</p>
             <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-brand-300 px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">

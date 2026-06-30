@@ -246,7 +246,8 @@
     "uploadOk": "Enviado",
     "uploadFormat": "Formato no admitido (PDF, JPG, PNG).",
     "uploadTooBig": "Archivo demasiado grande (4 MB máx.).",
-    "uploadFail": "Error, inténtalo de nuevo."
+    "uploadFail": "Error, inténtalo de nuevo.",
+    "missingTitle": "Documentos solicitados por nuestro equipo:"
   },
   "blog": {
     "title": "Blog",

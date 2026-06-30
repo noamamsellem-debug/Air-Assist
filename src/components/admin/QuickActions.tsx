@@ -63,7 +63,8 @@ export function QuickActions({
   function commentaireDocs(): string {
     const liste = [...docsCoches];
     if (autreCoche && autreTexte.trim()) liste.push(autreTexte.trim());
-    return liste.join(", ");
+    // Un document par ligne (rendu en liste à puces dans l'e-mail et le suivi).
+    return liste.join("\n");
   }
 
   async function appliquer(action: ActionRapide) {

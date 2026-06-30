@@ -57,6 +57,16 @@ describe("emails — rendu des 7 templates", () => {
     expect(r.html).toContain("Carte d'embarquement lisible");
   });
 
+  it("DOCUMENT_MANQUANT rend plusieurs documents en liste à puces", () => {
+    const r = construireEmail("DOCUMENT_MANQUANT", { ...vars, documentManquant: "Carte d'identité\nNuméro de réservation" });
+    expect(r.html).toContain("<ul");
+    expect(r.html).toContain("<li");
+    expect(r.html).toContain("Carte d'identité");
+    expect(r.html).toContain("Numéro de réservation");
+    expect(r.texte).toContain("• Carte d'identité");
+    expect(r.texte).toContain("• Numéro de réservation");
+  });
+
   it("REFUSE injecte le motif de refus", () => {
     const r = construireEmail("REFUSE", vars);
     expect(r.html).toContain("Circonstances extraordinaires");

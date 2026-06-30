@@ -21,17 +21,28 @@ export async function POST(request: Request) {
 
   const dossier = await prisma.dossier.findUnique({
     where: { reference: reference.toUpperCase() },
-    include: { passager: true, vol: true },
+    include: {
+      passager: true,
+      vol: true,
+      historique: { where: { nouveauStatut: "DOCUMENT_MANQUANT" }, orderBy: { date: "desc" }, take: 1 },
+    },
   });
 
   if (!dossier || dossier.passager.email.toLowerCase() !== email.toLowerCase()) {
     return NextResponse.json({ error: "Dossier introuvable" }, { status: 404 });
   }
 
+  // Documents demandés (un par ligne) si le dossier est en attente de pièces.
+  const documentsManquants =
+    dossier.statut === "DOCUMENT_MANQUANT"
+      ? (dossier.historique[0]?.commentaire ?? "").split("\n").map((s) => s.trim()).filter(Boolean)
+      : [];
+
   return NextResponse.json({
     reference: dossier.reference,
     statut: dossier.statut,
     libelle: LIBELLES_STATUT[dossier.statut],
+    documentsManquants,
     montantEstime: Number(dossier.montantEstime),
     dateCreation: dossier.dateCreation.toISOString(),
     vol: {

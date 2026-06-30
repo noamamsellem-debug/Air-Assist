@@ -246,7 +246,8 @@
     "uploadOk": "Sent",
     "uploadFormat": "Unsupported format (PDF, JPG, PNG).",
     "uploadTooBig": "File too large (4 MB max).",
-    "uploadFail": "Failed, please try again."
+    "uploadFail": "Failed, please try again.",
+    "missingTitle": "Documents requested by our team:"
   },
   "blog": {
     "title": "Blogg",

@@ -134,6 +134,22 @@ function p(html: string): string {
   return `<p style="margin:0 0 14px 0;">${html}</p>`;
 }
 
+/** Documents manquants (un par ligne) → liste à puces HTML (ou gras si un seul). */
+function docsHtml(s?: string): string {
+  const items = (s ?? "").split("\n").map((x) => x.trim()).filter(Boolean);
+  if (items.length === 0) return "<strong>un document</strong>";
+  if (items.length === 1) return `<strong>${items[0]}</strong>`;
+  return `<ul style="margin:8px 0 8px 18px;padding:0;">${items.map((i) => `<li style="margin:2px 0;"><strong>${i}</strong></li>`).join("")}</ul>`;
+}
+
+/** Même liste, version texte (• un par ligne). */
+function docsTexte(s?: string): string {
+  const items = (s ?? "").split("\n").map((x) => x.trim()).filter(Boolean);
+  if (items.length === 0) return "un document";
+  if (items.length === 1) return items[0];
+  return "\n" + items.map((i) => `• ${i}`).join("\n");
+}
+
 function enveloppe(corps: string, v: VariablesEmail): string {
   return `<!doctype html><html lang="fr"><body style="margin:0;background:#f1f5f9;padding:24px 0;font-family:Arial,Helvetica,sans-serif;color:#0f172a;font-size:15px;line-height:1.6;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
@@ -192,7 +208,7 @@ export function construireEmail(type: TypeEmail, v: VariablesEmail): EmailRendu 
       corps =
         p(`Bonjour ${v.prenom},`) +
         p(`Votre dossier <strong>${v.reference}</strong> avance bien, mais il nous manque un élément pour pouvoir le transmettre à ${v.compagnie} :`) +
-        p(`👉 <strong>${v.documentManquant ?? "un document"}</strong>`) +
+        p(`👉 ${docsHtml(v.documentManquant)}`) +
         p(`C'est rapide : ajoutez simplement ce document depuis votre espace de suivi.`) +
         p(bouton("Ajouter mon document", v.lienSuivi)) +
         p(`Dès que nous l'aurons reçu, nous reprenons votre demande immédiatement. N'oubliez pas : il s'agit de <strong>${eur(v.montantEstime)}</strong> auxquels vous avez droit.`) +
@@ -200,7 +216,7 @@ export function construireEmail(type: TypeEmail, v: VariablesEmail): EmailRendu 
         p(`À très vite,<br>L'équipe AirAssist`);
       texte =
         `Bonjour ${v.prenom},\n\nVotre dossier ${v.reference} avance bien, mais il nous manque un élément pour le transmettre à ${v.compagnie} :\n\n` +
-        `Document attendu : ${v.documentManquant ?? "un document"}\n\nAjoutez-le depuis votre espace de suivi : ${v.lienSuivi}\n\n` +
+        `Document(s) attendu(s) : ${docsTexte(v.documentManquant)}\n\nAjoutez-le(s) depuis votre espace de suivi : ${v.lienSuivi}\n\n` +
         `Dès réception, nous reprenons votre demande. Il s'agit de ${eur(v.montantEstime)} auxquels vous avez droit.\nUne question ? Répondez à cet e-mail.\n\nÀ très vite,\nL'équipe AirAssist`;
       break;
     }
@@ -210,14 +226,14 @@ export function construireEmail(type: TypeEmail, v: VariablesEmail): EmailRendu 
       corps =
         p(`Bonjour ${v.prenom},`) +
         p(`Nous n'avons pas encore reçu le document nécessaire pour poursuivre votre demande d'indemnisation pour votre vol <strong>${v.compagnie}</strong> du ${v.dateVol}.`) +
-        p(`Document attendu : <strong>${v.documentManquant ?? "un document"}</strong>`) +
+        p(`Document(s) attendu(s) : ${docsHtml(v.documentManquant)}`) +
         p(`Votre dossier <strong>${v.reference}</strong> reste ouvert et nous sommes prêts à reprendre dès que vous l'aurez ajouté :`) +
         p(bouton("Ajouter mon document", v.lienSuivi)) +
         p(`Ne laissez pas filer vos <strong>${eur(v.montantEstime)}</strong> — l'envoi du document ne prend qu'une minute. Une difficulté ? Répondez simplement à cet e-mail.`) +
         p(`À très vite,<br>L'équipe AirAssist`);
       texte =
         `Bonjour ${v.prenom},\n\nNous n'avons pas encore reçu le document nécessaire pour votre demande (vol ${v.compagnie} du ${v.dateVol}).\n\n` +
-        `Document attendu : ${v.documentManquant ?? "un document"}\nDossier ${v.reference} — ajoutez-le ici : ${v.lienSuivi}\n\n` +
+        `Document(s) attendu(s) : ${docsTexte(v.documentManquant)}\nDossier ${v.reference} — ajoutez-le(s) ici : ${v.lienSuivi}\n\n` +
         `Ne laissez pas filer vos ${eur(v.montantEstime)} — ça prend une minute. Une difficulté ? Répondez à cet e-mail.\n\nÀ très vite,\nL'équipe AirAssist`;
       break;
     }
