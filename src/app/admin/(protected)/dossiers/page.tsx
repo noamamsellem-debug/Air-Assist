@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function DossiersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ statut?: string; compagnie?: string; q?: string }>;
+  searchParams: Promise<{ statut?: string; compagnie?: string; q?: string; from?: string; to?: string }>;
 }) {
   const sp = await searchParams;
   const where: Prisma.DossierWhereInput = {};
@@ -18,11 +18,25 @@ export default async function DossiersPage({
   }
   if (sp.compagnie) where.compagnieId = sp.compagnie;
   if (sp.q) {
+    const q = sp.q.trim();
     where.OR = [
-      { reference: { contains: sp.q, mode: "insensitive" } },
-      { passager: { nom: { contains: sp.q, mode: "insensitive" } } },
-      { passager: { email: { contains: sp.q, mode: "insensitive" } } },
+      { reference: { contains: q, mode: "insensitive" } },
+      { pnr: { contains: q, mode: "insensitive" } },
+      { passager: { nom: { contains: q, mode: "insensitive" } } },
+      { passager: { prenom: { contains: q, mode: "insensitive" } } },
+      { passager: { email: { contains: q, mode: "insensitive" } } },
     ];
+  }
+  // Filtre par date de création (jour ou plage). `to` inclut toute la journée.
+  if (sp.from || sp.to) {
+    const intervalle: Prisma.DateTimeFilter = {};
+    if (sp.from) intervalle.gte = new Date(sp.from);
+    if (sp.to) {
+      const fin = new Date(sp.to);
+      fin.setHours(23, 59, 59, 999);
+      intervalle.lte = fin;
+    }
+    where.dateCreation = intervalle;
   }
 
   const [dossiers, compagnies] = await Promise.all([
@@ -42,10 +56,10 @@ export default async function DossiersPage({
       <h1 className="text-2xl font-bold">Dossiers</h1>
 
       {/* Filtres */}
-      <form className="card mt-4 grid gap-3 sm:grid-cols-4" method="get">
+      <form className="card mt-4 grid gap-3 sm:grid-cols-3" method="get">
         <div>
           <label className="label">Recherche</label>
-          <input name="q" defaultValue={sp.q ?? ""} className="input" placeholder="Réf, nom, e-mail" />
+          <input name="q" defaultValue={sp.q ?? ""} className="input" placeholder="N° dossier, nom, prénom, PNR, e-mail" />
         </div>
         <div>
           <label className="label">Statut</label>
@@ -65,8 +79,17 @@ export default async function DossiersPage({
             ))}
           </select>
         </div>
-        <div className="flex items-end">
+        <div>
+          <label className="label">Créé du</label>
+          <input type="date" name="from" defaultValue={sp.from ?? ""} className="input" />
+        </div>
+        <div>
+          <label className="label">au</label>
+          <input type="date" name="to" defaultValue={sp.to ?? ""} className="input" />
+        </div>
+        <div className="flex items-end gap-2">
           <button className="btn-primary w-full">Filtrer</button>
+          <Link href="/admin/dossiers" className="btn-secondary">Réinitialiser</Link>
         </div>
       </form>
 
