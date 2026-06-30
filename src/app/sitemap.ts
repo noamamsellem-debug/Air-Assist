@@ -32,6 +32,9 @@ const PAGES_SEO_FR = [
   "/blog/droits-vol-retarde",
   "/blog/delai-indemnisation-vol",
   "/blog/circonstances-extraordinaires",
+  "/blog/compagnie-refuse-indemnisation",
+  "/blog/reglement-ec-261-2004",
+  "/blog/regle-3-heures-retard",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

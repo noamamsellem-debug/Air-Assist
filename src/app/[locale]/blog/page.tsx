@@ -57,6 +57,9 @@ export default async function BlogIndex({
               { href: "/blog/droits-vol-retarde", label: "Vol retardé : quels sont vos droits ?" },
               { href: "/blog/delai-indemnisation-vol", label: "Combien de temps pour être indemnisé d'un vol ?" },
               { href: "/blog/circonstances-extraordinaires", label: "Grève, météo, panne : ai-je droit à une indemnité ?" },
+              { href: "/blog/compagnie-refuse-indemnisation", label: "La compagnie refuse de m'indemniser : que faire ?" },
+              { href: "/blog/reglement-ec-261-2004", label: "Le règlement EC 261/2004 expliqué simplement" },
+              { href: "/blog/regle-3-heures-retard", label: "La règle des 3 heures de retard" },
             ].map((g) => (
               <li key={g.href}>
                 <Link href={g.href} className="font-medium text-brand-600 hover:underline">
