@@ -198,3 +198,46 @@ export async function ajouterDocument(
   });
   return { documentId: created.id };
 }
+
+/**
+ * Téléverse un document depuis l'espace de SUIVI public : le client s'identifie
+ * par sa référence + son e-mail (doivent correspondre). Autorisé tant que le
+ * dossier est NOUVEAU ou DOCUMENT_MANQUANT. Chiffré au repos. Le document apparaît
+ * ensuite dans la fiche admin.
+ */
+export async function ajouterDocumentParSuivi(
+  reference: string,
+  email: string,
+  meta: DocumentMetaInput,
+  contenu: Buffer,
+): Promise<{ documentId: string }> {
+  const dossier = await prisma.dossier.findUnique({
+    where: { reference: reference.trim().toUpperCase() },
+    include: { passager: { select: { email: true } }, _count: { select: { documents: true } } },
+  });
+  if (!dossier || dossier.passager.email.toLowerCase() !== email.trim().toLowerCase()) {
+    throw new DepotError("Dossier introuvable.", 404);
+  }
+  if (dossier.statut !== "NOUVEAU" && dossier.statut !== "DOCUMENT_MANQUANT") {
+    throw new DepotError("Ce dossier n'accepte plus l'ajout de documents.", 409);
+  }
+  if (dossier._count.documents >= 30) throw new DepotError("Trop de documents.", 409);
+  if (contenu.length === 0) throw new DepotError("Fichier vide.", 400);
+  if (contenu.length > TAILLE_MAX_OCTETS) throw new DepotError("Fichier trop volumineux.", 413);
+
+  const { contenuChiffre, iv, authTag } = chiffrerDocument(contenu);
+  const created = await prisma.document.create({
+    data: {
+      dossierId: dossier.id,
+      type: meta.type as TypeDocument,
+      sousType: (meta.sousType ?? null) as SousTypeDocument | null,
+      nomFichier: meta.nomFichier,
+      mimeType: meta.mimeType,
+      tailleOctets: contenu.length,
+      contenuChiffre: new Uint8Array(contenuChiffre),
+      iv: new Uint8Array(iv),
+      authTag: new Uint8Array(authTag),
+    },
+  });
+  return { documentId: created.id };
+}

@@ -239,7 +239,14 @@
     "ref": "Número de expediente",
     "flight": "Vuelo",
     "estimated": "Importe estimado",
-    "created": "Enviado el"
+    "created": "Enviado el",
+    "uploadTitle": "Añadir un documento",
+    "uploadHelp": "PDF, JPG o PNG (máx. 4 MB). Tus archivos se cifran y se envían a nuestro equipo.",
+    "uploadChoose": "Elegir archivos",
+    "uploadOk": "Enviado",
+    "uploadFormat": "Formato no admitido (PDF, JPG, PNG).",
+    "uploadTooBig": "Archivo demasiado grande (4 MB máx.).",
+    "uploadFail": "Error, inténtalo de nuevo."
   },
   "blog": {
     "title": "Blog",

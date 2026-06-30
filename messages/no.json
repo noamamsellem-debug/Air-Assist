@@ -239,7 +239,14 @@
     "ref": "Saksnummer",
     "flight": "Fly",
     "estimated": "Estimert beløp",
-    "created": "Sendt inn"
+    "created": "Sendt inn",
+    "uploadTitle": "Add a document",
+    "uploadHelp": "PDF, JPG or PNG (max 4 MB). Your files are encrypted and sent to our team.",
+    "uploadChoose": "Choose files",
+    "uploadOk": "Sent",
+    "uploadFormat": "Unsupported format (PDF, JPG, PNG).",
+    "uploadTooBig": "File too large (4 MB max).",
+    "uploadFail": "Failed, please try again."
   },
   "blog": {
     "title": "Blogg",

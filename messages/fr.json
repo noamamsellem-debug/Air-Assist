@@ -239,7 +239,14 @@
     "ref": "Numéro de dossier",
     "flight": "Vol",
     "estimated": "Montant estimé",
-    "created": "Déposé le"
+    "created": "Déposé le",
+    "uploadTitle": "Ajouter un document",
+    "uploadHelp": "PDF, JPG ou PNG (max 4 Mo). Vos fichiers sont chiffrés et transmis à notre équipe.",
+    "uploadChoose": "Choisir des fichiers",
+    "uploadOk": "Envoyé",
+    "uploadFormat": "Format non pris en charge (PDF, JPG, PNG).",
+    "uploadTooBig": "Fichier trop volumineux (4 Mo max).",
+    "uploadFail": "Échec, réessayez."
   },
   "blog": {
     "title": "Blog",

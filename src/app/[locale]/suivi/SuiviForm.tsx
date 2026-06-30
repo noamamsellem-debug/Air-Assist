@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { preparerFichier, MIMES_DOCUMENT } from "@/lib/image-upload";
+
+const MAX_OCTETS = 4 * 1024 * 1024;
+type EtatDoc = { id: string; nom: string; etat: "cours" | "ok" | "err"; msg?: string };
 
 interface Resultat {
   reference: string;
@@ -19,6 +23,44 @@ export function SuiviForm() {
   const [resultat, setResultat] = useState<Resultat | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
   const [envoi, setEnvoi] = useState(false);
+  const [docs, setDocs] = useState<EtatDoc[]>([]);
+
+  function setEtat(id: string, patch: Partial<EtatDoc>) {
+    setDocs((p) => p.map((d) => (d.id === id ? { ...d, ...patch } : d)));
+  }
+
+  async function televerser(liste: FileList | null) {
+    if (!liste || liste.length === 0) return;
+    const entrees = Array.from(liste).map((file, i) => ({ id: `${Date.now()}-${i}`, file }));
+    setDocs((p) => [...p, ...entrees.map((e) => ({ id: e.id, nom: e.file.name, etat: "cours" as const }))]);
+    for (const { id, file } of entrees) {
+      if (!MIMES_DOCUMENT.includes(file.type)) {
+        setEtat(id, { etat: "err", msg: t("uploadFormat") });
+        continue;
+      }
+      try {
+        const prep = await preparerFichier(file);
+        if (prep.blob.size > MAX_OCTETS) {
+          setEtat(id, { etat: "err", msg: t("uploadTooBig") });
+          continue;
+        }
+        const res = await fetch("/api/suivi/document", {
+          method: "POST",
+          headers: {
+            "Content-Type": prep.mimeType,
+            "X-Reference": reference,
+            "X-Email": email,
+            "X-Document-Nom": encodeURIComponent(prep.nomFichier),
+          },
+          body: prep.blob,
+        });
+        const data = await res.json().catch(() => null);
+        setEtat(id, res.ok ? { etat: "ok" } : { etat: "err", msg: data?.error ?? t("uploadFail") });
+      } catch {
+        setEtat(id, { etat: "err", msg: t("uploadFail") });
+      }
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -83,6 +125,34 @@ export function SuiviForm() {
               <dd>{dateFmt(resultat.dateCreation)}</dd>
             </div>
           </dl>
+
+          {/* Ajout de documents manquants */}
+          <div className="mt-6 border-t border-slate-200 pt-4">
+            <h3 className="font-semibold text-slate-800">{t("uploadTitle")}</h3>
+            <p className="mt-1 text-sm text-slate-500">{t("uploadHelp")}</p>
+            <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-brand-300 px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">
+              ⬆️ {t("uploadChoose")}
+              <input
+                type="file"
+                multiple
+                accept="application/pdf,image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={(e) => televerser(e.target.files)}
+              />
+            </label>
+            {docs.length > 0 && (
+              <ul className="mt-3 space-y-1 text-sm">
+                {docs.map((d) => (
+                  <li key={d.id} className="flex items-center justify-between gap-2">
+                    <span className="truncate text-slate-700">{d.nom}</span>
+                    <span className={d.etat === "ok" ? "text-green-700" : d.etat === "err" ? "text-red-600" : "text-slate-400"}>
+                      {d.etat === "ok" ? "✅ " + t("uploadOk") : d.etat === "err" ? "⚠️ " + (d.msg ?? "") : "…"}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       )}
     </div>
