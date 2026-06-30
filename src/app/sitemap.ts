@@ -27,6 +27,9 @@ const PAGES_SEO_FR = [
   "/indemnisation-surbooking",
   "/indemnisation-correspondance-ratee",
   "/bareme-indemnisation",
+  "/blog/droits-vol-retarde",
+  "/blog/delai-indemnisation-vol",
+  "/blog/circonstances-extraordinaires",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

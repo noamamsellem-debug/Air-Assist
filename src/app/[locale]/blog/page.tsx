@@ -47,6 +47,26 @@ export default async function BlogIndex({
           );
         })}
       </div>
+
+      {/* Guides pratiques (français, pages SEO dédiées) */}
+      {locale === "fr" && (
+        <section className="mt-10">
+          <h2 className="text-xl font-bold">Guides pratiques</h2>
+          <ul className="mt-4 space-y-2">
+            {[
+              { href: "/blog/droits-vol-retarde", label: "Vol retardé : quels sont vos droits ?" },
+              { href: "/blog/delai-indemnisation-vol", label: "Combien de temps pour être indemnisé d'un vol ?" },
+              { href: "/blog/circonstances-extraordinaires", label: "Grève, météo, panne : ai-je droit à une indemnité ?" },
+            ].map((g) => (
+              <li key={g.href}>
+                <Link href={g.href} className="font-medium text-brand-600 hover:underline">
+                  {g.label} →
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }
