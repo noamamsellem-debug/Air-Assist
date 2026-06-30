@@ -158,10 +158,11 @@ export function Calculator() {
                   type="button"
                   key={opt}
                   onClick={() => setRetard(opt)}
-                  className={`rounded-lg border px-4 py-3 text-left text-sm transition ${
+                  aria-pressed={retard === opt}
+                  className={`rounded-xl border-[1.5px] p-3.5 text-left text-base transition focus:outline-none focus-visible:shadow-[0_0_0_3px_rgba(0,96,255,0.15)] ${
                     retard === opt
-                      ? "border-brand-500 bg-brand-50 font-semibold text-brand-800"
-                      : "border-slate-300 hover:bg-slate-50"
+                      ? "border-brand-500 bg-[rgba(0,96,255,0.08)] font-semibold text-brand-600"
+                      : "border-slate-300 bg-slate-50 text-slate-900 hover:bg-slate-100"
                   }`}
                 >
                   {t(RETARD_LABELS[opt])}
