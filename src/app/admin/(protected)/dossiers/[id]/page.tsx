@@ -5,6 +5,7 @@ import { euros, dateCourte, dateHeure } from "@/lib/format";
 import { LIBELLES_STATUT, transitionsPossibles } from "@/domain/statut";
 import { MOTIF_LIBELLES } from "@/domain/motif";
 import { StatusChanger } from "@/components/admin/StatusChanger";
+import { QuickActions } from "@/components/admin/QuickActions";
 import { ClaimGenerator } from "@/components/admin/ClaimGenerator";
 
 export const dynamic = "force-dynamic";
@@ -188,9 +189,24 @@ export default async function DossierDetail({
         {/* Colonne actions */}
         <aside className="space-y-6">
           <div className="card">
-            <h2 className="text-lg font-semibold">Changer de statut</h2>
+            <h2 className="text-lg font-semibold">Actions rapides</h2>
             <p className="mt-1 text-xs text-slate-500">
-              Seules les transitions valides sont proposées ; chaque changement est journalisé.
+              Un clic met à jour le statut et envoie automatiquement l'e-mail au client.
+            </p>
+            <div className="mt-3">
+              <QuickActions
+                dossierId={d.id}
+                statutActuel={d.statut}
+                transitions={transitionsPossibles(d.statut)}
+                passagerEmail={d.passager.email}
+              />
+            </div>
+          </div>
+
+          <div className="card">
+            <h2 className="text-lg font-semibold">Changement de statut avancé</h2>
+            <p className="mt-1 text-xs text-slate-500">
+              Toutes les transitions valides (étapes internes incluses) ; chaque changement est journalisé.
             </p>
             <div className="mt-3">
               <StatusChanger

@@ -17,13 +17,17 @@ import { StatutDossier } from "@prisma/client";
 
 /** Transitions autorisées : pour chaque statut, l'ensemble des cibles permises. */
 export const TRANSITIONS: Record<StatutDossier, StatutDossier[]> = {
-  NOUVEAU: ["DOCUMENT_MANQUANT", "VERIFIE", "REFUSE"],
-  DOCUMENT_MANQUANT: ["VERIFIE", "REFUSE"],
+  // Raccourcis « métier » (boutons d'action rapide du CRM) ajoutés en plus des
+  // étapes internes : on peut aller directement à RECLAMATION_ENVOYEE / ACCEPTE /
+  // REVERSE sans passer par VERIFIE / ACCUSE_RECU / PAYE. Aucune arête existante
+  // n'est retirée (extension non destructive).
+  NOUVEAU: ["DOCUMENT_MANQUANT", "VERIFIE", "RECLAMATION_ENVOYEE", "REFUSE"],
+  DOCUMENT_MANQUANT: ["VERIFIE", "RECLAMATION_ENVOYEE", "REFUSE"],
   VERIFIE: ["DOCUMENT_MANQUANT", "RECLAMATION_ENVOYEE", "REFUSE"],
-  RECLAMATION_ENVOYEE: ["ACCUSE_RECU", "REFUSE"],
+  RECLAMATION_ENVOYEE: ["ACCUSE_RECU", "ACCEPTE", "REFUSE"],
   ACCUSE_RECU: ["EN_NEGOCIATION", "ACCEPTE", "REFUSE", "CONTENTIEUX"],
   EN_NEGOCIATION: ["ACCEPTE", "REFUSE", "CONTENTIEUX"],
-  ACCEPTE: ["PAYE"],
+  ACCEPTE: ["PAYE", "REVERSE"],
   PAYE: ["REVERSE"],
   REVERSE: [], // terminal
   REFUSE: ["CONTENTIEUX"], // un refus peut être porté au contentieux
