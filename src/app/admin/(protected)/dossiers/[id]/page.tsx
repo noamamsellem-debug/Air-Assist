@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { euros, dateCourte, dateHeure } from "@/lib/format";
-import { LIBELLES_STATUT, transitionsPossibles } from "@/domain/statut";
+import { LIBELLES_STATUT } from "@/domain/statut";
 import { MOTIF_LIBELLES } from "@/domain/motif";
+import { libelleAeroport } from "@/data/aeroports";
 import { StatusChanger } from "@/components/admin/StatusChanger";
 import { QuickActions } from "@/components/admin/QuickActions";
 import { ClaimGenerator } from "@/components/admin/ClaimGenerator";
@@ -63,7 +64,7 @@ export default async function DossierDetail({
             <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
               <Champ k="Numéro" v={d.vol.numero} />
               <Champ k="Date" v={dateCourte(d.vol.date)} />
-              <Champ k="Trajet" v={`${d.vol.aeroportDepart} → ${d.vol.aeroportArrivee}`} />
+              <Champ k="Trajet" v={`${libelleAeroport(d.vol.aeroportDepart)} → ${libelleAeroport(d.vol.aeroportArrivee)}`} />
               <Champ k="Distance" v={`${d.vol.distanceKm} km`} />
               <Champ k="Motif" v={MOTIF_LIBELLES[d.vol.motif]} />
               <Champ k="Retard" v={d.vol.dureeRetardMin ? `${d.vol.dureeRetardMin} min` : "—"} />
@@ -213,11 +214,7 @@ export default async function DossierDetail({
               Toutes les transitions valides (étapes internes incluses) ; chaque changement est journalisé.
             </p>
             <div className="mt-3">
-              <StatusChanger
-                dossierId={d.id}
-                statutActuel={d.statut}
-                transitions={transitionsPossibles(d.statut)}
-              />
+              <StatusChanger dossierId={d.id} statutActuel={d.statut} />
             </div>
           </div>
 

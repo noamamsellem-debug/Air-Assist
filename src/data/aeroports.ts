@@ -140,6 +140,12 @@ export function getAeroport(iata: string): Aeroport | undefined {
   return AEROPORTS[iata.trim().toUpperCase()];
 }
 
+/** Libellé lisible « Nom (CODE) » ; si le code est inconnu, renvoie le code seul. */
+export function libelleAeroport(iata: string): string {
+  const a = getAeroport(iata);
+  return a ? `${a.nom} (${a.iata})` : iata.trim().toUpperCase();
+}
+
 export function listeAeroports(): Aeroport[] {
   return Object.values(AEROPORTS).sort((a, b) => a.ville.localeCompare(b.ville));
 }

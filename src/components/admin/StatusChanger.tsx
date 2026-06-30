@@ -8,11 +8,9 @@ import type { StatutDossier } from "@prisma/client";
 export function StatusChanger({
   dossierId,
   statutActuel,
-  transitions,
 }: {
   dossierId: string;
   statutActuel: StatutDossier;
-  transitions: StatutDossier[];
 }) {
   const router = useRouter();
   const [cible, setCible] = useState<StatutDossier | "">("");
@@ -22,6 +20,8 @@ export function StatusChanger({
   const [erreur, setErreur] = useState<string | null>(null);
   const [envoi, setEnvoi] = useState(false);
 
+  // Tous les statuts existants (sauf l'actuel) — passage direct en mode « force ».
+  const statuts = (Object.keys(LIBELLES_STATUT) as StatutDossier[]).filter((s) => s !== statutActuel);
   const demandeNumero = cible === "ACCUSE_RECU";
   const demandeMontant = cible === "ACCEPTE" || cible === "PAYE";
 
@@ -34,6 +34,7 @@ export function StatusChanger({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         nouveauStatut: cible,
+        force: true,
         commentaire: commentaire || undefined,
         numeroDossierCompagnie: demandeNumero ? numeroDossierCompagnie || undefined : undefined,
         montantObtenu: demandeMontant && montantObtenu ? Number(montantObtenu) : undefined,
@@ -50,10 +51,6 @@ export function StatusChanger({
     router.refresh();
   }
 
-  if (transitions.length === 0) {
-    return <p className="text-sm text-slate-500">Statut terminal — aucune action possible.</p>;
-  }
-
   return (
     <div className="space-y-3">
       <div>
@@ -64,7 +61,7 @@ export function StatusChanger({
           onChange={(e) => setCible(e.target.value as StatutDossier)}
         >
           <option value="">Choisir…</option>
-          {transitions.map((s) => (
+          {statuts.map((s) => (
             <option key={s} value={s}>
               {LIBELLES_STATUT[statutActuel]} → {LIBELLES_STATUT[s]}
             </option>
