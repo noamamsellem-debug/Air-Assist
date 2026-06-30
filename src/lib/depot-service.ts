@@ -14,7 +14,7 @@ import type { MotifVol, TypeDocument, SousTypeDocument } from "@prisma/client";
 import { prisma } from "./prisma";
 import { genererProchaineReference } from "./dossier-service";
 import { getSignatureAdapter } from "@/adapters/esign";
-import { getEmailAdapter } from "@/adapters/email";
+import { envoyerEmailDossier } from "./email-service";
 import { chiffrerDocument } from "./crypto";
 import type { DepotInput, DocumentMetaInput } from "./validation";
 
@@ -151,21 +151,8 @@ export async function creerDepot(
     return d;
   });
 
-  try {
-    const email = getEmailAdapter();
-    await email.envoyer({
-      de: process.env.EMAIL_FROM ?? "reclamations@air-assist.example",
-      a: input.email,
-      sujet: `Votre dossier ${reference} est bien enregistré`,
-      texte:
-        `Bonjour ${input.passager.prenom},\n\nNous avons bien reçu votre demande d'indemnisation. ` +
-        `Votre numéro de dossier est ${reference}. Suivez son avancement à tout moment depuis la page de suivi.\n\n` +
-        `L'équipe Air Assist`,
-      enTetes: { "X-Dossier": reference },
-    });
-  } catch {
-    // L'e-mail ne doit jamais bloquer la création du dossier.
-  }
+  // E-mail 1 (accusé de réception) — ne bloque jamais la création.
+  await envoyerEmailDossier(dossier.id, "ACCUSE_RECEPTION");
 
   return { dossierId: dossier.id, reference };
 }

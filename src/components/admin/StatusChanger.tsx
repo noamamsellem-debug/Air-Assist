@@ -97,8 +97,28 @@ export function StatusChanger({
       )}
 
       <div>
-        <label className="label">Commentaire (optionnel)</label>
-        <input className="input" value={commentaire} onChange={(e) => setCommentaire(e.target.value)} />
+        <label className="label">
+          {cible === "DOCUMENT_MANQUANT"
+            ? "Document manquant"
+            : cible === "REFUSE"
+              ? "Motif du refus"
+              : "Commentaire (optionnel)"}
+        </label>
+        <input
+          className="input"
+          placeholder={
+            cible === "DOCUMENT_MANQUANT"
+              ? "Ex : carte d'embarquement lisible"
+              : cible === "REFUSE"
+                ? "Ex : circonstances extraordinaires invoquées"
+                : ""
+          }
+          value={commentaire}
+          onChange={(e) => setCommentaire(e.target.value)}
+        />
+        {(cible === "DOCUMENT_MANQUANT" || cible === "REFUSE") && (
+          <p className="mt-1 text-xs text-slate-500">Ce texte sera inséré dans l'e-mail automatique envoyé au client.</p>
+        )}
       </div>
 
       {erreur && <p className="rounded bg-red-50 p-2 text-sm text-red-700">{erreur}</p>}

@@ -12,6 +12,8 @@ import { prisma } from "./prisma";
 import { appliquerTransition } from "@/domain/statut";
 import { repartirEuros } from "@/domain/commission";
 import { genererReferenceDossier } from "@/domain/reference";
+import { emailPourStatut } from "./emails";
+import { envoyerEmailDossier } from "./email-service";
 
 type Db = PrismaClient | Prisma.TransactionClient;
 
@@ -44,7 +46,7 @@ export async function changerStatut(
   nouveauStatut: StatutDossier,
   options: OptionsChangementStatut,
 ) {
-  return prisma.$transaction(async (tx) => {
+  const maj = await prisma.$transaction(async (tx) => {
     const dossier = await tx.dossier.findUniqueOrThrow({ where: { id: dossierId } });
     const ancienStatut = dossier.statut;
 
@@ -84,6 +86,15 @@ export async function changerStatut(
 
     return maj;
   });
+
+  // Hook e-mail : après le commit, envoi automatique selon le nouveau statut.
+  // envoyerEmailDossier ne lève jamais (erreurs loguées) → ne casse pas le flux.
+  const typeEmail = emailPourStatut(nouveauStatut);
+  if (typeEmail) {
+    await envoyerEmailDossier(dossierId, typeEmail, options.commentaire);
+  }
+
+  return maj;
 }
 
 /** Met à jour uniquement le n° de dossier compagnie (sans changer de statut). */

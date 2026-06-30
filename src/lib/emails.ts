@@ -61,6 +61,49 @@ export function emailPourStatut(statut: string): TypeEmail | null {
   }
 }
 
+/** Dossier (+ relations) minimal nécessaire pour remplir les variables d'e-mail. */
+export interface DossierPourEmail {
+  reference: string;
+  montantEstime: unknown;
+  montantObtenu?: unknown | null;
+  partClient70?: unknown | null;
+  commission30?: unknown | null;
+  passager: { prenom: string; email: string };
+  vol: { aeroportDepart: string; aeroportArrivee: string; date: Date | string; compagnieTexte: string };
+  compagnie: { nom: string };
+}
+
+function nombre(x: unknown): number {
+  const n = Number(x);
+  return Number.isFinite(n) ? n : 0;
+}
+
+/** Construit les variables d'e-mail depuis un dossier (fonction pure, testable). */
+export function construireVariables(
+  d: DossierPourEmail,
+  options: { siteUrl: string; commentaire?: string; annee: number },
+): VariablesEmail {
+  const siteUrl = options.siteUrl.replace(/\/$/, "");
+  return {
+    prenom: d.passager.prenom,
+    compagnie: d.compagnie?.nom || d.vol.compagnieTexte,
+    depart: d.vol.aeroportDepart,
+    arrivee: d.vol.aeroportArrivee,
+    dateVol: new Intl.DateTimeFormat("fr-FR").format(new Date(d.vol.date)),
+    reference: d.reference,
+    montantEstime: nombre(d.montantEstime),
+    montantObtenu: d.montantObtenu != null ? nombre(d.montantObtenu) : undefined,
+    partClient: d.partClient70 != null ? nombre(d.partClient70) : undefined,
+    commission: d.commission30 != null ? nombre(d.commission30) : undefined,
+    lienSuivi: `${siteUrl}/fr/suivi`,
+    lienVersement: `${siteUrl}/fr/suivi`,
+    documentManquant: options.commentaire || undefined,
+    motifRefus: options.commentaire || undefined,
+    annee: options.annee,
+    siteUrl,
+  };
+}
+
 function eur(n: number): string {
   return new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n) + " €";
 }
