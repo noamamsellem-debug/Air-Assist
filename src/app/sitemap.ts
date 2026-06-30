@@ -3,6 +3,8 @@ import { routing } from "@/i18n/routing";
 import { AEROPORTS } from "@/data/aeroports";
 import { COMPAGNIES_SEO } from "@/data/compagnies";
 import { ARTICLES } from "@/data/articles";
+import { COMPAGNIES_INDEM } from "@/data/indemnisation-compagnies";
+import { AEROPORTS_INDEM } from "@/data/indemnisation-aeroports";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -80,7 +82,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   // Pages SEO françaises (fr uniquement, sans alternates).
-  for (const page of PAGES_SEO_FR) {
+  const seoFr = [
+    ...PAGES_SEO_FR,
+    ...COMPAGNIES_INDEM.map((c) => `/indemnisation/${c.slug}`),
+    ...AEROPORTS_INDEM.map((a) => `/aeroport/${a.slug}`),
+  ];
+  for (const page of seoFr) {
     entries.push({
       url: `${SITE_URL}/fr${page}`,
       lastModified: new Date(),
