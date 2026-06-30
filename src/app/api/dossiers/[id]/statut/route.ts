@@ -35,6 +35,7 @@ export async function POST(
       commentaire: parsed.data.commentaire,
       numeroDossierCompagnie: parsed.data.numeroDossierCompagnie,
       montantObtenu: parsed.data.montantObtenu,
+      force: parsed.data.force,
     });
     return NextResponse.json({ ok: true, statut: dossier.statut });
   } catch (err) {

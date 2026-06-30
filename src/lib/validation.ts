@@ -228,4 +228,6 @@ export const changementStatutSchema = z.object({
   commentaire: z.string().trim().max(1000).optional(),
   numeroDossierCompagnie: z.string().trim().max(100).optional(),
   montantObtenu: z.coerce.number().nonnegative().optional(),
+  /** Boutons d'action rapides : autorise une transition directe (bypass machine). */
+  force: z.boolean().optional(),
 });

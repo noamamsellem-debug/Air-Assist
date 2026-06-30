@@ -22,13 +22,9 @@ const ACTIONS: ActionRapide[] = [
 
 export function QuickActions({
   dossierId,
-  statutActuel,
-  transitions,
   passagerEmail,
 }: {
   dossierId: string;
-  statutActuel: StatutDossier;
-  transitions: StatutDossier[];
   passagerEmail: string;
 }) {
   const router = useRouter();
@@ -51,7 +47,8 @@ export function QuickActions({
     setErreur(null);
     setMessage(null);
     try {
-      const body: Record<string, unknown> = { nouveauStatut: action.statut };
+      // force: true → autorise la transition directe quel que soit le statut actuel.
+      const body: Record<string, unknown> = { nouveauStatut: action.statut, force: true };
       if (action.champ) body.commentaire = texte;
       if (action.montant) body.montantObtenu = Number(montant);
       const res = await fetch(`/api/dossiers/${dossierId}/statut`, {
@@ -95,11 +92,9 @@ export function QuickActions({
     }
   }
 
-  const disponibles = ACTIONS.filter((a) => transitions.includes(a.statut));
-
   return (
     <div className="space-y-2">
-      {disponibles.map((a) => (
+      {ACTIONS.map((a) => (
         <div key={a.statut}>
           <button
             type="button"
@@ -147,16 +142,14 @@ export function QuickActions({
         </div>
       ))}
 
-      {statutActuel === "DOCUMENT_MANQUANT" && (
-        <button
-          type="button"
-          disabled={envoi}
-          onClick={relancer}
-          className="w-full rounded-lg border border-dashed border-amber-300 bg-amber-50 px-3 py-2 text-left text-sm font-semibold text-amber-800 hover:bg-amber-100 disabled:opacity-50"
-        >
-          Relancer le document (renvoyer l'e-mail)
-        </button>
-      )}
+      <button
+        type="button"
+        disabled={envoi}
+        onClick={relancer}
+        className="w-full rounded-lg border border-dashed border-amber-300 bg-amber-50 px-3 py-2 text-left text-sm font-semibold text-amber-800 hover:bg-amber-100 disabled:opacity-50"
+      >
+        Relancer le document (renvoyer l'e-mail)
+      </button>
 
       {message && <p className="rounded bg-green-50 p-2 text-sm text-green-700">{message}</p>}
       {erreur && <p className="rounded bg-red-50 p-2 text-sm text-red-700">{erreur}</p>}

@@ -203,12 +203,7 @@ export default async function DossierDetail({
               Un clic met à jour le statut et envoie automatiquement l'e-mail au client.
             </p>
             <div className="mt-3">
-              <QuickActions
-                dossierId={d.id}
-                statutActuel={d.statut}
-                transitions={transitionsPossibles(d.statut)}
-                passagerEmail={d.passager.email}
-              />
+              <QuickActions dossierId={d.id} passagerEmail={d.passager.email} />
             </div>
           </div>
 

@@ -31,13 +31,9 @@ export async function POST(
   if (!dossier) {
     return NextResponse.json({ error: "Dossier introuvable." }, { status: 404 });
   }
-  if (dossier.statut !== "DOCUMENT_MANQUANT") {
-    return NextResponse.json(
-      { error: "La relance n'est possible que sur un dossier « Document manquant »." },
-      { status: 409 },
-    );
-  }
 
+  // Relance autorisée à tout moment (bouton toujours disponible). On réutilise le
+  // dernier « document manquant » saisi s'il existe, sinon l'e-mail reste générique.
   const commentaire = dossier.historique[0]?.commentaire ?? undefined;
   const ok = await envoyerEmailDossier(id, "RELANCE_DOCUMENT", commentaire);
   if (!ok) {

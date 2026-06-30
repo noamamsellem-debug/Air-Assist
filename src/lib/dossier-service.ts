@@ -35,6 +35,8 @@ export interface OptionsChangementStatut {
   numeroDossierCompagnie?: string;
   /** Indemnité obtenue (EUR) — dérive commission30 / partClient70. */
   montantObtenu?: number;
+  /** Boutons d'action rapides : autorise une transition directe (bypass machine). */
+  force?: boolean;
 }
 
 /**
@@ -50,8 +52,11 @@ export async function changerStatut(
     const dossier = await tx.dossier.findUniqueOrThrow({ where: { id: dossierId } });
     const ancienStatut = dossier.statut;
 
-    // Valide la transition (peut throw).
-    appliquerTransition(ancienStatut, nouveauStatut);
+    // Valide la transition (peut throw) — sauf en mode « force » (boutons rapides),
+    // qui autorise toute transition directe demandée par l'admin.
+    if (!options.force) {
+      appliquerTransition(ancienStatut, nouveauStatut);
+    }
 
     const data: Prisma.DossierUpdateInput = { statut: nouveauStatut };
 
