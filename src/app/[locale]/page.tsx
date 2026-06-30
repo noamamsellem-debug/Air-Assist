@@ -20,11 +20,13 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "home" });
   return buildMetadata({
     locale,
-    // L'accueil partage le segment qui définit le template de titre : on ajoute
-    // donc la marque manuellement pour la balise <title>.
     path: "/",
-    title: `${t("heroTitle")} · Air Assist`,
-    description: t("heroSubtitle"),
+    // Titre SEO ciblé (porte déjà la marque) → absoluteTitle pour éviter le
+    // doublon « · Air Assist » ajouté par le template du layout.
+    title: t("seoTitle"),
+    description: t("seoDescription"),
+    keywords: t("seoKeywords"),
+    absoluteTitle: true,
   });
 }
 

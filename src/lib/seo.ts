@@ -38,11 +38,20 @@ export function buildMetadata({
   path,
   title,
   description,
+  keywords,
+  absoluteTitle = false,
 }: {
   locale: string;
   path: string;
   title: string;
   description: string;
+  /** Mots-clés SEO (séparés par des virgules) propres à la page. */
+  keywords?: string;
+  /**
+   * Si vrai, le <title> n'est PAS suffixé par le template parent « · Air
+   * Assist » : utile quand le titre porte déjà la marque (évite le doublon).
+   */
+  absoluteTitle?: boolean;
 }): Metadata {
   const cheminPropre = path === "/" ? "" : path;
   const canonical = `${SITE_URL}/${locale}${cheminPropre}`;
@@ -56,8 +65,9 @@ export function buildMetadata({
   }
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
+    keywords,
     alternates: { canonical, languages },
     openGraph: {
       title,

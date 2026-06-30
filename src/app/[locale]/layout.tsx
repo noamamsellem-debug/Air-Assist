@@ -54,9 +54,16 @@ export default async function LocaleLayout({
       "@type": "Organization",
       name: "Air Assist",
       url: `${SITE_URL}/${locale}`,
+      logo: `${SITE_URL}/airassist-logo.png`,
       description:
         "Réclamation d'indemnités pour vols retardés, annulés ou surbookés (EC 261/2004).",
       areaServed: "EU",
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "info@airassist.eu",
+        contactType: "customer support",
+        availableLanguage: ["fr", "en", "es", "de", "it"],
+      },
     },
     {
       "@context": "https://schema.org",
