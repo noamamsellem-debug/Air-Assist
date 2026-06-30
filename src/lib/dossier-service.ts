@@ -11,22 +11,23 @@ import type { Prisma, PrismaClient, StatutDossier, AuteurHistorique } from "@pri
 import { prisma } from "./prisma";
 import { appliquerTransition } from "@/domain/statut";
 import { repartirEuros } from "@/domain/commission";
-import { genererReferenceDossier } from "@/domain/reference";
 import { emailPourStatut } from "./emails";
 import { envoyerEmailDossier } from "./email-service";
 
 type Db = PrismaClient | Prisma.TransactionClient;
 
 /** Calcule la prochaine référence interne (AA-<année>-<seq>) pour l'année courante. */
-export async function genererProchaineReference(
-  db: Db = prisma,
-  annee: number = new Date().getFullYear(),
-): Promise<string> {
-  const prefixe = `AA-${annee}-`;
-  const count = await db.dossier.count({
-    where: { reference: { startsWith: prefixe } },
-  });
-  return genererReferenceDossier(annee, count + 1);
+export async function genererProchaineReference(db: Db = prisma): Promise<string> {
+  // Numéro à 7 chiffres (1000000–9999999). On garantit l'unicité en vérifiant en
+  // base avant attribution (et nouvel essai sur collision) ; la contrainte @unique
+  // sur `reference` reste le garde-fou final. Les anciennes références AA-AAAA-xxx
+  // (non numériques) ne peuvent pas entrer en collision et restent valides.
+  for (let i = 0; i < 30; i++) {
+    const ref = String(1000000 + Math.floor(Math.random() * 9000000));
+    const existe = await db.dossier.findUnique({ where: { reference: ref } });
+    if (!existe) return ref;
+  }
+  throw new Error("Impossible de générer une référence unique après 30 essais.");
 }
 
 export interface OptionsChangementStatut {
