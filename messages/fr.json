@@ -433,7 +433,11 @@
     "compTitle": "Combien pourriez-vous obtenir ?",
     "compIntro": "Le montant prévu par la loi dépend de la distance de votre vol. Déplacez le curseur pour le voir.",
     "compMax": "Plus",
-    "eyebrowHow": "Comment ça marche"
+    "eyebrowHow": "Comment ça marche",
+    "rbReviews": "Milliers d'avis",
+    "rbRisk": "Sans risque",
+    "rbFree": "Vérif. gratuite",
+    "rbEu": "RGPD · UE"
   },
   "trustband": {
     "title": "Pourquoi nous faire confiance",

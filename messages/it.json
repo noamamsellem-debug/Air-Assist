@@ -433,7 +433,11 @@
     "compTitle": "How much could you get?",
     "compIntro": "The amount set by law depends on your flight distance. Move the slider to see it.",
     "compMax": "More",
-    "eyebrowHow": "How it works"
+    "eyebrowHow": "How it works",
+    "rbReviews": "Thousands of reviews",
+    "rbRisk": "No risk",
+    "rbFree": "Free check",
+    "rbEu": "GDPR · EU"
   },
   "trustband": {
     "title": "Why travellers trust us",
