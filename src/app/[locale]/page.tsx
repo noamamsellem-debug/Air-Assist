@@ -8,6 +8,7 @@ import { TrustBar } from "@/components/home/TrustBar";
 import { HowTimeline } from "@/components/home/HowTimeline";
 import { DisruptionCards } from "@/components/home/DisruptionCards";
 import { CompensationSlider } from "@/components/home/CompensationSlider";
+import { Reveal } from "@/components/Reveal";
 
 export async function generateMetadata({
   params,
@@ -75,17 +76,28 @@ function HomeContent() {
     <>
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="hero-gradient relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 pb-16 pt-14 lg:pb-20 lg:pt-20">
+        {/* Trace de vol décorative (subtile, ne gêne pas la lecture) */}
+        <svg
+          className="pointer-events-none absolute -right-10 top-6 hidden h-64 w-[36rem] opacity-30 sm:block"
+          viewBox="0 0 600 260"
+          fill="none"
+          aria-hidden
+        >
+          <path d="M20 230 C 180 60 360 60 580 30" stroke="#fff" strokeWidth="2" strokeDasharray="2 10" strokeLinecap="round" />
+          <circle cx="20" cy="230" r="5" fill="#fff" />
+          <path transform="translate(556 14) rotate(38)" fill="#fff" d="M14 0c1 0 1.6 1 1.6 3v5l7 5v2l-7-2v5l2 2v2l-3.6-1-3.6 1v-2l2-2v-5l-7 2v-2l7-5V3c0-2 .6-3 1.6-3z" />
+        </svg>
+        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12 sm:pb-16 sm:pt-14 lg:pb-20 lg:pt-20">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div className="text-white">
               <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/25 backdrop-blur">
                 {hp("heroEyebrow")}
               </span>
-              <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              <h1 className="mt-5 text-[2rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
                 {t("heroTitle")}
               </h1>
-              <p className="mt-5 max-w-xl text-lg text-white/80">{t("heroSubtitle")}</p>
-              <div className="mt-7">
+              <p className="mt-4 max-w-xl text-base text-white/80 sm:mt-5 sm:text-lg">{t("heroSubtitle")}</p>
+              <div className="mt-6 sm:mt-7">
                 <TrustBar />
               </div>
             </div>
@@ -99,30 +111,34 @@ function HomeContent() {
       {/* ── TYPES DE PERTURBATIONS ───────────────────────────────────── */}
       <section className="grid-soft bg-white">
         <div className="section">
-          <SectionHeading
-            eyebrow={hp("eyebrowProblems")}
-            title={hp("disruptionsTitle")}
-            intro={hp("disruptionsIntro")}
-          />
-          <DisruptionCards />
+          <Reveal>
+            <SectionHeading
+              eyebrow={hp("eyebrowProblems")}
+              title={hp("disruptionsTitle")}
+              intro={hp("disruptionsIntro")}
+            />
+          </Reveal>
+          <Reveal delay={120}>
+            <DisruptionCards />
+          </Reveal>
         </div>
       </section>
 
       {/* ── COMMENT ÇA MARCHE + SLIDER D'INDEMNITÉ ───────────────────── */}
       <section id="comment-ca-marche" className="bg-slate-50">
         <div className="section grid items-start gap-12 lg:grid-cols-2">
-          <div>
+          <Reveal>
             <SectionHeading eyebrow={hp("eyebrowHow")} title={t("howTitle")} />
             <div className="mt-8">
               <HowTimeline />
             </div>
-          </div>
-          <div className="lg:pt-2">
+          </Reveal>
+          <Reveal delay={120} className="lg:pt-2">
             <SectionHeading eyebrow={hp("eyebrowComp")} title={hp("compTitle")} intro={hp("compIntro")} />
             <div className="mt-8">
               <CompensationSlider />
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -166,11 +182,11 @@ function HomeContent() {
               { amount: "250 €", text: s("row1") },
               { amount: "400 €", text: s("row2") },
               { amount: "600 €", text: s("row3") },
-            ].map((row) => (
-              <div key={row.amount} className="card text-center">
+            ].map((row, i) => (
+              <Reveal key={row.amount} delay={i * 100} className="card text-center">
                 <p className="text-3xl font-extrabold text-brand-600">{row.amount}</p>
                 <p className="mt-2 text-sm text-slate-600">{row.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
           <p className="mt-4 text-xs text-slate-500">{s("reductionNote")}</p>
