@@ -116,6 +116,26 @@ body {
   }
 }
 
+/* ── Contenu éditorial SEO (blocs structurés) ────────────────────────── */
+.prose-seo h2 {
+  @apply mt-10 text-2xl font-bold tracking-tight text-slate-900;
+}
+.prose-seo h3 {
+  @apply mt-7 text-lg font-semibold text-slate-900;
+}
+.prose-seo p {
+  @apply mt-3 leading-relaxed text-slate-700;
+}
+.prose-seo ul {
+  @apply mt-3 list-disc space-y-1.5 pl-6 text-slate-700;
+}
+.prose-seo ol {
+  @apply mt-3 list-decimal space-y-1.5 pl-6 text-slate-700;
+}
+.prose-seo strong {
+  @apply font-semibold text-slate-900;
+}
+
 /* ── Article de blog (HTML injecté) ──────────────────────────────────── */
 .article-corps h2 {
   @apply mt-7 text-xl font-semibold text-slate-900;

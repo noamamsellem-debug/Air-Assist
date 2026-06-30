@@ -84,3 +84,37 @@ export function buildMetadata({
     },
   };
 }
+
+/**
+ * Métadonnées d'une page SEO en français uniquement (pages service, blog,
+ * compagnies, aéroports en cours de déploiement). Canonical → /fr/<path>,
+ * pas de hreflang vers d'autres langues tant que la traduction n'existe pas.
+ * `title` est posé en absolu (pas de suffixe « · Air Assist ») pour rester
+ * sous la limite SEO de ~60 caractères.
+ */
+export function buildSeoMetadata({
+  path,
+  title,
+  description,
+}: {
+  path: string;
+  title: string;
+  description: string;
+}): Metadata {
+  const canonical = `${SITE_URL}/fr${path}`;
+  return {
+    title: { absolute: title },
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: canonical,
+      siteName: "Air Assist",
+      locale: "fr_FR",
+      type: "website",
+    },
+    twitter: { card: "summary_large_image", title, description },
+    robots: { index: true, follow: true },
+  };
+}

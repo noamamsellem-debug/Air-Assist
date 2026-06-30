@@ -19,6 +19,16 @@ const PAGES_STATIQUES = [
   "/cookies",
 ];
 
+// Pages SEO rédigées en français uniquement pour l'instant (pas de hreflang
+// tant que les traductions n'existent pas). Voir buildSeoMetadata.
+const PAGES_SEO_FR = [
+  "/indemnisation-vol-retarde",
+  "/indemnisation-vol-annule",
+  "/indemnisation-surbooking",
+  "/indemnisation-correspondance-ratee",
+  "/bareme-indemnisation",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   const alternates = (suffix: string) => ({
@@ -64,6 +74,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: alternates(`/blog/${a.slug}`),
       });
     }
+  }
+
+  // Pages SEO françaises (fr uniquement, sans alternates).
+  for (const page of PAGES_SEO_FR) {
+    entries.push({
+      url: `${SITE_URL}/fr${page}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
   }
 
   return entries;
