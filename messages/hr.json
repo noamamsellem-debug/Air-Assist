@@ -390,7 +390,8 @@
     "startTitle": "Start your claim",
     "startIntro": "Answer a few questions — we calculate your compensation automatically, no prior simulation needed.",
     "fileTooBig": "The document « {fichier} » is too large (max {max} MB).",
-    "uploadFailed": "Upload of « {fichier} » failed (error {statut})."
+    "uploadFailed": "Upload of « {fichier} » failed (error {statut}).",
+    "dejaContacteLabel": "Have you already contacted the airline about this claim? (optional)"
   },
   "hp": {
     "heroEyebrow": "European regulation EC 261/2004",

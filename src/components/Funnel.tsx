@@ -196,6 +196,7 @@ export function Funnel() {
 
   // Marketing (facultatif)
   const [sourceMarketing, setSourceMarketing] = useState("");
+  const [dejaContacteCompagnie, setDejaContacteCompagnie] = useState<boolean | null>(null);
   // Mandat
   const [nomSignature, setNomSignature] = useState("");
   const [consentRgpd, setConsentRgpd] = useState(false);
@@ -262,6 +263,7 @@ export function Funnel() {
       descriptionIncident,
       causePerturbation,
       sourceMarketing,
+      dejaContacteCompagnie,
       segments: segments.map((s, i) => ({
         ordre: i + 1,
         numeroVol: s.numeroVol,
@@ -443,6 +445,7 @@ export function Funnel() {
             retard={retard} setRetard={setRetard}
             descriptionIncident={descriptionIncident} setDescriptionIncident={setDescriptionIncident}
             causePerturbation={causePerturbation} setCausePerturbation={setCausePerturbation}
+            dejaContacteCompagnie={dejaContacteCompagnie} setDejaContacteCompagnie={setDejaContacteCompagnie}
             segments={segments} setSegments={setSegments} majSegment={majSegment}
             montantEstime={montantEstime} montantFmt={montantFmt}
             onNext={() => setEtape(2)}
@@ -794,12 +797,13 @@ function EtapeTrajet(props: {
   retard: RetardChoix | ""; setRetard: (v: RetardChoix) => void;
   descriptionIncident: string; setDescriptionIncident: (v: string) => void;
   causePerturbation: string; setCausePerturbation: (v: string) => void;
+  dejaContacteCompagnie: boolean | null; setDejaContacteCompagnie: (v: boolean) => void;
   segments: Segment[]; setSegments: (s: Segment[]) => void;
   majSegment: (i: number, patch: Partial<Segment>) => void;
   montantEstime: number; montantFmt: string;
   onNext: () => void;
 }) {
-  const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, retard, setRetard, descriptionIncident, setDescriptionIncident, causePerturbation, setCausePerturbation, segments, setSegments, majSegment, montantEstime, montantFmt, onNext } = props;
+  const { t, typeTrajet, setTypeTrajet, reservationUnique, setReservationUnique, pnr, setPnr, motif, setMotif, retard, setRetard, descriptionIncident, setDescriptionIncident, causePerturbation, setCausePerturbation, dejaContacteCompagnie, setDejaContacteCompagnie, segments, setSegments, majSegment, montantEstime, montantFmt, onNext } = props;
   const pnrOk = /^[A-Za-z0-9]{6}$/.test(pnr.trim());
   const segmentsOk = segments.every((s) => s.numeroVol.trim() && s.compagnie.trim() && s.date && s.aeroportDepart && s.aeroportArrivee);
   const correspondanceOk = typeTrajet === "DIRECT" || (segments.length >= 2 && typeof reservationUnique === "boolean");
@@ -949,6 +953,19 @@ function EtapeTrajet(props: {
           <option value="force_majeure">{t("causeForce")}</option>
           <option value="inconnu">{t("causeUnknown")}</option>
         </select>
+      </div>
+
+      {/* Déjà contacté la compagnie ? — facultatif. */}
+      <div className="mt-4">
+        <label className="label">{t("dejaContacteLabel")}</label>
+        <div className="flex gap-2">
+          {[true, false].map((v) => (
+            <button key={String(v)} type="button" onClick={() => setDejaContacteCompagnie(v)}
+              className={`flex-1 rounded-lg border px-3 py-2 text-sm ${dejaContacteCompagnie === v ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+              {t(v ? "yes" : "no")}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="mt-6 flex justify-end">

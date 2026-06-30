@@ -54,6 +54,16 @@ describe("depotSchema — infos du dépôt (sans fichiers)", () => {
     expect(depotSchema.safeParse(d).success).toBe(true);
   });
 
+  it("accepte « déjà contacté la compagnie » (true/false/omis)", () => {
+    const oui = depotValide() as Record<string, unknown>;
+    oui.dejaContacteCompagnie = true;
+    expect(depotSchema.safeParse(oui).success).toBe(true);
+    const non = depotValide() as Record<string, unknown>;
+    non.dejaContacteCompagnie = false;
+    expect(depotSchema.safeParse(non).success).toBe(true);
+    expect(depotSchema.safeParse(depotValide()).success).toBe(true); // omis = OK
+  });
+
   it("accepte un dépôt sans causePerturbation (facultatif)", () => {
     const d = depotValide() as Record<string, unknown>;
     delete d.causePerturbation;

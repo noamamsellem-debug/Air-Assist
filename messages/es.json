@@ -390,7 +390,8 @@
     "startTitle": "Inicia tu reclamación",
     "startIntro": "Responde a unas preguntas — calculamos tu indemnización automáticamente, sin simulación previa.",
     "fileTooBig": "El documento « {fichier} » es demasiado grande (máx. {max} MB).",
-    "uploadFailed": "Error al subir « {fichier} » (error {statut})."
+    "uploadFailed": "Error al subir « {fichier} » (error {statut}).",
+    "dejaContacteLabel": "¿Ya has contactado con la aerolínea por esta reclamación? (opcional)"
   },
   "hp": {
     "heroEyebrow": "Reglamento europeo EC 261/2004",

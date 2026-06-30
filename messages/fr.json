@@ -390,7 +390,8 @@
     "startTitle": "Démarrez votre demande",
     "startIntro": "Répondez à quelques questions — nous calculons votre indemnité automatiquement, sans simulation préalable.",
     "fileTooBig": "Le document « {fichier} » est trop volumineux (max {max} Mo).",
-    "uploadFailed": "Échec du téléversement de « {fichier} » (erreur {statut})."
+    "uploadFailed": "Échec du téléversement de « {fichier} » (erreur {statut}).",
+    "dejaContacteLabel": "Avez-vous déjà contacté la compagnie aérienne pour cette réclamation ? (facultatif)"
   },
   "hp": {
     "heroEyebrow": "Règlement européen EC 261/2004",
