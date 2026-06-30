@@ -15,7 +15,10 @@
     "privacy": "Privacy",
     "terms": "Terms",
     "startClaim": "Start my claim",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Claim now",
+    "menu": "Menu",
+    "close": "Close"
   },
   "home": {
     "heroTitle": "Flight delayed, cancelled or overbooked?",

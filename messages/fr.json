@@ -15,7 +15,10 @@
     "privacy": "Confidentialité",
     "terms": "CGV",
     "startClaim": "Lancer ma réclamation",
-    "trackClaim": "Suivre mon dossier"
+    "trackClaim": "Suivre mon dossier",
+    "startShort": "Réclamer",
+    "menu": "Menu",
+    "close": "Fermer"
   },
   "home": {
     "heroTitle": "Vol retardé, annulé ou surbooké ?",

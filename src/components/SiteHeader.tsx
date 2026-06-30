@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { MobileMenu } from "./MobileMenu";
 import { Logo } from "./Logo";
 
 export function SiteHeader() {
@@ -15,8 +16,8 @@ export function SiteHeader() {
           <span>{c("trustBanner")}</span>
         </div>
       </div>
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" aria-label="Air Assist — accueil">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+        <Link href="/" aria-label="Air Assist — accueil" className="shrink-0">
           <Logo />
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
@@ -33,14 +34,24 @@ export function SiteHeader() {
             {b("title")}
           </Link>
         </nav>
-        <div className="flex items-center gap-3">
+
+        {/* Actions bureau */}
+        <div className="hidden items-center gap-3 md:flex">
           <LocaleSwitcher />
-          <Link href="/suivi" className="hidden btn-secondary !px-4 !py-2 text-sm sm:inline-flex">
+          <Link href="/suivi" className="btn-secondary !px-4 !py-2 text-sm">
             {t("trackClaim")}
           </Link>
           <Link href="/reclamation" className="btn-primary !px-4 !py-2 text-sm">
             {t("startClaim")}
           </Link>
+        </div>
+
+        {/* Actions mobile : CTA compact toujours visible + burger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link href="/reclamation" className="btn-primary whitespace-nowrap !px-3.5 !py-2 text-sm">
+            {t("startShort")}
+          </Link>
+          <MobileMenu />
         </div>
       </div>
     </header>

@@ -15,7 +15,10 @@
     "privacy": "Privacy",
     "terms": "Voorwaarden",
     "startClaim": "Claim starten",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Claim nu",
+    "menu": "Menu",
+    "close": "Sluiten"
   },
   "home": {
     "heroTitle": "Vlucht vertraagd, geannuleerd of overboekt?",

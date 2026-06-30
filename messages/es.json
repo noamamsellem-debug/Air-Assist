@@ -15,7 +15,10 @@
     "privacy": "Privacidad",
     "terms": "Términos",
     "startClaim": "Iniciar mi reclamación",
-    "trackClaim": "Seguir mi expediente"
+    "trackClaim": "Seguir mi expediente",
+    "startShort": "Reclamar",
+    "menu": "Menú",
+    "close": "Cerrar"
   },
   "home": {
     "heroTitle": "¿Vuelo retrasado, cancelado o con overbooking?",

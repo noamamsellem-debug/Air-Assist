@@ -15,7 +15,10 @@
     "privacy": "Απόρρητο",
     "terms": "Όροι",
     "startClaim": "Ξεκινήστε την αίτηση",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Διεκδίκηση",
+    "menu": "Μενού",
+    "close": "Κλείσιμο"
   },
   "home": {
     "heroTitle": "Πτήση με καθυστέρηση, ακύρωση ή υπεράριθμη κράτηση;",

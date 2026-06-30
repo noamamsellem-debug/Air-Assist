@@ -15,7 +15,10 @@
     "privacy": "Privatliv",
     "terms": "Vilkår",
     "startClaim": "Start mit krav",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Kræv nu",
+    "menu": "Menu",
+    "close": "Luk"
   },
   "home": {
     "heroTitle": "Fly forsinket, aflyst eller overbooket?",

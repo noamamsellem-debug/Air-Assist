@@ -15,7 +15,10 @@
     "privacy": "Súkromie",
     "terms": "Podmienky",
     "startClaim": "Začať žiadosť",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Žiadať",
+    "menu": "Menu",
+    "close": "Zavrieť"
   },
   "home": {
     "heroTitle": "Meškajúci, zrušený alebo prebukovaný let?",

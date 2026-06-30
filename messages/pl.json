@@ -15,7 +15,10 @@
     "privacy": "Prywatność",
     "terms": "Regulamin",
     "startClaim": "Rozpocznij wniosek",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Zgłoś",
+    "menu": "Menu",
+    "close": "Zamknij"
   },
   "home": {
     "heroTitle": "Lot opóźniony, odwołany lub overbooking?",

@@ -15,7 +15,10 @@
     "privacy": "Personvern",
     "terms": "Vilkår",
     "startClaim": "Start kravet mitt",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Krev nå",
+    "menu": "Meny",
+    "close": "Lukk"
   },
   "home": {
     "heroTitle": "Fly forsinket, kansellert eller overbooket?",

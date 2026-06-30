@@ -15,7 +15,10 @@
     "privacy": "Tietosuoja",
     "terms": "Ehdot",
     "startClaim": "Aloita vaatimus",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Vaadi nyt",
+    "menu": "Valikko",
+    "close": "Sulje"
   },
   "home": {
     "heroTitle": "Lento myöhässä, peruttu tai ylivarattu?",

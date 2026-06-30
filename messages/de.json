@@ -15,7 +15,10 @@
     "privacy": "Datenschutz",
     "terms": "AGB",
     "startClaim": "Anspruch starten",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Jetzt fordern",
+    "menu": "Menü",
+    "close": "Schließen"
   },
   "home": {
     "heroTitle": "Flug verspätet, annulliert oder überbucht?",

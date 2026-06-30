@@ -15,7 +15,10 @@
     "privacy": "Поверителност",
     "terms": "Условия",
     "startClaim": "Започнете искане",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Поискай",
+    "menu": "Меню",
+    "close": "Затвори"
   },
   "home": {
     "heroTitle": "Закъснял, отменен или свръхрезервиран полет?",

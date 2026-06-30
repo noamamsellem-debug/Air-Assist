@@ -15,7 +15,10 @@
     "privacy": "Adatvédelem",
     "terms": "Feltételek",
     "startClaim": "Igénylés indítása",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Igénylés",
+    "menu": "Menü",
+    "close": "Bezárás"
   },
   "home": {
     "heroTitle": "Késett, törölt vagy túlfoglalt járat?",

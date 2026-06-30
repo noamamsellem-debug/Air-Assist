@@ -15,7 +15,10 @@
     "privacy": "Privacy",
     "terms": "Termini",
     "startClaim": "Avvia la richiesta",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Richiedi",
+    "menu": "Menu",
+    "close": "Chiudi"
   },
   "home": {
     "heroTitle": "Volo in ritardo, cancellato o in overbooking?",

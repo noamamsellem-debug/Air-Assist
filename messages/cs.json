@@ -15,7 +15,10 @@
     "privacy": "Soukromí",
     "terms": "Podmínky",
     "startClaim": "Začít žádost",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Žádat",
+    "menu": "Menu",
+    "close": "Zavřít"
   },
   "home": {
     "heroTitle": "Zpožděný, zrušený nebo překnihovaný let?",

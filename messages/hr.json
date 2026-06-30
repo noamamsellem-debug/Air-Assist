@@ -15,7 +15,10 @@
     "privacy": "Privatnost",
     "terms": "Uvjeti",
     "startClaim": "Pokreni zahtjev",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Zatraži",
+    "menu": "Izbornik",
+    "close": "Zatvori"
   },
   "home": {
     "heroTitle": "Let kasni, otkazan ili prebukiran?",

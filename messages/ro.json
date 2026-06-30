@@ -15,7 +15,10 @@
     "privacy": "Confidențialitate",
     "terms": "Termeni",
     "startClaim": "Începe cererea",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Cere acum",
+    "menu": "Meniu",
+    "close": "Închide"
   },
   "home": {
     "heroTitle": "Zbor întârziat, anulat sau suprarezervat?",

@@ -15,7 +15,10 @@
     "privacy": "Integritet",
     "terms": "Villkor",
     "startClaim": "Starta mitt anspråk",
-    "trackClaim": "Track my claim"
+    "trackClaim": "Track my claim",
+    "startShort": "Kräv nu",
+    "menu": "Meny",
+    "close": "Stäng"
   },
   "home": {
     "heroTitle": "Flyg försenat, inställt eller överbokat?",
