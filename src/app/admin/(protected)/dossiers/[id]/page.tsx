@@ -174,12 +174,21 @@ export default async function DossierDetail({
           <div>
             <h2 className="text-lg font-semibold">Mandat & consentement</h2>
             {d.mandat ? (
-              <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
-                <Champ k="Signature" v={d.mandat.signatureElectronique} />
-                <Champ k="Consentement RGPD" v={d.mandat.consentementRgpd ? "Oui" : "Non"} />
-                <Champ k="Horodatage" v={dateHeure(d.mandat.horodatage)} />
-                <Champ k="Version CGV" v={d.mandat.versionCgvAcceptee} />
-              </dl>
+              <>
+                <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                  <Champ k="Signature (réf. technique)" v={d.mandat.signatureElectronique} />
+                  <Champ k="Consentement RGPD" v={d.mandat.consentementRgpd ? "Oui" : "Non"} />
+                  <Champ k="Horodatage" v={dateHeure(d.mandat.horodatage)} />
+                  <Champ k="Version CGV" v={d.mandat.versionCgvAcceptee} />
+                </dl>
+                <Link
+                  href={`/admin/dossiers/${d.id}/mandat`}
+                  target="_blank"
+                  className="btn-primary mt-3 inline-flex !px-4 !py-2 text-sm"
+                >
+                  📄 Télécharger le mandat (PDF)
+                </Link>
+              </>
             ) : (
               <p className="text-sm text-slate-400">Aucun mandat enregistré.</p>
             )}
