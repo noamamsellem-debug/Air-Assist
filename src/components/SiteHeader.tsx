@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { HeaderLangSwitcher } from "./HeaderLangSwitcher";
 import { MobileMenu } from "./MobileMenu";
 import { Logo } from "./Logo";
 
@@ -46,11 +47,12 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        {/* Actions mobile : CTA compact toujours visible + burger */}
+        {/* Actions mobile : CTA compact + langue (drapeau) + burger */}
         <div className="flex items-center gap-2 md:hidden">
-          <Link href="/reclamation" className="btn-primary whitespace-nowrap !px-3.5 !py-2 text-sm">
+          <Link href="/reclamation" className="btn-primary whitespace-nowrap !px-3 !py-2 text-sm">
             {t("startShort")}
           </Link>
+          <HeaderLangSwitcher />
           <MobileMenu />
         </div>
       </div>

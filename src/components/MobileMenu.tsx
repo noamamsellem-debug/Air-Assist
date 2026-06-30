@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { LocaleSwitcher } from "./LocaleSwitcher";
 
 /**
  * Menu mobile en panneau déroulant (burger). Regroupe la navigation, le suivi
@@ -83,10 +82,6 @@ export function MobileMenu() {
               <Link href="/reclamation" className="btn-primary mt-2 w-full">
                 {t("startClaim")}
               </Link>
-              <div className="mt-4 flex items-center justify-between gap-3 rounded-xl bg-slate-50 px-3 py-2">
-                <span className="text-sm text-slate-500">🌍</span>
-                <LocaleSwitcher />
-              </div>
             </nav>
           </div>
         </>
