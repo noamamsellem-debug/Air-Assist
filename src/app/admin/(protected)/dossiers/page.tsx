@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export default async function DossiersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ statut?: string; compagnie?: string; q?: string; from?: string; to?: string }>;
+  searchParams: Promise<{ statut?: string; compagnie?: string; q?: string; from?: string; to?: string; page?: string }>;
 }) {
   const sp = await searchParams;
   const where: Prisma.DossierWhereInput = {};
@@ -40,17 +40,41 @@ export default async function DossiersPage({
     };
   }
 
-  const [dossiers, compagnies] = await Promise.all([
+  // Pagination — 50 dossiers par page.
+  const PAGE_SIZE = 50;
+  const page = Math.max(1, Number.parseInt(sp.page ?? "1", 10) || 1);
+
+  const [dossiers, total, compagnies] = await Promise.all([
     prisma.dossier.findMany({
       where,
       orderBy: { dateCreation: "desc" },
       include: { passager: true, compagnie: true, vol: true },
-      take: 200,
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
     }),
-    prisma.compagnie.findMany({ orderBy: { nom: "asc" } }),
+    prisma.dossier.count({ where }),
+    // On ne liste que les compagnies réellement rattachées à au moins un dossier
+    // (le référentiel complet peut compter ~1000 entrées inutiles ici).
+    prisma.compagnie.findMany({
+      where: { dossiers: { some: {} } },
+      orderBy: { nom: "asc" },
+    }),
   ]);
 
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const statuts = Object.keys(LIBELLES_STATUT) as StatutDossier[];
+
+  // Construit une URL de pagination en conservant les filtres actifs.
+  const lienPage = (p: number) => {
+    const params = new URLSearchParams();
+    if (sp.q) params.set("q", sp.q);
+    if (sp.statut) params.set("statut", sp.statut);
+    if (sp.compagnie) params.set("compagnie", sp.compagnie);
+    if (sp.from) params.set("from", sp.from);
+    if (sp.to) params.set("to", sp.to);
+    params.set("page", String(p));
+    return `/admin/dossiers?${params.toString()}`;
+  };
 
   return (
     <div>
@@ -136,6 +160,28 @@ export default async function DossiersPage({
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-4 flex items-center justify-between text-sm">
+        <span className="text-slate-500">
+          {total === 0
+            ? "Aucun dossier"
+            : `${(page - 1) * PAGE_SIZE + 1}–${Math.min(page * PAGE_SIZE, total)} sur ${total}`}
+        </span>
+        <div className="flex items-center gap-2">
+          {page > 1 ? (
+            <Link href={lienPage(page - 1)} className="btn-secondary">← Précédent</Link>
+          ) : (
+            <span className="btn-secondary cursor-not-allowed opacity-40">← Précédent</span>
+          )}
+          <span className="text-slate-500">Page {page} / {totalPages}</span>
+          {page < totalPages ? (
+            <Link href={lienPage(page + 1)} className="btn-secondary">Suivant →</Link>
+          ) : (
+            <span className="btn-secondary cursor-not-allowed opacity-40">Suivant →</span>
+          )}
+        </div>
       </div>
     </div>
   );
