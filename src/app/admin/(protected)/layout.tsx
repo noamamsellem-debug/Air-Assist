@@ -24,6 +24,7 @@ export default async function ProtectedLayout({ children }: { children: ReactNod
             <Link href="/admin" className="font-bold text-brand-700">CRM Air Assist</Link>
             <Link href="/admin" className="text-slate-600 hover:text-brand-600">Tableau de bord</Link>
             <Link href="/admin/dossiers" className="text-slate-600 hover:text-brand-600">Dossiers</Link>
+            <Link href="/admin/emails-test" className="text-slate-600 hover:text-brand-600">Test e-mails</Link>
             <Link href="/admin/mon-compte" className="text-slate-600 hover:text-brand-600">Mon compte</Link>
           </nav>
           <div className="flex items-center gap-3 text-sm">
