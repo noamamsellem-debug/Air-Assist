@@ -431,5 +431,17 @@
     "compIntro": "El importe que marca la ley depende de la distancia de tu vuelo. Mueve el control para verlo.",
     "compMax": "Más",
     "eyebrowHow": "Cómo funciona"
+  },
+  "trustband": {
+    "title": "Por qué confían en nosotros",
+    "intro": "Un equipo especializado en el reglamento europeo, con un proceso claro y sin riesgo.",
+    "p1Title": "Sin resultado, sin cargos",
+    "p1Text": "No pagas nada por adelantado. Nuestra comisión solo se aplica a la indemnización realmente obtenida.",
+    "p2Title": "Expertos en EC 261/2004",
+    "p2Text": "Retraso, cancelación, overbooking, conexión perdida: dominamos tus derechos y los trámites.",
+    "p3Title": "Tus datos protegidos",
+    "p3Text": "Documentos cifrados, cumplimiento del RGPD y datos alojados en la Unión Europea.",
+    "p4Title": "100 % en línea",
+    "p4Text": "Estimación en 2 minutos, expediente en pocos clics y seguimiento en tiempo real de tu reclamación."
   }
 }

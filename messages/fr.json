@@ -431,5 +431,17 @@
     "compIntro": "Le montant prévu par la loi dépend de la distance de votre vol. Déplacez le curseur pour le voir.",
     "compMax": "Plus",
     "eyebrowHow": "Comment ça marche"
+  },
+  "trustband": {
+    "title": "Pourquoi nous faire confiance",
+    "intro": "Une équipe spécialisée dans le règlement européen, un process clair et sans risque.",
+    "p1Title": "Sans gain, sans frais",
+    "p1Text": "Vous ne payez rien d'avance. Notre commission ne s'applique que sur l'indemnité réellement obtenue.",
+    "p2Title": "Experts EC 261/2004",
+    "p2Text": "Retard, annulation, surbooking, correspondance ratée : nous maîtrisons vos droits et les démarches.",
+    "p3Title": "Vos données protégées",
+    "p3Text": "Documents chiffrés, conformité RGPD et données hébergées dans l'Union européenne.",
+    "p4Title": "100 % en ligne",
+    "p4Text": "Estimation en 2 minutes, dossier monté en quelques clics et suivi de votre réclamation en temps réel."
   }
 }

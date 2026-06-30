@@ -431,5 +431,17 @@
     "compIntro": "The amount set by law depends on your flight distance. Move the slider to see it.",
     "compMax": "More",
     "eyebrowHow": "How it works"
+  },
+  "trustband": {
+    "title": "Why travellers trust us",
+    "intro": "A team specialised in EU passenger-rights law, with a clear and risk-free process.",
+    "p1Title": "No win, no fee",
+    "p1Text": "You pay nothing upfront. Our commission only applies to the compensation actually obtained.",
+    "p2Title": "EC 261/2004 experts",
+    "p2Text": "Delay, cancellation, denied boarding, missed connection: we know your rights and the procedure.",
+    "p3Title": "Your data protected",
+    "p3Text": "Encrypted documents, GDPR compliance and data hosted within the European Union.",
+    "p4Title": "100% online",
+    "p4Text": "Estimate in 2 minutes, claim built in a few clicks and real-time tracking of your case."
   }
 }

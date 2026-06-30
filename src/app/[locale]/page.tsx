@@ -8,6 +8,7 @@ import { TrustBar } from "@/components/home/TrustBar";
 import { HowTimeline } from "@/components/home/HowTimeline";
 import { DisruptionCards } from "@/components/home/DisruptionCards";
 import { CompensationSlider } from "@/components/home/CompensationSlider";
+import { TrustBand } from "@/components/home/TrustBand";
 import { Reveal } from "@/components/Reveal";
 
 export async function generateMetadata({
@@ -142,8 +143,13 @@ function HomeContent() {
         </div>
       </section>
 
-      {/* Vos droits (EC 261/2004) — contenu SEO traduit dans les 19 langues */}
+      {/* ── BANDE DE RÉASSURANCE ─────────────────────────────────────── */}
       <section className="bg-white">
+        <TrustBand />
+      </section>
+
+      {/* Vos droits (EC 261/2004) — contenu SEO traduit dans les 19 langues */}
+      <section className="bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <h2 className="text-2xl font-bold">{r("title")}</h2>
           <p className="mt-2 max-w-3xl text-slate-600">{r("intro")}</p>
@@ -173,7 +179,7 @@ function HomeContent() {
       </section>
 
       {/* Barème des indemnités */}
-      <section className="bg-slate-50">
+      <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <h2 className="text-2xl font-bold">{s("title")}</h2>
           <p className="mt-2 text-slate-600">{s("intro")}</p>
@@ -199,7 +205,7 @@ function HomeContent() {
       </section>
 
       {/* FAQ — contenu + données structurées FAQPage pour Google */}
-      <section className="bg-white">
+      <section className="bg-slate-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
           <h2 className="text-2xl font-bold">{f("faqTitle")}</h2>
           <div className="mt-6 divide-y divide-slate-200">
