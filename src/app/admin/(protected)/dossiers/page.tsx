@@ -29,14 +29,15 @@ export default async function DossiersPage({
   }
   // Filtre par date de création (jour ou plage). `to` inclut toute la journée.
   if (sp.from || sp.to) {
-    const intervalle: Prisma.DateTimeFilter = {};
-    if (sp.from) intervalle.gte = new Date(sp.from);
+    let lte: Date | undefined;
     if (sp.to) {
-      const fin = new Date(sp.to);
-      fin.setHours(23, 59, 59, 999);
-      intervalle.lte = fin;
+      lte = new Date(sp.to);
+      lte.setHours(23, 59, 59, 999);
     }
-    where.dateCreation = intervalle;
+    where.dateCreation = {
+      gte: sp.from ? new Date(sp.from) : undefined,
+      lte,
+    };
   }
 
   const [dossiers, compagnies] = await Promise.all([

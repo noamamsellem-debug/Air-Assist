@@ -138,7 +138,7 @@ function p(html: string): string {
 function docsHtml(s?: string): string {
   const items = (s ?? "").split("\n").map((x) => x.trim()).filter(Boolean);
   if (items.length === 0) return "<strong>un document</strong>";
-  if (items.length === 1) return `<strong>${items[0]}</strong>`;
+  if (items.length === 1) return `<strong>${items[0] ?? "un document"}</strong>`;
   return `<ul style="margin:8px 0 8px 18px;padding:0;">${items.map((i) => `<li style="margin:2px 0;"><strong>${i}</strong></li>`).join("")}</ul>`;
 }
 
@@ -146,7 +146,7 @@ function docsHtml(s?: string): string {
 function docsTexte(s?: string): string {
   const items = (s ?? "").split("\n").map((x) => x.trim()).filter(Boolean);
   if (items.length === 0) return "un document";
-  if (items.length === 1) return items[0];
+  if (items.length === 1) return items[0] ?? "un document";
   return "\n" + items.map((i) => `• ${i}`).join("\n");
 }
 
