@@ -10,6 +10,10 @@ export interface MessageEmail {
   a: string;
   sujet: string;
   texte: string;
+  /** Corps HTML (optionnel) ; `texte` reste le repli en clair. */
+  html?: string;
+  /** Adresse de réponse (reply-to). */
+  replyTo?: string;
   /** Métadonnées de rapprochement (n° de dossier, etc.). */
   enTetes?: Record<string, string>;
 }
@@ -42,13 +46,51 @@ export class MockEmailAdapter implements AdaptateurEmail {
   }
 }
 
+/** Resend (API HTTP) — adapté au serverless Vercel. From + reply-to = info@airassist.eu. */
+export class ResendEmailAdapter implements AdaptateurEmail {
+  readonly nom = "resend";
+  constructor(private readonly apiKey: string) {}
+
+  async envoyer(message: MessageEmail): Promise<ResultatEnvoi> {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: message.de,
+        to: [message.a],
+        subject: message.sujet,
+        html: message.html,
+        text: message.texte,
+        reply_to: message.replyTo,
+        headers: message.enTetes,
+      }),
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      throw new Error(`Resend ${res.status} : ${detail}`);
+    }
+    const data = (await res.json().catch(() => ({}))) as { id?: string };
+    return {
+      provider: "resend",
+      messageId: data.id ?? "",
+      envoyeLe: new Date().toISOString(),
+    };
+  }
+}
+
 export function getEmailAdapter(env: Record<string, string | undefined> = process.env): AdaptateurEmail {
   const provider = (env.EMAIL_PROVIDER ?? "mock").toLowerCase();
   switch (provider) {
     case "mock":
       return new MockEmailAdapter();
-    // case "smtp": return new SmtpAdapter({...});
-    // case "postmark": return new PostmarkAdapter(env.EMAIL_API_KEY!);
+    case "resend": {
+      const cle = env.RESEND_API_KEY;
+      if (!cle) throw new Error("RESEND_API_KEY manquant (EMAIL_PROVIDER=resend).");
+      return new ResendEmailAdapter(cle);
+    }
     default:
       throw new Error(
         `EMAIL_PROVIDER="${provider}" non implémenté. Branchez l'adaptateur réel ou utilisez "mock".`,
