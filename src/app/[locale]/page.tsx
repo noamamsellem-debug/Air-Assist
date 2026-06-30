@@ -78,7 +78,7 @@ function HomeContent() {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="hero-gradient relative overflow-hidden">
+      <section className="home-hero relative overflow-hidden">
         {/* Trace de vol décorative (subtile, ne gêne pas la lecture) */}
         <svg
           className="pointer-events-none absolute -right-10 top-6 hidden h-64 w-[36rem] opacity-30 sm:block"
@@ -93,7 +93,7 @@ function HomeContent() {
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12 sm:pb-16 sm:pt-14 lg:pb-20 lg:pt-20">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div className="text-white">
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/25 backdrop-blur">
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/30 backdrop-blur">
                 {hp("heroEyebrow")}
               </span>
               <h1 className="mt-5 text-[2rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
