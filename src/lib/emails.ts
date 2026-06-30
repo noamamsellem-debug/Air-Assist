@@ -9,6 +9,20 @@
 
 const BRAND = "#0060FF";
 
+/**
+ * Base d'URL PUBLIQUE pour les liens d'e-mail. Les e-mails sont publics : leurs
+ * liens ne doivent JAMAIS pointer vers une preview (vercel.app) ni localhost.
+ * On utilise NEXT_PUBLIC_SITE_URL seulement si c'est un domaine https propre,
+ * sinon on retombe sur le domaine de production.
+ */
+export function basePublique(env: Record<string, string | undefined> = process.env): string {
+  const u = env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (u && u.startsWith("https://") && !u.includes("vercel.app") && !u.includes("localhost")) {
+    return u.replace(/\/+$/, "");
+  }
+  return "https://airassist.eu";
+}
+
 export type TypeEmail =
   | "ACCUSE_RECEPTION"
   | "DOCUMENT_MANQUANT"

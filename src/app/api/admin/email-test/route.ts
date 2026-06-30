@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { construireEmail, type TypeEmail, type VariablesEmail } from "@/lib/emails";
+import { construireEmail, basePublique, type TypeEmail, type VariablesEmail } from "@/lib/emails";
 import { getEmailAdapter } from "@/adapters/email";
 
 /**
@@ -17,11 +17,11 @@ const TYPES: TypeEmail[] = [
   "REFUSE",
 ];
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://airassist.eu";
 const EMAIL_FROM = process.env.EMAIL_FROM ?? "AirAssist <info@airassist.eu>";
 const EMAIL_REPLY_TO = process.env.EMAIL_REPLY_TO ?? "info@airassist.eu";
 
 function exemple(): VariablesEmail {
+  const SITE_URL = basePublique();
   return {
     prenom: "Camille",
     compagnie: "Vueling",

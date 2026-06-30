@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { construireEmail, construireVariables, emailPourStatut, type TypeEmail, type VariablesEmail } from "@/lib/emails";
+import { construireEmail, construireVariables, basePublique, emailPourStatut, type TypeEmail, type VariablesEmail } from "@/lib/emails";
 
 const vars: VariablesEmail = {
   prenom: "Camille",
@@ -88,6 +88,19 @@ describe("emails — construireVariables (depuis un dossier)", () => {
     // Le rendu d'un e-mail réel ne casse pas avec ces variables :
     const r = construireEmail("INDEMNITE_OBTENUE", v);
     expect(r.html).toContain("420,00");
+  });
+});
+
+describe("emails — base publique des liens (anti-preview)", () => {
+  it("ignore une URL de preview vercel.app", () => {
+    expect(basePublique({ NEXT_PUBLIC_SITE_URL: "https://air-assist-xxx-noam.vercel.app" })).toBe("https://airassist.eu");
+  });
+  it("ignore localhost et http", () => {
+    expect(basePublique({ NEXT_PUBLIC_SITE_URL: "http://localhost:3000" })).toBe("https://airassist.eu");
+    expect(basePublique({})).toBe("https://airassist.eu");
+  });
+  it("accepte un domaine https propre (et retire le slash final)", () => {
+    expect(basePublique({ NEXT_PUBLIC_SITE_URL: "https://airassist.eu/" })).toBe("https://airassist.eu");
   });
 });
 

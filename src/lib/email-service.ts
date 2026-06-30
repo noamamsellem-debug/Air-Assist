@@ -6,9 +6,8 @@
  */
 import { prisma } from "./prisma";
 import { getEmailAdapter } from "@/adapters/email";
-import { construireEmail, construireVariables, type TypeEmail, type DossierPourEmail } from "./emails";
+import { construireEmail, construireVariables, basePublique, type TypeEmail, type DossierPourEmail } from "./emails";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://airassist.eu";
 const EMAIL_FROM = process.env.EMAIL_FROM ?? "AirAssist <info@airassist.eu>";
 const EMAIL_REPLY_TO = process.env.EMAIL_REPLY_TO ?? "info@airassist.eu";
 
@@ -29,7 +28,7 @@ export async function envoyerEmailDossier(
     }
 
     const vars = construireVariables(dossier as unknown as DossierPourEmail, {
-      siteUrl: SITE_URL,
+      siteUrl: basePublique(),
       commentaire,
       annee: new Date().getFullYear(),
     });
