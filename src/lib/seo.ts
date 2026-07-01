@@ -1,7 +1,21 @@
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+/**
+ * URL de base PUBLIQUE unique du site (canonical, hreflang, sitemap, Open Graph).
+ * On n'utilise NEXT_PUBLIC_SITE_URL que si c'est un domaine https propre — jamais
+ * une preview (vercel.app) ni localhost, sinon Google indexerait la mauvaise URL.
+ * À défaut : domaine de production.
+ */
+function resolveSiteUrl(): string {
+  const u = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (u && u.startsWith("https://") && !u.includes("vercel.app") && !u.includes("localhost")) {
+    return u.replace(/\/+$/, "");
+  }
+  return "https://airassist.eu";
+}
+
+export const SITE_URL = resolveSiteUrl();
 
 const OG_LOCALE: Record<string, string> = {
   fr: "fr_FR",
