@@ -15,6 +15,7 @@ import { prisma } from "./prisma";
 import { genererProchaineReference } from "./dossier-service";
 import { getSignatureAdapter } from "@/adapters/esign";
 import { envoyerEmailDossier, envoyerNotificationNouveauDossier } from "./email-service";
+import { envoyerWebhookInscription } from "./webhook";
 import { chiffrerDocument } from "./crypto";
 import type { DepotInput, DocumentMetaInput } from "./validation";
 
@@ -155,6 +156,20 @@ export async function creerDepot(
   // E-mail 1 (accusé de réception au client) + notification interne (admin).
   await envoyerEmailDossier(dossier.id, "ACCUSE_RECEPTION");
   await envoyerNotificationNouveauDossier(dossier.id);
+
+  // Webhook d'inscription (Zapier/CRM). Best-effort : le helper avale toute
+  // erreur, donc un échec n'impacte ni la création du dossier ni la réponse.
+  await envoyerWebhookInscription({
+    prenom: input.passager.prenom,
+    nom: input.passager.nom,
+    email: input.email,
+    telephone: input.telephone,
+    dateInscription: new Date().toISOString(),
+    reference,
+    dossierId: dossier.id,
+    montantEstime: input.montantEstime,
+    trajet: `${premier.aeroportDepart.toUpperCase()} → ${final.aeroportArrivee.toUpperCase()}`,
+  });
 
   return { dossierId: dossier.id, reference };
 }
