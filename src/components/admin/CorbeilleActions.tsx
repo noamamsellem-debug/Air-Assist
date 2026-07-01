@@ -3,8 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-/** Met le dossier à la corbeille (soft delete) puis redirige vers la liste. */
-export function DeleteDossierButton({ dossierId }: { dossierId: string }) {
+/**
+ * Met le dossier à la corbeille (soft delete).
+ * `compact` : version bouton de ligne (rafraîchit la liste en gardant les
+ * filtres) ; sinon version fiche (redirige vers la liste).
+ */
+export function DeleteDossierButton({
+  dossierId,
+  compact = false,
+}: {
+  dossierId: string;
+  compact?: boolean;
+}) {
   const router = useRouter();
   const [envoi, setEnvoi] = useState(false);
 
@@ -13,12 +23,26 @@ export function DeleteDossierButton({ dossierId }: { dossierId: string }) {
     setEnvoi(true);
     const res = await fetch(`/api/dossiers/${dossierId}/supprimer`, { method: "POST" });
     setEnvoi(false);
-    if (res.ok) {
-      router.push("/admin/dossiers");
-      router.refresh();
-    } else {
+    if (!res.ok) {
       alert("Échec de la mise à la corbeille.");
+      return;
     }
+    router.refresh();
+    if (!compact) router.push("/admin/dossiers");
+  }
+
+  if (compact) {
+    return (
+      <button
+        onClick={supprimer}
+        disabled={envoi}
+        aria-label="Mettre à la corbeille"
+        title="Mettre à la corbeille"
+        className="rounded-lg border border-red-200 bg-white px-2 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50 disabled:opacity-50"
+      >
+        {envoi ? "…" : "🗑️"}
+      </button>
+    );
   }
 
   return (

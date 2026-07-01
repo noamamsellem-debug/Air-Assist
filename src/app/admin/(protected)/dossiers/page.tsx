@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { euros, dateCourte } from "@/lib/format";
 import { LIBELLES_STATUT } from "@/domain/statut";
+import { DeleteDossierButton } from "@/components/admin/CorbeilleActions";
 import type { Prisma, StatutDossier } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -135,6 +136,7 @@ export default async function DossiersPage({
               <th className="px-4 py-2">Statut</th>
               <th className="px-4 py-2">Estimé</th>
               <th className="px-4 py-2">Créé</th>
+              <th className="px-4 py-2"></th>
             </tr>
           </thead>
           <tbody>
@@ -155,11 +157,14 @@ export default async function DossiersPage({
                 </td>
                 <td className="px-4 py-2">{euros(d.montantEstime)}</td>
                 <td className="px-4 py-2 text-slate-500">{dateCourte(d.dateCreation)}</td>
+                <td className="px-4 py-2 text-right">
+                  <DeleteDossierButton dossierId={d.id} compact />
+                </td>
               </tr>
             ))}
             {dossiers.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-slate-400">
+                <td colSpan={8} className="px-4 py-8 text-center text-slate-400">
                   Aucun dossier.
                 </td>
               </tr>
