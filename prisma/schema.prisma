@@ -244,6 +244,9 @@ model Dossier {
   dateCloture  DateTime? @map("date_cloture")
   /// Horodatage de la dernière relance auto « document manquant » (anti-doublon).
   relanceDocumentLe DateTime? @map("relance_document_le")
+  /// Corbeille (soft delete) : renseigné = dossier mis à la corbeille, exclu des
+  /// vues normales. Suppression définitive uniquement via « Vider la corbeille ».
+  supprimeLe        DateTime? @map("supprime_le")
 
   // Relations enfants
   documents   Document[]
@@ -256,6 +259,7 @@ model Dossier {
   @@index([statut])
   @@index([compagnieId])
   @@index([dateCreation])
+  @@index([supprimeLe])
   @@map("dossier")
 }
 

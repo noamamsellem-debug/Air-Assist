@@ -16,10 +16,11 @@ const ACTIFS: StatutDossier[] = [
 ];
 
 export default async function DashboardPage() {
-  const [parStatut, agg, dossiers] = await Promise.all([
-    prisma.dossier.groupBy({ by: ["statut"], _count: { _all: true } }),
-    prisma.dossier.aggregate({ _sum: { montantEstime: true } }),
+  // On exclut partout les dossiers en corbeille (supprimeLe renseigné).
+  const [parStatut, dossiers, corbeille] = await Promise.all([
+    prisma.dossier.groupBy({ by: ["statut"], where: { supprimeLe: null }, _count: { _all: true } }),
     prisma.dossier.findMany({
+      where: { supprimeLe: null },
       select: {
         id: true,
         reference: true,
@@ -30,6 +31,7 @@ export default async function DashboardPage() {
         commission30: true,
       },
     }),
+    prisma.dossier.count({ where: { supprimeLe: { not: null } } }),
   ]);
 
   const compteur = (s: StatutDossier) =>
@@ -101,6 +103,14 @@ export default async function DashboardPage() {
           couleur="bg-amber-50 text-amber-800"
           lien="/admin/dossiers?statut=RECLAMATION_ENVOYEE"
         />
+      </div>
+
+      <h2 className="mt-8 text-lg font-semibold">Corbeille</h2>
+      <div className="mt-3 grid gap-4 sm:grid-cols-3">
+        <Link href="/admin/dossiers/corbeille" className="card flex items-center justify-between hover:border-brand-400">
+          <span className="flex items-center gap-2 text-sm text-slate-600">🗑️ Dossiers en corbeille</span>
+          <span className="text-2xl font-bold">{corbeille}</span>
+        </Link>
       </div>
     </div>
   );

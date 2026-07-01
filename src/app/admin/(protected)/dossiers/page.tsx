@@ -12,7 +12,8 @@ export default async function DossiersPage({
   searchParams: Promise<{ statut?: string; compagnie?: string; q?: string; from?: string; to?: string; page?: string }>;
 }) {
   const sp = await searchParams;
-  const where: Prisma.DossierWhereInput = {};
+  // Les dossiers en corbeille (supprimeLe renseigné) sont exclus de la liste.
+  const where: Prisma.DossierWhereInput = { supprimeLe: null };
   if (sp.statut && sp.statut in LIBELLES_STATUT) {
     where.statut = sp.statut as StatutDossier;
   }
@@ -78,7 +79,12 @@ export default async function DossiersPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">Dossiers</h1>
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold">Dossiers</h1>
+        <Link href="/admin/dossiers/corbeille" className="text-sm text-slate-500 hover:text-brand-600">
+          🗑️ Corbeille
+        </Link>
+      </div>
 
       {/* Filtres */}
       <form className="card mt-4 grid gap-3 sm:grid-cols-3" method="get">

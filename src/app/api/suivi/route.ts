@@ -28,7 +28,8 @@ export async function POST(request: Request) {
     },
   });
 
-  if (!dossier || dossier.passager.email.toLowerCase() !== email.toLowerCase()) {
+  // Un dossier en corbeille est considéré comme introuvable côté public.
+  if (!dossier || dossier.supprimeLe || dossier.passager.email.toLowerCase() !== email.toLowerCase()) {
     return NextResponse.json({ error: "Dossier introuvable" }, { status: 404 });
   }
 

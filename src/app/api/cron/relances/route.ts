@@ -20,7 +20,7 @@ export async function GET(request: Request) {
   const seuil = new Date(Date.now() - DELAI_RELANCE_MS);
 
   const dossiers = await prisma.dossier.findMany({
-    where: { statut: "DOCUMENT_MANQUANT", relanceDocumentLe: null },
+    where: { statut: "DOCUMENT_MANQUANT", relanceDocumentLe: null, supprimeLe: null },
     include: {
       historique: {
         where: { nouveauStatut: "DOCUMENT_MANQUANT" },

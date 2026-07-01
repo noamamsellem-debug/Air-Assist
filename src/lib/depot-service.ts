@@ -230,7 +230,7 @@ export async function ajouterDocumentParSuivi(
     where: { reference: reference.trim().toUpperCase() },
     include: { passager: { select: { email: true } }, _count: { select: { documents: true } } },
   });
-  if (!dossier || dossier.passager.email.toLowerCase() !== email.trim().toLowerCase()) {
+  if (!dossier || dossier.supprimeLe || dossier.passager.email.toLowerCase() !== email.trim().toLowerCase()) {
     throw new DepotError("Dossier introuvable.", 404);
   }
   if (dossier.statut !== "NOUVEAU" && dossier.statut !== "DOCUMENT_MANQUANT") {

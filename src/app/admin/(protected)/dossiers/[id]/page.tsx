@@ -8,6 +8,7 @@ import { libelleAeroport } from "@/data/aeroports";
 import { StatusChanger } from "@/components/admin/StatusChanger";
 import { QuickActions } from "@/components/admin/QuickActions";
 import { ClaimGenerator } from "@/components/admin/ClaimGenerator";
+import { DeleteDossierButton, RestoreDossierButton } from "@/components/admin/CorbeilleActions";
 
 export const dynamic = "force-dynamic";
 
@@ -236,6 +237,29 @@ export default async function DossierDetail({
             <div className="mt-3">
               <ClaimGenerator dossierId={d.id} autoActive={d.compagnie.autoActive} />
             </div>
+          </div>
+
+          <div className="card">
+            <h2 className="text-lg font-semibold">Corbeille</h2>
+            {d.supprimeLe ? (
+              <>
+                <p className="mt-1 text-xs text-slate-500">
+                  Ce dossier est dans la corbeille (supprimé le {dateHeure(d.supprimeLe)}).
+                </p>
+                <div className="mt-3">
+                  <RestoreDossierButton dossierId={d.id} />
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="mt-1 text-xs text-slate-500">
+                  Masque le dossier des vues normales, sans suppression définitive.
+                </p>
+                <div className="mt-3">
+                  <DeleteDossierButton dossierId={d.id} />
+                </div>
+              </>
+            )}
           </div>
         </aside>
       </div>
