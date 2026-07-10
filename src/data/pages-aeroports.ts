@@ -359,6 +359,542 @@ export const PAGES_AEROPORTS: PageAeroport[] = [
     ],
     compagnies: ["easyjet", "british-airways", "vueling", "swiss"],
   },
+
+  // ─── 6. Toulouse-Blagnac (TLS) ──────────────────────────────────────────────
+  {
+    slug: "vol-retarde-toulouse-indemnisation",
+    code: "TLS",
+    nom: "Toulouse-Blagnac",
+    title: "Vol retardé Toulouse : indemnisation jusqu'à 600 €",
+    description:
+      "Vol retardé à Toulouse-Blagnac de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Toulouse-Blagnac (TLS) peut vous ouvrir droit à une indemnité forfaitaire allant jusqu'à 600 €, au titre du règlement EC 261/2004. Premier aéroport du Sud-Ouest, Toulouse mêle une forte clientèle d'affaires liée à l'aéronautique et un trafic touristique vers l'Europe du Sud et le Maghreb. Air Assist vérifie gratuitement votre éligibilité et se charge de toute la réclamation, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un vol retardé au départ de Toulouse : quels droits ?" },
+      {
+        type: "p",
+        text: "Toulouse-Blagnac est un aéroport de l'Union européenne : **tout vol qui en part est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Le critère décisif est l'**heure réelle d'arrivée** à destination : dès 3 heures de retard, l'indemnité forfaitaire peut être due, en plus de la prise en charge assurée pendant l'attente.",
+      },
+      { type: "h2", text: "Les compagnies présentes à Toulouse" },
+      {
+        type: "p",
+        text: "Toulouse est desservie par **easyJet**, **Volotea**, **Air France**, **Ryanair** et **Transavia**. On y trouve à la fois la navette vers Paris, très empruntée par la clientèle d'affaires de la filière aéronautique, et de nombreuses lignes loisirs vers l'Espagne, le Portugal, la Grèce et le Maghreb. Que votre vol soit opéré par une compagnie classique ou low-cost, vos droits sont strictement identiques.",
+      },
+      { type: "h2", text: "Combien au départ de Toulouse ?" },
+      {
+        type: "p",
+        text: "Le montant est **forfaitaire** et dépend de la distance. Un Toulouse–Marrakech (environ 1 400 km) ou un Toulouse–Porto (environ 1 000 km) relève du palier à **250 €**. Un Toulouse–Athènes (environ 1 900 km) atteint **400 €**. Les liaisons de plus de 3 500 km donneraient 600 €. Le prix payé pour le billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Affaires et loisirs : deux profils de retards" },
+      {
+        type: "p",
+        text: "La navette Toulouse–Paris, très fréquentée aux heures de pointe, concentre une part des litiges liés aux retards d'exploitation. À l'inverse, les lignes loisirs vers le Sud connaissent des pics l'été. Dans les deux cas, ces perturbations d'organisation ou d'affluence ne sont pas des circonstances exceptionnelles et restent indemnisables.",
+      },
+      { type: "h2", text: "Annulation et surbooking au départ de Toulouse" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, la compagnie doit vous proposer le remboursement ou un réacheminement ; une indemnité s'y ajoute si l'annonce est intervenue moins de 14 jours avant le départ, hors circonstances exceptionnelles. En cas de **refus d'embarquement** subi pour surbooking, l'indemnité est immédiate.",
+      },
+      { type: "h2", text: "Quand la compagnie peut refuser" },
+      {
+        type: "p",
+        text: "Une compagnie ne peut s'exonérer qu'en cas de **circonstances exceptionnelles** réelles (météo dangereuse, grève des contrôleurs aériens, sécurité). Une **panne technique** ou une **grève du personnel de la compagnie** restent indemnisables. Ne renoncez pas devant un premier refus vaguement motivé.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, vous disposez de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité, monte le dossier et le porte jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Toulouse – Porto", km: "≈ 1 000 km", montant: "250 €" },
+      { route: "Toulouse – Marrakech", km: "≈ 1 400 km", montant: "250 €" },
+      { route: "Toulouse – Athènes", km: "≈ 1 900 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Toulouse : nous calculons gratuitement le montant dû." },
+      { titre: "Rassemblez vos justificatifs", texte: "Confirmation de réservation et carte d'embarquement suffisent à monter le dossier." },
+      { titre: "Nous réclamons pour vous", texte: "Air Assist adresse la demande à la compagnie et conteste les refus infondés." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue : aucune avance, commission uniquement en cas de succès." },
+    ],
+    faq: [
+      { q: "Un vol au départ de Toulouse est-il couvert ?", a: "Oui. Toulouse-Blagnac est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la compagnie." },
+      { q: "Un Toulouse–Athènes retardé, c'est combien ?", a: "Environ 1 900 km : le vol relève du palier à 400 € par passager." },
+      { q: "Les low-cost à Toulouse ont-elles les mêmes obligations ?", a: "Oui, sans exception : une compagnie low-cost doit indemniser dans les mêmes conditions qu'une compagnie traditionnelle." },
+      { q: "Quel délai pour réclamer un vol au départ de Toulouse ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["easyjet", "volotea", "ryanair", "transavia"],
+  },
+
+  // ─── 7. Bordeaux-Mérignac (BOD) ─────────────────────────────────────────────
+  {
+    slug: "vol-retarde-bordeaux-indemnisation",
+    code: "BOD",
+    nom: "Bordeaux-Mérignac",
+    title: "Vol retardé Bordeaux : indemnisation jusqu'à 600 €",
+    description:
+      "Vol retardé à Bordeaux-Mérignac de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Bordeaux-Mérignac (BOD) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Principal aéroport de Nouvelle-Aquitaine, Bordeaux accueille une forte composante low-cost, notamment via son terminal « billi ». Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un vol retardé au départ de Bordeaux : vos droits" },
+      {
+        type: "p",
+        text: "Bordeaux-Mérignac est un aéroport de l'Union européenne : **tout vol au départ de Bordeaux est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Dès **3 heures de retard à l'arrivée**, l'indemnité forfaitaire peut être due, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Le terminal billi ne change rien à vos droits" },
+      {
+        type: "p",
+        text: "Bordeaux dispose d'un terminal low-cost dédié, **« billi »**, d'où opèrent notamment easyJet, Volotea et Ryanair. Certains voyageurs pensent, à tort, que partir d'un terminal low-cost réduit leurs droits. C'est faux : le terminal d'embarquement n'a **aucune incidence** sur le règlement EC 261/2004. Un vol au départ de billi ouvre exactement les mêmes droits qu'un vol du terminal principal.",
+      },
+      { type: "h2", text: "Les compagnies présentes à Bordeaux" },
+      {
+        type: "p",
+        text: "Bordeaux est desservie par **easyJet**, **Volotea**, **Ryanair**, **Air France** et **Transavia**, avec de nombreuses lignes vers l'Europe du Sud, le Maghreb et les grandes villes françaises. La densité des vols low-cost et saisonniers accroît le risque de retards en haute saison — des perturbations qui restent indemnisables.",
+      },
+      { type: "h2", text: "Combien au départ de Bordeaux ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Bordeaux–Lisbonne (environ 900 km) ou un Bordeaux–Marrakech (environ 1 500 km) relève du palier à **250 €**. Un Bordeaux–Athènes (environ 1 900 km) atteint **400 €**. Le prix payé n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Annulation et surbooking" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, remboursement ou réacheminement, plus une indemnité si l'annonce est intervenue moins de 14 jours avant le départ. En cas de **refus d'embarquement** subi, l'indemnité est immédiate. Un bon d'achat proposé ne remplace pas l'indemnité légale, due en argent.",
+      },
+      { type: "h2", text: "Quand la compagnie peut refuser" },
+      {
+        type: "p",
+        text: "La compagnie ne peut s'exonérer qu'en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité). Une **panne technique** ou une **grève de son personnel** restent indemnisables.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité et mène la réclamation jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Bordeaux – Lisbonne", km: "≈ 900 km", montant: "250 €" },
+      { route: "Bordeaux – Marrakech", km: "≈ 1 500 km", montant: "250 €" },
+      { route: "Bordeaux – Athènes", km: "≈ 1 900 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Bordeaux, terminal billi compris : nous calculons gratuitement le montant." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent." },
+      { titre: "Nous réclamons", texte: "Air Assist adresse la demande à la compagnie et relance jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais." },
+    ],
+    faq: [
+      { q: "Un vol depuis Bordeaux est-il couvert ?", a: "Oui. Bordeaux-Mérignac est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la compagnie." },
+      { q: "Départ du terminal billi, est-ce que ça change quelque chose ?", a: "Non. Le terminal d'embarquement n'a aucune incidence : vos droits sont identiques à ceux d'un vol du terminal principal." },
+      { q: "Un Bordeaux–Athènes retardé, c'est combien ?", a: "Environ 1 900 km : le vol relève du palier à 400 € par passager." },
+      { q: "Quel délai pour réclamer un vol au départ de Bordeaux ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["easyjet", "volotea", "ryanair", "transavia"],
+  },
+
+  // ─── 8. Nantes-Atlantique (NTE) ─────────────────────────────────────────────
+  {
+    slug: "vol-retarde-nantes-indemnisation",
+    code: "NTE",
+    nom: "Nantes-Atlantique",
+    title: "Vol retardé Nantes : indemnisation jusqu'à 600 €",
+    description:
+      "Vol retardé à Nantes-Atlantique de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Nantes-Atlantique (NTE) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Premier aéroport du Grand Ouest, Nantes connaît une croissance soutenue, avec une base Volotea et de nombreuses lignes loisirs. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un vol retardé au départ de Nantes : vos droits" },
+      {
+        type: "p",
+        text: "Nantes-Atlantique est un aéroport de l'Union européenne : **tout vol au départ de Nantes est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Dès **3 heures de retard à l'arrivée**, l'indemnité forfaitaire peut être due, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Volotea et les low-cost à Nantes" },
+      {
+        type: "p",
+        text: "Nantes abrite une **base Volotea** et accueille **easyJet**, **Transavia**, **Air France** et **Ryanair**. La compagnie Volotea y opère de nombreuses lignes directes vers l'Italie, l'Espagne, la Grèce et le Maghreb, souvent uniques sur le marché. Comme toute compagnie, Volotea et les autres low-cost sont soumises aux mêmes obligations d'indemnisation qu'une compagnie traditionnelle.",
+      },
+      { type: "h2", text: "Combien au départ de Nantes ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Nantes–Porto (environ 900 km) ou un Nantes–Venise (environ 1 100 km) relève du palier à **250 €**. Un Nantes–Marrakech (environ 1 900 km) atteint **400 €**. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Un aéroport à forte croissance" },
+      {
+        type: "p",
+        text: "La fréquentation de Nantes progresse rapidement, parfois à la limite des capacités de l'aéroport. Cette pression accroît le risque de **retards aux heures de pointe**, en particulier en été sur les lignes loisirs. Ces perturbations d'affluence ou d'organisation ne sont pas des circonstances exceptionnelles et restent indemnisables.",
+      },
+      { type: "h2", text: "Annulation et surbooking" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, remboursement ou réacheminement, plus une indemnité si l'annonce est intervenue moins de 14 jours avant le départ. En cas de **refus d'embarquement** subi, l'indemnité est immédiate, en plus de la prise en charge.",
+      },
+      { type: "h2", text: "Quand la compagnie peut refuser" },
+      {
+        type: "p",
+        text: "La compagnie ne peut s'exonérer qu'en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité). Une **panne technique** ou une **grève de son personnel** restent indemnisables.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité et mène la réclamation jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Nantes – Porto", km: "≈ 900 km", montant: "250 €" },
+      { route: "Nantes – Venise", km: "≈ 1 100 km", montant: "250 €" },
+      { route: "Nantes – Marrakech", km: "≈ 1 900 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Nantes : nous calculons gratuitement le montant dû." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent." },
+      { titre: "Nous réclamons", texte: "Air Assist adresse la demande à la compagnie et relance jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais." },
+    ],
+    faq: [
+      { q: "Un vol au départ de Nantes est-il couvert ?", a: "Oui. Nantes-Atlantique est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la compagnie." },
+      { q: "Volotea à Nantes a-t-elle les mêmes obligations ?", a: "Oui. Comme toute compagnie, Volotea doit indemniser dans les mêmes conditions qu'une compagnie traditionnelle." },
+      { q: "Un Nantes–Marrakech retardé, c'est combien ?", a: "Environ 1 900 km : le vol relève du palier à 400 € par passager." },
+      { q: "Quel délai pour réclamer un vol au départ de Nantes ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["volotea", "easyjet", "transavia", "ryanair"],
+  },
+
+  // ─── 9. Lille-Lesquin (LIL) ─────────────────────────────────────────────────
+  {
+    slug: "vol-retarde-lille-indemnisation",
+    code: "LIL",
+    nom: "Lille-Lesquin",
+    title: "Vol retardé Lille : indemnisation jusqu'à 600 €",
+    description:
+      "Vol retardé à Lille-Lesquin de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Lille-Lesquin (LIL) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Principal aéroport des Hauts-de-France, Lille dessert de nombreuses destinations loisirs, avec une forte présence low-cost. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un vol retardé au départ de Lille : vos droits" },
+      {
+        type: "p",
+        text: "Lille-Lesquin est un aéroport de l'Union européenne : **tout vol au départ de Lille est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Dès **3 heures de retard à l'arrivée**, l'indemnité forfaitaire peut être due, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Les compagnies présentes à Lille" },
+      {
+        type: "p",
+        text: "Lille est desservie par **Transavia**, **easyJet**, **Volotea** et **Air France**, avec de nombreuses lignes vers l'Europe du Sud, la Méditerranée, le Maghreb et la Corse. Le trafic loisirs et saisonnier y est particulièrement exposé aux perturbations en période de vacances — des retards qui restent indemnisables.",
+      },
+      { type: "h2", text: "Lille et la concurrence de Charleroi" },
+      {
+        type: "p",
+        text: "La proximité de la frontière belge et de l'aéroport de **Bruxelles-Charleroi** amène certains voyageurs des Hauts-de-France à choisir l'un ou l'autre. Un point à retenir : peu importe l'aéroport, ce qui compte est qu'il se situe dans l'Union européenne. Un vol au départ de Lille est couvert par EC 261/2004 exactement comme un vol au départ de Charleroi.",
+      },
+      { type: "h2", text: "Combien au départ de Lille ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Lille–Ajaccio (environ 1 050 km) relève du palier à **250 €**. Un Lille–Lisbonne (environ 1 600 km) ou un Lille–Marrakech (environ 2 100 km) atteint **400 €**. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Vol annulé au départ de Lille : quels droits ?" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, la compagnie doit vous proposer le **remboursement** du billet ou un **réacheminement**, et une **indemnité** s'y ajoute si l'annulation a été annoncée moins de 14 jours avant le départ, hors circonstances exceptionnelles. Remboursement et indemnité se cumulent.",
+      },
+      { type: "h2", text: "Quand la compagnie peut refuser" },
+      {
+        type: "p",
+        text: "La compagnie ne peut s'exonérer qu'en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité). Une **panne technique** ou une **grève de son personnel** restent indemnisables.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité et mène la réclamation jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Lille – Ajaccio", km: "≈ 1 050 km", montant: "250 €" },
+      { route: "Lille – Lisbonne", km: "≈ 1 600 km", montant: "400 €" },
+      { route: "Lille – Marrakech", km: "≈ 2 100 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Lille : nous calculons gratuitement le montant dû." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent." },
+      { titre: "Nous réclamons", texte: "Air Assist adresse la demande à la compagnie et relance jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais." },
+    ],
+    faq: [
+      { q: "Un vol depuis Lille est-il couvert ?", a: "Oui. Lille-Lesquin est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la compagnie." },
+      { q: "Un Lille–Marrakech retardé, c'est combien ?", a: "Environ 2 100 km : le vol relève du palier à 400 € par passager." },
+      { q: "Vol annulé au départ de Lille, quels sont mes droits ?", a: "Remboursement ou réacheminement, plus une indemnité si l'annulation a été annoncée moins de 14 jours avant le départ, hors circonstances exceptionnelles." },
+      { q: "Quel délai pour réclamer un vol au départ de Lille ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["transavia", "easyjet", "volotea", "air-france"],
+  },
+
+  // ─── 10. Beauvais-Tillé (BVA) ───────────────────────────────────────────────
+  {
+    slug: "vol-retarde-beauvais-indemnisation",
+    code: "BVA",
+    nom: "Beauvais-Tillé",
+    title: "Vol retardé Beauvais : indemnisation jusqu'à 600 €",
+    description:
+      "Vol retardé à Beauvais-Tillé de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Beauvais-Tillé (BVA) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Aéroport low-cost au nord de Paris, Beauvais est une base majeure de Ryanair et de Wizz Air — deux compagnies réputées pour contester les réclamations. Air Assist vérifie gratuitement votre éligibilité et affronte la procédure pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un aéroport quasi 100 % low-cost : vos droits sont pleins" },
+      {
+        type: "p",
+        text: "Beauvais-Tillé est un aéroport de l'Union européenne : **tout vol au départ de Beauvais est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Beauvais étant presque exclusivement dédié au low-cost, c'est le point à retenir : une compagnie à bas prix a **exactement les mêmes obligations** d'indemnisation qu'une compagnie traditionnelle. Le tarif très bas du billet ne réduit en rien votre droit.",
+      },
+      { type: "h2", text: "Ryanair et Wizz Air : deux bases, des refus fréquents" },
+      {
+        type: "p",
+        text: "Beauvais est une **base majeure de Ryanair et de Wizz Air**. Ces deux ultra low-cost sont connues pour **rendre les réclamations difficiles** : formulaires maison, demandes de pièces répétées, refus initiaux fréquents, délais allongés. Beaucoup de passagers renoncent — c'est l'effet recherché. Or un dossier correctement argumenté aboutit souvent, y compris après un premier refus. C'est là qu'un service qui connaît leurs procédures fait la différence.",
+      },
+      { type: "h2", text: "Combien au départ de Beauvais ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Beauvais–Porto (environ 1 450 km) ou un Beauvais–Budapest (environ 1 250 km) relève du palier à **250 €**. Un Beauvais–Marrakech (environ 2 050 km) atteint **400 €**. Peu importe que vous ayez payé 20 € ou 120 € votre billet : seul compte le kilométrage.",
+      },
+      { type: "h2", text: "Attention aux bons d'achat et avoirs" },
+      {
+        type: "p",
+        text: "Ryanair peut proposer un **bon d'achat** et Wizz Air un **avoir** sur votre compte client. Sachez que l'indemnité EC 261/2004 est due **en argent** : accepter un bon ou un avoir revient souvent à renoncer à une somme supérieure. Vérifiez toujours vos droits avant d'accepter une offre.",
+      },
+      { type: "h2", text: "Annulation et surbooking" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, remboursement ou réacheminement, plus une indemnité si l'annonce est intervenue moins de 14 jours avant le départ. En cas de **refus d'embarquement** subi, l'indemnité est immédiate.",
+      },
+      { type: "h2", text: "Quand la compagnie peut refuser" },
+      {
+        type: "p",
+        text: "Ryanair comme Wizz Air ne peuvent s'exonérer qu'en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité). Une **panne technique** ou une **grève de leur personnel** restent indemnisables. Un premier refus n'est pas définitif.",
+      },
+      { type: "h2", text: "5 ans pour réclamer, Air Assist s'en charge" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Face à des compagnies procédurières, Air Assist prend tout en charge : vérification gratuite, montage du dossier, relances, contestation des refus, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Beauvais – Budapest", km: "≈ 1 250 km", montant: "250 €" },
+      { route: "Beauvais – Porto", km: "≈ 1 450 km", montant: "250 €" },
+      { route: "Beauvais – Marrakech", km: "≈ 2 050 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérification gratuite", texte: "Indiquez votre vol Ryanair ou Wizz Air au départ de Beauvais : nous calculons le montant applicable." },
+      { titre: "Nous remplissons les formulaires", texte: "Air Assist maîtrise les procédures maison de Ryanair et Wizz Air et adresse un dossier complet." },
+      { titre: "Relances et contestation", texte: "Nous relançons et contestons les refus infondés jusqu'à une réponse motivée." },
+      { titre: "Indemnisation en argent", texte: "Vous êtes payé en espèces, pas en bon ou en avoir. Aucune avance, commission uniquement en cas de succès." },
+    ],
+    faq: [
+      { q: "Mon vol Ryanair ou Wizz Air partait de Beauvais, ai-je droit à une indemnité ?", a: "Oui. Tout vol au départ de Beauvais est couvert par EC 261/2004, y compris ceux des low-cost, avec les mêmes montants." },
+      { q: "Les low-cost doivent-elles vraiment indemniser ?", a: "Oui, sans exception : une compagnie à bas prix a exactement les mêmes obligations d'indemnisation qu'une compagnie traditionnelle." },
+      { q: "Un Beauvais–Marrakech retardé, c'est combien ?", a: "Environ 2 050 km : le vol relève du palier à 400 € par passager." },
+      { q: "Ryanair a refusé ma demande, que faire ?", a: "Un refus n'est pas définitif. Il faut exiger la justification du motif et, s'il n'est pas exonératoire, la contester — ce que fait Air Assist." },
+    ],
+    compagnies: ["ryanair", "wizz-air", "transavia"],
+  },
+
+  // ─── 11. Strasbourg-Entzheim (SXB) ──────────────────────────────────────────
+  {
+    slug: "vol-retarde-strasbourg-indemnisation",
+    code: "SXB",
+    nom: "Strasbourg-Entzheim",
+    title: "Vol retardé Strasbourg : indemnisation jusqu'à 600 €",
+    description:
+      "Vol retardé à Strasbourg de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Strasbourg-Entzheim (SXB) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Aéroport d'Alsace, Strasbourg mêle une clientèle institutionnelle liée au Parlement européen et un trafic loisirs. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un vol retardé au départ de Strasbourg : vos droits" },
+      {
+        type: "p",
+        text: "Strasbourg-Entzheim est un aéroport de l'Union européenne : **tout vol au départ de Strasbourg est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Dès **3 heures de retard à l'arrivée**, l'indemnité forfaitaire peut être due, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Les compagnies présentes à Strasbourg" },
+      {
+        type: "p",
+        text: "Strasbourg est desservie par **Volotea**, **Air France** et **Transavia**, avec des lignes vers Paris, le Sud de la France, la Corse, l'Europe du Sud et le Maghreb. La clientèle est double : voyageurs d'affaires et institutionnels liés au **Parlement européen**, et voyageurs loisirs. Quelle que soit la compagnie, vos droits sont identiques.",
+      },
+      { type: "h2", text: "Combien au départ de Strasbourg ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Strasbourg–Nice (environ 500 km), un Strasbourg–Ajaccio (environ 900 km) ou un Strasbourg–Porto (environ 1 500 km) relève du palier à **250 €**. Les liaisons de 1 500 à 3 500 km atteindraient 400 €. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Une desserte sensible aux aléas" },
+      {
+        type: "p",
+        text: "Aéroport de taille moyenne, Strasbourg peut voir ses vols perturbés par des aléas d'exploitation ou des rotations serrées, notamment aux heures de pointe. Ces perturbations d'organisation ne sont pas des circonstances exceptionnelles et restent indemnisables. Seuls des événements extérieurs réels (météo dangereuse, grève des contrôleurs, sécurité) exonèrent la compagnie.",
+      },
+      { type: "h2", text: "Vol annulé au départ de Strasbourg : quels droits ?" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, la compagnie doit vous proposer le **remboursement** ou un **réacheminement**, et une **indemnité** s'y ajoute si l'annulation a été annoncée moins de 14 jours avant le départ, hors circonstances exceptionnelles. En cas de **refus d'embarquement** subi, l'indemnité est immédiate.",
+      },
+      { type: "h2", text: "Panne technique et grève" },
+      {
+        type: "p",
+        text: "Une **panne technique** de l'avion ou une **grève du personnel de la compagnie** restent indemnisables : ce ne sont pas des circonstances exceptionnelles. Seule une grève des contrôleurs aériens, extérieure à la compagnie, l'exonère de l'indemnité.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité et mène la réclamation jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Strasbourg – Nice", km: "≈ 500 km", montant: "250 €" },
+      { route: "Strasbourg – Ajaccio", km: "≈ 900 km", montant: "250 €" },
+      { route: "Strasbourg – Porto", km: "≈ 1 500 km", montant: "250 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Strasbourg : nous calculons gratuitement le montant dû." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent." },
+      { titre: "Nous réclamons", texte: "Air Assist adresse la demande à la compagnie et relance jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais." },
+    ],
+    faq: [
+      { q: "Un vol au départ de Strasbourg est-il couvert ?", a: "Oui. Strasbourg-Entzheim est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la compagnie." },
+      { q: "Un Strasbourg–Porto retardé, c'est combien ?", a: "Environ 1 500 km : le vol relève du palier à 250 € par passager." },
+      { q: "Vol annulé au départ de Strasbourg, quels droits ?", a: "Remboursement ou réacheminement, plus une indemnité si l'annulation a été annoncée moins de 14 jours avant le départ, hors circonstances exceptionnelles." },
+      { q: "Quel délai pour réclamer un vol au départ de Strasbourg ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["volotea", "air-france", "transavia"],
+  },
+
+  // ─── 12. Montpellier-Méditerranée (MPL) ─────────────────────────────────────
+  {
+    slug: "vol-retarde-montpellier-indemnisation",
+    code: "MPL",
+    nom: "Montpellier-Méditerranée",
+    title: "Vol retardé Montpellier : indemnisation 600 €",
+    description:
+      "Vol retardé à Montpellier de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Montpellier-Méditerranée (MPL) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Aéroport de l'Hérault, Montpellier abrite une base Transavia et dessert de nombreuses destinations loisirs méditerranéennes. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un vol retardé au départ de Montpellier : vos droits" },
+      {
+        type: "p",
+        text: "Montpellier-Méditerranée est un aéroport de l'Union européenne : **tout vol au départ de Montpellier est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Dès **3 heures de retard à l'arrivée**, l'indemnité forfaitaire peut être due, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Transavia et les compagnies présentes à Montpellier" },
+      {
+        type: "p",
+        text: "Montpellier abrite une **base Transavia** et accueille **Volotea**, **Air France** et **easyJet**. La compagnie Transavia y opère de nombreuses lignes loisirs vers l'Espagne, le Portugal, la Grèce, l'Italie et le Maghreb. Comme toute compagnie, Transavia et les autres transporteurs low-cost sont soumis aux mêmes obligations d'indemnisation qu'une compagnie traditionnelle.",
+      },
+      { type: "h2", text: "Combien au départ de Montpellier ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Montpellier–Porto (environ 1 100 km) ou un Montpellier–Marrakech (environ 1 500 km) relève du palier à **250 €**. Un Montpellier–Athènes (environ 1 700 km) atteint **400 €**. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Des lignes loisirs très saisonnières" },
+      {
+        type: "p",
+        text: "Le trafic de Montpellier est fortement orienté **loisirs et méditerranéen**, avec des pics marqués l'été. La densité des rotations et l'affluence saisonnière augmentent alors le risque de retards. Ces perturbations d'affluence ou d'organisation ne sont pas des circonstances exceptionnelles et restent indemnisables.",
+      },
+      { type: "h2", text: "Annulation et surbooking" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, remboursement ou réacheminement, plus une indemnité si l'annonce est intervenue moins de 14 jours avant le départ. En cas de **refus d'embarquement** subi, l'indemnité est immédiate, en plus de la prise en charge.",
+      },
+      { type: "h2", text: "Quand la compagnie peut refuser" },
+      {
+        type: "p",
+        text: "La compagnie ne peut s'exonérer qu'en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité). Une **panne technique** ou une **grève de son personnel** restent indemnisables.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité et mène la réclamation jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Montpellier – Porto", km: "≈ 1 100 km", montant: "250 €" },
+      { route: "Montpellier – Marrakech", km: "≈ 1 500 km", montant: "250 €" },
+      { route: "Montpellier – Athènes", km: "≈ 1 700 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Montpellier : nous calculons gratuitement le montant dû." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent." },
+      { titre: "Nous réclamons", texte: "Air Assist adresse la demande à la compagnie et relance jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais." },
+    ],
+    faq: [
+      { q: "Un vol depuis Montpellier est-il couvert ?", a: "Oui. Montpellier-Méditerranée est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la compagnie." },
+      { q: "Transavia à Montpellier a-t-elle les mêmes obligations ?", a: "Oui. Comme toute compagnie, Transavia doit indemniser dans les mêmes conditions qu'une compagnie traditionnelle." },
+      { q: "Un Montpellier–Athènes retardé, c'est combien ?", a: "Environ 1 700 km : le vol relève du palier à 400 € par passager." },
+      { q: "Quel délai pour réclamer un vol au départ de Montpellier ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["transavia", "volotea", "air-france", "easyjet"],
+  },
+
+  // ─── 13. Bâle-Mulhouse / EuroAirport (BSL/MLH) ──────────────────────────────
+  {
+    slug: "vol-retarde-bale-mulhouse-indemnisation",
+    code: "BSL/MLH",
+    nom: "Bâle-Mulhouse",
+    title: "Vol retardé Bâle-Mulhouse : indemnisation 600 €",
+    description:
+      "Vol retardé à l'EuroAirport Bâle-Mulhouse de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si rien obtenu.",
+    intro:
+      "Un vol retardé, annulé ou surbooké au départ ou à l'arrivée de Bâle-Mulhouse (EuroAirport, BSL/MLH) peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Cet aéroport binational franco-suisse est implanté **sur le sol français** : les vols qui en partent relèvent donc du règlement européen. Base majeure d'easyJet, il accueille aussi Wizz Air et Air France. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Un aéroport franco-suisse, mais sur le sol français" },
+      {
+        type: "p",
+        text: "L'EuroAirport de Bâle-Mulhouse est un aéroport **binational** géré conjointement par la France et la Suisse. Point essentiel pour vos droits : il est physiquement situé **sur le territoire français**, donc dans l'Union européenne. Résultat : **tout vol au départ de Bâle-Mulhouse est couvert par le règlement EC 261/2004**, quelle que soit la compagnie. Dès 3 heures de retard à l'arrivée, l'indemnité forfaitaire peut être due.",
+      },
+      { type: "h2", text: "Une grosse base easyJet" },
+      {
+        type: "p",
+        text: "Bâle-Mulhouse est l'une des principales bases continentales d'**easyJet**, avec un réseau dense vers l'Europe. La compagnie y opère de nombreuses rotations serrées, typiques du low-cost, qui exposent les passagers à des retards fréquents. **Wizz Air** et **Air France** y sont également présents. Comme toujours, la nature low-cost d'une compagnie ne réduit en rien vos droits.",
+      },
+      { type: "h2", text: "Combien au départ de Bâle-Mulhouse ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Bâle-Mulhouse–Porto (environ 1 300 km) relève du palier à **250 €**. Un Bâle-Mulhouse–Lisbonne (environ 1 550 km) ou un Bâle-Mulhouse–Athènes (environ 1 900 km) atteint **400 €**. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "easyJet à Bâle-Mulhouse : contester les refus" },
+      {
+        type: "p",
+        text: "easyJet a la réputation d'opposer volontiers un refus en invoquant des **circonstances exceptionnelles**. Or ce motif est strictement encadré : une **panne technique** ou un **problème d'organisation** interne restent indemnisables. Face à un refus, il faut exiger la justification précise du motif et la contester s'il n'est pas fondé.",
+      },
+      { type: "h2", text: "Annulation et surbooking" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, remboursement ou réacheminement, plus une indemnité si l'annonce est intervenue moins de 14 jours avant le départ. En cas de **refus d'embarquement** subi, l'indemnité est immédiate, en plus de la prise en charge.",
+      },
+      { type: "h2", text: "Panne technique et grève" },
+      {
+        type: "p",
+        text: "Une **panne technique** de l'avion ou une **grève du personnel de la compagnie** restent indemnisables. Seuls des événements extérieurs réels (météo dangereuse, grève des contrôleurs aériens, sécurité) exonèrent la compagnie de l'indemnité.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité et mène la réclamation jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Bâle-Mulhouse – Porto", km: "≈ 1 300 km", montant: "250 €" },
+      { route: "Bâle-Mulhouse – Lisbonne", km: "≈ 1 550 km", montant: "400 €" },
+      { route: "Bâle-Mulhouse – Athènes", km: "≈ 1 900 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol au départ ou à l'arrivée de Bâle-Mulhouse : nous calculons gratuitement le montant dû." },
+      { titre: "Nous confirmons la couverture", texte: "L'aéroport étant sur le sol français, le règlement EC 261/2004 s'applique aux départs." },
+      { titre: "Nous réclamons et contestons", texte: "Air Assist adresse la demande à la compagnie et conteste les refus infondés." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais." },
+    ],
+    faq: [
+      { q: "L'EuroAirport est franco-suisse, quel règlement s'applique ?", a: "Le règlement européen UE261 (EC 261/2004) : l'aéroport est situé sur le sol français, donc dans l'UE, et les vols qui en partent sont couverts." },
+      { q: "easyJet à Bâle-Mulhouse a-t-elle les mêmes obligations ?", a: "Oui. La nature low-cost d'une compagnie ne réduit pas vos droits : easyJet doit indemniser comme toute compagnie." },
+      { q: "Un Bâle-Mulhouse–Lisbonne retardé, c'est combien ?", a: "Environ 1 550 km : le vol relève du palier à 400 € par passager." },
+      { q: "Quel délai pour réclamer un vol au départ de Bâle-Mulhouse ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+    compagnies: ["easyjet", "wizz-air", "air-france"],
+  },
 ];
 
 export function getPageAeroport(slug: string): PageAeroport | undefined {

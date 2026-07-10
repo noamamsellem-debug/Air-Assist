@@ -28,6 +28,10 @@ const REDIRECTS_COMPAGNIES: Record<string, string> = {
   "/fr/aeroport/paris-orly": "/fr/vol-retarde-paris-orly-indemnisation",
   "/fr/aeroport/marseille": "/fr/vol-retarde-marseille-indemnisation",
   "/fr/aeroport/nice": "/fr/vol-retarde-nice-indemnisation",
+  "/fr/aeroport/toulouse": "/fr/vol-retarde-toulouse-indemnisation",
+  "/fr/aeroport/bordeaux": "/fr/vol-retarde-bordeaux-indemnisation",
+  "/fr/aeroport/nantes": "/fr/vol-retarde-nantes-indemnisation",
+  "/fr/aeroport/lille": "/fr/vol-retarde-lille-indemnisation",
 };
 
 /** Le chemin relève-t-il de l'i18n (pages publiques) ? (mêmes exclusions qu'avant) */
