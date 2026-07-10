@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { PAGES_COMPAGNIES } from "@/data/pages-compagnies";
+import { PAGES_AEROPORTS } from "@/data/pages-aeroports";
 
 export function SiteFooter() {
   const t = useTranslations("footer");
@@ -50,6 +51,19 @@ export function SiteFooter() {
                     className="text-slate-300 transition hover:text-white"
                   >
                     {cp.nom}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Indemnisation par aéroport
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {PAGES_AEROPORTS.map((ap) => (
+                <li key={ap.slug}>
+                  <Link href={`/${ap.slug}`} className="text-slate-300 transition hover:text-white">
+                    {ap.nom}
                   </Link>
                 </li>
               ))}

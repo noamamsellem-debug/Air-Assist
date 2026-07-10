@@ -22,6 +22,12 @@ const REDIRECTS_COMPAGNIES: Record<string, string> = {
   "/fr/indemnisation/wizz-air": "/fr/indemnisation-vol-retarde",
   "/fr/indemnisation/klm": "/fr/indemnisation-vol-retarde",
   "/fr/indemnisation/tap-air-portugal": "/fr/indemnisation-vol-retarde",
+  // Anciennes pages aéroports (/fr/aeroport/{slug}) → nouvelles pages enrichies.
+  "/fr/aeroport/lyon": "/fr/vol-retarde-lyon-saint-exupery-indemnisation",
+  "/fr/aeroport/paris-cdg": "/fr/vol-retarde-paris-cdg-indemnisation",
+  "/fr/aeroport/paris-orly": "/fr/vol-retarde-paris-orly-indemnisation",
+  "/fr/aeroport/marseille": "/fr/vol-retarde-marseille-indemnisation",
+  "/fr/aeroport/nice": "/fr/vol-retarde-nice-indemnisation",
 };
 
 /** Le chemin relève-t-il de l'i18n (pages publiques) ? (mêmes exclusions qu'avant) */

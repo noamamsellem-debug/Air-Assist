@@ -5,6 +5,7 @@ import { AEROPORTS } from "@/data/aeroports";
 import { COMPAGNIES_SEO } from "@/data/compagnies";
 import { ARTICLES } from "@/data/articles";
 import { PAGES_COMPAGNIES } from "@/data/pages-compagnies";
+import { PAGES_AEROPORTS } from "@/data/pages-aeroports";
 import { AEROPORTS_INDEM } from "@/data/indemnisation-aeroports";
 
 const PAGES_STATIQUES = [
@@ -87,6 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const seoFr = [
     ...PAGES_SEO_FR,
     ...PAGES_COMPAGNIES.map((c) => `/indemnisation-vol-retarde-${c.slug}`),
+    ...PAGES_AEROPORTS.map((a) => `/${a.slug}`),
     ...AEROPORTS_INDEM.map((a) => `/aeroport/${a.slug}`),
   ];
   for (const page of seoFr) {

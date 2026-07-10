@@ -1,7 +1,10 @@
 /**
  * Données des pages SEO « indemnisation par aéroport » (/fr/aeroport/{slug}).
- * Template commun + contenu unique par aéroport. Ajouter un aéroport = ajouter
- * un objet ici.
+ * Version courte (Lot 3). Les grands aéroports (Lyon, Paris-CDG, Paris-Orly,
+ * Marseille, Nice) ont désormais des pages enrichies dédiées
+ * (/fr/vol-retarde-{aeroport}-indemnisation, voir pages-aeroports.ts) ; les
+ * anciennes URLs sont redirigées (301) via le middleware. Ce fichier ne
+ * conserve donc que les aéroports sans page enrichie.
  */
 export type AeroportIndem = {
   slug: string;
@@ -11,46 +14,6 @@ export type AeroportIndem = {
 };
 
 export const AEROPORTS_INDEM: AeroportIndem[] = [
-  {
-    slug: "lyon",
-    nom: "Lyon-Saint-Exupéry",
-    intro:
-      "Premier aéroport de la région Auvergne-Rhône-Alpes, Lyon-Saint-Exupéry (LYS) voit transiter chaque année des millions de passagers vers l'Europe et au-delà. Un vol retardé de 3 heures ou plus, annulé ou surbooké au départ ou à l'arrivée de Lyon peut ouvrir droit à une indemnité jusqu'à 600 €. AirAssist vérifie gratuitement votre dossier.",
-    specs:
-      "Les liaisons les plus fréquentées au départ de Lyon (Paris, grandes villes européennes, destinations loisirs) concentrent l'essentiel des litiges. Que vous voyagiez sur une compagnie classique ou low-cost, vos droits sont les mêmes.",
-  },
-  {
-    slug: "paris-cdg",
-    nom: "Paris-Charles de Gaulle",
-    intro:
-      "Premier aéroport de France, Paris-Charles de Gaulle (CDG) est l'un des hubs les plus actifs d'Europe — et l'un de ceux où se produisent le plus de retards et d'annulations. Si votre vol au départ ou à l'arrivée de CDG a été perturbé, vous pouvez réclamer jusqu'à 600 €. Vérification gratuite avec AirAssist.",
-    specs:
-      "En tant que hub majeur, CDG concentre de nombreuses correspondances : un premier vol en retard qui vous fait rater votre correspondance peut, lui aussi, ouvrir droit à indemnité sur la base du retard à votre destination finale.",
-  },
-  {
-    slug: "paris-orly",
-    nom: "Paris-Orly",
-    intro:
-      "Deuxième aéroport parisien, Orly (ORY) dessert de nombreuses destinations domestiques, européennes et vers l'outre-mer. Un vol retardé de 3 heures ou plus, annulé tardivement ou surbooké peut vous donner droit à une indemnité jusqu'à 600 €. AirAssist s'occupe de la réclamation.",
-    specs:
-      "Orly accueille beaucoup de vols loisirs et low-cost, particulièrement sujets aux perturbations en haute saison. Vos droits restent identiques quelle que soit la compagnie.",
-  },
-  {
-    slug: "marseille",
-    nom: "Marseille-Provence",
-    intro:
-      "Principal aéroport du sud-est de la France, Marseille-Provence (MRS) dessert de nombreuses destinations nationales, européennes et méditerranéennes. Un vol retardé de 3 heures ou plus, annulé ou surbooké au départ ou à l'arrivée de Marseille peut ouvrir droit à une indemnité jusqu'à 600 €. AirAssist vérifie gratuitement votre dossier.",
-    specs:
-      "Marseille accueille un fort trafic loisirs, notamment vers le bassin méditerranéen, particulièrement sujet aux perturbations en été. Vos droits sont les mêmes quelle que soit la compagnie, classique ou low-cost.",
-  },
-  {
-    slug: "nice",
-    nom: "Nice-Côte d'Azur",
-    intro:
-      "Troisième aéroport de France, Nice-Côte d'Azur (NCE) est une porte d'entrée majeure vers la Riviera, très fréquentée toute l'année. Un vol retardé de 3 heures ou plus, annulé tardivement ou surbooké au départ ou à l'arrivée de Nice peut donner droit à une indemnité jusqu'à 600 €. AirAssist s'occupe de la réclamation.",
-    specs:
-      "Le trafic intense de Nice, en particulier l'été et lors des grands événements de la Côte d'Azur, multiplie les risques de retard. Conservez votre carte d'embarquement pour accélérer le traitement de votre dossier.",
-  },
   {
     slug: "toulouse",
     nom: "Toulouse-Blagnac",
