@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { PAGES_COMPAGNIES } from "@/data/pages-compagnies";
 
 export function SiteFooter() {
   const t = useTranslations("footer");
@@ -8,6 +9,7 @@ export function SiteFooter() {
   const c = useTranslations("common");
   const s = useTranslations("suivi");
   const b = useTranslations("blog");
+  const locale = useLocale();
   const year = new Date().getFullYear();
   const liens = [
     { href: "/mentions-legales", label: n("legal") },
@@ -35,6 +37,26 @@ export function SiteFooter() {
             ))}
           </nav>
         </div>
+        {locale === "fr" && (
+          <div className="mt-8 border-t border-white/10 pt-6">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Indemnisation par compagnie
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {PAGES_COMPAGNIES.map((cp) => (
+                <li key={cp.slug}>
+                  <Link
+                    href={`/indemnisation-vol-retarde-${cp.slug}`}
+                    className="text-slate-300 transition hover:text-white"
+                  >
+                    {cp.nom}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <p className="mt-6 text-slate-400">{t("disclaimer")}</p>
         <p className="mt-1 text-slate-500">
           © {year} {c("brand")}. {t("rights")}

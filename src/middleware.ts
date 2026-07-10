@@ -6,6 +6,24 @@ const intlMiddleware = createMiddleware(routing);
 
 const CANONICAL_ORIGIN = "https://airassist.eu";
 
+// Anciennes pages compagnies (/fr/indemnisation/{slug}) → nouvelles pages
+// enrichies. Les 3 compagnies sans page dédiée pointent vers la page service.
+const REDIRECTS_COMPAGNIES: Record<string, string> = {
+  "/fr/indemnisation/ryanair": "/fr/indemnisation-vol-retarde-ryanair",
+  "/fr/indemnisation/easyjet": "/fr/indemnisation-vol-retarde-easyjet",
+  "/fr/indemnisation/air-france": "/fr/indemnisation-vol-retarde-air-france",
+  "/fr/indemnisation/transavia": "/fr/indemnisation-vol-retarde-transavia",
+  "/fr/indemnisation/vueling": "/fr/indemnisation-vol-retarde-vueling",
+  "/fr/indemnisation/volotea": "/fr/indemnisation-vol-retarde-volotea",
+  "/fr/indemnisation/lufthansa": "/fr/indemnisation-vol-retarde-lufthansa",
+  "/fr/indemnisation/swiss": "/fr/indemnisation-vol-retarde-swiss",
+  "/fr/indemnisation/british-airways": "/fr/indemnisation-vol-retarde-british-airways",
+  "/fr/indemnisation/iberia": "/fr/indemnisation-vol-retarde-iberia",
+  "/fr/indemnisation/wizz-air": "/fr/indemnisation-vol-retarde",
+  "/fr/indemnisation/klm": "/fr/indemnisation-vol-retarde",
+  "/fr/indemnisation/tap-air-portugal": "/fr/indemnisation-vol-retarde",
+};
+
 /** Le chemin relève-t-il de l'i18n (pages publiques) ? (mêmes exclusions qu'avant) */
 function estPageIntl(pathname: string): boolean {
   if (pathname.startsWith("/api") || pathname.startsWith("/admin")) return false;
@@ -23,6 +41,15 @@ export default function middleware(req: NextRequest) {
   if (process.env.VERCEL_ENV === "production" && host.endsWith(".vercel.app")) {
     const cible = new URL(`${req.nextUrl.pathname}${req.nextUrl.search}`, CANONICAL_ORIGIN);
     return NextResponse.redirect(cible, 301);
+  }
+
+  // Redirection 301 des anciennes URLs compagnies vers les nouvelles pages.
+  const redirCompagnie = REDIRECTS_COMPAGNIES[req.nextUrl.pathname];
+  if (redirCompagnie) {
+    const url = req.nextUrl.clone();
+    url.pathname = redirCompagnie;
+    url.search = "";
+    return NextResponse.redirect(url, 301);
   }
 
   // Sinon : i18n uniquement sur les pages publiques, le reste passe tel quel.

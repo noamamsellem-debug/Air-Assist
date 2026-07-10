@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/seo";
 import { AEROPORTS } from "@/data/aeroports";
 import { COMPAGNIES_SEO } from "@/data/compagnies";
 import { ARTICLES } from "@/data/articles";
-import { COMPAGNIES_INDEM } from "@/data/indemnisation-compagnies";
+import { PAGES_COMPAGNIES } from "@/data/pages-compagnies";
 import { AEROPORTS_INDEM } from "@/data/indemnisation-aeroports";
 
 const PAGES_STATIQUES = [
@@ -86,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Pages SEO françaises (fr uniquement, sans alternates).
   const seoFr = [
     ...PAGES_SEO_FR,
-    ...COMPAGNIES_INDEM.map((c) => `/indemnisation/${c.slug}`),
+    ...PAGES_COMPAGNIES.map((c) => `/indemnisation-vol-retarde-${c.slug}`),
     ...AEROPORTS_INDEM.map((a) => `/aeroport/${a.slug}`),
   ];
   for (const page of seoFr) {
