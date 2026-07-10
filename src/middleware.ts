@@ -19,9 +19,9 @@ const REDIRECTS_COMPAGNIES: Record<string, string> = {
   "/fr/indemnisation/swiss": "/fr/indemnisation-vol-retarde-swiss",
   "/fr/indemnisation/british-airways": "/fr/indemnisation-vol-retarde-british-airways",
   "/fr/indemnisation/iberia": "/fr/indemnisation-vol-retarde-iberia",
-  "/fr/indemnisation/wizz-air": "/fr/indemnisation-vol-retarde",
-  "/fr/indemnisation/klm": "/fr/indemnisation-vol-retarde",
-  "/fr/indemnisation/tap-air-portugal": "/fr/indemnisation-vol-retarde",
+  "/fr/indemnisation/wizz-air": "/fr/indemnisation-vol-retarde-wizz-air",
+  "/fr/indemnisation/klm": "/fr/indemnisation-vol-retarde-klm",
+  "/fr/indemnisation/tap-air-portugal": "/fr/indemnisation-vol-retarde-tap",
   // Anciennes pages aéroports (/fr/aeroport/{slug}) → nouvelles pages enrichies.
   "/fr/aeroport/lyon": "/fr/vol-retarde-lyon-saint-exupery-indemnisation",
   "/fr/aeroport/paris-cdg": "/fr/vol-retarde-paris-cdg-indemnisation",

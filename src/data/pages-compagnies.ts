@@ -874,6 +874,330 @@ export const PAGES_COMPAGNIES: PageCompagnie[] = [
       { q: "Un Paris–Istanbul retardé, c'est combien ?", a: "Environ 2 250 km : le vol relève du palier à 400 € par passager." },
     ],
   },
+  // ─── 14. Wizz Air ──────────────────────────────────────────────────────────
+  {
+    slug: "wizz-air",
+    nom: "Wizz Air",
+    title: "Indemnisation vol retardé Wizz Air : jusqu'à 600 €",
+    description:
+      "Vol Wizz Air retardé de 3 h ou plus, ou annulé ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Compagnie ultra low-cost hongroise, Wizz Air est l'une des plus grandes d'Europe et la spécialiste des liaisons vers l'Europe centrale et de l'Est. Un vol Wizz Air retardé de 3 heures ou plus à l'arrivée, annulé tardivement ou surbooké peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Comme d'autres ultra low-cost, Wizz Air conteste fréquemment les demandes et complique les démarches : c'est là qu'un service spécialisé fait la différence. Air Assist vérifie gratuitement votre éligibilité et prend en charge la réclamation, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Wizz Air, compagnie de l'UE : des droits pleins" },
+      {
+        type: "p",
+        text: "Wizz Air est immatriculée en Hongrie : c'est une compagnie de l'Union européenne. Vos vols au départ de France, comme ceux à destination de l'UE, sont couverts par le règlement EC 261/2004. Le critère décisif est le **retard à l'arrivée** : dès 3 heures, l'indemnité forfaitaire peut être due, indépendamment du prix très bas de votre billet.",
+      },
+      { type: "h2", text: "Spécialiste de l'Europe centrale et de l'Est" },
+      {
+        type: "p",
+        text: "Wizz Air relie la France à de nombreuses destinations d'**Europe centrale et orientale** : Budapest, Varsovie, Bucarest, Cluj, Tirana, Sofia, Katowice… au départ de Beauvais, Paris, Lyon, Nice, Marseille ou Nantes. Ces lignes, souvent uniques sur le marché, connaissent une forte demande. Le modèle ultra low-cost repose sur des rotations extrêmement serrées : le moindre aléa en début de journée se répercute sur toute une série de vols, provoquant des retards en cascade qui restent indemnisables.",
+      },
+      { type: "h2", text: "Combien selon la distance ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Beauvais–Budapest (environ 1 250 km) ou un Nice–Tirana (environ 1 000 km) relève du palier à **250 €**. Un Paris–Bucarest (environ 1 850 km) atteint **400 €**. Les liaisons de plus de 3 500 km donneraient 600 €. Peu importe que vous ayez payé 20 € ou 150 € votre billet : le barème ne tient compte que de la distance.",
+      },
+      { type: "h2", text: "Wizz Air complique les démarches : ne pas se décourager" },
+      {
+        type: "p",
+        text: "Comme Ryanair, Wizz Air est réputée pour **rendre les réclamations difficiles** : formulaires maison, demandes de pièces répétées, refus initiaux fréquents, délais de réponse allongés. Beaucoup de passagers renoncent en cours de route. Or un dossier correctement argumenté aboutit souvent, y compris après un premier refus. Confier la réclamation à un tiers qui connaît les procédures de la compagnie et sait relancer au bon moment améliore nettement les chances d'aboutir.",
+      },
+      { type: "h2", text: "Attention à l'avoir sur la cagnotte Wizz" },
+      {
+        type: "p",
+        text: "Wizz Air peut proposer un **avoir** crédité sur votre compte client (parfois majoré) en cas de perturbation. Sachez que l'indemnité EC 261/2004 est due **en argent** : accepter un avoir revient souvent à renoncer à une somme supérieure versée en espèces, et cet avoir ne remplace pas votre droit à compensation. En cas d'annulation, le remboursement du billet se cumule d'ailleurs avec l'indemnité.",
+      },
+      { type: "h2", text: "Quand l'indemnité n'est pas due" },
+      {
+        type: "p",
+        text: "Wizz Air peut s'exonérer en cas de **circonstances exceptionnelles** réelles : météo dangereuse, grève des contrôleurs aériens, sécurité. Une **panne technique** de l'appareil ou une **grève du personnel de Wizz Air** restent en revanche indemnisables. Un motif invoqué doit toujours être justifié et vérifiable.",
+      },
+      { type: "h2", text: "5 ans pour réclamer, Air Assist affronte la procédure" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Face à une compagnie procédurière, Air Assist prend tout en charge : vérification gratuite, montage du dossier, relances, contestation des refus, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Nice – Tirana", km: "≈ 1 000 km", montant: "250 €" },
+      { route: "Beauvais – Budapest", km: "≈ 1 250 km", montant: "250 €" },
+      { route: "Paris – Bucarest", km: "≈ 1 850 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérification gratuite", texte: "Indiquez votre vol Wizz Air : nous calculons le retard à l'arrivée et le montant applicable." },
+      { titre: "Nous remplissons les formulaires", texte: "Air Assist maîtrise les procédures maison de Wizz Air et adresse le dossier complet." },
+      { titre: "Relances et contestation", texte: "Nous relançons et contestons les refus infondés jusqu'à une réponse motivée." },
+      { titre: "Indemnisation en argent", texte: "Vous êtes payé en espèces, pas en avoir. Aucune avance, commission uniquement en cas de succès." },
+    ],
+    faq: [
+      { q: "Wizz Air rend-elle les réclamations difficiles ?", a: "La compagnie impose ses formulaires, demande des pièces à répétition et refuse souvent en premier lieu. Un dossier bien argumenté aboutit néanmoins fréquemment ; ne pas se décourager est essentiel." },
+      { q: "Un Paris–Bucarest retardé, c'est combien ?", a: "Environ 1 850 km : le vol relève du palier à 400 € par passager." },
+      { q: "Wizz Air propose un avoir sur ma cagnotte, dois-je l'accepter ?", a: "Non : l'indemnité EC 261/2004 est due en argent. Un avoir, même majoré, ne la remplace pas et représente souvent moins que la somme réellement due." },
+      { q: "Quel délai pour réclamer un vol Wizz Air ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+  },
+
+  // ─── 15. KLM ───────────────────────────────────────────────────────────────
+  {
+    slug: "klm",
+    nom: "KLM",
+    title: "Indemnisation vol retardé KLM : jusqu'à 600 €",
+    description:
+      "Vol KLM retardé de 3 h ou plus, ou annulé ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Compagnie nationale néerlandaise du groupe Air France-KLM, KLM opère un vaste réseau mondial depuis son hub d'Amsterdam-Schiphol. Un vol KLM retardé de 3 heures ou plus à l'arrivée, annulé tardivement ou surbooké peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Schiphol étant une immense plaque tournante, les correspondances manquées y sont fréquentes : le retard se juge alors à l'arrivée à votre destination finale, pas à Amsterdam. Air Assist vérifie gratuitement votre dossier et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "KLM, compagnie de l'UE : des droits complets" },
+      {
+        type: "p",
+        text: "KLM est immatriculée aux Pays-Bas : c'est une compagnie de l'Union européenne. Ses vols au départ de France et d'Europe, comme ceux à destination de l'UE, sont couverts par le règlement EC 261/2004. Le déclenchement se fait dès **3 heures de retard à l'arrivée**, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Amsterdam-Schiphol, un hub de correspondances" },
+      {
+        type: "p",
+        text: "KLM structure son réseau autour d'**Amsterdam-Schiphol**, l'un des plus grands hubs européens. Depuis la France (Paris, Lyon, Marseille, Nice, Bordeaux…), de nombreux passagers y transitent vers le reste du monde. Cette organisation en correspondances est la source la plus fréquente de litiges : un premier vol en retard peut vous faire manquer votre vol suivant.",
+      },
+      { type: "h2", text: "Correspondance ratée à Amsterdam : la destination finale compte" },
+      {
+        type: "p",
+        text: "C'est le point central pour KLM. Lorsqu'un vol arrive en retard à Schiphol et vous fait **manquer votre correspondance**, l'indemnité se calcule sur le **retard à votre destination finale**, et non sur le segment jusqu'à Amsterdam. Si vous arrivez au bout du voyage avec 3 heures de retard ou plus, le droit peut s'ouvrir, à condition que l'ensemble du trajet figure sur une **réservation unique**. La distance retenue étant celle du trajet complet, l'indemnité peut atteindre 600 €.",
+      },
+      { type: "h2", text: "Des indemnités jusqu'à 600 € sur le long-courrier" },
+      {
+        type: "p",
+        text: "Sur les vols de plus de 3 500 km, l'indemnité atteint **600 €** : un Amsterdam–New York (environ 5 850 km) en relève. Les courts trajets depuis la France, comme Paris–Amsterdam (environ 430 km) ou Lyon–Amsterdam (environ 600 km), relèvent des 250 €. Le montant est forfaitaire et ne dépend jamais du prix payé.",
+      },
+      { type: "h2", text: "KLM et Air France : à qui réclamer ?" },
+      {
+        type: "p",
+        text: "KLM et Air France appartiennent au même groupe, mais ce sont **deux transporteurs distincts**. La règle est simple : votre réclamation s'adresse à la **compagnie qui a réellement opéré le vol** perturbé. Si votre vol était opéré par KLM, c'est à KLM qu'il faut réclamer, même s'il a été acheté sous un numéro Air France (partage de code). Air Assist identifie le transporteur effectif et adresse le dossier au bon service.",
+      },
+      { type: "h2", text: "Annulation, surbooking et exonérations" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, KLM doit vous rembourser ou vous réacheminer, avec une indemnité si l'annonce est tardive. En cas de **surbooking** subi, l'indemnité est immédiate. La compagnie peut s'exonérer en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité), mais une **panne technique** ou une **grève du personnel de KLM** restent indemnisables.",
+      },
+      { type: "h2", text: "5 ans pour réclamer, Air Assist reconstitue le trajet" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Sur un voyage à correspondance, conservez toutes vos cartes d'embarquement. Air Assist vérifie gratuitement votre éligibilité, reconstitue le trajet, monte le dossier et le porte jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Paris – Amsterdam", km: "≈ 430 km", montant: "250 €" },
+      { route: "Lyon – Amsterdam", km: "≈ 600 km", montant: "250 €" },
+      { route: "Amsterdam – New York", km: "≈ 5 850 km", montant: "600 €" },
+    ],
+    etapes: [
+      { titre: "Estimez votre indemnité", texte: "Indiquez votre vol KLM : nous calculons le retard à l'arrivée finale, correspondances comprises." },
+      { titre: "Nous identifions le transporteur", texte: "Nous établissons quelle compagnie (KLM ou Air France) opérait réellement le vol pour adresser la bonne réclamation." },
+      { titre: "Réclamation et relances", texte: "Air Assist adresse le dossier à KLM et conteste les motifs infondés." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, jusqu'à 600 € sur le long-courrier, sans avance de frais." },
+    ],
+    faq: [
+      { q: "J'ai raté ma correspondance à Amsterdam, que réclamer ?", a: "Sur une réservation unique, l'indemnité se calcule sur le retard à la destination finale : à partir de 3 heures de retard, le droit peut s'ouvrir jusqu'à 600 € selon la distance totale." },
+      { q: "Un Paris–Amsterdam retardé, c'est combien ?", a: "Environ 430 km : le vol relève du palier à 250 € par passager." },
+      { q: "KLM et Air France, même groupe : à qui je réclame ?", a: "À la compagnie qui a réellement opéré le vol. Si le vol était opéré par KLM, la réclamation s'adresse à KLM, même en cas de partage de code avec Air France." },
+      { q: "Quel délai pour réclamer un vol KLM ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+  },
+
+  // ─── 16. TAP Air Portugal ──────────────────────────────────────────────────
+  {
+    slug: "tap",
+    nom: "TAP Air Portugal",
+    title: "Indemnisation vol retardé TAP : jusqu'à 600 €",
+    description:
+      "Vol TAP Air Portugal retardé de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Compagnie nationale portugaise, TAP Air Portugal opère depuis son hub de Lisbonne un réseau européen et une forte desserte du Brésil et de l'Afrique lusophone. Un vol TAP retardé de 3 heures ou plus à l'arrivée, annulé tardivement ou surbooké peut ouvrir droit à une indemnité allant jusqu'à 600 €, au titre du règlement EC 261/2004. Sur les liaisons transatlantiques vers l'Amérique du Sud, les distances placent l'indemnité au palier maximal. Air Assist vérifie gratuitement votre dossier, reconstitue les trajets à correspondance et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "TAP, compagnie de l'UE : des droits complets" },
+      {
+        type: "p",
+        text: "TAP Air Portugal est immatriculée au Portugal : c'est une compagnie de l'Union européenne. Ses vols au départ de France et d'Europe, comme ceux à destination de l'UE, sont couverts par le règlement EC 261/2004. Le seuil de déclenchement est de **3 heures de retard à l'arrivée**, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Lisbonne, porte de l'Amérique du Sud et de l'Afrique" },
+      {
+        type: "p",
+        text: "Le hub de **Lisbonne** est le point de correspondance privilégié de TAP vers le **Brésil** (São Paulo, Rio de Janeiro, Salvador…) et l'**Afrique lusophone** (Luanda, Maputo, Praia…). Ces liaisons long-courriers sont longues : un Lisbonne–São Paulo (environ 7 800 km) relève du palier maximal à **600 €**. Les vols depuis la France, comme Paris–Lisbonne (environ 1 450 km) ou Lyon–Porto (environ 1 300 km), relèvent des 250 €.",
+      },
+      { type: "h2", text: "Correspondance via Lisbonne vers le Brésil" },
+      {
+        type: "p",
+        text: "C'est le cas typique d'un voyage TAP vers l'Amérique du Sud : un vol Paris–Lisbonne en retard qui vous fait **manquer votre correspondance** vers São Paulo ou Rio. Sur une **réservation unique**, l'indemnité se calcule sur le **retard à la destination finale**, pas sur le segment initial. Si vous arrivez au Brésil avec 3 heures de retard ou plus, le droit peut s'ouvrir, et la distance retenue étant celle du trajet complet, l'indemnité atteint 600 €.",
+      },
+      { type: "h2", text: "Le montant selon la distance" },
+      {
+        type: "p",
+        text: "L'indemnité est forfaitaire. Un vol court comme Paris–Lisbonne (environ 1 450 km) donne **250 €** ; un vol de 1 500 à 3 500 km donnerait 400 € ; au-delà de 3 500 km, comme les liaisons transatlantiques, l'indemnité atteint **600 €**. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Retard, annulation, surbooking" },
+      {
+        type: "p",
+        text: "Un **retard** de 3 heures ou plus à l'arrivée, une **annulation** annoncée moins de 14 jours avant le départ (hors circonstances exceptionnelles) ou un **refus d'embarquement** subi ouvrent chacun des droits. En cas d'annulation, le remboursement ou le réacheminement s'ajoute à l'indemnité éventuelle.",
+      },
+      { type: "h2", text: "Motifs d'exonération" },
+      {
+        type: "p",
+        text: "TAP peut s'exonérer en cas de **circonstances exceptionnelles** réelles (météo dangereuse, grève des contrôleurs aériens, sécurité). Une **panne technique** de l'appareil ou une **grève du personnel de TAP** restent indemnisables. Conservez l'ensemble de vos cartes d'embarquement, indispensables pour reconstituer un trajet à correspondance.",
+      },
+      { type: "h2", text: "5 ans pour réclamer, Air Assist s'en charge" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Air Assist vérifie gratuitement votre éligibilité, reconstitue les trajets transatlantiques à correspondance, monte le dossier et le porte jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Lyon – Porto", km: "≈ 1 300 km", montant: "250 €" },
+      { route: "Paris – Lisbonne", km: "≈ 1 450 km", montant: "250 €" },
+      { route: "Lisbonne – São Paulo", km: "≈ 7 800 km", montant: "600 €" },
+    ],
+    etapes: [
+      { titre: "Estimez votre indemnité", texte: "Indiquez votre vol TAP : nous calculons le retard à l'arrivée finale, correspondances comprises." },
+      { titre: "Nous reconstituons le trajet", texte: "Sur une réservation unique via Lisbonne, nous établissons le retard à destination finale." },
+      { titre: "Réclamation auprès de TAP", texte: "Le dossier est adressé à TAP Air Portugal, avec relances et argumentation." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, jusqu'à 600 € sur le transatlantique, sans avance de frais." },
+    ],
+    faq: [
+      { q: "Ma correspondance via Lisbonne vers le Brésil a été retardée, quels droits ?", a: "Sur une réservation unique, l'indemnité se calcule sur le retard à la destination finale : à partir de 3 heures de retard, le droit peut s'ouvrir jusqu'à 600 €." },
+      { q: "Un Paris–Lisbonne retardé, c'est combien ?", a: "Environ 1 450 km : le vol relève du palier à 250 € par passager." },
+      { q: "TAP a annulé mon vol, que puis-je réclamer ?", a: "Remboursement ou réacheminement, plus une indemnité si l'annulation a été annoncée moins de 14 jours avant le départ, hors circonstances exceptionnelles." },
+      { q: "Quel délai pour réclamer un vol TAP ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+  },
+
+  // ─── 17. Aegean Airlines ───────────────────────────────────────────────────
+  {
+    slug: "aegean",
+    nom: "Aegean Airlines",
+    title: "Indemnisation vol retardé Aegean : jusqu'à 600 €",
+    description:
+      "Vol Aegean Airlines retardé de 3 h ou plus ? Réclamez jusqu'à 600 € (EC 261/2004). Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Compagnie nationale grecque et membre de Star Alliance, Aegean Airlines opère depuis son hub d'Athènes un réseau européen et une très forte desserte de la Grèce et de ses îles. Un vol Aegean retardé de 3 heures ou plus à l'arrivée, annulé tardivement ou surbooké peut ouvrir droit à une indemnité au titre du règlement EC 261/2004. Ses lignes vacances vers la Grèce connaissent de forts pics de retards l'été. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Aegean, compagnie de l'UE : vos droits sont garantis" },
+      {
+        type: "p",
+        text: "Aegean Airlines est immatriculée en Grèce : c'est une compagnie de l'Union européenne. Ses vols au départ de France et d'Europe, comme ceux à destination de l'UE, sont couverts par le règlement EC 261/2004. Le seuil de déclenchement est de **3 heures de retard à l'arrivée**, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "La Grèce et ses îles, une desserte très saisonnière" },
+      {
+        type: "p",
+        text: "Aegean est la principale compagnie desservant la **Grèce** depuis la France, ainsi qu'un vaste réseau de **vols intérieurs** vers les îles grecques (Santorin, Mykonos, Rhodes, Corfou…). Ce trafic est très **saisonnier** : de juin à septembre, l'afflux de voyageurs de vacances sature les aéroports et densifie les rotations, ce qui multiplie les retards. Ces perturbations d'affluence ou d'organisation ne sont pas des circonstances exceptionnelles et restent indemnisables.",
+      },
+      { type: "h2", text: "Combien selon votre trajet Aegean ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Un Paris–Athènes (environ 2 100 km) ou un Nice–Athènes (environ 1 650 km) relève du palier à **400 €**. Les vols intérieurs grecs plus courts, comme Athènes–Santorin, relèvent des **250 €**. Le prix du billet n'entre jamais en compte : un vol acheté en promotion peut donner droit à 400 €.",
+      },
+      { type: "h2", text: "Les vols intérieurs grecs sont couverts" },
+      {
+        type: "p",
+        text: "Un point souvent ignoré : un **vol intérieur grec** (par exemple Athènes–Santorin) part d'un aéroport de l'Union européenne, il est donc **couvert par le règlement EC 261/2004**. Si votre vol vers une île grecque arrive avec 3 heures de retard ou plus, ou s'il est annulé tardivement, une indemnité peut être due, exactement comme sur un vol international.",
+      },
+      { type: "h2", text: "Annulation et surbooking" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, Aegean doit vous rembourser ou vous réacheminer, avec une indemnité si l'annonce est intervenue moins de 14 jours avant le départ. En cas de **refus d'embarquement** subi pour surbooking, l'indemnité est immédiate, en plus de la prise en charge (repas, hébergement si nécessaire).",
+      },
+      { type: "h2", text: "Quand l'indemnité n'est pas due" },
+      {
+        type: "p",
+        text: "Aegean peut s'exonérer en cas de **circonstances exceptionnelles** réelles : météo dangereuse, grève des contrôleurs aériens, sécurité. Une **panne technique** ou une **grève du personnel d'Aegean** restent indemnisables. Conservez votre carte d'embarquement pour accélérer le traitement.",
+      },
+      { type: "h2", text: "5 ans pour réclamer" },
+      {
+        type: "p",
+        text: "En France, vous disposez de **5 ans** après la date du vol — de quoi vérifier aussi un vol de vacances perturbé lors d'un été précédent. Air Assist vérifie gratuitement votre éligibilité, monte le dossier et le porte jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Athènes – Santorin (intérieur)", km: "≈ 230 km", montant: "250 €" },
+      { route: "Nice – Athènes", km: "≈ 1 650 km", montant: "400 €" },
+      { route: "Paris – Athènes", km: "≈ 2 100 km", montant: "400 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol Aegean, international ou intérieur grec : nous calculons gratuitement le montant dû." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent à monter le dossier." },
+      { titre: "Nous réclamons auprès d'Aegean", texte: "Air Assist adresse la demande à Aegean et relance jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais et commission uniquement en cas de succès." },
+    ],
+    faq: [
+      { q: "Mon vol vacances vers la Grèce a été retardé, ai-je droit à une indemnité ?", a: "Oui. Un vol Aegean au départ de l'UE est couvert : à partir de 3 heures de retard à l'arrivée, l'indemnité peut aller jusqu'à 400 € selon la distance." },
+      { q: "Un Paris–Athènes retardé de 3 heures, c'est combien ?", a: "Environ 2 100 km : le vol relève du palier à 400 € par passager." },
+      { q: "Un vol intérieur grec (Athènes–Santorin) est-il couvert ?", a: "Oui. Il part d'un aéroport de l'UE, il relève donc du règlement EC 261/2004, avec une indemnité de 250 € pour ces courtes distances." },
+      { q: "Quel délai pour réclamer un vol Aegean ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+  },
+
+  // ─── 18. Sky Express ───────────────────────────────────────────────────────
+  {
+    slug: "sky-express",
+    nom: "Sky Express",
+    title: "Indemnisation vol retardé Sky Express : jusqu'à 600 €",
+    description:
+      "Vol Sky Express retardé de 3 h ou plus ? Réclamez votre indemnité EC 261/2004. Estimation gratuite, sans frais si nous n'obtenons rien.",
+    intro:
+      "Compagnie grecque basée à Athènes, Sky Express s'est spécialisée dans la desserte des îles grecques (Santorin, Mykonos, Rhodes, Corfou…) et développe de plus en plus de lignes vers l'Europe. Un vol Sky Express retardé de 3 heures ou plus à l'arrivée, annulé tardivement ou surbooké peut ouvrir droit à une indemnité au titre du règlement EC 261/2004. Tous ses vols au départ de Grèce, aéroport de l'Union européenne, sont couverts. Air Assist vérifie gratuitement votre éligibilité et réclame pour vous, sans frais tant que vous n'êtes pas indemnisé.",
+    corps: [
+      { type: "h2", text: "Sky Express, compagnie de l'UE" },
+      {
+        type: "p",
+        text: "Sky Express est immatriculée en Grèce : c'est une compagnie de l'Union européenne. Ses vols au départ de Grèce et d'Europe, comme ceux à destination de l'UE, sont couverts par le règlement EC 261/2004. Le seuil de déclenchement est de **3 heures de retard à l'arrivée**, indépendamment du prix du billet.",
+      },
+      { type: "h2", text: "Une petite compagnie, les mêmes droits" },
+      {
+        type: "p",
+        text: "Sky Express est une compagnie de **plus petite taille** que les grands transporteurs. Certains passagers en concluent, à tort, qu'ils auraient moins de droits, ou que la compagnie « ne paie pas ». C'est faux : la taille du transporteur n'a **aucune incidence** sur vos droits. Sky Express est soumise exactement aux mêmes obligations d'indemnisation que n'importe quelle grande compagnie. En pratique, les réclamations peuvent toutefois être **plus lentes à traiter** chez une structure plus modeste : la persévérance et des relances régulières sont alors déterminantes.",
+      },
+      { type: "h2", text: "Les îles grecques, cœur du réseau" },
+      {
+        type: "p",
+        text: "Sky Express relie Athènes à de nombreuses **îles grecques** (Santorin, Mykonos, Rhodes, Corfou, Héraklion…) et développe des lignes saisonnières vers l'Europe de l'Ouest. Ces liaisons insulaires, très sollicitées l'été, sont exposées aux retards liés à l'affluence et aux contraintes des petits aéroports. Ces perturbations ne sont pas des circonstances exceptionnelles et restent indemnisables.",
+      },
+      { type: "h2", text: "Combien selon la distance ?" },
+      {
+        type: "p",
+        text: "Le montant est forfaitaire. Les vols intérieurs vers les îles, comme Athènes–Santorin ou Athènes–Mykonos, relèvent du palier à **250 €** (courtes distances). Les lignes saisonnières vers l'Europe de l'Ouest relèvent de 250 € ou 400 € selon la distance. Le prix du billet n'entre jamais en compte.",
+      },
+      { type: "h2", text: "Vol au départ d'Athènes : vous êtes couvert" },
+      {
+        type: "p",
+        text: "Un vol Sky Express **au départ d'Athènes** — ou de tout autre aéroport grec — part d'un aéroport de l'Union européenne : il est donc pleinement couvert par le règlement EC 261/2004. Que votre destination soit une île grecque ou une ville européenne, un retard de 3 heures ou plus à l'arrivée peut ouvrir droit à indemnité.",
+      },
+      { type: "h2", text: "Annulation, surbooking et exonérations" },
+      {
+        type: "p",
+        text: "En cas d'**annulation**, remboursement ou réacheminement, plus une indemnité si l'annonce est tardive. En cas de **refus d'embarquement** subi, indemnité immédiate. Sky Express peut s'exonérer en cas de **circonstances exceptionnelles** réelles (météo, grève des contrôleurs, sécurité), mais une **panne technique** ou une **grève de son personnel** restent indemnisables.",
+      },
+      { type: "h2", text: "5 ans pour réclamer, Air Assist relance pour vous" },
+      {
+        type: "p",
+        text: "En France, le délai est de **5 ans** après la date du vol. Face à une compagnie parfois plus lente à répondre, Air Assist vérifie gratuitement votre éligibilité, monte le dossier et relance jusqu'au versement, sans frais tant que vous n'êtes pas indemnisé.",
+      },
+    ],
+    trajets: [
+      { route: "Athènes – Mykonos (intérieur)", km: "≈ 150 km", montant: "250 €" },
+      { route: "Athènes – Santorin (intérieur)", km: "≈ 230 km", montant: "250 €" },
+      { route: "Athènes – Rhodes (intérieur)", km: "≈ 430 km", montant: "250 €" },
+    ],
+    etapes: [
+      { titre: "Vérifiez votre éligibilité", texte: "Indiquez votre vol Sky Express : nous calculons gratuitement le retard à l'arrivée et le montant dû." },
+      { titre: "Rassemblez vos preuves", texte: "Confirmation de réservation et carte d'embarquement suffisent à monter le dossier." },
+      { titre: "Nous réclamons et relançons", texte: "Air Assist adresse la demande à Sky Express et relance régulièrement jusqu'à une réponse motivée." },
+      { titre: "Indemnisation", texte: "Vous recevez l'indemnité obtenue, sans avance de frais et commission uniquement en cas de succès." },
+    ],
+    faq: [
+      { q: "Sky Express est une petite compagnie, ai-je quand même des droits ?", a: "Oui. La taille du transporteur n'a aucune incidence : Sky Express est soumise aux mêmes obligations d'indemnisation que toute compagnie. Le traitement peut simplement être plus lent, d'où l'importance des relances." },
+      { q: "Un vol vers les îles grecques retardé, c'est combien ?", a: "Sur ces courtes distances (Athènes–Santorin, Athènes–Mykonos…), l'indemnité relève du palier à 250 € par passager." },
+      { q: "Mon vol partait d'Athènes, suis-je couvert ?", a: "Oui. Athènes est un aéroport de l'UE : tout vol qui en part relève d'EC 261/2004, quelle que soit la destination." },
+      { q: "Quel délai pour réclamer un vol Sky Express ?", a: "En France, vous disposez de 5 ans après la date du vol." },
+    ],
+  },
 ];
 
 export function getPageCompagnie(slug: string): PageCompagnie | undefined {
