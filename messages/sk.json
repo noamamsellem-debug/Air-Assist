@@ -67,7 +67,19 @@
     "dateYesterday": "Yesterday",
     "dateToday": "Today",
     "delay3to4": "Between 3 and 4 hours",
-    "delayOver4": "More than 4 hours"
+    "delayOver4": "More than 4 hours",
+    "statusChecking": "Checking",
+    "statusEligible": "Eligible",
+    "statusIneligible": "Not eligible",
+    "statusNotEligible": "Invalid route",
+    "amountUpTo": "You could get up to",
+    "amountCould": "You could get",
+    "amountNotDue": "Delay under 3 hours",
+    "amountAria": "{label}: {amount}",
+    "hintRoute": "Enter your route",
+    "hintSameAirport": "Pick two different airports",
+    "hintUnder3": "3-hour threshold not met",
+    "noWinNoFee": "No win, no fee · 30% commission on success"
   },
   "funnel": {
     "title": "Vaša žiadosť",

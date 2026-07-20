@@ -67,7 +67,19 @@
     "dateYesterday": "Hier",
     "dateToday": "Aujourd'hui",
     "delay3to4": "Entre 3 h et 4 h",
-    "delayOver4": "Plus de 4 h"
+    "delayOver4": "Plus de 4 h",
+    "statusChecking": "Vérification",
+    "statusEligible": "Indemnisable",
+    "statusIneligible": "Non indemnisable",
+    "statusNotEligible": "Non éligible",
+    "amountUpTo": "Vous pourriez récupérer jusqu'à",
+    "amountCould": "Vous pourriez récupérer",
+    "amountNotDue": "Retard de moins de 3 h",
+    "amountAria": "{label} : {amount}",
+    "hintRoute": "Renseignez votre trajet",
+    "hintSameAirport": "Choisissez deux aéroports différents",
+    "hintUnder3": "seuil des 3 h non atteint",
+    "noWinNoFee": "Sans gain, sans frais · commission de 30 % en cas de succès"
   },
   "funnel": {
     "title": "Votre réclamation",
