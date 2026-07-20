@@ -121,8 +121,10 @@ export default {
       },
 
       maxWidth: {
-        // 65–75 caractères pour le texte long (confort de lecture).
-        prose: "68ch",
+        // Cible : 65–75 caractères par ligne. L'unité `ch` vaut la largeur du
+        // glyphe « 0 », sensiblement plus large que le caractère moyen : 60ch
+        // rend ~70 caractères réels, mesurés sur Inter 17 px.
+        prose: "60ch",
       },
 
       borderRadius: {

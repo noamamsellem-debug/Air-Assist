@@ -37,7 +37,9 @@ export function SiteHeader() {
         </p>
       </div>
 
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5">
+      {/* px-3 sous 640 px : à 360 px, logo + CTA + langue + burger ne tiennent
+          pas avec la gouttière pleine. */}
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-3.5 sm:gap-4 sm:px-4">
         <Link href="/" aria-label="Air Assist — accueil" className="shrink-0">
           <Logo />
         </Link>
@@ -69,10 +71,10 @@ export function SiteHeader() {
         </div>
 
         {/* Actions mobile : CTA compact + langue (drapeau) + burger. */}
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-1.5 lg:hidden sm:gap-2">
           <Link
             href="/reclamation"
-            className="btn-primary whitespace-nowrap !px-3.5 !py-2.5 text-sm"
+            className="btn-primary whitespace-nowrap !px-3 !py-2 text-[13px] sm:!px-3.5 sm:!py-2.5 sm:text-sm"
           >
             {t("startShort")}
           </Link>

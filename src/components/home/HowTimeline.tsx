@@ -4,12 +4,21 @@ import { useTranslations } from "next-intl";
  * « Comment ça marche » : trois étapes numérotées reliées par un filet.
  * Registre horaire — numéros en mono, pas de pictogramme décoratif.
  */
+/**
+ * Les traductions préfixent déjà les titres d'un numéro (« 1. Vérifiez… »).
+ * La pastille le porte désormais : on le retire de la chaîne à l'affichage
+ * plutôt que de modifier les 19 fichiers de messages.
+ */
+function sansNumero(titre: string): string {
+  return titre.replace(/^\s*\d+\s*[.)]\s*/, "");
+}
+
 export function HowTimeline() {
   const t = useTranslations("home");
   const steps = [
-    { title: t("step1Title"), text: t("step1Text") },
-    { title: t("step2Title"), text: t("step2Text") },
-    { title: t("step3Title"), text: t("step3Text") },
+    { title: sansNumero(t("step1Title")), text: t("step1Text") },
+    { title: sansNumero(t("step2Title")), text: t("step2Text") },
+    { title: sansNumero(t("step3Title")), text: t("step3Text") },
   ];
   return (
     <ol className="relative space-y-7">
