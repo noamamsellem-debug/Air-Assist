@@ -658,6 +658,24 @@ export const ARTICLES_BLOG: ArticleBlog[] = [
         type: "p",
         text: "Les compagnies savent qu'un refus, même mal fondé, décourage une part des demandeurs. Invoquer une circonstance exceptionnelle de façon générale, imposer des formulaires complexes ou tarder à répondre sont autant de moyens de **filtrer les réclamations**. Un dossier isolé, sans relance, a donc statistiquement moins de chances d'aboutir qu'un dossier suivi et argumenté.",
       },
+      { type: "h2", text: "Que faire si la compagnie refuse : les recours" },
+      {
+        type: "p",
+        text: "Un refus n'est pas la fin de l'histoire : beaucoup sont infondés et cèdent dès qu'on insiste avec les bons arguments. Si vous menez la démarche seul, les recours s'enchaînent dans cet ordre :",
+      },
+      {
+        type: "ol",
+        items: [
+          "**La relance écrite** : répondez en rappelant le règlement EC 261/2004, votre numéro de vol, le retard constaté à l'arrivée et le montant dû, et exigez une réponse motivée. Une relance ferme et documentée suffit parfois à débloquer le versement.",
+          "**La mise en demeure** : si la compagnie persiste, adressez une lettre recommandée fixant un délai de paiement. Ce courrier formel marque le passage à une démarche contentieuse et est souvent pris plus au sérieux.",
+          "**Le médiateur** : vous pouvez saisir **gratuitement** le médiateur du tourisme et du voyage si la compagnie y adhère, ou l'organisme national compétent. Il examine le litige et propose une solution, sans frais pour vous.",
+          "**La justice** : en dernier recours, le litige peut être porté devant le tribunal compétent. Pour des montants de cet ordre la procédure reste accessible, et les chances d'aboutir sont élevées quand le droit est de votre côté.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Chacune de ces étapes demande du temps, des arguments juridiques et de la persévérance. C'est précisément ce que prend en charge un service spécialisé.",
+      },
       { type: "h2", text: "Option 2 : passer par un service spécialisé" },
       {
         type: "p",
@@ -684,6 +702,8 @@ export const ARTICLES_BLOG: ArticleBlog[] = [
       { q: "Pourquoi les compagnies refusent-elles souvent ?", a: "Un refus, même mal fondé, décourage une partie des demandeurs. Formulaires complexes, motifs vagues et lenteurs servent à filtrer les réclamations." },
       { q: "Combien prend un service comme Air Assist ?", a: "Rien à l'avance : une commission est prélevée uniquement sur l'indemnité effectivement obtenue. Sans résultat, vous ne payez rien." },
       { q: "Que se passe-t-il si je perds ?", a: "Avec un service « sans gain sans frais », vous ne devez rien si la réclamation n'aboutit pas : aucun risque financier." },
+      { q: "La compagnie refuse de m'indemniser, que faire ?", a: "Relancez par écrit en citant le règlement EC 261/2004, puis adressez une mise en demeure en recommandé. Ensuite, le médiateur du tourisme et du voyage peut être saisi gratuitement, et le tribunal en dernier recours." },
+      { q: "Le médiateur du tourisme est-il payant ?", a: "Non, la saisine du médiateur est gratuite pour le passager, à condition que la compagnie adhère au dispositif." },
     ],
     liens: [
       { href: "/blog/circonstances-exceptionnelles-indemnisation-vol", label: "Circonstances exceptionnelles" },

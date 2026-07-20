@@ -91,7 +91,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
         items={[
           { href: "/bareme-indemnisation", label: "Barème d'indemnisation" },
           { href: "/indemnisation-vol-retarde", label: "Retard de vol" },
-          { href: "/blog/regle-3-heures-retard", label: "La règle des 3 heures" },
+          { href: "/blog/vol-retarde-plus-3-heures-indemnisation", label: "La règle des 3 heures" },
         ]}
       />
       <div className="py-10" />

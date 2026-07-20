@@ -30,12 +30,10 @@ const PAGES_SEO_FR = [
   "/indemnisation-surbooking",
   "/indemnisation-correspondance-ratee",
   "/bareme-indemnisation",
-  "/blog/droits-vol-retarde",
-  "/blog/delai-indemnisation-vol",
-  "/blog/circonstances-extraordinaires",
-  "/blog/compagnie-refuse-indemnisation",
+  // Seul article de 1re génération conservé : il cible le périmètre du règlement
+  // (« à qui s'applique EC 261/2004 »), intention qu'aucun article pilier ne couvre.
+  // Les 5 autres sont redirigés en 301 (cf. REDIRECTS_BLOG dans middleware.ts).
   "/blog/reglement-ec-261-2004",
-  "/blog/regle-3-heures-retard",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

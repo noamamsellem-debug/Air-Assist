@@ -34,6 +34,21 @@ const REDIRECTS_COMPAGNIES: Record<string, string> = {
   "/fr/aeroport/lille": "/fr/vol-retarde-lille-indemnisation",
 };
 
+// Anciens articles de blog (1re génération) → articles piliers enrichis.
+// Ils traitaient la même intention de recherche avec un contenu plus pauvre :
+// on concentre le jus SEO sur un seul article par sujet.
+const REDIRECTS_BLOG: Record<string, string> = {
+  "/fr/blog/circonstances-extraordinaires":
+    "/fr/blog/circonstances-exceptionnelles-indemnisation-vol",
+  "/fr/blog/regle-3-heures-retard": "/fr/blog/vol-retarde-plus-3-heures-indemnisation",
+  "/fr/blog/droits-vol-retarde": "/fr/blog/vol-retarde-plus-3-heures-indemnisation",
+  "/fr/blog/delai-indemnisation-vol": "/fr/blog/delai-reclamation-indemnisation-vol",
+  // L'escalade juridique de cet article (mise en demeure, médiateur, justice) a
+  // été réinjectée dans l'article cible : aucune perte de contenu.
+  "/fr/blog/compagnie-refuse-indemnisation":
+    "/fr/blog/reclamer-indemnisation-soi-meme-ou-service",
+};
+
 /** Le chemin relève-t-il de l'i18n (pages publiques) ? (mêmes exclusions qu'avant) */
 function estPageIntl(pathname: string): boolean {
   if (pathname.startsWith("/api") || pathname.startsWith("/admin")) return false;
@@ -53,8 +68,10 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(cible, 301);
   }
 
-  // Redirection 301 des anciennes URLs compagnies vers les nouvelles pages.
-  const redirCompagnie = REDIRECTS_COMPAGNIES[req.nextUrl.pathname];
+  // Redirection 301 des anciennes URLs (compagnies, aéroports, blog) vers les
+  // nouvelles pages enrichies.
+  const redirCompagnie =
+    REDIRECTS_COMPAGNIES[req.nextUrl.pathname] ?? REDIRECTS_BLOG[req.nextUrl.pathname];
   if (redirCompagnie) {
     const url = req.nextUrl.clone();
     url.pathname = redirCompagnie;
