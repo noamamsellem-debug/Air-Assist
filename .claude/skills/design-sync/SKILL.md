@@ -1,50 +1,104 @@
 ---
 name: design-sync
-description: Système de design « premium SaaS » d'Air Assist (inspiré des leaders type AirHelp, sans copie). À invoquer pour créer/moderniser une page ou un composant en cohérence visuelle avec le reste du site — gradients, cartes, badges de confiance, timeline, slider d'indemnité, typographie.
+description: Système de design « Tableau des départs » d'Air Assist — identité tirée du vocabulaire aérien (affichage des départs, statuts, codes IATA). À invoquer pour créer ou moderniser une page ou un composant PUBLIC en cohérence avec le reste du site : tokens, tableau d'affichage, estimateur, cartes, typographie.
 ---
 
 # Design Sync — charte visuelle Air Assist
 
-Playbook pour garder TOUT le site cohérent et « premium SaaS ». S'inspire des
-leaders du secteur (AirHelp, Compensair…) **sans copier** textes, logos ni
-illustrations. Marque = **Air Assist**, ton rassurant et professionnel.
+Direction **« Tableau des départs »**. Le site énonce des statuts, il ne vend pas.
+Marque = **Air Assist**. Périmètre : **pages publiques uniquement** — le CRM
+(`/admin`) garde l'ancienne charte `brand` et n'est pas concerné.
 
-## 1. Tokens (définis dans `tailwind.config.ts`)
-- `brand` : bleu principal (`brand-500 #1f6feb`, `brand-600`, `brand-900`).
-- `accent` : magenta/corail pour le dégradé hero et les accents (`accent-500`).
-- `ink` : gris-bleu foncé pour le texte (`slate-900`).
-Ne jamais coder une couleur en dur : passer par les tokens.
+## 0. Le principe qui prime sur tout
 
-## 2. Classes utilitaires (dans `globals.css`)
-- `.hero-gradient` : dégradé diagonal bleu profond → bleu → magenta + voile radial. Texte blanc.
-- `.section` : `mx-auto max-w-6xl px-4 py-16` (rythme vertical homogène).
-- `.eyebrow` : petit label majuscule coloré au-dessus des titres de section.
-- `.card` : carte blanche arrondie `rounded-2xl` + ombre douce + bord léger.
-- `.card-hover` : `.card` + élévation au survol.
-- `.trust-pill` : pastille blanche arrondie avec icône + texte (signaux de confiance).
-- `.btn-primary` / `.btn-secondary` : boutons (déjà définis).
+Le site est **clair**. Le tableau sombre est un **objet posé dedans** (hero,
+estimateur, suivi de dossier), **jamais un fond de page**. L'audience inclut des
+personnes âgées : la lisibilité passe avant l'effet.
 
-## 3. Règles de composition
-- **Hero** : `.hero-gradient`, eyebrow + H1 très gras (`text-4xl`→`text-6xl`),
-  sous-titre clair, encart de recherche/CTA en carte blanche posée sur le dégradé,
-  rangée de `.trust-pill` dessous. Badge avis (étoiles) en haut.
-- **Sections** : alterner fonds `bg-white` et `bg-slate-50`. Chaque section :
-  `.eyebrow` → H2 (`text-3xl font-extrabold`) → intro `text-slate-600` → contenu.
-- **Cartes** : `rounded-2xl`, icône en pastille colorée (`bg-brand-50 text-brand-600`),
-  titre `font-semibold`, texte `text-sm text-slate-600`, stat/chiffre en bas en `font-semibold`.
-- **Timeline « comment ça marche »** : noeuds numérotés reliés par une ligne verticale.
-- **Slider d'indemnité** : carte dégradé bleu, gros montant `€`, piste avec graduations.
-- **CTA final** : pleine largeur, fond fort ou image, titre blanc + bouton contrasté.
+## 1. Sémantique des couleurs (à ne pas détourner)
 
-## 4. Accessibilité & i18n
-- Tout texte passe par `next-intl` (19 langues) — jamais de texte en dur.
-- Contraste AA minimum ; icônes décoratives en `aria-hidden`.
-- Composants interactifs (slider, accordéon) = `"use client"`, focus visible.
+| Token | Sens | Emploi |
+|---|---|---|
+| `ambre` | **le problème** | Retard, annulation, dossier en attente. **Jamais un CTA, jamais un succès.** |
+| `vol` | **l'action et la bonne nouvelle** | Boutons, liens, indemnité versée, dossier gagné. |
+| `alerte` | échec ferme | Annulation confirmée, erreur de formulaire. |
+| `board` | matière du tableau | Fonds sombres des objets « tableau ». |
+| `ink` | texte et surfaces claires | Aucun sens métier. |
 
-## 5. Process pour moderniser une page
-1. Lire la page + repérer les sections.
-2. Réutiliser les composants partagés (`TrustBar`, `HowTimeline`, `DisruptionCards`,
-   `CompensationSlider`, `SectionHeading`) avant d'en créer de nouveaux.
-3. Ajouter les clés i18n manquantes dans les 19 fichiers `messages/*.json`
-   (FR/EN/ES traduits, repli anglais pour le reste).
-4. `npm run typecheck && npm run build` doit rester vert.
+La règle qui compte : **on ne baigne pas une bonne nouvelle dans une couleur
+d'avertissement**. Un montant d'indemnité, un dossier gagné, un bouton : `vol`.
+
+`brand` / `accent` sont **réservés au CRM**. Ne pas les utiliser sur le public.
+Jamais de couleur en dur — tout passe par les tokens de `tailwind.config.ts`.
+
+## 2. Typographie
+
+- `font-display` — **Archivo** (600/700/800). Titres uniquement, graisses lourdes,
+  interlettrage resserré. Les tailles `text-display-*` portent déjà graisse et tracking.
+- `font-sans` — **Inter**. Texte courant, petits corps.
+- `font-mono` — **IBM Plex Mono**. Registre technique du tableau : codes IATA,
+  heures, statuts, références de dossier, montants qui défilent. Les labels
+  d'affichage utilisent `text-board-label` (majuscules espacées).
+
+Chargées par `next/font` dans `src/app/[locale]/layout.tsx` → variables CSS.
+Ne pas ajouter de police sans passer par `next/font`.
+
+## 3. Classes utilitaires (`globals.css`)
+
+- `.board` — le tableau d'affichage (objet sombre). `.on-board` sur un conteneur
+  bascule l'anneau de focus en ambre pour rester visible sur fond sombre.
+- `.board-row` / `.board-label` / `.board-statut` + modificateurs
+  `--perturbe` (ambre) · `--encours` · `--reussi` (vert) · `--attente`.
+- `.section` (rythme vertical), `.eyebrow`, `.card`, `.card-hover`.
+- `.btn-primary` (vert), `.btn-secondary`, `.btn-light` (sur le tableau).
+- `.input` / `.input-board`, `.label` / `.label-board`.
+- `.trust-pill` / `.trust-pill-board`.
+- `.prose-seo` — contenu éditorial : mesure `max-w-prose` (68ch), interlignage
+  1.75, puces en tiret. C'est ~1000 mots par page, le confort prime.
+
+## 4. Composition
+
+- **Hero** : pas d'aplat dégradé plein écran. Le titre porte le message
+  (`text-display-xl`, très resserré), la couleur est réservée à l'action.
+  **Une seule action principale**, visible sans scroller.
+- **Sections** : fond blanc par défaut, `bg-ink-50` pour alterner. Rythme
+  `py-section`. Enchaînement : `.eyebrow` → H2 → intro `text-ink-600` → contenu.
+- **Statuts** : tout ce qui est un état (dossier, vol) se rend en `.board-statut`,
+  jamais en carte colorée improvisée.
+- **CTA final** : `.board` pleine largeur, titre blanc, `.btn-primary`.
+
+## 5. Motion
+
+Trois durées : `duration-fast` (120 ms, couleurs), `duration-base` (220 ms,
+élévation), `duration-slow` (420 ms, apparitions). Une seule courbe, `ease-flap`.
+L'animation soignée est **celle du montant de l'estimateur** ; le reste est
+discret. `prefers-reduced-motion` est neutralisé globalement dans `globals.css` —
+ne pas réintroduire d'animation qui l'ignore.
+
+## 6. Accessibilité & i18n
+
+- Tout texte public passe par `next-intl` — ajouter la clé dans **les 19**
+  fichiers `messages/*.json` (FR/EN/ES traduits, repli anglais ailleurs).
+- Contraste **AA** minimum. Attention à l'ambre sur fond clair : `ambre-500` ne
+  passe pas en texte sur blanc, utiliser `ambre-700` (ou l'ambre sur le tableau
+  sombre, où il passe largement).
+- Focus visible partout : l'anneau est défini globalement, ne pas le supprimer.
+- Responsive jusqu'à **360 px**.
+- Icônes décoratives en `aria-hidden`.
+
+## 7. Process pour moderniser une page
+
+1. Lire la page, repérer les sections.
+2. Réutiliser les composants partagés avant d'en créer : `SplitFlapAmount`,
+   `StatusBoard`, `Calculator`, `SectionHeading`, `TrustBar`, `HowTimeline`,
+   `DisruptionCards`, et les briques SEO de `components/seo/SeoPage.tsx`.
+3. Ajouter les clés i18n manquantes dans les 19 fichiers.
+4. `npm run typecheck && npm test && npm run build` doit rester vert.
+
+## 8. Interdits
+
+- Pas de dégradé plein écran (c'est ce qu'on a quitté).
+- Pas de site sombre : le tableau reste un objet.
+- Pas de chiffre de réassurance inventé — les compteurs sont branchés sur des
+  données réelles et **masqués tant que le volume est nul**.
+- Pas de dépendance d'animation lourde.

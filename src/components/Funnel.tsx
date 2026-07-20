@@ -399,8 +399,8 @@ export function Funnel() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-10 text-center">
         <p className="text-4xl">🎉</p>
-        <h1 className="mt-3 text-3xl font-extrabold text-slate-900">{t("confirmTitle")}</h1>
-        <p className="mt-3 text-slate-600">{t("confirmText", { reference })}</p>
+        <h1 className="mt-3 text-3xl font-extrabold text-ink-900">{t("confirmTitle")}</h1>
+        <p className="mt-3 text-ink-600">{t("confirmText", { reference })}</p>
         <Link href="/suivi" className="btn-primary mt-6 inline-flex">{t("trackLink")}</Link>
       </div>
     );
@@ -410,9 +410,9 @@ export function Funnel() {
     <div className="mx-auto max-w-2xl px-4 py-10">
       {etape >= 1 && etape <= TOTAL && (
         <div className="mb-6">
-          <p className="mb-1 text-xs text-slate-500">{t("progress", { current: etape, total: TOTAL })}</p>
-          <div className="h-1.5 w-full rounded-full bg-slate-200">
-            <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${(etape / TOTAL) * 100}%` }} />
+          <p className="mb-1 text-xs text-ink-500">{t("progress", { current: etape, total: TOTAL })}</p>
+          <div className="h-1.5 w-full rounded-full bg-ink-200">
+            <div className="h-full rounded-full bg-vol-600 transition-all" style={{ width: `${(etape / TOTAL) * 100}%` }} />
           </div>
         </div>
       )}
@@ -423,14 +423,14 @@ export function Funnel() {
             {montantEstime > 0 ? (
               <>
                 <h1 className="text-xl font-bold">{t("recapTitle")}</h1>
-                <p className="mt-3 text-xs uppercase tracking-wide text-slate-500">{t("recapAmount")}</p>
+                <p className="mt-3 text-xs uppercase tracking-wide text-ink-500">{t("recapAmount")}</p>
                 <p className="text-4xl font-extrabold text-green-700">{montantFmt}</p>
-                <p className="mt-2 text-sm text-slate-500">{distanceKm} km</p>
+                <p className="mt-2 text-sm text-ink-500">{distanceKm} km</p>
               </>
             ) : (
               <>
                 <h1 className="text-xl font-bold">{t("startTitle")}</h1>
-                <p className="mt-3 text-sm text-slate-600">{t("startIntro")}</p>
+                <p className="mt-3 text-sm text-ink-600">{t("startIntro")}</p>
               </>
             )}
             <button className="btn-primary mt-6 w-full" onClick={() => setEtape(1)}>{t("recapStart")}</button>
@@ -461,7 +461,7 @@ export function Funnel() {
                 <div className="flex gap-2">
                   {(["M", "Mme", "Autre"] as const).map((c) => (
                     <button key={c} type="button" onClick={() => setCivilite(c)}
-                      className={`flex-1 rounded-lg border px-3 py-2 text-sm ${civilite === c ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+                      className={`flex-1 rounded-lg border px-3 py-2 text-sm ${civilite === c ? "border-vol-500 bg-vol-100 font-semibold" : "border-ink-300"}`}>
                       {t(c === "M" ? "civiliteM" : c === "Mme" ? "civiliteMme" : "civiliteAutre")}
                     </button>
                   ))}
@@ -509,16 +509,16 @@ export function Funnel() {
                   <option key={n} value={n}>{n}</option>
                 ))}
               </select>
-              <p className="mt-1 text-xs text-slate-500">{t("nbPassengersHelp")}</p>
+              <p className="mt-1 text-xs text-ink-500">{t("nbPassengersHelp")}</p>
             </div>
 
             {/* Co-passagers répétables (facultatif), plafonnés à nbPassagers − 1 */}
             {nbPassagers > 1 && (
               <section className="mt-4">
-                <h3 className="font-semibold text-slate-800">{t("coPassengersTitle")}</h3>
+                <h3 className="font-semibold text-ink-800">{t("coPassengersTitle")}</h3>
                 <div className="mt-3 space-y-3">
                   {coPassagers.map((p, i) => (
-                    <div key={i} className="rounded-lg border border-slate-200 p-3">
+                    <div key={i} className="rounded-lg border border-ink-200 p-3">
                       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                         <input className="input" placeholder={t("prenom")} value={p.prenom}
                           onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, prenom: e.target.value } : x)))} />
@@ -528,7 +528,7 @@ export function Funnel() {
                           onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, email: e.target.value } : x)))} />
                       </div>
                       <div className="mt-2 flex items-center justify-between">
-                        <label className="flex items-center gap-2 text-sm text-slate-600">
+                        <label className="flex items-center gap-2 text-sm text-ink-600">
                           <input type="checkbox" checked={p.mineur}
                             onChange={(e) => setCoPassagers((prev) => prev.map((x, j) => (j === i ? { ...x, mineur: e.target.checked } : x)))} />
                           {t("coMineur")}
@@ -542,7 +542,7 @@ export function Funnel() {
                   ))}
                 </div>
                 {coPassagers.length < nbPassagers - 1 && (
-                  <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+                  <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-ink-300 px-3 py-2 text-sm font-semibold text-vol-700 hover:bg-vol-100"
                     onClick={() => setCoPassagers((prev) => [...prev, { prenom: "", nom: "", email: "", mineur: false }])}>
                     + {t("coAdd")}
                   </button>
@@ -561,42 +561,42 @@ export function Funnel() {
         {etape === 4 && (
           <div>
             <h2 className="text-lg font-bold">{t("documentsTitle")}</h2>
-            <p className="mt-1 text-sm text-slate-500">{t("documentsIntro")}</p>
+            <p className="mt-1 text-sm text-ink-500">{t("documentsIntro")}</p>
 
             {/* Groupe 1 : pièce d'identité */}
             <section className="mt-5">
-              <h3 className="font-semibold text-slate-800">{t("idGroupTitle")}</h3>
+              <h3 className="font-semibold text-ink-800">{t("idGroupTitle")}</h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {(Object.keys(LABELS_ID) as SousId[]).map((s) => (
                   <button key={s} type="button" onClick={() => setPieceSousType(s)}
-                    className={`rounded-lg border px-3 py-1.5 text-sm ${pieceSousType === s ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+                    className={`rounded-lg border px-3 py-1.5 text-sm ${pieceSousType === s ? "border-vol-500 bg-vol-100 font-semibold" : "border-ink-300"}`}>
                     {t(LABELS_ID[s])}
                   </button>
                 ))}
               </div>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 <DocIllustration variante="identite" />
-                <p className="text-sm text-slate-600">{t(LEGENDES_ID[pieceSousType])}</p>
+                <p className="text-sm text-ink-600">{t(LEGENDES_ID[pieceSousType])}</p>
               </div>
               <FileField t={t} doc={pieceDoc} onPick={(file) => setPieceDoc({ file, erreur: validerFichier(file) })} />
             </section>
 
             {/* Groupe 2 : justificatif de voyage */}
             <section className="mt-6">
-              <h3 className="font-semibold text-slate-800">{t("voyageGroupTitle")}</h3>
+              <h3 className="font-semibold text-ink-800">{t("voyageGroupTitle")}</h3>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 <DocIllustration variante="voyage" />
-                <p className="text-sm text-slate-600">{t("legendCarteEmb")}</p>
+                <p className="text-sm text-ink-600">{t("legendCarteEmb")}</p>
               </div>
               <div className="mt-3 space-y-4">
                 {voyages.map((v, i) => (
-                  <div key={i} className="rounded-lg border border-slate-200 p-3">
+                  <div key={i} className="rounded-lg border border-ink-200 p-3">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="flex gap-2">
                         {(["CARTE_EMBARQUEMENT", "CONFIRMATION_RESERVATION"] as SousVoyage[]).map((s) => (
                           <button key={s} type="button"
                             onClick={() => setVoyages((prev) => prev.map((x, j) => (j === i ? { ...x, sousType: s } : x)))}
-                            className={`rounded-lg border px-3 py-1.5 text-xs ${v.sousType === s ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+                            className={`rounded-lg border px-3 py-1.5 text-xs ${v.sousType === s ? "border-vol-500 bg-vol-100 font-semibold" : "border-ink-300"}`}>
                             {t(s === "CARTE_EMBARQUEMENT" ? "subCarteEmb" : "subConfResa")}
                           </button>
                         ))}
@@ -613,7 +613,7 @@ export function Funnel() {
                   </div>
                 ))}
               </div>
-              <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+              <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-ink-300 px-3 py-2 text-sm font-semibold text-vol-700 hover:bg-vol-100"
                 onClick={() => setVoyages((prev) => [...prev, { sousType: "CARTE_EMBARQUEMENT", doc: docVide() }])}>
                 + {t("addAnother")}
               </button>
@@ -621,20 +621,20 @@ export function Funnel() {
 
             {/* Justificatif de retard (optionnel) */}
             <section className="mt-6">
-              <h3 className="font-semibold text-slate-800">{t("retardTitle")}</h3>
-              <p className="mt-1 text-sm text-slate-500">{t("retardHelp")}</p>
+              <h3 className="font-semibold text-ink-800">{t("retardTitle")}</h3>
+              <p className="mt-1 text-sm text-ink-500">{t("retardHelp")}</p>
               <FileField t={t} doc={retardDoc} onPick={(file) => setRetardDoc({ file, erreur: validerFichier(file) })} />
             </section>
 
             {/* Justificatifs de frais (optionnel, répétable) → AUTRE / JUSTIFICATIF_FRAIS */}
             <section className="mt-6">
-              <h3 className="font-semibold text-slate-800">{t("fraisTitle")}</h3>
-              <p className="mt-1 text-sm text-slate-500">{t("fraisHelp")}</p>
+              <h3 className="font-semibold text-ink-800">{t("fraisTitle")}</h3>
+              <p className="mt-1 text-sm text-ink-500">{t("fraisHelp")}</p>
               <div className="mt-3 space-y-3">
                 {fraisDocs.map((d, i) => (
-                  <div key={i} className="rounded-lg border border-slate-200 p-3">
+                  <div key={i} className="rounded-lg border border-ink-200 p-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">#{i + 1}</span>
+                      <span className="text-sm text-ink-600">#{i + 1}</span>
                       <button type="button" className="text-xs text-red-600 hover:underline"
                         onClick={() => setFraisDocs((prev) => prev.filter((_, j) => j !== i))}>
                         {t("removeSegment")}
@@ -646,7 +646,7 @@ export function Funnel() {
                 ))}
               </div>
               {fraisDocs.length < 8 && (
-                <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+                <button type="button" className="mt-3 w-full rounded-lg border border-dashed border-ink-300 px-3 py-2 text-sm font-semibold text-vol-700 hover:bg-vol-100"
                   onClick={() => setFraisDocs((prev) => [...prev, docVide()])}>
                   + {t("fraisAdd")}
                 </button>
@@ -665,7 +665,7 @@ export function Funnel() {
         {etape === 5 && (
           <div className="space-y-4">
             <h2 className="text-lg font-bold">{t("mandatTitle")}</h2>
-            <p className="text-sm text-slate-700">{t("mandatIntro")}</p>
+            <p className="text-sm text-ink-700">{t("mandatIntro")}</p>
 
             {/* Mandat complet pré-rempli (texte juridique FR qui fait foi). */}
             <MandatTexte prenom={prenom} nom={nom} locale={locale} />
@@ -676,7 +676,7 @@ export function Funnel() {
                 {t.rich("consentRgpd", {
                   lien: (c) => (
                     <Link href="/confidentialite" target="_blank" rel="noopener noreferrer"
-                      className="font-medium text-brand-600 underline" onClick={(e) => e.stopPropagation()}>{c}</Link>
+                      className="font-medium text-vol-700 underline" onClick={(e) => e.stopPropagation()}>{c}</Link>
                   ),
                 })}
               </span>
@@ -687,7 +687,7 @@ export function Funnel() {
                 {t.rich("accepteCgv", {
                   lien: (c) => (
                     <Link href="/cgv" target="_blank" rel="noopener noreferrer"
-                      className="font-medium text-brand-600 underline" onClick={(e) => e.stopPropagation()}>{c}</Link>
+                      className="font-medium text-vol-700 underline" onClick={(e) => e.stopPropagation()}>{c}</Link>
                   ),
                 })}
               </span>
@@ -716,7 +716,7 @@ export function Funnel() {
                 <option value="autre">{t("sourceAutre")}</option>
               </select>
             </div>
-            <p className="rounded-lg bg-slate-50 p-3 text-xs text-slate-500">{t("ipNote")}</p>
+            <p className="rounded-lg bg-ink-50 p-3 text-xs text-ink-500">{t("ipNote")}</p>
             <Nav t={t} onBack={() => setEtape(4)} onNext={() => setEtape(6)} nextDisabled={!(consentRgpd && accepteCgv && nomSignature.trim().length >= 1)} />
           </div>
         )}
@@ -750,7 +750,7 @@ function Nav({ t, onBack, onNext, nextDisabled }: { t: Tt; onBack: () => void; o
 function FileField({ t, doc, onPick }: { t: Tt; doc: DocFichier; onPick: (f: File | null) => void }) {
   return (
     <div className="mt-3">
-      <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-brand-300 px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">
+      <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-300 px-3 py-2 text-sm font-medium text-vol-700 hover:bg-vol-100">
         ⬆️ {doc.file ? `${t("chosen")} : ${doc.file.name}` : t("upload")}
         <input type="file" accept="application/pdf,image/jpeg,image/png,image/webp" className="hidden"
           onChange={(e) => onPick(e.target.files?.[0] ?? null)} />
@@ -769,8 +769,8 @@ function MandatTexte({ prenom, nom, locale }: { prenom: string; nom: string; loc
   const nomComplet = `${prenom} ${nom}`.trim() || "[nom et prénom]";
   const date = new Date().toLocaleDateString(locale);
   return (
-    <div className="max-h-72 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-4 text-xs leading-relaxed text-slate-700">
-      <p className="font-semibold text-slate-900">Mandat de représentation et de cession de créance</p>
+    <div className="max-h-72 overflow-y-auto rounded-lg border border-ink-200 bg-ink-50 p-4 text-xs leading-relaxed text-ink-700">
+      <p className="font-semibold text-ink-900">Mandat de représentation et de cession de créance</p>
       <p className="mt-2">
         En cochant la case « J'accepte », je confirme avoir lu et accepté les conditions suivantes :
       </p>
@@ -817,7 +817,7 @@ function EtapeTrajet(props: {
         {(["DIRECT", "CORRESPONDANCE"] as const).map((tt) => (
           <button key={tt} type="button"
             onClick={() => { setTypeTrajet(tt); if (tt === "CORRESPONDANCE" && segments.length < 2) setSegments([...segments, segmentVide(segments[0]?.date ?? "")]); }}
-            className={`flex-1 rounded-lg border px-3 py-2 text-sm ${typeTrajet === tt ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+            className={`flex-1 rounded-lg border px-3 py-2 text-sm ${typeTrajet === tt ? "border-vol-500 bg-vol-100 font-semibold" : "border-ink-300"}`}>
             {t(tt === "DIRECT" ? "typeDirect" : "typeCorrespondance")}
           </button>
         ))}
@@ -825,7 +825,7 @@ function EtapeTrajet(props: {
 
       <div className="mt-4 space-y-4">
         {segments.map((s, i) => (
-          <div key={i} className="rounded-lg border border-slate-200 p-3">
+          <div key={i} className="rounded-lg border border-ink-200 p-3">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">{t("segment", { n: i + 1 })}</span>
               {segments.length > 1 && (
@@ -859,7 +859,7 @@ function EtapeTrajet(props: {
                     majSegment(i, patch);
                   }}
                 />
-                <p className="mt-1 text-xs text-slate-500">{t("flightNumberHelp")}</p>
+                <p className="mt-1 text-xs text-ink-500">{t("flightNumberHelp")}</p>
               </div>
               <div><label className="label">{t("segDate")}</label><input type="date" className="input" value={s.date} onChange={(e) => majSegment(i, { date: e.target.value })} /></div>
               <div />
@@ -869,7 +869,7 @@ function EtapeTrajet(props: {
           </div>
         ))}
         {typeTrajet === "CORRESPONDANCE" && (
-          <button type="button" className="w-full rounded-lg border border-dashed border-brand-300 px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+          <button type="button" className="w-full rounded-lg border border-dashed border-ink-300 px-3 py-2 text-sm font-semibold text-vol-700 hover:bg-vol-100"
             onClick={() => setSegments([...segments, segmentVide()])}>
             + {t("addSegment")}
           </button>
@@ -882,7 +882,7 @@ function EtapeTrajet(props: {
           <div className="flex gap-2">
             {[true, false].map((v) => (
               <button key={String(v)} type="button" onClick={() => setReservationUnique(v)}
-                className={`flex-1 rounded-lg border px-3 py-2 text-sm ${reservationUnique === v ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+                className={`flex-1 rounded-lg border px-3 py-2 text-sm ${reservationUnique === v ? "border-vol-500 bg-vol-100 font-semibold" : "border-ink-300"}`}>
                 {t(v ? "yes" : "no")}
               </button>
             ))}
@@ -894,7 +894,7 @@ function EtapeTrajet(props: {
         <div>
           <label className="label">{t("pnrLabel")}</label>
           <input className="input uppercase" maxLength={6} value={pnr} onChange={(e) => setPnr(e.target.value)} />
-          <p className="mt-1 text-xs text-slate-500">{t("pnrHelp")}</p>
+          <p className="mt-1 text-xs text-ink-500">{t("pnrHelp")}</p>
         </div>
         <div>
           <label className="label">{t("motifLabel")}</label>
@@ -914,7 +914,7 @@ function EtapeTrajet(props: {
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {(["MOINS3", "DE3A4", "PLUS4", "JAMAIS"] as RetardChoix[]).map((opt) => (
               <button key={opt} type="button" onClick={() => setRetard(opt)}
-                className={`rounded-lg border px-4 py-3 text-left text-sm transition ${retard === opt ? "border-brand-500 bg-brand-50 font-semibold text-brand-800" : "border-slate-300 hover:bg-slate-50"}`}>
+                className={`rounded-lg border px-4 py-3 text-left text-sm transition ${retard === opt ? "border-vol-500 bg-vol-100 font-semibold text-vol-700" : "border-ink-300 hover:bg-ink-50"}`}>
                 {t(RETARD_LABELS[opt])}
               </button>
             ))}
@@ -961,7 +961,7 @@ function EtapeTrajet(props: {
         <div className="flex gap-2">
           {[true, false].map((v) => (
             <button key={String(v)} type="button" onClick={() => setDejaContacteCompagnie(v)}
-              className={`flex-1 rounded-lg border px-3 py-2 text-sm ${dejaContacteCompagnie === v ? "border-brand-500 bg-brand-50 font-semibold" : "border-slate-300"}`}>
+              className={`flex-1 rounded-lg border px-3 py-2 text-sm ${dejaContacteCompagnie === v ? "border-vol-500 bg-vol-100 font-semibold" : "border-ink-300"}`}>
               {t(v ? "yes" : "no")}
             </button>
           ))}
@@ -985,7 +985,7 @@ function EtapeRecap(props: {
   return (
     <div>
       <h2 className="text-lg font-bold">{t("recapPageTitle")}</h2>
-      <p className="mt-1 text-sm text-slate-500">{t("recapPageIntro")}</p>
+      <p className="mt-1 text-sm text-ink-500">{t("recapPageIntro")}</p>
 
       <div className="mt-4 space-y-3">
         <Section t={t} titre={t("secPassager")} onModifier={() => onModifier(2)}>
@@ -999,7 +999,7 @@ function EtapeRecap(props: {
         <Section t={t} titre={t("secVol")} onModifier={() => onModifier(1)}>
           {t(data.typeTrajet === "DIRECT" ? "typeDirect" : "typeCorrespondance")} · PNR {data.pnr.toUpperCase()}<br />
           {data.segments.map((s, i) => (<span key={i}>{s.numeroVol} {s.aeroportDepart}→{s.aeroportArrivee} ({s.date})<br /></span>))}
-          <span className="text-slate-500">{montantFmt}</span>
+          <span className="text-ink-500">{montantFmt}</span>
         </Section>
         <Section t={t} titre={t("secDocs")} onModifier={() => onModifier(4)}>
           {data.nbDocs}
@@ -1007,20 +1007,20 @@ function EtapeRecap(props: {
       </div>
 
       {/* Répartition « no win, no fee » : estimation indicative sur le montant estimé. */}
-      <div className="mt-4 rounded-xl border border-brand-100 bg-brand-50 p-4">
+      <div className="mt-4 rounded-xl border border-ink-200 bg-vol-100 p-4">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-slate-600">{t("recapEstimate")}</span>
-          <span className="font-semibold text-slate-900">{montantFmt}</span>
+          <span className="text-ink-600">{t("recapEstimate")}</span>
+          <span className="font-semibold text-ink-900">{montantFmt}</span>
         </div>
         <div className="mt-2 flex items-center justify-between text-sm">
-          <span className="text-slate-600">{t("recapCommission", { pct: pctCommission })}</span>
-          <span className="font-medium text-slate-700">− {commissionFmt}</span>
+          <span className="text-ink-600">{t("recapCommission", { pct: pctCommission })}</span>
+          <span className="font-medium text-ink-700">− {commissionFmt}</span>
         </div>
-        <div className="mt-2 flex items-center justify-between border-t border-brand-100 pt-2">
-          <span className="font-semibold text-slate-800">{t("recapYourShare", { pct: 100 - pctCommission })}</span>
+        <div className="mt-2 flex items-center justify-between border-t border-ink-200 pt-2">
+          <span className="font-semibold text-ink-800">{t("recapYourShare", { pct: 100 - pctCommission })}</span>
           <span className="text-lg font-extrabold text-green-700">{partClientFmt}</span>
         </div>
-        <p className="mt-2 text-xs text-slate-500">{t("recapCommissionNote")}</p>
+        <p className="mt-2 text-xs text-ink-500">{t("recapCommissionNote")}</p>
       </div>
 
       {!valide && (
@@ -1042,12 +1042,12 @@ function EtapeRecap(props: {
 
 function Section({ t, titre, onModifier, children }: { t: Tt; titre: string; onModifier: () => void; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-slate-200 p-3">
+    <div className="rounded-lg border border-ink-200 p-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-slate-800">{titre}</h3>
-        <button type="button" className="text-xs font-medium text-brand-600 hover:underline" onClick={onModifier}>{t("modify")}</button>
+        <h3 className="text-sm font-semibold text-ink-800">{titre}</h3>
+        <button type="button" className="text-xs font-medium text-vol-700 hover:underline" onClick={onModifier}>{t("modify")}</button>
       </div>
-      <p className="mt-1 text-sm text-slate-600">{children}</p>
+      <p className="mt-1 text-sm text-ink-600">{children}</p>
     </div>
   );
 }

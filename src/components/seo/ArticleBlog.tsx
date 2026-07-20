@@ -2,7 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { SITE_URL } from "@/lib/seo";
-import { EstimationSection, ProseBlocks, FaqSection, type Bloc } from "@/components/seo/SeoPage";
+import {
+  EstimationSection,
+  ProseBlocks,
+  ProseToc,
+  FaqSection,
+  LinkPills,
+  SeoCta,
+  type Bloc,
+} from "@/components/seo/SeoPage";
 import { getArticleBlog } from "@/data/articles-blog";
 
 /** Date ISO → format lisible fr (ex. « 12 février 2026 »). */
@@ -82,29 +90,40 @@ export function ArticleContent({ slug }: { slug: string }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* En-tête */}
-      <section className="home-hero relative overflow-hidden">
-        <div className="mx-auto max-w-3xl px-4 pb-12 pt-12 text-white sm:pt-14">
-          <p className="flex flex-wrap items-center gap-2 text-xs font-medium text-white/80">
-            <span className="rounded-full bg-white/15 px-2.5 py-1 ring-1 ring-white/25">{a.categorie}</span>
+      {/* En-tête : page claire, le titre porte le message (plus de bandeau dégradé). */}
+      <section className="border-b border-ink-200 bg-white">
+        <div className="mx-auto max-w-3xl px-4 pb-10 pt-10 sm:pt-14">
+          <p className="flex flex-wrap items-center gap-2.5 font-mono text-board-label uppercase text-ink-500">
+            <span className="rounded-md bg-vol-100 px-2 py-1 text-vol-700">{a.categorie}</span>
             <span>· {dateFr(a.datePublished)} · {a.lecture} de lecture</span>
           </p>
-          <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">{a.h1}</h1>
-          <p className="mt-4 text-base text-white/85 sm:text-lg">{a.chapo}</p>
+          <h1 className="mt-4 text-display-lg text-ink-900">{a.h1}</h1>
+          <p className="mt-5 max-w-prose text-prose-lg text-ink-600">{a.chapo}</p>
         </div>
       </section>
 
-      <div className="mx-auto max-w-3xl px-4 pt-6">
-        <nav className="text-sm text-slate-500" aria-label="Fil d'Ariane">
-          <Link href="/" className="hover:text-brand-600">Accueil</Link>
-          <span className="px-1.5">›</span>
-          <Link href="/blog" className="hover:text-brand-600">Blog</Link>
-          <span className="px-1.5">›</span>
-          <span className="text-slate-700">{a.categorie}</span>
-        </nav>
-      </div>
+      {/* Fil d'Ariane à trois niveaux (le maillage vers /blog est conservé). */}
+      <nav className="mx-auto max-w-3xl px-4 pt-6 text-sm text-ink-500" aria-label="Fil d'Ariane">
+        <Link href="/" className="transition-colors duration-fast hover:text-vol-700">
+          Accueil
+        </Link>
+        <span className="px-2" aria-hidden>
+          ›
+        </span>
+        <Link href="/blog" className="transition-colors duration-fast hover:text-vol-700">
+          Blog
+        </Link>
+        <span className="px-2" aria-hidden>
+          ›
+        </span>
+        <span className="text-ink-700">{a.categorie}</span>
+      </nav>
 
-      <article className="mx-auto max-w-3xl px-4 py-8">
+      <article className="mx-auto max-w-3xl px-4 py-10">
+        <div className="mb-10">
+          <ProseToc blocks={a.corps} titre="Sommaire" />
+        </div>
+
         <ProseBlocks blocks={avant} />
       </article>
 
@@ -112,7 +131,7 @@ export function ArticleContent({ slug }: { slug: string }) {
       <EstimationSection title="Vérifiez gratuitement votre éligibilité" />
 
       {apres.length > 0 && (
-        <article className="mx-auto max-w-3xl px-4 py-8">
+        <article className="mx-auto max-w-3xl px-4 py-10">
           <ProseBlocks blocks={apres} />
         </article>
       )}
@@ -121,35 +140,16 @@ export function ArticleContent({ slug }: { slug: string }) {
 
       {/* Maillage interne */}
       {a.liens.length > 0 && (
-        <section className="mx-auto mt-12 max-w-3xl px-4">
-          <h2 className="text-lg font-semibold text-slate-900">À lire aussi</h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {a.liens.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-brand-700 transition hover:bg-brand-50"
-                >
-                  {l.label} →
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <LinkPills
+          titre="À lire aussi"
+          items={a.liens.map((l) => ({ href: l.href, label: l.label, accent: true }))}
+        />
       )}
 
-      {/* CTA final */}
-      <section className="mx-auto mt-12 max-w-3xl px-4 pb-16">
-        <div className="home-hero rounded-3xl px-6 py-10 text-center text-white">
-          <h2 className="text-2xl font-extrabold tracking-tight">Un vol perturbé récemment ?</h2>
-          <p className="mx-auto mt-2 max-w-xl text-white/85">
-            Vérifiez gratuitement votre indemnité en 2 minutes. Sans frais si nous n&apos;obtenons rien.
-          </p>
-          <Link href="/reclamation" className="btn-light mt-5 inline-flex">
-            Réclamer mon indemnisation
-          </Link>
-        </div>
-      </section>
+      <SeoCta
+        titre="Un vol perturbé récemment ?"
+        texte="Vérifiez gratuitement votre indemnité en 2 minutes. Sans frais si nous n'obtenons rien."
+      />
     </>
   );
 }

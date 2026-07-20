@@ -35,7 +35,7 @@ function Contenu() {
       </p>
       <p>
         Pour toute question :{" "}
-        <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>
+        <a className="text-vol-700 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>
       </p>
     </LegalShell>
   );

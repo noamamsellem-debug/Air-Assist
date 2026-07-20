@@ -68,13 +68,13 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:text-brand-600">Air Assist</Link> · {c.nom}
+      <nav className="text-sm text-ink-500">
+        <Link href="/" className="hover:text-vol-700">Air Assist</Link> · {c.nom}
       </nav>
       <h1 className="mt-2 text-3xl font-bold">
         Vol {c.nom} retardé ou annulé : votre indemnité
       </h1>
-      <p className="mt-4 text-slate-600">
+      <p className="mt-4 text-ink-600">
         Un vol {c.nom} retardé de plus de 3 heures, annulé ou surbooké peut ouvrir droit à une
         indemnité de 250 € à 600 € au titre du règlement européen EC 261/2004.
       </p>
@@ -97,7 +97,7 @@ export default async function Page({
             <li key={x.code}>
               <Link
                 href={`/compagnies/${x.code.toLowerCase()}`}
-                className="rounded-full bg-slate-100 px-3 py-1 hover:bg-slate-200"
+                className="rounded-full bg-ink-100 px-3 py-1 hover:bg-ink-200"
               >
                 {x.nom}
               </Link>

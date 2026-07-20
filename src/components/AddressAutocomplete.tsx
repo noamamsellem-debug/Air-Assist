@@ -113,19 +113,19 @@ export function AddressAutocomplete({
           onChange={(e) => setRequete(e.target.value)}
           onFocus={() => suggestions.length > 0 && setOuvert(true)}
         />
-        {chargement && <p className="mt-1 text-xs text-slate-400">{t("loading")}</p>}
+        {chargement && <p className="mt-1 text-xs text-ink-400">{t("loading")}</p>}
         {erreur && <p className="mt-1 text-xs text-amber-600">{t("error")}</p>}
         {ouvert && !erreur && suggestions.length === 0 && !chargement && requete.trim().length >= 3 && (
-          <p className="mt-1 text-xs text-slate-400">{t("noResults")}</p>
+          <p className="mt-1 text-xs text-ink-400">{t("noResults")}</p>
         )}
         {ouvert && suggestions.length > 0 && (
-          <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-slate-200 bg-white shadow-lg">
+          <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-ink-200 bg-white shadow-lg">
             {suggestions.map((s, i) => (
               <li key={`${s.label}-${i}`}>
                 <button
                   type="button"
                   onClick={() => choisir(s)}
-                  className="block w-full px-3 py-2 text-left text-sm hover:bg-brand-50"
+                  className="block w-full px-3 py-2 text-left text-sm hover:bg-vol-100"
                 >
                   {s.label}
                 </button>

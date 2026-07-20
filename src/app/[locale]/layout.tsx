@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Archivo, Inter, IBM_Plex_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -7,6 +8,29 @@ import { SITE_URL } from "@/lib/seo";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CookieBanner } from "@/components/CookieBanner";
+
+/**
+ * Polices auto-hébergées par next/font (aucune requête vers Google, pas de
+ * FOUT) et exposées en variables CSS consommées par tailwind.config.ts.
+ * `display: "swap"` + sous-ensemble latin : coût réseau minimal.
+ */
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -74,7 +98,10 @@ export default async function LocaleLayout({
   ];
 
   return (
-    <html lang={locale}>
+    <html
+      lang={locale}
+      className={`${archivo.variable} ${inter.variable} ${plexMono.variable}`}
+    >
       <body className="flex min-h-screen flex-col">
         <script
           type="application/ld+json"

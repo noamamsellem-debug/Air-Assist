@@ -43,7 +43,7 @@ function Contenu() {
         estimations</strong> et ne constituent pas une garantie d'indemnisation.
       </p>
       <h2 className="text-xl font-semibold">Article 4 — Commission et reversement (« no win, no fee »)</h2>
-      <p className="rounded-lg bg-brand-50 p-4 font-medium text-brand-900">
+      <p className="rounded-lg bg-vol-100 p-4 font-medium text-vol-800">
         En cas de succès, AirAssist perçoit une commission de <strong>30 % TTC</strong> du montant de
         l'indemnité effectivement obtenue ; le passager perçoit <strong>70 %</strong>. Aucun frais
         n'est dû en l'absence d'indemnisation. L'indemnité est versée par la compagnie à AirAssist,
@@ -66,7 +66,7 @@ function Contenu() {
         <strong> 14 jours</strong> à compter de l'acceptation du mandat. S'il demande le démarrage
         immédiat de la prestation, il pourra être redevable du service déjà exécuté en cas de
         rétractation. La demande de rétractation s'exerce à{" "}
-        <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>.
+        <a className="text-vol-700 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>.
       </p>
       <h2 className="text-xl font-semibold">Article 8 — Responsabilité</h2>
       <p>
@@ -82,7 +82,7 @@ function Contenu() {
         peut recourir au médiateur de la consommation mentionné dans les Mentions légales.
       </p>
       <p>
-        Contact : <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>
+        Contact : <a className="text-vol-700 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>
       </p>
     </LegalShell>
   );

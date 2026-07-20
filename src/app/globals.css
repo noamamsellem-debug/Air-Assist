@@ -2,87 +2,132 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Système « Tableau des départs ».
+ * Les noms de classes existants sont conservés (68 pages SEO en dépendent) ;
+ * seule leur définition change. Aucune couleur en dur : tout passe par les
+ * tokens de tailwind.config.ts.
+ */
+
 :root {
   color-scheme: light;
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+  @apply bg-white font-sans text-ink-800 antialiased;
+}
+
+/* Titres : Archivo, systématiquement. */
+h1,
+h2,
+h3 {
+  @apply font-display text-ink-900;
+}
+
+/* ── Focus clavier ───────────────────────────────────────────────────── */
+/* Anneau unique sur tout le site, visible sur fond clair ET sur le tableau. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  @apply outline-none ring-2 ring-vol-500 ring-offset-2 ring-offset-white;
+}
+.on-board :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  @apply ring-ambre-400 ring-offset-board-900;
 }
 
 /* ── Boutons ─────────────────────────────────────────────────────────── */
+/* Le vert porte l'action ET la bonne nouvelle. L'ambre n'est JAMAIS un CTA. */
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-xl bg-brand-500 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 disabled:opacity-50;
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-vol-600 px-6 py-3.5 font-display text-base font-bold text-white transition-colors duration-fast hover:bg-vol-700 disabled:cursor-not-allowed disabled:opacity-45;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-50;
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border-[1.5px] border-ink-300 bg-white px-6 py-3.5 font-semibold text-ink-800 transition-colors duration-fast hover:border-ink-400 hover:bg-ink-50;
 }
 
+/* Variante posée sur le tableau sombre. */
 .btn-light {
-  @apply inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50;
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-semibold text-board-900 transition-colors duration-fast hover:bg-ink-100;
 }
 
 /* ── Cartes ──────────────────────────────────────────────────────────── */
 .card {
-  @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-card;
+  @apply rounded-2xl border border-ink-200 bg-white p-6 shadow-card;
 }
 
 .card-hover {
-  @apply transition duration-200 hover:-translate-y-1 hover:shadow-lift;
+  @apply transition duration-base hover:-translate-y-0.5 hover:shadow-lift;
+}
+
+/* ── Le tableau d'affichage ──────────────────────────────────────────── */
+/* Objet sombre posé dans une page claire. Jamais un fond de page : la
+   lisibilité prime (l'audience inclut des personnes âgées). */
+.board {
+  @apply rounded-3xl bg-board-900 text-white shadow-board;
+  background-image: linear-gradient(180deg, #1B1F26 0%, #12151A 100%);
+}
+
+/* Filet horizontal entre deux lignes du tableau. */
+.board-row {
+  @apply flex items-center gap-3 border-t border-white/10 py-3.5;
+}
+
+/* Petit label majuscule espacé : le registre « affichage ». */
+.board-label {
+  @apply font-mono text-board-label uppercase text-ink-400;
+}
+
+/* Pastille de statut. La sémantique couleur est portée par le modificateur. */
+.board-statut {
+  @apply inline-flex items-center gap-1.5 rounded-md px-2 py-1 font-mono text-board-label uppercase;
+}
+.board-statut--perturbe {
+  @apply bg-ambre-500/15 text-ambre-400;
+}
+.board-statut--encours {
+  @apply bg-white/10 text-ink-300;
+}
+.board-statut--reussi {
+  @apply bg-vol-400/15 text-vol-400;
+}
+.board-statut--attente {
+  @apply bg-white/5 text-ink-400;
 }
 
 /* ── Formulaires ─────────────────────────────────────────────────────── */
 .input {
-  /* border-[1.5px] + fond slate-50 (#f8fafc) + placeholder lisible + texte
-     16px (évite le zoom auto iOS) + focus bleu marque bien visible. */
-  @apply w-full rounded-xl border-[1.5px] border-slate-300 bg-slate-50 px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-[3px] focus:ring-brand-500/20;
+  /* 16px minimum : évite le zoom automatique iOS. */
+  @apply w-full rounded-xl border-[1.5px] border-ink-300 bg-white px-3.5 py-3 text-base text-ink-900 transition-colors duration-fast placeholder:text-ink-500 hover:border-ink-400 focus:border-vol-500 focus:outline-none focus:ring-2 focus:ring-vol-500/25;
+}
+
+/* Champs posés sur le tableau sombre. */
+.input-board {
+  @apply w-full rounded-xl border-[1.5px] border-white/15 bg-white/5 px-3.5 py-3 text-base text-white transition-colors duration-fast placeholder:text-ink-400 hover:border-white/25 focus:border-ambre-400 focus:outline-none focus:ring-2 focus:ring-ambre-400/30;
 }
 
 .label {
-  @apply mb-1 block text-sm font-medium text-slate-700;
+  @apply mb-1.5 block text-sm font-semibold text-ink-700;
+}
+
+.label-board {
+  @apply mb-1.5 block font-mono text-board-label uppercase text-ink-400;
 }
 
 /* ── Mise en page & rythme ───────────────────────────────────────────── */
 .section {
-  @apply mx-auto max-w-6xl px-4 py-16;
+  @apply mx-auto max-w-6xl px-4 py-section;
 }
 
 .eyebrow {
-  @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-600;
-}
-
-/* ── Hero dégradé (style premium) ────────────────────────────────────── */
-.hero-gradient {
-  background-color: #04142f;
-  background-image:
-    radial-gradient(1100px 480px at 88% -10%, rgba(56, 189, 248, 0.4), transparent 60%),
-    radial-gradient(900px 600px at 0% 110%, rgba(0, 96, 255, 0.55), transparent 55%),
-    linear-gradient(125deg, #04142f 0%, #0a3aa8 55%, #0060ff 120%);
-}
-
-/* Hero d'accueil : dégradé bleu→violet plus lumineux + coins bas arrondis.
-   NB : on ne force PAS color:#fff sur toute la section — sinon la carte
-   « Calculez votre indemnité » hériterait du blanc et son texte deviendrait
-   invisible (blanc sur blanc). Les éléments blancs du hero déclarent leur
-   propre couleur (colonne texte, pill, barre de réassurance). */
-.home-hero {
-  background-image: linear-gradient(150deg, #0060ff 0%, #5b8cff 55%, #7b5bff 100%);
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
-}
-
-/* Voile « grille » discret pour les fonds clairs illustratifs */
-.grid-soft {
-  background-image:
-    linear-gradient(to right, rgba(31, 111, 235, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(31, 111, 235, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
+  @apply inline-flex items-center gap-2 font-mono text-board-label uppercase text-vol-600;
 }
 
 /* ── Pastilles de confiance ──────────────────────────────────────────── */
 .trust-pill {
-  @apply inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-white/40 backdrop-blur;
+  @apply inline-flex items-center gap-2 text-sm font-medium text-ink-600;
+}
+
+/* Variante sur le tableau. */
+.trust-pill-board {
+  @apply inline-flex items-center gap-2 text-sm font-medium text-ink-300;
 }
 
 /* ── Animations ──────────────────────────────────────────────────────── */
@@ -97,55 +142,83 @@ body {
   }
 }
 
-/* Apparition douce au scroll (composant Reveal). Respecte prefers-reduced-motion. */
+/* Apparition douce au scroll (composant Reveal). */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(14px);
+  transition: opacity 420ms cubic-bezier(0.2, 0.9, 0.25, 1), transform 420ms cubic-bezier(0.2, 0.9, 0.25, 1);
   will-change: opacity, transform;
 }
 .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
+
+/* ── Contenu éditorial SEO ───────────────────────────────────────────── */
+/* ~1000 mots par page : la mesure et l'interlignage priment sur tout. */
+.prose-seo {
+  @apply text-prose-lg text-ink-700;
+}
+.prose-seo h2 {
+  @apply mt-12 text-display-sm text-ink-900;
+}
+.prose-seo h3 {
+  @apply mt-8 font-display text-lg font-semibold text-ink-900;
+}
+.prose-seo p {
+  @apply mt-4;
+}
+.prose-seo ul {
+  @apply mt-4 space-y-2.5 pl-1;
+}
+.prose-seo ol {
+  @apply mt-4 list-decimal space-y-2.5 pl-5 marker:font-mono marker:text-sm marker:font-semibold marker:text-vol-600;
+}
+/* Puces dessinées : petit tiret plutôt qu'un rond, registre « horaire ». */
+.prose-seo ul > li {
+  @apply relative pl-5;
+}
+.prose-seo ul > li::before {
+  content: "";
+  @apply absolute left-0 top-[0.7em] h-px w-2.5 bg-vol-500;
+}
+.prose-seo strong {
+  @apply font-semibold text-ink-900;
+}
+.prose-seo a {
+  @apply font-medium text-vol-700 underline decoration-vol-500/35 underline-offset-2 transition-colors duration-fast hover:decoration-vol-600;
+}
+
+/* ── Article de blog (HTML injecté par la 1re génération) ────────────── */
+.article-corps {
+  @apply text-prose-lg text-ink-700;
+}
+.article-corps h2 {
+  @apply mt-10 font-display text-xl font-bold text-ink-900;
+}
+.article-corps p {
+  @apply mt-4;
+}
+.article-corps ul {
+  @apply mt-4 list-disc space-y-2 pl-6;
+}
+.article-corps strong {
+  @apply font-semibold text-ink-900;
+}
+
+/* ── Respect de prefers-reduced-motion ───────────────────────────────── */
+/* Point unique : toute animation du site s'y arrête, y compris le split-flap. */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
   .reveal {
     opacity: 1;
     transform: none;
-    transition: none;
   }
-}
-
-/* ── Contenu éditorial SEO (blocs structurés) ────────────────────────── */
-.prose-seo h2 {
-  @apply mt-10 text-2xl font-bold tracking-tight text-slate-900;
-}
-.prose-seo h3 {
-  @apply mt-7 text-lg font-semibold text-slate-900;
-}
-.prose-seo p {
-  @apply mt-3 leading-relaxed text-slate-700;
-}
-.prose-seo ul {
-  @apply mt-3 list-disc space-y-1.5 pl-6 text-slate-700;
-}
-.prose-seo ol {
-  @apply mt-3 list-decimal space-y-1.5 pl-6 text-slate-700;
-}
-.prose-seo strong {
-  @apply font-semibold text-slate-900;
-}
-
-/* ── Article de blog (HTML injecté) ──────────────────────────────────── */
-.article-corps h2 {
-  @apply mt-7 text-xl font-semibold text-slate-900;
-}
-.article-corps p {
-  @apply mt-3 leading-relaxed text-slate-700;
-}
-.article-corps ul {
-  @apply mt-3 list-disc space-y-1 pl-6 text-slate-700;
-}
-.article-corps strong {
-  @apply font-semibold text-slate-900;
 }

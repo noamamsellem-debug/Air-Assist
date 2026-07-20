@@ -104,9 +104,9 @@ export function SuiviForm() {
 
       {resultat && (
         <div className="card mt-6 max-w-md">
-          <p className="text-xs uppercase tracking-wide text-slate-400">{t("statusLabel")}</p>
-          <p className="mt-1 text-2xl font-extrabold text-brand-700">{resultat.libelle}</p>
-          <dl className="mt-4 space-y-1 text-sm text-slate-600">
+          <p className="text-xs uppercase tracking-wide text-ink-400">{t("statusLabel")}</p>
+          <p className="mt-1 text-2xl font-extrabold text-vol-700">{resultat.libelle}</p>
+          <dl className="mt-4 space-y-1 text-sm text-ink-600">
             <div className="flex justify-between">
               <dt>{t("ref")}</dt>
               <dd className="font-mono">{resultat.reference}</dd>
@@ -128,7 +128,7 @@ export function SuiviForm() {
           </dl>
 
           {/* Ajout de documents manquants */}
-          <div className="mt-6 border-t border-slate-200 pt-4">
+          <div className="mt-6 border-t border-ink-200 pt-4">
             {resultat.documentsManquants && resultat.documentsManquants.length > 0 && (
               <div className="mb-3 rounded-lg bg-amber-50 p-3">
                 <p className="text-sm font-semibold text-amber-800">{t("missingTitle")}</p>
@@ -139,9 +139,9 @@ export function SuiviForm() {
                 </ul>
               </div>
             )}
-            <h3 className="font-semibold text-slate-800">{t("uploadTitle")}</h3>
-            <p className="mt-1 text-sm text-slate-500">{t("uploadHelp")}</p>
-            <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-brand-300 px-3 py-2 text-sm font-medium text-brand-700 hover:bg-brand-50">
+            <h3 className="font-semibold text-ink-800">{t("uploadTitle")}</h3>
+            <p className="mt-1 text-sm text-ink-500">{t("uploadHelp")}</p>
+            <label className="mt-3 flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-ink-300 px-3 py-2 text-sm font-medium text-vol-700 hover:bg-vol-100">
               ⬆️ {t("uploadChoose")}
               <input
                 type="file"
@@ -155,8 +155,8 @@ export function SuiviForm() {
               <ul className="mt-3 space-y-1 text-sm">
                 {docs.map((d) => (
                   <li key={d.id} className="flex items-center justify-between gap-2">
-                    <span className="truncate text-slate-700">{d.nom}</span>
-                    <span className={d.etat === "ok" ? "text-green-700" : d.etat === "err" ? "text-red-600" : "text-slate-400"}>
+                    <span className="truncate text-ink-700">{d.nom}</span>
+                    <span className={d.etat === "ok" ? "text-green-700" : d.etat === "err" ? "text-red-600" : "text-ink-400"}>
                       {d.etat === "ok" ? "✅ " + t("uploadOk") : d.etat === "err" ? "⚠️ " + (d.msg ?? "") : "…"}
                     </span>
                   </li>

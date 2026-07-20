@@ -73,12 +73,12 @@ export function HeaderLangSwitcher() {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label="Langue"
-        className="inline-flex h-10 items-center gap-1 rounded-xl border border-slate-200 bg-white px-2.5 text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+        className="inline-flex h-10 items-center gap-1 rounded-xl border border-ink-200 bg-white px-2.5 text-ink-700 transition hover:bg-ink-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-vol-500"
       >
         <span className="text-base leading-none">{courant?.flag ?? "🌍"}</span>
         <svg
           viewBox="0 0 24 24"
-          className={`h-3.5 w-3.5 text-slate-400 transition ${open ? "rotate-180" : ""}`}
+          className={`h-3.5 w-3.5 text-ink-400 transition ${open ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
@@ -92,7 +92,7 @@ export function HeaderLangSwitcher() {
         <ul
           role="listbox"
           aria-label="Langue"
-          className="absolute right-0 z-50 mt-2 max-h-80 w-44 overflow-auto rounded-xl border border-slate-200 bg-white py-1 shadow-lift"
+          className="absolute right-0 z-50 mt-2 max-h-80 w-44 overflow-auto rounded-xl border border-ink-200 bg-white py-1 shadow-lift"
         >
           {routing.locales.map((l) => {
             const L = LANGS[l];
@@ -104,13 +104,13 @@ export function HeaderLangSwitcher() {
                   role="option"
                   aria-selected={actif}
                   onClick={() => choisir(l)}
-                  className={`flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm transition focus:outline-none focus-visible:bg-slate-100 ${
-                    actif ? "bg-brand-50 font-semibold text-brand-700" : "text-slate-700 hover:bg-slate-50"
+                  className={`flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm transition focus:outline-none focus-visible:bg-ink-100 ${
+                    actif ? "bg-vol-100 font-semibold text-vol-700" : "text-ink-700 hover:bg-ink-50"
                   }`}
                 >
                   <span className="text-base leading-none">{L?.flag ?? "🏳️"}</span>
                   <span>{L?.name ?? l.toUpperCase()}</span>
-                  {actif && <span className="ml-auto text-brand-600" aria-hidden>✓</span>}
+                  {actif && <span className="ml-auto text-vol-700" aria-hidden>✓</span>}
                 </button>
               </li>
             );

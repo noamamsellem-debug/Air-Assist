@@ -67,7 +67,17 @@
     "dateYesterday": "Ayer",
     "dateToday": "Hoy",
     "delay3to4": "Entre 3 y 4 horas",
-    "delayOver4": "Más de 4 horas"
+    "delayOver4": "Más de 4 horas",
+    "statusChecking": "Comprobando",
+    "statusEligible": "Indemnizable",
+    "statusIneligible": "No indemnizable",
+    "amountUpTo": "Podrías recuperar hasta",
+    "amountCould": "Podrías recuperar",
+    "amountAria": "Indemnización estimada: {amount}",
+    "hintRoute": "Introduce tu trayecto para ver el importe.",
+    "hintUnder3": "Por debajo de 3 horas de retraso no corresponde indemnización fija.",
+    "hintNotEligible": "Este vuelo no da derecho a una indemnización fija.",
+    "noWinNoFee": "Sin coste si no obtienes indemnización."
   },
   "funnel": {
     "title": "Tu reclamación",
@@ -213,7 +223,9 @@
   "footer": {
     "rights": "Todos los derechos reservados.",
     "disclaimer": "Air Assist es un intermediario; los importes mostrados son estimaciones.",
-    "legalLinks": "Información legal"
+    "legalLinks": "Información legal",
+    "colService": "El servicio",
+    "colLegal": "Información legal"
   },
   "faq": {
     "faqTitle": "Preguntas frecuentes",
@@ -450,5 +462,36 @@
     "p3Text": "Documentos cifrados, cumplimiento del RGPD y datos alojados en la Unión Europea.",
     "p4Title": "100 % en línea",
     "p4Text": "Estimación en 2 minutos, expediente en pocos clics y seguimiento en tiempo real de tu reclamación."
+  },
+  "tracking": {
+    "eyebrow": "El servicio, en concreto",
+    "title": "Sigue tu expediente como un vuelo",
+    "intro": "Cada etapa está fechada y visible. Siempre sabes en qué punto está tu reclamación, sin tener que insistir.",
+    "boardTitle": "Seguimiento del expediente",
+    "step_received": "Expediente recibido y verificado",
+    "step_sent": "Reclamación enviada a la aerolínea",
+    "step_reply": "Respuesta de la aerolínea",
+    "step_paid": "Indemnización abonada",
+    "state_reussi": "Hecho",
+    "state_encours": "En curso",
+    "state_attente": "Pendiente",
+    "boardNote": "Ejemplo de recorrido. Los plazos dependen de la aerolínea: de 4 a 12 semanas de media."
+  },
+  "proof": {
+    "eyebrow": "Sin riesgo",
+    "noWinTitle": "Sin coste si no obtienes indemnización",
+    "noWinText": "No pagas nada por adelantado ni si la reclamación fracasa. Solo cobramos sobre una indemnización realmente obtenida: nuestro interés coincide con el tuyo.",
+    "upfrontValue": "0 €",
+    "upfrontLabel": "por adelantado, pase lo que pase",
+    "commissionValue": "30 %",
+    "commissionLabel": "de comisión, solo si hay éxito",
+    "ibanValue": "Ninguno",
+    "ibanLabel": "datos bancarios guardados por nosotros",
+    "reviewsTitle": "Opiniones de clientes",
+    "reviewsEmpty": "El servicio acaba de abrir: todavía no mostramos opiniones. Las primeras, verificadas, se publicarán aquí en cuanto nuestros clientes las dejen.",
+    "recoveredLabel": "recuperados para nuestros clientes",
+    "casesLabel": "expedientes llevados hasta el final",
+    "companyTitle": "La empresa detrás del servicio",
+    "addressLabel": "Sede"
   }
 }

@@ -62,13 +62,13 @@ export default async function ArticlePage({
   return (
     <article className="mx-auto max-w-3xl px-4 py-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav className="text-sm text-slate-500">
-        <Link href="/blog" className="hover:text-brand-600">
+      <nav className="text-sm text-ink-500">
+        <Link href="/blog" className="hover:text-vol-700">
           {t("title")}
         </Link>
       </nav>
       <h1 className="mt-2 text-3xl font-bold">{c.titre}</h1>
-      <p className="mt-2 text-xs text-slate-400">{new Date(a.date).toLocaleDateString(locale)}</p>
+      <p className="mt-2 text-xs text-ink-400">{new Date(a.date).toLocaleDateString(locale)}</p>
       <div className="article-corps mt-6" dangerouslySetInnerHTML={{ __html: c.corps }} />
       <p className="mt-8">
         <Link href="/reclamation" className="btn-primary">
@@ -76,7 +76,7 @@ export default async function ArticlePage({
         </Link>
       </p>
       <p className="mt-4">
-        <Link href="/blog" className="text-sm text-brand-600 hover:underline">
+        <Link href="/blog" className="text-sm text-vol-700 hover:underline">
           ← {t("back")}
         </Link>
       </p>

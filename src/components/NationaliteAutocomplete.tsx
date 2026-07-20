@@ -84,14 +84,14 @@ export function NationaliteAutocomplete({
         role="combobox"
       />
       {ouvert && resultats.length > 0 && (
-        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-slate-200 bg-white shadow-lg">
+        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-ink-200 bg-white shadow-lg">
           {resultats.map((n, i) => (
             <li key={n.code}>
               <button
                 type="button"
                 onMouseEnter={() => setSurligne(i)}
                 onClick={() => choisir(n)}
-                className={`w-full px-3 py-2 text-left text-sm ${i === surligne ? "bg-brand-50" : "hover:bg-slate-50"}`}
+                className={`w-full px-3 py-2 text-left text-sm ${i === surligne ? "bg-vol-100" : "hover:bg-ink-50"}`}
               >
                 {n.nom}
               </button>

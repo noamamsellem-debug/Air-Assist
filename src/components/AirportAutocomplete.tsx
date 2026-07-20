@@ -8,13 +8,17 @@ export function AirportAutocomplete({
   onChange,
   placeholder,
   id,
+  variant = "clair",
 }: {
   /** Code IATA sélectionné (ou ""). */
   value: string;
   onChange: (iata: string) => void;
   placeholder?: string;
   id?: string;
+  /** `board` : champ posé sur le tableau sombre (estimateur). */
+  variant?: "clair" | "board";
 }) {
+  const surBoard = variant === "board";
   const selectionne = value ? getAeroport(value) : undefined;
   const [requete, setRequete] = useState(
     selectionne ? `${selectionne.ville} (${selectionne.iata})` : "",
@@ -52,7 +56,7 @@ export function AirportAutocomplete({
       <div className="relative">
         <input
           id={id}
-          className="input pr-9"
+          className={`${surBoard ? "input-board" : "input"} pr-9`}
           autoComplete="off"
           placeholder={placeholder ?? "Tapez une ville ou un code IATA"}
           value={requete}
@@ -93,7 +97,9 @@ export function AirportAutocomplete({
               setRequete("");
               setResultats([]);
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+            className={`absolute right-3 top-1/2 -translate-y-1/2 ${
+              surBoard ? "text-ink-400 hover:text-white" : "text-ink-400 hover:text-ink-700"
+            }`}
           >
             ✕
           </button>
@@ -101,22 +107,24 @@ export function AirportAutocomplete({
       </div>
 
       {ouvert && resultats.length > 0 && (
-        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-slate-200 bg-white shadow-lg">
+        // La liste reste claire même sur le tableau sombre : c'est une surface
+        // flottante, et du texte long se lit mieux sur fond clair.
+        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-xl border border-ink-200 bg-white shadow-lift">
           {resultats.map((a, i) => (
             <li key={a.iata}>
               <button
                 type="button"
                 onMouseEnter={() => setSurligne(i)}
                 onClick={() => choisir(a)}
-                className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm ${
-                  i === surligne ? "bg-brand-50" : "hover:bg-slate-50"
+                className={`flex w-full items-center justify-between gap-2 px-3.5 py-2.5 text-left text-sm ${
+                  i === surligne ? "bg-vol-100" : "hover:bg-ink-50"
                 }`}
               >
                 <span>
-                  <span className="font-medium text-slate-800">{a.ville}</span>{" "}
-                  <span className="text-slate-500">— {a.nom}</span>
+                  <span className="font-medium text-ink-900">{a.ville}</span>{" "}
+                  <span className="text-ink-500">— {a.nom}</span>
                 </span>
-                <span className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-600">
+                <span className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-xs font-semibold text-ink-600">
                   {a.iata}
                 </span>
               </button>

@@ -67,7 +67,17 @@
     "dateYesterday": "I går",
     "dateToday": "I dag",
     "delay3to4": "Between 3 and 4 hours",
-    "delayOver4": "More than 4 hours"
+    "delayOver4": "More than 4 hours",
+    "statusChecking": "Checking",
+    "statusEligible": "Eligible",
+    "statusIneligible": "Not eligible",
+    "amountUpTo": "You could get up to",
+    "amountCould": "You could get",
+    "amountAria": "Estimated compensation: {amount}",
+    "hintRoute": "Enter your route to see the amount.",
+    "hintUnder3": "Below 3 hours of delay, no fixed compensation is due.",
+    "hintNotEligible": "This flight does not qualify for fixed compensation.",
+    "noWinNoFee": "No fee unless you get paid."
   },
   "funnel": {
     "title": "Dit krav",
@@ -213,7 +223,9 @@
   "footer": {
     "rights": "Alle rettigheder forbeholdes.",
     "legalLinks": "Juridiske oplysninger",
-    "disclaimer": "Air Assist er en formidler; viste beløb er estimater."
+    "disclaimer": "Air Assist er en formidler; viste beløb er estimater.",
+    "colService": "Service",
+    "colLegal": "Legal"
   },
   "faq": {
     "faqTitle": "Ofte stillede spørgsmål",
@@ -450,5 +462,36 @@
     "p3Text": "Encrypted documents, GDPR compliance and data hosted within the European Union.",
     "p4Title": "100% online",
     "p4Text": "Estimate in 2 minutes, claim built in a few clicks and real-time tracking of your case."
+  },
+  "tracking": {
+    "eyebrow": "The service, concretely",
+    "title": "Track your claim like a flight",
+    "intro": "Every step is dated and visible. You always know where your claim stands, without chasing anyone.",
+    "boardTitle": "Claim tracking",
+    "step_received": "Claim received and checked",
+    "step_sent": "Claim sent to the airline",
+    "step_reply": "Airline response",
+    "step_paid": "Compensation paid",
+    "state_reussi": "Done",
+    "state_encours": "In progress",
+    "state_attente": "Upcoming",
+    "boardNote": "Example journey. Timings depend on the airline: expect 4 to 12 weeks on average."
+  },
+  "proof": {
+    "eyebrow": "No risk",
+    "noWinTitle": "No fee unless you get paid",
+    "noWinText": "You pay nothing upfront and nothing if the claim fails. We are only paid out of compensation actually obtained: our interest is aligned with yours.",
+    "upfrontValue": "€0",
+    "upfrontLabel": "upfront, whatever happens",
+    "commissionValue": "30%",
+    "commissionLabel": "commission, only if we succeed",
+    "ibanValue": "None",
+    "ibanLabel": "bank details stored by us",
+    "reviewsTitle": "Customer reviews",
+    "reviewsEmpty": "The service has just launched, so we are not showing reviews yet. The first verified ones will appear here as soon as our customers leave them.",
+    "recoveredLabel": "recovered for our customers",
+    "casesLabel": "claims seen through to the end",
+    "companyTitle": "The company behind the service",
+    "addressLabel": "Head office"
   }
 }

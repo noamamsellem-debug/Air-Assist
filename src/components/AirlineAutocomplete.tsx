@@ -90,7 +90,7 @@ export function AirlineAutocomplete({
         role="combobox"
       />
       {ouvert && resultats.length > 0 && (
-        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-slate-200 bg-white shadow-lg">
+        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-ink-200 bg-white shadow-lg">
           {resultats.map((c, i) => (
             <li key={c.code}>
               <button
@@ -98,11 +98,11 @@ export function AirlineAutocomplete({
                 onMouseEnter={() => setSurligne(i)}
                 onClick={() => choisir(c)}
                 className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left text-sm ${
-                  i === surligne ? "bg-brand-50" : "hover:bg-slate-50"
+                  i === surligne ? "bg-vol-100" : "hover:bg-ink-50"
                 }`}
               >
-                <span className="font-medium text-slate-800">{c.nom}</span>
-                <span className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs text-slate-600">{c.code}</span>
+                <span className="font-medium text-ink-800">{c.nom}</span>
+                <span className="rounded bg-ink-100 px-1.5 py-0.5 font-mono text-xs text-ink-600">{c.code}</span>
               </button>
             </li>
           ))}

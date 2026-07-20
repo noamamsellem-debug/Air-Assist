@@ -34,7 +34,7 @@ function Contenu() {
       <h2 className="text-xl font-semibold">Directeur de la publication</h2>
       <p>[Nom du directeur de la publication — À COMPLÉTER].</p>
       <h2 className="text-xl font-semibold">Contact</h2>
-      <p>E-mail : <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a></p>
+      <p>E-mail : <a className="text-vol-700 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a></p>
       <h2 className="text-xl font-semibold">Hébergeur</h2>
       <p>Le site est hébergé par [À COMPLÉTER — ex. Vercel Inc., adresse de l'hébergeur].</p>
       <h2 className="text-xl font-semibold">Activité</h2>

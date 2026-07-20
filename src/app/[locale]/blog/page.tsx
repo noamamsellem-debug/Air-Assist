@@ -25,7 +25,7 @@ export default async function BlogIndex({
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-3xl font-bold">{t("title")}</h1>
-      <p className="mt-2 text-slate-600">{t("intro")}</p>
+      <p className="mt-2 text-ink-600">{t("intro")}</p>
 
       {/* Articles piliers (fr) */}
       {locale === "fr" && (
@@ -34,18 +34,18 @@ export default async function BlogIndex({
             .sort((a, b) => (a.datePublished < b.datePublished ? 1 : -1))
             .map((a) => (
               <article key={a.slug} className="card">
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-ink-400">
                   {new Date(a.datePublished).toLocaleDateString("fr-FR")} · {a.categorie} · {a.lecture}
                 </p>
                 <h2 className="mt-1 text-xl font-semibold">
-                  <Link href={`/blog/${a.slug}`} className="hover:text-brand-600">
+                  <Link href={`/blog/${a.slug}`} className="hover:text-vol-700">
                     {a.h1}
                   </Link>
                 </h2>
-                <p className="mt-2 text-sm text-slate-600">{a.chapo}</p>
+                <p className="mt-2 text-sm text-ink-600">{a.chapo}</p>
                 <Link
                   href={`/blog/${a.slug}`}
-                  className="mt-3 inline-block text-sm font-semibold text-brand-600 hover:underline"
+                  className="mt-3 inline-block text-sm font-semibold text-vol-700 hover:underline"
                 >
                   Lire l&apos;article →
                 </Link>
@@ -59,16 +59,16 @@ export default async function BlogIndex({
           const c = contenuArticle(a, locale);
           return (
             <article key={a.slug} className="card">
-              <p className="text-xs text-slate-400">{new Date(a.date).toLocaleDateString(locale)}</p>
+              <p className="text-xs text-ink-400">{new Date(a.date).toLocaleDateString(locale)}</p>
               <h2 className="mt-1 text-xl font-semibold">
-                <Link href={`/blog/${a.slug}`} className="hover:text-brand-600">
+                <Link href={`/blog/${a.slug}`} className="hover:text-vol-700">
                   {c.titre}
                 </Link>
               </h2>
-              <p className="mt-2 text-sm text-slate-600">{c.extrait}</p>
+              <p className="mt-2 text-sm text-ink-600">{c.extrait}</p>
               <Link
                 href={`/blog/${a.slug}`}
-                className="mt-3 inline-block text-sm font-semibold text-brand-600 hover:underline"
+                className="mt-3 inline-block text-sm font-semibold text-vol-700 hover:underline"
               >
                 {t("readMore")} →
               </Link>
@@ -88,7 +88,7 @@ export default async function BlogIndex({
               { href: "/blog/reglement-ec-261-2004", label: "Le règlement EC 261/2004 expliqué simplement" },
             ].map((g) => (
               <li key={g.href}>
-                <Link href={g.href} className="font-medium text-brand-600 hover:underline">
+                <Link href={g.href} className="font-medium text-vol-700 hover:underline">
                   {g.label} →
                 </Link>
               </li>

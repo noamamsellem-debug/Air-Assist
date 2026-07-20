@@ -28,7 +28,7 @@ function Contenu() {
       <p>
         AirAssist (coordonnées en Mentions légales) est responsable du traitement des données
         personnelles collectées via le site. Contact pour toute question relative aux données :{" "}
-        <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>.
+        <a className="text-vol-700 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>.
       </p>
       <h2 className="text-xl font-semibold">Données collectées</h2>
       <p>Dans le cadre du traitement de votre réclamation, nous collectons :</p>
@@ -71,9 +71,9 @@ function Contenu() {
       <p>
         Vous disposez des droits d'accès, de rectification, d'effacement, de limitation, de portabilité,
         d'opposition et de retrait du consentement à tout moment, en écrivant à{" "}
-        <a className="text-brand-600 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>.
+        <a className="text-vol-700 hover:underline" href="mailto:info@airassist.eu">info@airassist.eu</a>.
         Vous pouvez également introduire une réclamation auprès de la CNIL
-        (<a className="text-brand-600 hover:underline" href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>).
+        (<a className="text-vol-700 hover:underline" href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>).
       </p>
       <h2 className="text-xl font-semibold">Cookies</h2>
       <p>Voir la Politique cookies.</p>

@@ -4,6 +4,42 @@ import { Link } from "@/i18n/navigation";
 import { PAGES_COMPAGNIES } from "@/data/pages-compagnies";
 import { PAGES_AEROPORTS } from "@/data/pages-aeroports";
 import { PAGES_DESTINATIONS } from "@/data/pages-destinations";
+import { identiteSociete } from "@/lib/preuve-sociale";
+
+/**
+ * Pied de page — il porte le maillage SEO (une cinquantaine de liens).
+ *
+ * L'ancienne version les alignait en trois rangées à la file : dense,
+ * illisible, et impossible à parcourir des yeux. Ils sont désormais rangés en
+ * colonnes titrées, sur une seule ligne chacune, ce qui rend le bloc
+ * consultable sans rien retirer au maillage.
+ */
+
+function ColonneLiens({
+  titre,
+  liens,
+}: {
+  titre: string;
+  liens: { href: string; label: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="font-mono text-board-label uppercase text-ink-400">{titre}</h3>
+      <ul className="mt-4 space-y-2">
+        {liens.map((l) => (
+          <li key={l.href}>
+            <Link
+              href={l.href}
+              className="text-sm text-ink-300 transition-colors duration-fast hover:text-white"
+            >
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export function SiteFooter() {
   const t = useTranslations("footer");
@@ -13,80 +49,86 @@ export function SiteFooter() {
   const b = useTranslations("blog");
   const locale = useLocale();
   const year = new Date().getFullYear();
-  const liens = [
+  const societe = identiteSociete();
+
+  const liensService = [
+    { href: "/suivi", label: s("title") },
+    { href: "/blog", label: b("title") },
+    { href: "/droits-passagers", label: n("rights") },
+    { href: "/bareme", label: n("scale") },
+  ];
+  const liensLegaux = [
     { href: "/mentions-legales", label: n("legal") },
     { href: "/confidentialite", label: n("privacy") },
     { href: "/cgv", label: n("terms") },
     { href: "/cookies", label: "Cookies" },
-    { href: "/suivi", label: s("title") },
-    { href: "/blog", label: b("title") },
-  ] as const;
+  ];
+
   return (
-    <footer className="bg-brand-950 text-slate-300">
-      <div className="mx-auto max-w-6xl px-4 py-12 text-sm">
-        <div className="flex flex-col gap-6 border-b border-white/10 pb-8 sm:flex-row sm:items-start sm:justify-between">
-          <div className="max-w-sm">
-            <span className="inline-flex rounded-xl bg-white px-3 py-2 shadow-sm">
-              <Image src="/airassist-logo.png" alt="AirAssist" width={817} height={600} className="h-14 w-auto" />
+    <footer className="bg-board-900 text-ink-300">
+      <div className="mx-auto max-w-6xl px-4 py-14">
+        {/* ── Marque + navigation de service ───────────────────────────── */}
+        <div className="grid gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sm:col-span-2 lg:col-span-2">
+            <span className="inline-flex rounded-xl bg-white px-3 py-2">
+              <Image
+                src="/airassist-logo.png"
+                alt="AirAssist"
+                width={817}
+                height={600}
+                className="h-12 w-auto"
+              />
             </span>
-            <p className="mt-3 text-slate-400">{c("tagline")}</p>
-          </div>
-          <nav className="flex flex-wrap gap-x-6 gap-y-2">
-            {liens.map((l) => (
-              <Link key={l.href} href={l.href} className="text-slate-300 transition hover:text-white">
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-        {locale === "fr" && (
-          <div className="mt-8 border-t border-white/10 pt-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Indemnisation par compagnie
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-              {PAGES_COMPAGNIES.map((cp) => (
-                <li key={cp.slug}>
-                  <Link
-                    href={`/indemnisation-vol-retarde-${cp.slug}`}
-                    className="text-slate-300 transition hover:text-white"
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-400">{c("tagline")}</p>
+
+            {/* Identité société : rendue seulement si renseignée (cf.
+                lib/preuve-sociale.ts). On ne publie pas un SIRET d'exemple. */}
+            {societe && (
+              <dl className="mt-6 space-y-1 font-mono text-xs text-ink-400">
+                <div>
+                  {societe.raisonSociale} · {societe.formeJuridique}
+                </div>
+                <div>SIRET {societe.siret}</div>
+                <div>{societe.adresse}</div>
+                <div>
+                  <a
+                    href={`mailto:${societe.email}`}
+                    className="underline underline-offset-2 transition-colors duration-fast hover:text-white"
                   >
-                    {cp.nom}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    {societe.email}
+                  </a>
+                </div>
+              </dl>
+            )}
+          </div>
 
-            <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Indemnisation par aéroport
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-              {PAGES_AEROPORTS.map((ap) => (
-                <li key={ap.slug}>
-                  <Link href={`/${ap.slug}`} className="text-slate-300 transition hover:text-white">
-                    {ap.nom}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <ColonneLiens titre={t("colService")} liens={liensService} />
+          <ColonneLiens titre={t("colLegal")} liens={liensLegaux} />
+        </div>
 
-            <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Indemnisation par destination
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-              {PAGES_DESTINATIONS.map((dp) => (
-                <li key={dp.slug}>
-                  <Link href={`/${dp.slug}`} className="text-slate-300 transition hover:text-white">
-                    {dp.ville}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        {/* ── Maillage SEO (français uniquement) ───────────────────────── */}
+        {locale === "fr" && (
+          <div className="mt-10 grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-3">
+            <ColonneLiens
+              titre="Indemnisation par compagnie"
+              liens={PAGES_COMPAGNIES.map((cp) => ({
+                href: `/indemnisation-vol-retarde-${cp.slug}`,
+                label: cp.nom,
+              }))}
+            />
+            <ColonneLiens
+              titre="Indemnisation par aéroport"
+              liens={PAGES_AEROPORTS.map((ap) => ({ href: `/${ap.slug}`, label: ap.nom }))}
+            />
+            <ColonneLiens
+              titre="Indemnisation par destination"
+              liens={PAGES_DESTINATIONS.map((dp) => ({ href: `/${dp.slug}`, label: dp.ville }))}
+            />
           </div>
         )}
 
-        <p className="mt-6 text-slate-400">{t("disclaimer")}</p>
-        <p className="mt-1 text-slate-500">
+        <p className="mt-8 max-w-prose text-xs leading-relaxed text-ink-400">{t("disclaimer")}</p>
+        <p className="mt-2 text-xs text-ink-400">
           © {year} {c("brand")}. {t("rights")}
         </p>
       </div>

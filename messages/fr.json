@@ -67,7 +67,17 @@
     "dateYesterday": "Hier",
     "dateToday": "Aujourd'hui",
     "delay3to4": "Entre 3 h et 4 h",
-    "delayOver4": "Plus de 4 h"
+    "delayOver4": "Plus de 4 h",
+    "statusChecking": "Vérification",
+    "statusEligible": "Indemnisable",
+    "statusIneligible": "Non indemnisable",
+    "amountUpTo": "Vous pourriez récupérer jusqu'à",
+    "amountCould": "Vous pourriez récupérer",
+    "amountAria": "Indemnité estimée : {amount}",
+    "hintRoute": "Renseignez votre trajet pour voir le montant.",
+    "hintUnder3": "En dessous de 3 heures de retard, aucune indemnité forfaitaire n'est due.",
+    "hintNotEligible": "Ce vol n'ouvre pas droit à une indemnité forfaitaire.",
+    "noWinNoFee": "Aucun frais si aucune indemnité n'est obtenue."
   },
   "funnel": {
     "title": "Votre réclamation",
@@ -213,7 +223,9 @@
   "footer": {
     "rights": "Tous droits réservés.",
     "legalLinks": "Informations légales",
-    "disclaimer": "Air Assist est un intermédiaire ; les montants indiqués sont des estimations."
+    "disclaimer": "Air Assist est un intermédiaire ; les montants indiqués sont des estimations.",
+    "colService": "Le service",
+    "colLegal": "Informations légales"
   },
   "faq": {
     "faqTitle": "Questions fréquentes",
@@ -450,5 +462,36 @@
     "p3Text": "Documents chiffrés, conformité RGPD et données hébergées dans l'Union européenne.",
     "p4Title": "100 % en ligne",
     "p4Text": "Estimation en 2 minutes, dossier monté en quelques clics et suivi de votre réclamation en temps réel."
+  },
+  "tracking": {
+    "eyebrow": "Le service, concrètement",
+    "title": "Vous suivez votre dossier comme un vol",
+    "intro": "Chaque étape est datée et visible. Vous savez toujours où en est votre réclamation, sans avoir à relancer qui que ce soit.",
+    "boardTitle": "Suivi du dossier",
+    "step_received": "Dossier reçu et vérifié",
+    "step_sent": "Réclamation envoyée à la compagnie",
+    "step_reply": "Réponse de la compagnie",
+    "step_paid": "Indemnité versée",
+    "state_reussi": "Fait",
+    "state_encours": "En cours",
+    "state_attente": "À venir",
+    "boardNote": "Exemple de parcours. Les délais dépendent de la compagnie : comptez en moyenne 4 à 12 semaines."
+  },
+  "proof": {
+    "eyebrow": "Sans risque",
+    "noWinTitle": "Aucun frais si vous n'êtes pas indemnisé",
+    "noWinText": "Vous ne payez rien à l'avance et rien en cas d'échec. Nous ne nous rémunérons que sur une indemnité effectivement obtenue : notre intérêt est aligné sur le vôtre.",
+    "upfrontValue": "0 €",
+    "upfrontLabel": "à l'avance, quoi qu'il arrive",
+    "commissionValue": "30 %",
+    "commissionLabel": "de commission, uniquement en cas de succès",
+    "ibanValue": "Aucun",
+    "ibanLabel": "IBAN conservé chez nous",
+    "reviewsTitle": "Avis clients",
+    "reviewsEmpty": "Le service vient d'ouvrir : nous n'affichons pas encore d'avis. Les premiers seront publiés ici, vérifiés, dès que nos clients les auront laissés.",
+    "recoveredLabel": "récupérés pour nos clients",
+    "casesLabel": "dossiers menés à leur terme",
+    "companyTitle": "L'entreprise derrière le service",
+    "addressLabel": "Siège"
   }
 }
