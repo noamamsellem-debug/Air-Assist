@@ -10,7 +10,9 @@ export function SiteHeader() {
   const c = useTranslations("common");
   const b = useTranslations("blog");
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
+    // pt-[env(safe-area-inset-top)] : en-tête collant, il passerait sinon sous
+    // l'encoche / la barre d'état iOS en plein écran.
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <div className="bg-brand-50 text-brand-800">
         <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-1.5 text-center text-xs font-medium sm:text-sm">
           <span aria-hidden>🛡️</span>
@@ -47,9 +49,13 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        {/* Actions mobile : CTA compact + langue (drapeau) + burger */}
+        {/* Actions mobile : CTA compact + langue (drapeau) + burger.
+            min-h-[44px] partout : norme tactile Apple. */}
         <div className="flex items-center gap-2 md:hidden">
-          <Link href="/reclamation" className="btn-primary whitespace-nowrap !px-3 !py-2 text-sm">
+          <Link
+            href="/reclamation"
+            className="btn-primary min-h-[44px] whitespace-nowrap !px-3 !py-2 text-sm"
+          >
             {t("startShort")}
           </Link>
           <HeaderLangSwitcher />

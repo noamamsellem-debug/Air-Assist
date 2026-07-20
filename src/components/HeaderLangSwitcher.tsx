@@ -73,7 +73,7 @@ export function HeaderLangSwitcher() {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label="Langue"
-        className="inline-flex h-10 items-center gap-1 rounded-xl border border-slate-200 bg-white px-2.5 text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+        className="inline-flex h-11 items-center gap-1 rounded-xl border border-slate-200 bg-white px-2.5 text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
       >
         <span className="text-base leading-none">{courant?.flag ?? "🌍"}</span>
         <svg
@@ -104,7 +104,7 @@ export function HeaderLangSwitcher() {
                   role="option"
                   aria-selected={actif}
                   onClick={() => choisir(l)}
-                  className={`flex w-full items-center gap-2.5 px-3 py-2 text-left text-sm transition focus:outline-none focus-visible:bg-slate-100 ${
+                  className={`flex min-h-[44px] w-full items-center gap-2.5 px-3 py-2 text-left text-base transition focus:outline-none focus-visible:bg-slate-100 ${
                     actif ? "bg-brand-50 font-semibold text-brand-700" : "text-slate-700 hover:bg-slate-50"
                   }`}
                 >

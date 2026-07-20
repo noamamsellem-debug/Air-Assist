@@ -27,6 +27,9 @@ export function CompensationSlider() {
       </p>
 
       <div className="mt-8">
+        {/* La piste ne fait que 8 px : on l'enveloppe d'une zone de 44 px et on
+            rend le fond transparent, pour que la cible tactile respecte la
+            norme Apple sans épaissir visuellement le curseur. */}
         <input
           type="range"
           min={300}
@@ -35,11 +38,15 @@ export function CompensationSlider() {
           value={km}
           onChange={(e) => setKm(Number(e.target.value))}
           aria-label={t("compTitle")}
-          className="h-2 w-full cursor-pointer appearance-none rounded-full bg-white/25 accent-white
-            [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none
-            [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-lg"
+          className="h-11 w-full cursor-pointer appearance-none bg-transparent accent-white
+            [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-white/25
+            [&::-moz-range-track]:h-2 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-white/25
+            [&::-webkit-slider-thumb]:mt-[-8px] [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none
+            [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-lg
+            [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:border-0
+            [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white"
         />
-        <div className="mt-3 flex justify-between text-xs font-medium text-white/70">
+        <div className="flex justify-between text-xs font-medium text-white/70">
           <span>1 500 km</span>
           <span>3 500 km</span>
           <span>{t("compMax")}</span>

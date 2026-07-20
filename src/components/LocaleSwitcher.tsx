@@ -36,7 +36,8 @@ export function LocaleSwitcher() {
   return (
     <select
       aria-label="Langue"
-      className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm"
+      // text-base (16px) : en dessous, Safari iOS zoome tout seul au focus.
+      className="min-h-[44px] rounded-md border border-slate-300 bg-white px-2 py-1 text-base"
       value={locale}
       disabled={isPending}
       onChange={(e) => {

@@ -93,7 +93,9 @@ export function AirportAutocomplete({
               setRequete("");
               setResultats([]);
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+            // Boîte de 44 px centrée dans la gouttière réservée par `pr-9` :
+            // la croix reste discrète mais devient atteignable au pouce.
+            className="absolute right-0.5 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center text-slate-400 hover:text-slate-600"
           >
             ✕
           </button>

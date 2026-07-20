@@ -90,22 +90,31 @@ function HomeContent() {
           <circle cx="20" cy="230" r="5" fill="#fff" />
           <path transform="translate(556 14) rotate(38)" fill="#fff" d="M14 0c1 0 1.6 1 1.6 3v5l7 5v2l-7-2v5l2 2v2l-3.6-1-3.6 1v-2l2-2v-5l-7 2v-2l7-5V3c0-2 .6-3 1.6-3z" />
         </svg>
-        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-12 sm:pb-16 sm:pt-14 lg:pb-20 lg:pt-20">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div className="text-white">
+        {/* Rythme resserré sous 640 px : sur iPhone SE, chaque pixel gagné ici
+            fait remonter le montant de l'estimateur au-dessus de la ligne de
+            flottaison — c'est tout l'intérêt d'un calcul en direct. */}
+        <div className="relative mx-auto max-w-6xl px-4 pb-12 pt-7 sm:pb-16 sm:pt-14 lg:pb-20 lg:pt-20">
+          {/* Trois enfants de grille. En mobile ils s'empilent dans l'ordre du
+              DOM (texte → estimateur → réassurance) ; en `lg` la réassurance
+              revient sous le texte et l'estimateur occupe les deux rangées.
+              Un seul TrustBar rendu, donc pas de doublon dans le DOM. */}
+          <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-2 lg:grid-rows-[auto_auto]">
+            <div className="text-white lg:col-start-1 lg:row-start-1">
               <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/30 backdrop-blur">
                 {hp("heroEyebrow")}
               </span>
-              <h1 className="mt-5 text-[2rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 text-[1.9rem] font-extrabold leading-[1.08] tracking-tight sm:mt-5 sm:text-5xl lg:text-6xl">
                 {t("heroTitle")}
               </h1>
-              <p className="mt-4 max-w-xl text-base text-white/80 sm:mt-5 sm:text-lg">{t("heroSubtitle")}</p>
-              <div className="mt-6 sm:mt-7">
-                <TrustBar />
-              </div>
+              <p className="mt-3 max-w-xl text-base text-white/80 sm:mt-5 sm:text-lg">{t("heroSubtitle")}</p>
             </div>
-            <div className="lg:pl-4">
+
+            <div className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:pl-4">
               <Calculator />
+            </div>
+
+            <div className="lg:col-start-1 lg:row-start-2">
+              <TrustBar />
             </div>
           </div>
         </div>

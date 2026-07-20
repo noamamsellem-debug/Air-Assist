@@ -42,7 +42,7 @@ export function MobileMenu() {
         onClick={() => setOuvert((v) => !v)}
         aria-expanded={ouvert}
         aria-label={ouvert ? t("close") : t("menu")}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 active:scale-95"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 active:scale-95"
       >
         {ouvert ? (
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>

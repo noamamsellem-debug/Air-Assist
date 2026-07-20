@@ -173,13 +173,19 @@ export function Calculator() {
           {badge.texte}
         </span>
 
-        <p className="max-w-[60%] text-[10.5px] font-bold uppercase leading-relaxed tracking-[0.08em] text-white/65">
+        {/* Hauteurs FIXES sur les trois lignes du panneau : les libellés et
+            sous-titres passent de une à deux lignes selon l'état, ce qui
+            faisait sauter la carte de 17 px à chaque recalcul. On réserve la
+            place du pire cas une fois pour toutes. */}
+        <p className="flex h-[34px] max-w-[60%] items-start text-[10.5px] font-bold uppercase leading-[17px] tracking-[0.08em] text-white/65">
           {libelle}
         </p>
 
-        {/* Monospace : registre « tableau d'affichage » et chiffres de largeur
-            constante, donc pas de saut de mise en page au recalcul. */}
-        <p className="mt-1.5 font-mono text-[44px] font-bold leading-none tracking-tight sm:text-5xl">
+        {/* Monospace : registre « tableau d'affichage », et chiffres de largeur
+            constante donc aucun décalage entre 250 et 600.
+            `clamp` + `whitespace-nowrap` : « 600 € » tient sur une ligne dès
+            375 px sans jamais se replier. */}
+        <p className="font-mono font-bold leading-none tracking-tight whitespace-nowrap text-[clamp(2.5rem,11vw,3rem)]">
           {montantTexte ? (
             <>
               {montantTexte}
@@ -190,7 +196,9 @@ export function Calculator() {
           )}
         </p>
 
-        <p className="mt-2 text-[11.5px] text-white/60">{sousTitre}</p>
+        <p className="mt-2 flex h-[34px] items-start text-[11.5px] leading-[17px] text-white/60">
+          {sousTitre}
+        </p>
 
         {/* Annonce unique et lisible pour les lecteurs d'écran : le panneau
             visuel est fragmenté, celle-ci ne l'est pas. */}
@@ -260,7 +268,9 @@ export function Calculator() {
                     key={opt}
                     onClick={() => setRetard(opt)}
                     aria-pressed={retard === opt}
-                    className={`rounded-xl border-[1.5px] p-3.5 text-left text-base transition focus:outline-none focus-visible:shadow-[0_0_0_3px_rgba(0,96,255,0.15)] ${
+                    // min-h-[52px] : confortablement au-dessus des 44 px de la
+                    // norme Apple, avec de l'espace entre les cibles au pouce.
+                    className={`min-h-[52px] rounded-xl border-[1.5px] p-3.5 text-left text-base transition focus:outline-none focus-visible:shadow-[0_0_0_3px_rgba(0,96,255,0.15)] ${
                       retard === opt
                         ? "border-brand-500 bg-[rgba(0,96,255,0.08)] font-semibold text-brand-600"
                         : "border-slate-300 bg-slate-50 text-slate-900 hover:bg-slate-100"
